@@ -58,8 +58,8 @@ public class LinkedHashMap {
 			if(table[bucket]==null)
 				table[bucket]=insertPointForNewKey;
 			
-			insertPointForNewKey.linkNext=insertPointForNewKey;
-			insertPointForNewKey.linkPrevious=insertPointForNewKey;
+			insertPointForNewKey.linkNext=null;
+			insertPointForNewKey.linkPrevious=null;
 			}
 		
 	}

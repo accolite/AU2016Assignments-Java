@@ -8,9 +8,18 @@
 
 package com.accolite.assignment2.chess;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ChessGame.
+ */
 public class ChessGame{
+	
+	/** The pos. */
 	chessPosition pos[][]=new chessPosition[8][8];
 	
+	/**
+	 * Instantiates a new chess game.
+	 */
 	public ChessGame() {
 		// TODO Auto-generated constructor stub
 		for(int i=0;i<8;i++)
@@ -23,6 +32,10 @@ public class ChessGame{
 		
 		
 	}
+	
+	/**
+	 * Initialize board at beg.
+	 */
 	public void initializeBoardAtBeg()
 	{
 		
@@ -50,12 +63,28 @@ public class ChessGame{
 		
 		
 	}
+	
+	/**
+	 * Gets the pos.
+	 *
+	 * @return the pos
+	 */
 	public chessPosition[][] getPos() {
 		return pos;
 	}
+	
+	/** The Player 1. */
 	chessPlayer Player1=new chessPlayer("white");
+	
+	/** The Player 2. */
 	chessPlayer Player2=new chessPlayer("black");
+		
+		/** The turn. */
 		int turn=0;
+		
+		/**
+		 * Decide turn.
+		 */
 		public void decideTurn()
 		{
 		if(turn%2==0)
@@ -66,6 +95,12 @@ public class ChessGame{
 		else
 			Player2.playgame();
 		}
+		
+		/**
+		 * Gets the result.
+		 *
+		 * @return the result
+		 */
 		public void getResult()
 		{
 			if(Player1.checkmate())
@@ -75,6 +110,12 @@ public class ChessGame{
 				else
 					System.out.println("DRAW");
 		}
+		
+		/**
+		 * Gets the status at A point.
+		 *
+		 * @return the status at A point
+		 */
 		public void getStatusAtAPoint()
 		{
 			
