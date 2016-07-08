@@ -31,6 +31,10 @@ public class LinkedHM {
 		return null;
 	}
 	int getHash(int key){
+		
+		if(key<0){
+			key=key+97;
+		}
 		return key%97;
 	}
 	void addinsequence(Box b){
@@ -55,6 +59,9 @@ public class LinkedHM {
 				if(trav.seqnext!=null){
 					trav.seqnext.seqprev=b;
 				}
+				if(trav.seqprev==null){
+					head=b;
+				}
 			}
 			else{
 				b.seqnext=trav.seqnext;
@@ -73,7 +80,7 @@ public class LinkedHM {
 			linkedHashMap[index]=b;
 		}
 		else{
-			while(trav.linknext!=null||trav.key!=key){
+			while(trav.linknext!=null&&trav.key!=key){
 				trav=trav.linknext;
 			}
 			if(trav.key==key){
@@ -85,6 +92,9 @@ public class LinkedHM {
 				}
 				if(trav.linknext!=null){
 					trav.linknext.linkprev=b;
+				}
+				if(trav.linkprev==null){
+					linkedHashMap[index]=b;
 				}
 			}
 			else{
@@ -108,5 +118,6 @@ public class LinkedHM {
 	void display(){
 		displayInsertionOrder(head);
 	}
+	
 	}
 

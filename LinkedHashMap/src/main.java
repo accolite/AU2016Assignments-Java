@@ -17,7 +17,12 @@ public class main {
 			}
 			else if(n==2){
 				int key=sc.nextInt();
-				System.out.println(linkedhash.get(key).key+" "+linkedhash.get(key).value);
+				if(linkedhash.get(key)!=null){
+					System.out.println(linkedhash.get(key).key+" "+linkedhash.get(key).value);
+				}
+				else{
+					System.out.println("Element not there");
+				}
 			}
 			else if(n==3){
 				linkedhash.display();
