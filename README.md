@@ -1,3 +1,11 @@
 # AU2016Assignments-Java
 
-Please branch out from here with your username followed by emp id. And make sure to push all your assignments to this repository
+LinkedHashMap
+
+By Rajesh R(1792) 
+
+Files:
+
+CustomLinkedHashMap.java - LinkedHashMap implementation for Integer, String types
+CustomLinkedHashMapG.java - LinkedHashMap implementation for Generic types
+Test.java - To test LinkedHashMap implementations
