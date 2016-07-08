@@ -1,3 +1,4 @@
-# AU2016Assignments-Java
+# AU2016Assignments-Java - Sharukh_2308
 
-Please branch out from here with your username followed by emp id. And make sure to push all your assignments to this repository
+Branch created.
+Folders in following format: monthdd/$projectName/files
