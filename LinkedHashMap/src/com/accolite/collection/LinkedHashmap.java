@@ -45,9 +45,9 @@ public class LinkedHashmap {
 			while (node != null && !node.getKey().equals(key)) {
 				node = node.next;
 			}
-			if (node != null && node.getKey().equals(key))
+			if (node != null && node.getKey().equals(key)) //key exist
 				return node.getValue();
-			else
+			else //key doesn't exist
 				return null;
 		} else {// bucket is empty, so element is not there
 			return null;
@@ -79,16 +79,16 @@ public class LinkedHashmap {
 			}
 			// reached end of the list
 			Node newNode = new Node(key, value, node, currentNode);
-			node.next = newNode;
-			currentNode.afterNode=newNode;
+			node.next = newNode; //linking new node to the existing list
+			currentNode.afterNode=newNode; //linking new node to the insert order list
 			currentNode = newNode;
 		} else {// bucket is empty
 			bucket[hash] = new Node(key, value, null, currentNode);
 			if(currentNode!=null)
-				currentNode.afterNode=bucket[hash];
+				currentNode.afterNode=bucket[hash]; //linking new node to the insert order list
 			currentNode = bucket[hash];
 			if (headNode == null)
-				headNode = currentNode;
+				headNode = currentNode; //initializing head node of the insert order list
 		}
 	}
 }

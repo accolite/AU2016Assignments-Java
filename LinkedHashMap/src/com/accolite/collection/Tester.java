@@ -22,7 +22,6 @@ public class Tester {
 	 */
 	public static void main(String[] args) {
 		LinkedHashmap map = new LinkedHashmap(); // creating the collection
-		// adding values
 		Scanner in = new Scanner(System.in);
 		boolean runLoop=true;
 		while(runLoop){
@@ -42,11 +41,11 @@ public class Tester {
 						break;
 				case 3: System.out.println("Your List");
 						for (Iterator iterator = map.iterator(); iterator.hasNext();) {
-							System.out.println((String) iterator.next()); // getting values through iteration
+							Node keyValue =(Node) iterator.next(); //getting key value pair through iterator
+							System.out.println(keyValue.getKey() + " " +keyValue.getValue());
 						}
 						break;
-				default: runLoop=false;
-				
+				default: runLoop=false; //to end the loop
 			}
 		}
 	}

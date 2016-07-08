@@ -18,16 +18,16 @@ public class Node {
 	/** The value. */
 	private Object value;
 	
-	/** The previous. */
+	/** The previous. Reference to the previous node in the bucket list */
 	public Node previous;
 	
-	/** The next. */
+	/** The next. Reference to the next node in the bucket list */
 	public Node next;
 	
-	/** The prior node. */
+	/** The prior node. Reference to the previous node in the insert order list */
 	public Node priorNode;
 	
-	/** The after node. */
+	/** The after node. Reference to the next node in the insert order list */
 	public Node afterNode;
 
 	/**

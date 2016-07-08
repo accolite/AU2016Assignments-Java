@@ -41,8 +41,8 @@ public class LinkedHashmapIterator implements Iterator {
 	@Override
 	public Object next() {
 		Node tempNode = node;
-		node = node.afterNode;
-		return tempNode.getValue();
+		node = node.afterNode; //moving to next node in the insert order list
+		return tempNode;
 	}
 
 }
