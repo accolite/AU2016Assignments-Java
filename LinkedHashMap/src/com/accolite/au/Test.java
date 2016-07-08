@@ -41,14 +41,16 @@ public class Test {
 	
 	public Object get(int key){
 		int h=key%100;
+		Object object = new Object();
 		NewElement temp=linkedHashMap.get(h).getFirst();
 		while(temp!=null){
 			if(temp.getKey()==key){
-				return temp.getValue();
-				
+				object=temp.getValue();
+				break;
 			}
 			
 		}
+		return object;
 		
 	}
 	
