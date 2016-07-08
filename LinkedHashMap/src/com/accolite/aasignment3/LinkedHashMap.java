@@ -8,12 +8,12 @@ public class LinkedHashMap {
 	
 		Object key;
 		Object value;
-		ArrayList <Node> list;
+		static ArrayList <Node> list;
 		
 		public LinkedHashMap()
 		{
-			list = new ArrayList(100);
-			for(int i=0;i<100;i++)
+			list = new ArrayList(5);
+			for(int i=0;i<5;i++)
 			{
 				list.add(i,null);
 			}
@@ -34,7 +34,9 @@ public class LinkedHashMap {
 		map.put(3, "c");
 		map.put(4, "d");
 		map.put(5, "e");
-		map.get(2);
+		map.put(6, "f");
+		map.get(5);
+		map.get(6);
 		
 		
 	}
@@ -43,7 +45,7 @@ public class LinkedHashMap {
 	void put(Object a , Object b)
 	{
 		int hash = a.hashCode();
-		hash = hash % 100;
+		hash = hash % 5;
 		
 		Node currentNode=null;
 		Node newNode=null;
@@ -52,8 +54,9 @@ public class LinkedHashMap {
 		{
 			Node node = new Node(a,b);
 			node.NodeArray.add(node);
-			list.add(node);
-			System.out.println(node.value);
+			list.add(hash,node);
+			//System.out.println(node.value);
+			//System.out.println(list);
 			
 		}
 		else
@@ -67,24 +70,24 @@ public class LinkedHashMap {
 			
 			newNode = new Node(a,b);
 			Node addedNode=node.addNode(currentNode,newNode,a,b);
-			node.NodeArray.add(node);
-			list.add(node);
+			node.NodeArray.add(addedNode);
+			list.add(addedNode);
 		}		
 	}
 	
 	void get(Object a)
 	{
 		int hash=a.hashCode();
-		hash=hash%100;
+		hash=hash%5;
 		
 		Node currentNode=list.get(hash);
 		
-//		while(currentNode.key!=a)
-//		{
-//			currentNode=currentNode.next;
-//		}
+		while(currentNode.key!=a)
+		{
+			currentNode=currentNode.next;
+		}
 		
-		System.out.println(currentNode);
+		System.out.println(currentNode.value);
 		
 	}
 }
