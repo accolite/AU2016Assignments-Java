@@ -69,19 +69,15 @@ public class LinkedHashMap {
 		
 		/* Check for existing */
 		try{
-			
-		
-			if(list!=null){
-				Node node = list.getFirst();
+			Node node = list.getFirst();
 				
-				/* Replace value if existing */
-				while(node!=null){
-					if(node.getKey().equals(key)){
-						node.setValue(value);
-						return;
-					}
-					node = node.getNext();
+			/* Replace value if existing */
+			while(node!=null){
+				if(node.getKey().equals(key)){
+					node.setValue(value);
+					return;
 				}
+				node = node.getNext();
 			}
 		}catch(Exception e){
 			
