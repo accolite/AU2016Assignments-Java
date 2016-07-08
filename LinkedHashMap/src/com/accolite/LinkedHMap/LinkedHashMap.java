@@ -1,54 +1,52 @@
+/****************************************************************************
+* Copyright (c) 2016 by Accolite.com. All rights reserved
+*
+* Created date :: Jul 8, 2016
+*
+*  @author :: Jegan Muthaiah
+* ***************************************************************************
+*/
 package com.accolite.LinkedHMap;
 
 import java.util.Scanner;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class LinkedHashMap.
+ */
 public class LinkedHashMap {
 	
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String args[]){
 	
 		HashArray hashArray=new HashArray();
-		//HashArray hashArray1=new HashArray();
-		//hashArray.put(1, "jegan");
-		//hashArray.put(11, "sharuk");
 		Object key,value;
-		int size;
+		int size,flag=1;
 		Scanner sc=new Scanner(System.in);
-		System.out.println("Enter the size:");
+		System.out.println("No of Inputs:");   //To get no of key,value pair
 		size=sc.nextInt();
 		System.out.println("Enter the key and value:");
 		for(int i=0;i<size;i++)
 		{
 			key=sc.nextInt();
 			value=sc.next();
-			hashArray.put(key,value);
+			hashArray.put(key,value);  //putting the key,value pair in hash
 		}
-		hashArray.PrintInOrder();
-		while(true)
+		System.out.println("Prinited InOrder");
+		hashArray.PrintInOrder();      // printing the input in order
+		System.out.println("Getting the Value:");
+		while(flag==1)
 		{
 			System.out.println("Enter the key:");
 			key=sc.nextInt();
 			System.out.println("Value:"+hashArray.get(key));
+			System.out.println("Continue? yes->1 / no->0");
+			flag=sc.nextInt();
 		}
-		/*	LinkedHashMap customMap=new LinkedHashMap();
-		int hashkey;
-		//Object key,value;
-		for(int i=0;i<10;i++){
-			hasharray[i]=new HashArray();
 		}
-		hashkey=customMap.getHashValue(0);
-		Node prev=null,next=null;
-		hasharray[hashkey].put(0,"jegan",prev,next);
-		System.out.println(hashkey);
-		hashkey=customMap.getHashValue(1);
-		hasharray[hashkey].put(1,"lokesh",prev,next);
-		
-//		hashkey=customMap.getHashValue(key);
-		
-		hashkey=customMap.getHashValue(2);
-		hasharray[hashkey].put(2,"sharuk",prev,next);
-		System.out.println(hasharray[hashkey].get(1));
-		
-	*/
-	}
 	
 }
