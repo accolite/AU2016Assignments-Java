@@ -7,7 +7,7 @@ public class NewElement {
 	private NewElement previous;
 	private NewElement next;
 	
-	public Object getKey() {
+	public int getKey() {
 		return key;
 	}
 

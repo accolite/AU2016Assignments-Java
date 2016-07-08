@@ -5,6 +5,7 @@ import java.util.LinkedList;
 
 public class Test {
 	NewElement previous;
+	NewElement head;
 	ArrayList<LinkedList<NewElement>> linkedHashMap=new ArrayList<LinkedList<NewElement>>(100);
 	
 	Test() {
@@ -22,6 +23,9 @@ public class Test {
 
 		
 		NewElement newElement=new NewElement();
+		if(previous==null){
+			head=newElement;
+		}
 		//NewElement lastElement=null;
 		int k=newElement.hashval(key);
 		linkedHashMap.get(k).add(newElement);
@@ -37,10 +41,18 @@ public class Test {
 	
 	public Object get(int key){
 		int h=key%100;
-		linkedHashMap.get(h)
-		while()
+		NewElement temp=linkedHashMap.get(h).getFirst();
+		while(temp!=null){
+			if(temp.getKey()==key){
+				return temp.getValue();
+				
+			}
+			
+		}
 		
 	}
+	
+	
 	
 	
 
