@@ -65,13 +65,16 @@ public class LinkedHashMap {
 	/* Insert into LinkedHashMap */
 	void put(Object key, Object value){
 		
-
+		LinkedList<Node> list = hashmap.get(hashCode(key));
+		
 		/* Check for existing */
 		try{
-			LinkedList<Node> list = hashmap.get(hashCode(key));
+			
 		
 			if(list!=null){
 				Node node = list.getFirst();
+				
+				/* Replace value if existing */
 				while(node!=null){
 					if(node.getKey().equals(key)){
 						node.setValue(value);
@@ -81,7 +84,7 @@ public class LinkedHashMap {
 				}
 			}
 		}catch(Exception e){
-			System.out.println("Key not available at list E");
+			
 		}
 		
 		Node newNode = new Node(key, value);
@@ -90,6 +93,9 @@ public class LinkedHashMap {
 		if(getFirst()==null){
 			first = newNode;
 			orderedPrev = newNode;
+			
+			/* Add first to list and return */
+			list.add(newNode);
 			return;
 		}
 		
@@ -98,9 +104,8 @@ public class LinkedHashMap {
 		orderedPrev.setOrderedNext(newNode);
 		
 		/* Add to list */
-		hashmap.get(hashCode(key)).add(newNode);
+		list.add(newNode);
 		orderedPrev = newNode;
-		
 	}
 	
 	/* Get Value at key */
@@ -121,6 +126,7 @@ public class LinkedHashMap {
 	/* The Main Program */
 	public static void main(String args[]){
 		LinkedHashMap m = new LinkedHashMap();
+
 		boolean ctnue = true;
 		Scanner input = new Scanner(System.in);
 		System.out.println("Put items");
@@ -149,7 +155,8 @@ public class LinkedHashMap {
 		}catch(Exception e){
 			System.out.println("Not available");
 		}
-		m.printSorted();
+		
 		input.close();
+		m.printSorted();
 	}
 }
