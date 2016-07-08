@@ -2,7 +2,7 @@ package hashMap;
 
 public class HashMap<K,V> {
 	public Node<K,V>[] list;
-	int size=90;
+	int size=97;
 	class Node<K,V>{
 		K key;
 		V value; 
