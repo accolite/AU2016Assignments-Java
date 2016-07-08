@@ -72,6 +72,11 @@ public class LinkedHashmap {
 				}
 				node = node.next;
 			}
+			if (node.getKey().equals(key)) {// if key already exist it
+							// updates the value
+				node.setValue(value);
+				return;
+			}
 			// reached end of the list
 			Node newNode = new Node(key, value, node, currentNode);
 			node.next = newNode;
