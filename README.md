@@ -1,3 +1,3 @@
 # AU2016Assignments-Java
 
-Please branch out from here with your username followed by emp id. And make sure to push all your assignments to this repository
+I have uploaded .java files for this assignment as i was facing some problem with remote repository.AU core team suggested me to do this.
