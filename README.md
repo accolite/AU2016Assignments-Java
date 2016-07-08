@@ -1,10 +1,10 @@
 # AU2016Assignments-Java
 
-LinkedHashMap
+LinkedHashMap & Chess Game
 
 By Rajesh R(1792) 
 
-Files:
+Files of LinkedHashMap:
 
 CustomLinkedHashMap.java - LinkedHashMap implementation for Integer, String types
 CustomLinkedHashMapG.java - LinkedHashMap implementation for Generic types
