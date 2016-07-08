@@ -13,8 +13,8 @@ public class Node
 		
 		public Node(Object a,Object b)
 		{
-			key=a;
-			value=b;
+			this.key=a;
+			this.value=b;
 			next=null;
 			previous=null;
 			int size = NodeArray.size();

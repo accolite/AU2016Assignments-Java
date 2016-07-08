@@ -34,6 +34,7 @@ public class LinkedHashMap {
 		map.put(3, "c");
 		map.put(4, "d");
 		map.put(5, "e");
+		map.get(2);
 		
 		
 	}
@@ -52,6 +53,8 @@ public class LinkedHashMap {
 			Node node = new Node(a,b);
 			node.NodeArray.add(node);
 			list.add(node);
+			System.out.println(node.value);
+			
 		}
 		else
 		{
@@ -63,13 +66,10 @@ public class LinkedHashMap {
 			}
 			
 			newNode = new Node(a,b);
-		}
-		
-		Node addedNode=node.addNode(currentNode,newNode,a,b);
-		node.NodeArray.add(node);
-		list.add(node);
-		
-		
+			Node addedNode=node.addNode(currentNode,newNode,a,b);
+			node.NodeArray.add(node);
+			list.add(node);
+		}		
 	}
 	
 	void get(Object a)
@@ -79,12 +79,12 @@ public class LinkedHashMap {
 		
 		Node currentNode=list.get(hash);
 		
-		while(currentNode.key!=a)
-		{
-			currentNode=currentNode.next;
-		}
+//		while(currentNode.key!=a)
+//		{
+//			currentNode=currentNode.next;
+//		}
 		
-		System.out.println(currentNode.value);
+		System.out.println(currentNode);
 		
 	}
 }
