@@ -47,6 +47,6 @@ public class LinkedHashMap {
 			System.out.println("Continue? yes->1 / no->0");
 			flag=sc.nextInt();
 		}
-		}
+	}
 	
 }
