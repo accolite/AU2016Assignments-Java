@@ -1,3 +1,18 @@
+/****************************************************************************
+
+* Copyright (c) 2016 by Accolite.com. All rights reserved
+
+*
+
+* Created date :: Jul 9, 2016
+
+*
+
+*  @author :: Mohit Devda
+
+* ***************************************************************************
+
+*/
 package com.accolite.au;
 
 import java.util.ArrayList;
@@ -90,6 +105,12 @@ public class Test {
 			
 		}
 	}
+	
+	/**
+	 * The main method.
+	 *
+	 * @param arg the arguments
+	 */
 	public static void main(String arg[]){
 		
 		Test test=new Test();
@@ -103,7 +124,7 @@ public class Test {
 				System.out.println("How many entries do you want to add");
 				int no=input.nextInt();
 				for(int i=0;i<no;i++){
-					System.out.println("Enter Key"+(i+1));
+					System.out.println("Enter integer Key"+(i+1));
 					int k=input.nextInt();
 					System.out.println("Enter Value"+(i+1));
 					Object v=input.next();
@@ -113,7 +134,7 @@ public class Test {
 				break;
 			case 2:
 				Object object;
-				System.out.println("Enter Key");
+				System.out.println("Enter integer Key");
 				int k1=input.nextInt();
 				object = test.get(k1);
 				if(object!=null)
