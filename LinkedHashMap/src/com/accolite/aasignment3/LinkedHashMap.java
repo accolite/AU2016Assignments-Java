@@ -29,14 +29,16 @@ public class LinkedHashMap {
 		// TODO Auto-generated method stub
 		
 		LinkedHashMap map = new LinkedHashMap();
-		map.put(1, "a");
-		map.put(2, "b");
-		map.put(3, "c");
-		map.put(4, "d");
-		map.put(5, "e");
-		map.put(6, "f");
+		map.put(0, "a");
+		map.put(5, "g");
+		map.put(2, "c");
+		map.put(3, "d");
+		map.put(4, "e");
+		map.put(0, "f");
 		map.get(5);
 		map.get(6);
+		map.put(1, "g");
+		map.get(4);
 		
 		
 	}
@@ -54,24 +56,48 @@ public class LinkedHashMap {
 		{
 			Node node = new Node(a,b);
 			node.NodeArray.add(node);
+			list.remove(hash);
 			list.add(hash,node);
 			//System.out.println(node.value);
-			//System.out.println(list);
+			System.out.println(list);
 			
 		}
 		else
 		{
 			currentNode =list.get(hash);
+			System.out.println(currentNode);
+			
+			if(currentNode.key.equals(a))
+			{
+				currentNode.value=b;
+			}
+			int flag=1;
 			
 			while((currentNode.next)!=null)
 			{
+				if(currentNode.key.equals(a))
+				{
+					flag=0;
+					System.out.println(currentNode.value);
+					
+					break;
+					
+				}
 				currentNode=currentNode.next;
 			}
 			
-			newNode = new Node(a,b);
-			Node addedNode=node.addNode(currentNode,newNode,a,b);
-			node.NodeArray.add(addedNode);
-			list.add(addedNode);
+			if(flag==1)
+			{
+				newNode = new Node(a,b);
+				newNode.key=a;
+				newNode.value=b;
+				newNode.next=null;
+				newNode.previous=currentNode;
+				//node.NodeArray.add(addedNode);
+				currentNode.next=newNode;
+				//list.add(addedNode);	
+			}
+			
 		}		
 	}
 	
@@ -80,14 +106,23 @@ public class LinkedHashMap {
 		int hash=a.hashCode();
 		hash=hash%5;
 		
-		Node currentNode=list.get(hash);
-		
-		while(currentNode.key!=a)
+		if(list.get(hash)==null)
 		{
-			currentNode=currentNode.next;
+			System.out.println("Invalid Key");
 		}
 		
-		System.out.println(currentNode.value);
+		else
+		{
+			Node currentNode=list.get(hash);
+			
+			while((currentNode.key)!=a)
+			{
+				currentNode=currentNode.next;
+			}
+			
+			System.out.println(currentNode.value);
+			
+		}
 		
 	}
 }
