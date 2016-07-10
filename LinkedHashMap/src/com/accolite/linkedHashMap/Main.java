@@ -28,13 +28,8 @@ public class Main {
 				key1=input.nextLine();
 				System.out.println("Enter value: ");
 				value=input.nextInt();
-				if(!listOfKey.contains(key1))
-				{
-					myLinkedHashMap.put(key1,value);
-					listOfKey.add(key1);
-				}
-				else
-					System.out.println("Enter unique key");
+				myLinkedHashMap.put(key1,value);
+				listOfKey.add(key1);
 				break;
 			case 2:
 				space=input.nextLine();
