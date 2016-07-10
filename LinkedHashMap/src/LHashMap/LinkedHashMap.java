@@ -25,54 +25,56 @@ public class LinkedHashMap {
 	}
 
 	void put(int key, int value) {
-		
+		int exist=0;
 		int hv = getHashValue(key);
-		if(hv<0)hv=-hv;
+		if (hv < 0)
+			hv = -hv;
+
 		Node node = new Node(key, value);
 		if (common_prev == null) {
 			head = node;
 		}
+		
 		if (this.array.get(hv) == null) {
-			common_prev = node;
 			this.array.add(hv, node);
 		} else {
-
-			node.prev = common_prev;
-			common_prev.next = node;
-			common_prev = node;
 			Node temp;
 			temp = array.get(hv);
-			while (temp.hnext != null&&temp.key!=node.key) {
+			while (temp.hnext != null && temp.key != node.key) {
 				temp = temp.hnext;
 			}
-			if(temp.key==node.key)
-			{
-				temp.value=node.value;
-			}
-			else
-			temp.hnext = node;
+			if (temp.key == node.key) {
+				exist=1;
+				temp.value = node.value;
+			} else
+				temp.hnext = node;
 
 		}
+		if(exist==0){
+		node.prev = common_prev;
+		if (common_prev != null)
+			common_prev.next = node;
+		common_prev = node;}
 	}
 
 	int get(int key) {
-		
-		int hv = getHashValue(key);
-		if(hv<0)hv=-hv;
-		Node temp;
-		if( this.array.get(hv)!=null){
-		 temp= this.array.get(hv);
-		// System.out.println(temp.key);
-		while (temp.key != key && temp != null) {
-			temp = temp.hnext;
-		}
 
-		if (temp == null) {
-			return -1;
-		} else
-			return temp.value;}
-		else
-		{
+		int hv = getHashValue(key);
+		if (hv < 0)
+			hv = -hv;
+		Node temp;
+		if (this.array.get(hv) != null) {
+			temp = this.array.get(hv);
+			// System.out.println(temp.key);
+			while (temp.key != key && temp != null) {
+				temp = temp.hnext;
+			}
+
+			if (temp == null) {
+				return -1;
+			} else
+				return temp.value;
+		} else {
 			return -1111;
 		}
 	}
@@ -90,7 +92,7 @@ public class LinkedHashMap {
 		Scanner sc = new Scanner(System.in);
 		int choice = 0;
 		int key = 0, value = 0;
-		System.out.println("enter choice 1. put 2. get 3. iterate 4.quit");
+		System.out.println("enter choice 1.put-----2.get-----3.iterate----4.quit");
 		choice = sc.nextInt();
 
 		while (choice != 4) {
@@ -105,10 +107,11 @@ public class LinkedHashMap {
 				System.out.println("enter the key ");
 				key = sc.nextInt();
 				value = linkedHashMap.get(key);
-				if(value==-1111)System.out.println("no such key");
-				else{System.out.println(key);
-
-				System.out.print(" "+value);}
+				if (value == -1111)
+					System.out.println("no such key");
+				else {
+					System.out.println(key+ " "+ value);
+				}
 				break;
 			case 3:
 				System.out.println("Iteration");
