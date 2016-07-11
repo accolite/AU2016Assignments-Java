@@ -12,6 +12,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -47,6 +48,7 @@ public class ATMTests {
 	/**
 	 * Test Case Description : Insert Coin With a Value high enough to enable a purchase
 	 */
+	
 	@Test
 	public void testValidCoinInsertWithCostGreatherThanCOST() {
 		Coin silverDollar = new Coin("SILVERDOLLAR");
@@ -58,6 +60,7 @@ public class ATMTests {
 	/**
 	 * Test Case Description : Insert Coin With a Value which is lower that COST
 	 */
+	
 	@Test
 	public void testValidCoinInsertWithCostLessThanCOST() {
 		Coin nickel = new Coin("NICKEL");
@@ -69,9 +72,10 @@ public class ATMTests {
 	/**
 	 * Test Case Description : Insert Invalid Coin
 	 */
+
 	@Test
 	public void testInvalidCoinInsert() {
-		Coin invalidCoin = new Coin("Bleh");
+		Coin invalidCoin = new Coin("NODENOMINATION");
 		ATM atm = new ATM();
 		atm.insert(invalidCoin);
 		assertEquals("Expected output is illegal value","illegal value",errContent.toString().trim());
@@ -79,6 +83,7 @@ public class ATMTests {
 	/**
 	 * Test Case Description : No Coins to return
 	 */
+	
 	@Test
 	public void testReturnCoinsWhenCurrvalueis0() {
 		ATM atm = new ATM();
@@ -87,9 +92,10 @@ public class ATMTests {
 	}
 
 	/**
-	 * 
+	 * Test Case Description : Returning some coind
 	 */
 	@Test
+	
 	public void testReturnCoinsWhenCurrvalueisNot0() {
 		Coin penny = new Coin("PENNY");
 		ATM atm = new ATM();
@@ -100,9 +106,10 @@ public class ATMTests {
 	}
 	
 	/**
-	 * Test method for {@link com.accolite.atm.ATM#vend()}.
+	 * Test Case Description : Get a drink
 	 * @throws Exception 
 	 */
+	
 	@Test
 	public void testVendGetDrink() throws Exception {
 		Coin silverDollar = new Coin("SILVERDOLLAR");
@@ -119,6 +126,11 @@ public class ATMTests {
 		assertEquals(actual, expected);
 
 	}
+	/**
+	 * Test Case Description : Insufficient funds for drinks
+	 * @throws Exception 
+	 */
+	
 	@Test
 	public void testVendGetDrinkNoMoreMoney() throws Exception {
 		Coin halfdollar = new Coin("HALFDOLLAR");
@@ -137,13 +149,23 @@ public class ATMTests {
 		assertEquals(actual, expected);
 	}
 	
+	/**
+	 * Test Case Description : No money for a drink
+	 * @throws Exception 
+	 */
+	
 	@Test
 	public void testVendNoGetDrinkBecauseZeroMoney() throws Exception {
 		ATM atm = new ATM();
 		atm.vend();
 		assertEquals("Not enough credit: add 75", outContent.toString().trim());
 	}
-
+	
+	/**
+	 * Test Case Description : Special Case Negative credit
+	 * @throws Exception 
+	 */
+	
 	@Test
 	public void testVendgetException() throws Exception {
 		Coin negativeValueCoin = Mockito.mock(Coin.class);
