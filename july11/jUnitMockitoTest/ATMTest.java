@@ -41,10 +41,11 @@ public class ATMTest {
 	/**
 	 * Test insert method.
 	 */
+
+	
 	@Test
-	public void testInsert() {
+	public void testInsertZero() {
 		
-		/* Invalid insert */
 		Field currentValue;
 		int currValue;
 		
@@ -55,6 +56,8 @@ public class ATMTest {
 			currentValue = atm.getClass().getDeclaredField("currValue");
 			currentValue.setAccessible(true);
 			
+
+			/* Invalid insert */
 			when(coin.getValue()).thenReturn(0);
 			when(coin.toString()).thenReturn("0");
 			atm.insert(coin);
@@ -69,6 +72,31 @@ public class ATMTest {
 	        currValue = (int) currentValue.get(atm);
 	        assertEquals("Current value is 0 after invalid insert", currValue, 0);
 	        
+			
+	        
+		}catch(Exception e){
+			
+		}
+	}
+
+	
+	@Test
+	public void testInsertNormal() {
+		
+		Field currentValue;
+		int currValue;
+		
+		Field enabledField;
+		boolean enabled;
+		
+		try{
+			currentValue = atm.getClass().getDeclaredField("currValue");
+			currentValue.setAccessible(true);
+			
+
+			enabledField = atm.getClass().getDeclaredField("enabled");
+			enabledField.setAccessible(true);
+			
 			/* Normal insert */
 			when(coin.getValue()).thenReturn(25);
 			when(coin.toString()).thenReturn("25");
@@ -81,20 +109,6 @@ public class ATMTest {
 			
 		    currValue = (int) currentValue.get(atm);
 	        assertEquals("Current value is 25 after normal insert", currValue, 25);
-		
-			
-			/* Enabling insert */
-			when(coin.getValue()).thenReturn(100);
-			when(coin.toString()).thenReturn("100");
-			atm.insert(coin);
-	
-		    currValue = (int) currentValue.get(atm);
-	        assertEquals("Current value is 125 after this enabling insert", currValue, 125);
-		
-
-	        enabled = (boolean) enabledField.get(atm);
-	        assertEquals("Enabled is true after enabling insert", enabled, true);
-	        
 	       
 	        
 		}catch(Exception e){
@@ -104,61 +118,211 @@ public class ATMTest {
 
 	
 	@Test
-	public void testReturnCoins() {
-
-		/* When there is nothing to return */
-		when(coin.getValue()).thenReturn(0);
-		when(coin.toString()).thenReturn("0");
-		atm.returnCoins();
-
-		/* Insert sample coins */
-		when(coin.getValue()).thenReturn(25);
-		when(coin.toString()).thenReturn("25");
+	public void testInsertEnabling() {
 		
+		Field currentValue;
+		int currValue;
 		
-		atm.insert(coin);
+		Field enabledField;
+		boolean enabled;
+		
+		try{
+			currentValue = atm.getClass().getDeclaredField("currValue");
+			currentValue.setAccessible(true);
+			
 
-		/* Return those sample coins */
-		atm.returnCoins();
+			enabledField = atm.getClass().getDeclaredField("enabled");
+			enabledField.setAccessible(true);
+			
+			/* Enabling insert */
+			when(coin.getValue()).thenReturn(100);
+			when(coin.toString()).thenReturn("100");
+			atm.insert(coin);
+	
+		    currValue = (int) currentValue.get(atm);
+	        assertEquals("Current value is 100 after this enabling insert", currValue, 100);
+		
+
+	        enabled = (boolean) enabledField.get(atm);
+	        assertEquals("Enabled is true after enabling insert", enabled, true); 
+	       
+	        
+		}catch(Exception e){
+			
+		}
+	}
+
+
+	
+	@Test
+	public void testReturnCoinsNothing() {
+		try{
+			/* When there is nothing to return */
+			when(coin.getValue()).thenReturn(0);
+			when(coin.toString()).thenReturn("0");
+			atm.returnCoins();
+			
+			Field currentValue = atm.getClass().getDeclaredField("currValue");
+			currentValue.setAccessible(true);
+		
+			int currValue = (int) currentValue.get(atm);
+			assertEquals("Nothing returned", 0, currValue);
+			
+		}catch(Exception e){
+			
+		}
+
+	}
+
+	
+	@Test
+	public void testReturnCoinsSample(){
+		try{
+			
+			/* Sample current value setting */
+			Field currentValue = atm.getClass().getDeclaredField("currValue");
+			currentValue.setAccessible(true);
+			currentValue.set(atm, 100);
+			
+			/* Return those sample coins */
+			atm.returnCoins();
+		
+			int currValue = (int) currentValue.get(atm);
+			assertEquals("All 100 coins are returned", 0, currValue);
+			
+		}catch(Exception e){
+			
+		}
+	}
+
+	
+	@Test
+	public void testVendEnableAndImmediateDisable(){
+		
+		try {
+
+			/* Case to vend enabled and then immediately disable */	
+			Field currentValue = atm.getClass().getDeclaredField("currValue");
+			currentValue.setAccessible(true);
+			currentValue.set(atm, 75);
+			
+			Field enabledValue = atm.getClass().getDeclaredField("enabled");
+			enabledValue.setAccessible(true);
+			enabledValue.set(atm, true);
+			
+			atm.vend();
+			
+			Field totalValue = atm.getClass().getDeclaredField("totValue");
+			totalValue.setAccessible(true);
+	        
+			int totValue = (int) totalValue.get(atm);
+	        assertEquals("total Value is 75 after 1 successful vending", totValue, 75);
+	        
+	        boolean enabled = (boolean) enabledValue.get(atm);
+	        assertEquals("Enabled is false after vending after 75", enabled, false);
+			
+			int currValue = (int) currentValue.get(atm);
+	        assertEquals("Current Value is 0 after 1 successful vending after 75", currValue, 0);
+	        
+			
+			
+			
+			
+		} catch (Exception e) {
+			
+		}
+		
+	}
+
+	
+	@Test
+	public void testVendDisabled(){
+		
+		try {
+
+			/* Case to vend when disabled */
+			
+			atm.vend();
+			
+			Field totalValue = atm.getClass().getDeclaredField("totValue");
+			totalValue.setAccessible(true);
+	        
+			int totValue = (int) totalValue.get(atm);
+	        assertEquals("total Value is 0 after 1 unsuccessful vending", totValue, 0);
+	        
+	        Field currentValue = atm.getClass().getDeclaredField("currValue");
+			currentValue.setAccessible(true);
+	        
+			int currValue = (int) totalValue.get(atm);
+	        assertEquals("Current Value is 0 after 1 unsuccessful vending", currValue, 0);
+	        
+	        
+	        Field enabledValue = atm.getClass().getDeclaredField("enabled");
+			enabledValue.setAccessible(true);
+	        
+	        boolean enabled = (boolean) enabledValue.get(atm);
+	        assertEquals("Enabled is false after vending after 75", enabled, false);
+			
+			
+		} catch (Exception e) {
+			
+		}
 		
 	}
 	
 	@Test
-	public void testVend(){
-		
-		/* Case to vend enabled and then immediately disable */
-		when(coin.getValue()).thenReturn(75);
-		when(coin.toString()).thenReturn("75");
-		atm.insert(coin);
+	public void testVendEnableAndKeepEnabled(){
 		
 		try {
-			atm.vend();
-
 			Field totalValue = atm.getClass().getDeclaredField("totValue");
 			totalValue.setAccessible(true);
-	        int totValue = (int) totalValue.get(atm);
-	        assertEquals("total Value is 75 after 1 successful vending", totValue, 75);
-	        
-			
-			/* Case to check disabled */
-			atm.vend();
-			
-			/* Case to vend enabled and keep it as enabled */
-			when(coin.getValue()).thenReturn(85);
-			when(coin.toString()).thenReturn("85");
-			atm.insert(coin);
 			
 			Field currentValue = atm.getClass().getDeclaredField("currValue");
 			currentValue.setAccessible(true);
-	        int currValue = (int) currentValue.get(atm);
-	        assertEquals("Current value is 85 after this insert", currValue, 85);
+	        
+			Field enabledValue = atm.getClass().getDeclaredField("enabled");
+			enabledValue.setAccessible(true);
+			
+			/* Case to vend enabled and keep it as enabled */
+			currentValue.set(atm, 85);
+			enabledValue.set(atm, true);
 			
 			atm.vend();
 
-			totValue = (int) totalValue.get(atm);
-	        assertEquals("total Value is 150 after 2 successful vendings", totValue, 150);
+			int totValue = (int) totalValue.get(atm);
+	        assertEquals("total Value is 75 after successful vendings", totValue, 75);
 	        
-			/* Case to check negative credit */
+	        boolean enabled = (boolean) enabledValue.get(atm);
+	        assertEquals("Enabled is true after vending after 85", enabled, true);
+	        
+	        int currValue = (int) currentValue.get(atm);
+	        assertEquals("Current value is 10 after this vending", currValue, 10);
+	        
+			
+		} catch (Exception e) {
+			
+		}
+		
+	}
+
+	
+	@Test
+	public void testVendNegative(){
+		
+		try {
+			Field totalValue = atm.getClass().getDeclaredField("totValue");
+			totalValue.setAccessible(true);
+			
+			Field currentValue = atm.getClass().getDeclaredField("totValue");
+			currentValue.setAccessible(true);
+	        
+			Field enabledValue = atm.getClass().getDeclaredField("enabled");
+			enabledValue.setAccessible(true);
+			
+			/* Case to vend enabled and keep it as enabled */
+			currentValue.set(atm, 10);
+			enabledValue.set(atm, true);
+			
 			atm.vend();
 			
 		} catch (Exception e) {
@@ -166,6 +330,8 @@ public class ATMTest {
 		}
 		
 	}
+	
+	
 	
 	@After
 	public void destroy(){
