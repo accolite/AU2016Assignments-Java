@@ -266,7 +266,7 @@ public class ATMTest {
 			Field totalValue = atm.getClass().getDeclaredField("totValue");
 			totalValue.setAccessible(true);
 	
-			Field currentValue = atm.getClass().getDeclaredField("totValue");
+			Field currentValue = atm.getClass().getDeclaredField("currValue");
 			currentValue.setAccessible(true);
 	
 			Field enabledValue = atm.getClass().getDeclaredField("enabled");
