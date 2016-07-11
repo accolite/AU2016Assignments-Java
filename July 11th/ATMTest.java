@@ -1,3 +1,12 @@
+/****************************************************************************
+* Copyright (c) 2016 by Accolite.com. All rights reserved
+*
+* Created date :: Jul 11, 2016
+*
+*  @author :: Jegan Muthaiah
+* ***************************************************************************
+*/
+
 package com.accolite.UnitTesting;
 
 import static org.junit.Assert.*;
@@ -8,11 +17,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
-
+import java.lang.reflect.*;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
+import static org.mockito.Mockito.*;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 // TODO: Auto-generated Javadoc
@@ -52,134 +61,155 @@ public class ATMTest {
  */
 @Test
 	public void testATM() {
-			ATM atm1=Mockito.mock(ATM.class);
+			ATM atm1=mock(ATM.class);
 			assertNotNull("Mocked Object Created",atm1);
 	}
 
 	/**
-	 * Test insert 1.
+	 * Test case 1 for Insert().
 	 */
 	@Test
 	public void testInsert1() {
-		coin1=Mockito.mock(Coin.class);
+		coin1=mock(Coin.class);
+		when(coin1.getValue()).thenReturn(0);
 		atm.insert(coin1);
-		Mockito.when(coin1.getValue()).thenReturn(0);
 	}
 	
 	/**
-	 * Test insert 2.
+	 * Test case 2 for Insert().
 	 */
 	@Test
 	public void testInsert2() {
-		coin2=new Coin("HALFDOLLAR");
+		coin2=mock(Coin.class);
+		//coin2=new Coin("HALFDOLLAR");
+		when(coin2.getValue()).thenReturn(50);
 		atm.insert(coin2);
-		
 	}
 	
 	/**
-	 * Test insert 3.
+	 * Test case 3 for Insert().
 	 */
 	@Test
 	public void testInsert3() {
-		coin3=new Coin("SILVERDOLLAR");
+		coin3=mock(Coin.class);
+		//coin2=new Coin("HALFDOLLAR");
+		when(coin3.getValue()).thenReturn(100);
 		atm.insert(coin3);
 		
 	}
 
 
 	/**
-	 * Test return coins 1.
+	 * Test case 1 for ReturnCoins().
+	 * currValue=0
 	 */
 	@Test
 	public void testReturnCoins1() {
-		coin1=Mockito.mock(Coin.class);
-		atm.returnCoins();
+		//coin1=mock(Coin.class);
 		//Mockito.when(coin1.getValue()).thenReturn(0);
-	
+		atm.returnCoins();
 	}
 	
 	/**
-	 * Test return coins 2.
+	 * Test Case 2 for ReturnCoins().
+	 * currValue!=0
+	 * @throws IllegalAccessException 
+	 * @throws IllegalArgumentException 
 	 */
 	@Test
-	public void testReturnCoins2() {
-		coin3=new Coin("SILVERDOLLAR");
-		atm.insert(coin3);
+	public void testReturnCoins2() throws Exception {
+		Field currentValue;
+		currentValue=atm.getClass().getDeclaredField("currValue");
+		currentValue.setAccessible(true);
+		currentValue.set(atm, 50);
+		
 		atm.returnCoins();
-		//Mockito.when(coin1.getValue()).thenReturn(0);
-	
 	}
 		
 		
 	/**
-	 * Test vend 1.
-	 *
+	 * Test Case 1 for Vend().
+	 * enabled=false
+	 * Using Reflection
 	 * @throws Exception the exception
 	 */
 	@Test
-	public void testVend1() throws Exception {
-		coin3=new Coin("SILVERDOLLAR");
-		atm.insert(coin3);
+	public void testVend1() throws Exception{
+		Field Enabled;
+		
+		Enabled=atm.getClass().getDeclaredField("enabled");
+		Enabled.setAccessible(true);
+		Enabled.set(atm, false);
+		
 		atm.vend();
 	}
-	
+
 	/**
-	 * Test vend 2.
-	 *
+	 * Test Case 2 for Vend().
+	 * enabled=True
+	 * currValue=50
+	 * Using Reflection
 	 * @throws Exception the exception
 	 */
 	@Test
 	public void testVend2() throws Exception {
-		coin2=new Coin("QUARTER");
-		coin3=new Coin("HALFDOLLAR");
-		atm.insert(coin2);
-		atm.insert(coin3);
+		Field currentValue,Enabled;
+		
+		Enabled=atm.getClass().getDeclaredField("enabled");
+		Enabled.setAccessible(true);
+		Enabled.set(atm, true);
+		
+		currentValue=atm.getClass().getDeclaredField("currValue");
+		currentValue.setAccessible(true);
+		currentValue.set(atm, 75);
+		
 		atm.vend();
 	}
 	
 	/**
-	 * Test vend 3.
-	 *
+	 * Test Case 3 for Vend().
+	 * enabled=True
+	 * currValue=100
+	 * Using Reflection
 	 * @throws Exception the exception
 	 */
 	@Test
-	public void testVend3() throws Exception{
+	public void testVend3() throws Exception {
+		Field currentValue,Enabled;
+		
+		Enabled=atm.getClass().getDeclaredField("enabled");
+		Enabled.setAccessible(true);
+		Enabled.set(atm, true);
+		
+		currentValue=atm.getClass().getDeclaredField("currValue");
+		currentValue.setAccessible(true);
+		currentValue.set(atm, 100);
+		
 		atm.vend();
 	}
 	
+	
 	/**
-	 * Test vend 4.
-	 *
+	 * Test Case 4 for Vend().
+	 * enabled=True
+	 * currValue=-1
+	 * Using Reflection
 	 * @throws Exception the exception
 	 */
 	@Test
 	public void testVend4() throws Exception{
-		coin1=new Coin("QUARTER");
-		coin2=new Coin("HALFDOLLAR");
-		coin3=new Coin("PENNY");
-		atm.insert(coin1);
-		atm.insert(coin2);
-		//atm.insert(coin3);
-		atm.insert(coin3);
-		atm.vend();
-		atm.vend();
+     Field currentValue,Enabled;
 		
+		Enabled=atm.getClass().getDeclaredField("enabled");
+		Enabled.setAccessible(true);
+		Enabled.set(atm, true);
+		
+		currentValue=atm.getClass().getDeclaredField("currValue");
+		currentValue.setAccessible(true);
+		currentValue.set(atm, -1);
+		
+		atm.vend();
+	
 		
 	}
-	
-// Tried to test PowerMockRunner - failed	
-//	@Test
-//	public void testVend4() throws Exception{
-//		ATM atm2=new ATM();
-//		MemberModifier.field(ATM.class, "enabled").set(atm2 , true);
-//		MemberModifier.field(ATM.class, "currValue").set(atm2 , -1);
-//		//atm.insert(coin1);
-//		//atm.insert(coin2);
-//		//atm.insert(coin3);
-//		//atm.insert(coin3);
-//		atm.vend();
-//		//atm.vend();
-//		
-//		
-//	}
 }

@@ -1,3 +1,12 @@
+/****************************************************************************
+* Copyright (c) 2016 by Accolite.com. All rights reserved
+*
+* Created date :: Jul 11, 2016
+*
+*  @author :: Jegan Muthaiah
+* ***************************************************************************
+*/
+
 package com.accolite.UnitTesting;
 
 import static org.junit.Assert.*;
@@ -15,7 +24,7 @@ public class CoinTest {
 	Coin coin1,coin2,coin3,coin4,coin5,coin6,coin7,coin8,coin9;
 	
 	/**
-	 * Test coin 1.
+	 * Test case 1 for Coin1
 	 */
 	
 	@Test
@@ -28,7 +37,7 @@ public class CoinTest {
 	}
 	
 	/**
-	 * Test coin 2.
+	 * Test case 2 for Coin2
 	 */
 	@Test
 	public void testCoin2() {
@@ -41,7 +50,7 @@ public class CoinTest {
 	}
 	
 	/**
-	 * Test coin 3.
+	 * Test case 3 for Coin3
 	 */
 	
 	@Test
@@ -55,7 +64,7 @@ public class CoinTest {
 	}
 	
 	/**
-	 * Test coin 4.
+	 * Test case 4 for Coin4
 	 */
 	@Test
 	public void testCoin4() {
@@ -68,7 +77,7 @@ public class CoinTest {
 	}
 	
 	/**
-	 * Test coin 5.
+	 * Test case 5 for Coin5
 	 */
 	@Test
 	public void testCoin5() {
@@ -81,7 +90,7 @@ public class CoinTest {
 	}
 	
 	/**
-	 * Test coin 6.
+	 * Test case 6 for Coin6
 	 */
 	
 	@Test
@@ -95,7 +104,7 @@ public class CoinTest {
 	}
 	
 	/**
-	 * Test coin 7.
+	 * Test case 7 for Coin7
 	 */
 	@Test
 	public void testCoin7() {
@@ -108,7 +117,7 @@ public class CoinTest {
 	}
 	
 	/**
-	 * Test coin 8.
+	 * Test case 8 for Coin8
 	 */
 	@Test
 	public void testCoin8() {
@@ -120,7 +129,12 @@ public class CoinTest {
 		
 	}
 	
-	@Ignore
+	/**
+	 * Test case 9 for Coin9
+	 * Used Ignore
+	 */
+	
+	//@Ignore
 	@Test
 	public void testCoin9() {
 		coin9=new Coin("DOLLAR");
