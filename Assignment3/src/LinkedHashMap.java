@@ -29,6 +29,7 @@ public class LinkedHashMap {
 	
 	/** The head element. */
 	public static entryNode headElement=null;
+	public static entryNode iteratorElement=null;
 	
 	/**
 	 * Instantiates a new linked hash map.
@@ -43,6 +44,7 @@ public class LinkedHashMap {
 	 * @param key the key
 	 * @param value the value
 	 */
+	
 	public static void put(Object key,String value)
 	{
 		int hashvalue=key.hashCode();entryNode insertPointForNewKey=null;
@@ -69,9 +71,21 @@ public class LinkedHashMap {
 							headElement=null;
 						
 					}
-						
+					entryNode storeIteratorElement=null;
+					entryNode storeOriginalIteratorElement=iteratorElement;
+						while(iteratorElement.keyValue!=existingKey.keyValue)
+						{
+						    storeIteratorElement=iteratorElement;
+							iteratorElement=iteratorElement.linkPrevious;
+						}
+						if(storeIteratorElement!=null)
+						{iteratorElement.linkPrevious.linkNext=storeIteratorElement;
+					    storeIteratorElement.linkPrevious=	iteratorElement.linkPrevious;
+					    }
+					    iteratorElement=storeOriginalIteratorElement;
 					existingKey=existingKey.next;
 					table[bucket]=existingKey;
+				
 				}
 				break;
 			}
@@ -90,12 +104,23 @@ public class LinkedHashMap {
 			{
 			insertPointForNewKey=new entryNode(key,value);
 			if(headElement==null)
+				{
 				headElement=insertPointForNewKey;
+				iteratorElement=headElement;insertPointForNewKey.linkNext=null;
+				insertPointForNewKey.linkPrevious=null;
+				}
+			else
+			{
+				iteratorElement.linkNext=insertPointForNewKey;
+				insertPointForNewKey.linkPrevious=iteratorElement;
+				insertPointForNewKey.linkNext=null;
+				iteratorElement=iteratorElement.linkNext;
+				
+			}
 			if(table[bucket]==null)
 				table[bucket]=insertPointForNewKey;
 			
-			insertPointForNewKey.linkNext=null;
-			insertPointForNewKey.linkPrevious=null;
+			
 			}
 		
 	}
@@ -110,6 +135,10 @@ public class LinkedHashMap {
 		int hash=key.hashCode();
 		int bucket=hash % SIZE;int found=0;
 		entryNode existingElement=table[bucket];
+		if(existingElement!=null)
+		System.out.println("Value of"+key+"is:"+existingElement.Value);
+		else
+			System.out.println("its null");
 		while(existingElement!=null)
 		{
 			if(existingElement.keyValue==key)
@@ -159,9 +188,12 @@ public static void main(String[] args)
 			System.out.println("Enter Key Value Pair");
 			Object obj=scanner.next();
 			String val=scanner.next();
-			put(obj,val);	
+			put(obj,val);		
 		}
-		
+		System.out.println("Enter Key to be searched");
+		Object key;
+		key=scanner.next();
+		get(key);
 		printInCorrectOrder();
 		
 	}
