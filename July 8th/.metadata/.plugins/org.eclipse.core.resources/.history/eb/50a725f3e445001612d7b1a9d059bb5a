@@ -1,0 +1,40 @@
+package com.accolite.ArrayList;
+
+import java.util.Arrays;
+
+public class UsingArray {
+	int capacity,index=0;
+	Object array[];
+	
+
+	public UsingArray(int capacity) {
+		super();
+		this.capacity = capacity;
+		array = new Object[10];
+	}
+	
+	public void add(Object value){
+		if(index>=capacity){
+			capacity=capacity*2;
+			array=Arrays.copyOf(array, capacity);
+		}
+		array[index++]=value;
+	}
+	
+	public Object get(int index){
+		if(index>=0 && index<=this.index){
+			return array[index];
+		}
+		return null;
+	}
+	
+	public void remove(int index){
+		if(index>=0 && index<=this.index){
+			for(;index<=this.index;index++){
+				array[index]=array[this.index];
+			}
+			this.index--;
+		}
+	}
+
+}
