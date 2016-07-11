@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="ATM" project="ATM" tests="12" started="12" failures="0" errors="0" ignored="0">
+  <testsuite name="com.accolite.atm.CoinTests" time="0.0">
+    <testcase name="testToString" classname="com.accolite.atm.CoinTests" time="0.0"/>
+    <testcase name="checkValues" classname="com.accolite.atm.CoinTests" time="0.0"/>
+    <testcase name="checkInvalidCoinValue" classname="com.accolite.atm.CoinTests" time="0.0"/>
+  </testsuite>
+  <testsuite name="com.accolite.atm.ATMTests" time="0.372">
+    <testcase name="testReturnCoinsWhenCurrvalueis0" classname="com.accolite.atm.ATMTests" time="0.003"/>
+    <testcase name="testVendgetException" classname="com.accolite.atm.ATMTests" time="0.366"/>
+    <testcase name="testVendGetDrinkNoMoreMoney" classname="com.accolite.atm.ATMTests" time="0.002"/>
+    <testcase name="testValidCoinInsertWithCostLessThanCOST" classname="com.accolite.atm.ATMTests" time="0.0"/>
+    <testcase name="testVendGetDrink" classname="com.accolite.atm.ATMTests" time="0.0"/>
+    <testcase name="testReturnCoinsWhenCurrvalueisNot0" classname="com.accolite.atm.ATMTests" time="0.0"/>
+    <testcase name="testVendNoGetDrinkBecauseZeroMoney" classname="com.accolite.atm.ATMTests" time="0.001"/>
+    <testcase name="testValidCoinInsertWithCostGreatherThanCOST" classname="com.accolite.atm.ATMTests" time="0.0"/>
+    <testcase name="testInvalidCoinInsert" classname="com.accolite.atm.ATMTests" time="0.0"/>
+  </testsuite>
+</testrun>
