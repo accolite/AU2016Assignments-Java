@@ -164,7 +164,6 @@ where c2.City='Dallas');
 
 --------------------------------
 
---fourth
 select CompanyName 
 from Customer 
 where CustomerID in
