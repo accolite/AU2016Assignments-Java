@@ -1,4 +1,4 @@
-SELECT		Distinct C.CompanyName
+SELECT		DISTINCT C.CompanyName
 FROM		[NewAWAssignment].[SalesLT].[Customer] AS C
 INNER JOIN	[NewAWAssignment].[SalesLT].[SalesOrderHeader] AS SOH
 		
