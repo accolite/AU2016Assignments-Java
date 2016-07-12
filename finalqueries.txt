@@ -1,0 +1,19 @@
+1) select AddressLine1, AddressLine2, City, StateProvince 
+from CustomerAddress as c Join Address as a 
+ON c.AddressID = a.AddressID 
+inner join CustomerAW as caw on caw.CustomerID = c.CustomerID
+where caw.CompanyName = "Modular CYCLE Systems"
+
+
+3) select caw.CompanyName from CustomerAW as caw join
+(select ca.CustomerID from CustomerAddress as ca join Address as a 
+on a.AddressID = ca.AddressID where UPPER(a.City) = 'DALLAS') as cid
+on cid.CustomerID = caw.CustomerID
+
+2)
+SELECT OrderQty,Name,ListPrice FROM SalesOrderHeader JOIN SalesOrderDetail JOIN ProductAW WHERE CustomerID=635
+
+4)select caw.CompanyName from CustomerAW where caw.CustomerID in
+	(select soh.CustomerID from SalesOrderHeader as soh
+		group by soh.CustomerID
+	having SUM(soh.SubTotal + soh.TaxAmt + soh.Freight) > $100000)
