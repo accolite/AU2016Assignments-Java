@@ -97,8 +97,8 @@ CREATE TABLE [SalesLT].[SalesOrderHeader](
 	[PurchaseOrderNumber] [nvarchar](60),
 	[AccountNumber] [nvarchar](60),
 	[CustomerID] [int] NOT NULL,
-	[ShipToAddressID] [int],
-	[BillToAddressID] [int],
+	[ShipToAddressID] [int] NOT NULL,
+	[BillToAddressID] [int] NOT NULL,
 	[ShipMethod] [nvarchar](50),
 	[CreditCardApprovalCode] [varchar](15),
 	[SubTotal] [money],
@@ -118,13 +118,19 @@ GO
 ALTER TABLE [SalesLT].[SalesOrderHeader]  WITH CHECK ADD  CONSTRAINT [FK_SalesOrderHeader_Customer_CustomerID] FOREIGN KEY([CustomerID])
 REFERENCES [SalesLT].[Customer] ([CustomerID])
 GO
+ALTER TABLE [SalesLT].[SalesOrderHeader]  WITH CHECK ADD  CONSTRAINT [FK_SalesOrderHeader_Address_BillTo_AddressID] FOREIGN KEY([BillToAddressID])
+REFERENCES [SalesLT].[Address] ([AddressID])
+GO
+ALTER TABLE [SalesLT].[SalesOrderHeader]  WITH CHECK ADD  CONSTRAINT [FK_SalesOrderHeader_Address_ShipTo_AddressID] FOREIGN KEY([ShipToAddressID])
+REFERENCES [SalesLT].[Address] ([AddressID])
+GO
 
 
 --ProductCategory Table
 
 CREATE TABLE [SalesLT].[ProductCategory](
 	[ProductCategoryID] [int] NOT NULL,
-	[ParentProductCategoryID] [int],
+	[ParentProductCategoryID] [int] NOT NULL,
 	[Name] [nvarchar](60) NOT NULL,
 	[rowguid] [uniqueidentifier] ROWGUIDCOL,
 	[ModifiedDate] [datetime],
@@ -175,8 +181,8 @@ CREATE TABLE [SalesLT].[Product](
 	[ListPrice] [money],
 	[Size] [nvarchar](5),
 	[Weight] [decimal](8, 5),
-	[ProductCategoryID] [int],
-	[ProductModelID] [int],
+	[ProductCategoryID] [int] NOT NULL,
+	[ProductModelID] [int] NOT NULL,
 	[SellStartDate] [datetime],
 	[SellEndDate] [datetime],
 	[DiscontinuedDate] [datetime],
@@ -204,7 +210,7 @@ CREATE TABLE [SalesLT].[SalesOrderDetail](
 	[SalesOrderID] [int] NOT NULL,
 	[SalesOrderDetailID] [int] NOT NULL,
 	[OrderQty] [smallint],
-	[ProductID] [int] not null,
+	[ProductID] [int] NOT NULL,
 	[UnitPrice] [money],
 	[UnitPriceDiscount] [money],
 	[rowguid] [uniqueidentifier] ROWGUIDCOL,
@@ -215,7 +221,6 @@ CREATE TABLE [SalesLT].[SalesOrderDetail](
 	[SalesOrderDetailID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
-
 GO
 
 ALTER TABLE [SalesLT].[SalesOrderDetail]  WITH CHECK ADD  CONSTRAINT [FK_SalesOrderDetail_Product_ProductID] FOREIGN KEY([ProductID])
@@ -223,7 +228,6 @@ REFERENCES [SalesLT].[Product] ([ProductID])
 GO
 ALTER TABLE [SalesLT].[SalesOrderDetail]  WITH CHECK ADD  CONSTRAINT [FK_SalesOrderDetail_SalesOrderHeader_SalesOrderID] FOREIGN KEY([SalesOrderID])
 REFERENCES [SalesLT].[SalesOrderHeader] ([SalesOrderID])
-ON DELETE CASCADE
 GO
 
 --ProductDescription Table
@@ -255,7 +259,6 @@ CREATE TABLE [SalesLT].[ProductModelProductDescription](
 	[Culture] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
-
 GO
 
 ALTER TABLE [SalesLT].[ProductModelProductDescription]  WITH CHECK ADD  CONSTRAINT [FK_ProductModelProductDescription_ProductDescription_ProductDescriptionID] FOREIGN KEY([ProductDescriptionID])
