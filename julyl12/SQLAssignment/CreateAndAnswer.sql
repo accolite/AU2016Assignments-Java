@@ -219,6 +219,15 @@ IN(
 )
 GO
 
+/*Optimized --@author: Naveen Kumar */
+SELECT * FROM CustomerAddress ca 
+    join  
+	Customer c 
+	ON 
+	ca.CustomerID = c.CustomerID AND  c.CompanyName='Modular Cycle Systems'
+	join 
+	Address a
+	ON a.AddressID = ca.AddressID
 
 --Custom 2
 SELECT sd.OrderQty, p.Name, p.ListPrice 
@@ -255,19 +264,26 @@ select s.OrderQty,s.SalesOrderID, s.UnitPrice FROM SalesOrderDetail s WHERE Sale
 	GROUP BY(d.SalesOrderID) HAVING SUM(d.OrderQty)=1	
 );
 
---Check 6
+--Final 6
 
-
+SELECT p.name, c.companyname from Product p
+join ProductModel pm on pm.ProductModelID=p.ProductModelID
+join SalesOrderDetail sod on sod.ProductID=p.ProductID
+join SalesOrderHeader soh on soh.SalesOrderID = sod.SalesOrderID
+join Customer c on c.CustomerID = soh.CustomerID;
 
 --Final 7
-SELECT COUNT(AddressID) AS LondonShipped from Address where City='London' and AddressID in(
-	SELECT ShipToAddressID from SalesOrderHeader where SalesOrderID in(
-		SELECT SalesOrderID from SalesOrderDetail where ProductID in(
-			SELECT ProductID from Product where ProductCategoryID in(
-				SELECT ProductCategoryID from ProductCategory where Name='Cranksets'
-			)
-		)
-	)
+SELECT COUNT(*) AS CranksetsShippedToLondon from Product p where ProductCategoryID in (	
+	 SELECT ProductCategoryID from ProductCategory
+	 join SalesOrderDetail sod on Name='Cranksets' 
+	 and sod.ProductID = p.ProductID 
+	 join SalesOrderHeader soh on soh.SalesOrderID = sod.SalesOrderID
+	 join Address a on soh.ShipToAddressID = a.AddressID
 );
 
---Check 8
+--Final 8
+--Show the total order value for each CountryRegion. 
+
+SELECT SUM(TaxAmt+SubTotal+Freight) from SalesOrderHeader soh
+join Address a on soh.BillToAddressID = a.AddressID
+group by(CountryRegion) ORDER BY 1 DESC;
