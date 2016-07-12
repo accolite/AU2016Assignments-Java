@@ -1,0 +1,66 @@
+//query 1
+
+SELECT CompanyName,AddressType,AddressLine1
+  FROM CustomerAW JOIN CustomerAddress
+    ON (CustomerAW.CustomerID=CustomerAddress.CustomerID)
+                  JOIN Address
+    ON (CustomerAddress.AddressID=Address.AddressID)
+ WHERE CompanyName='Modular Cycle Systems'
+
+
+//query 2
+
+SELECT OrderQty,Name,ListPrice 
+FROM SalesOrderHeader,SalesOrderDetail,ProductAW1
+where SalesOrderHeader.SalesOrderID=SalesOrderDetail.SalesOrderID and 
+SalesOrderDetail.ProductID=ProductAW1.ProductID and CustomerID=1
+
+
+//query 3
+
+SELECT DISTINCT CompanyName
+FROM   CustomerAW cust
+  JOIN CustomerAddress custAddr ON cust.CustomerID = custAddr.CustomerID
+  JOIN Address addr ON custAddr.AddressID = addr.AddressID
+WHERE  City = 'Dallas';
+
+
+//query 4
+
+SELECT Distinct c.CompanyName
+FROM CustomerAW AS c
+INNER JOIN SalesOrderHeader s
+ON s.CustomerID = c.CustomerID
+GROUP BY c.CustomerID,
+c.CompanyName
+HAVING SUM(s.SubTotal+s.TaxAmt+s.Freight)> 100000
+
+
+
+//sample for creating table
+create table CustomerAW (CustomerID int NOT NULL, 
+FirstName nvarchar(50) NOT NULL, MiddleName nvarchar(50), LastName nvarchar(50) NOT NULL, CompanyName nvarchar(50),EmailAddress nvarchar(50), PRIMARY KEY (CustomerID)); 
+
+
+
+
+
+//sample for adding foreign key constraints
+USE AdventureWorks;    
+GO    
+ALTER TABLE SalesOrderDetail   
+ADD CONSTRAINT FK_SalesOrderHeader_CustomerAW FOREIGN KEY (CustomerID)     
+    REFERENCES CustomerAW (CustomerID)     
+    ON DELETE CASCADE    
+    ON UPDATE CASCADE    
+;    
+GO   
+
+
+
+
+//sample for insertion
+INSERT INTO SalesOrderDetail
+VALUES ('100','01','50','200','1','1');
+GO
+ 
