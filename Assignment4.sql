@@ -192,8 +192,31 @@ select customer.CompanyName from dbo.CustomerAW customer, dbo.SalesOrderHeader s
 
 
 --fifth query
-/*
-select salesOrderDetail.SalesOrderID,salesOrderDetail.UnitPrice from dbo.SalesOrderDetail salesOrderDetail,dbo.SalesOrderHeader salesOrderHeader,
-dbo.CustomerAW customer where customer.CustomerID=salesOrderHeader.CustomerID and salesOrderHeader.SalesOrderID= SalesOrderDetail.SalesOrderID group by SalesOrderDetail.SalesOrderID, salesOrderDetail.UnitPrice having  count(SalesOrderDetail.SalesOrderID)= 1;
 
-select salesOrderDetail.SalesOrderID,salesOrderDetail.UnitPrice from dbo.SalesOrderDetail salesOrderDetail where salesOrderDetail.SalesOrderID  IN (select salesOrderDetail.SalesOrderID from dbo.SalesOrderHeader salesOrderHeader where salesOrderDetail.SalesOrderID=salesOrderDetail.SalesOrderID and salesOrderDetail.OrderQty=1 group by salesOrderDetail.SalesOrderID having COUNT(salesOrderDetail.SalesOrderID) =1);*/
+select salesOrderDetail.SalesOrderID,salesOrderDetail.UnitPrice from dbo.SalesOrderDetail salesOrderDetail,dbo.SalesOrderHeader salesOrderHeader where salesOrderHeader.SalesOrderID= SalesOrderDetail.SalesOrderID group by SalesOrderDetail.SalesOrderID, salesOrderDetail.UnitPrice having  count(SalesOrderDetail.SalesOrderID)= 1;
+
+select salesOrderDetail.SalesOrderID,salesOrderDetail.UnitPrice from dbo.SalesOrderDetail salesOrderDetail where salesOrderDetail.SalesOrderID  = ANY (select salesOrderDetail.SalesOrderID from dbo.SalesOrderHeader salesOrderHeader where salesOrderDetail.SalesOrderID=salesOrderDetail.SalesOrderID and salesOrderDetail.OrderQty=1 group by SalesOrderHeader.SalesOrderID having COUNT(SalesOrderHeader.SalesOrderID) =1);
+
+insert into SalesOrderHeader (SalesOrderID, RevisionNumber, OrderDate, CustomerID, BillToAddressID,
+ShipToAddressID, ShipMethod, SubTotal, TaxAmt, Freight) values(7,null, CAST(N'2004-03-11 10:01:36.827' AS DateTime),635,7,7,null,$10,$5,$1);
+
+insert into SalesOrderDetail (SalesOrderID, SalesOrderDetailID, OrderQty, ProductID, UnitPrice,
+UnitPriceDiscount) values(7,7,5,7,$10,$0);
+
+insert into ProductModel(ProductModelID, Name) values(7,'Racing Socks');
+
+insert into ProductAW (ProductID, Name, Color, ListPrice, Size, Weight, ProductModelID,
+ProductCategoryID) values(7,'Pen','black',$10,null,null,7,7);
+
+insert into ProductCategory (ProductCategoryID, ParentProductCategoryID,Name) values(7,7,'Pen');
+
+insert into ProductDescription (ProductDescriptionID, Description) values(7,'This is a parker pen');
+
+insert into ProductModelProductDescription (ProductModelID, ProductDescriptionID, Culture) values(7,7,7);
+
+--sixth query
+select customer.CompanyName, productAW.Name from dbo.SalesOrderDetail salesOrderDetail, dbo.SalesOrderHeader salesOrderHeader, dbo.CustomerAW customer, dbo.ProductAW productAW, dbo.ProductModel productModel where customer.CustomerID=salesOrderHeader.CustomerID and salesOrderHeader.SalesOrderID= SalesOrderDetail.SalesOrderID and salesOrderDetail.ProductID=productAW.ProductID and productAW.ProductModelID=productModel.ProductModelID and productModel
+.Name='Racing Socks'; 
+
+
+--seventh query
