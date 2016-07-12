@@ -1,4 +1,3 @@
-
 USE SalesLT;
 GO
 
@@ -86,16 +85,16 @@ create table Product(
 	[Color]varchar(max),
 	[StandardCost][float],
 	[ListPrice][float], 
-	[Size]varchar(max),
+	[Size]nvarchar(max),
 	[Weight]Decimal(8, 2),
 	[ProductCategoryID][int] ,
 	[ProductModelID][int] ,
 	[SellStartDate][datetime], 
 	[SellEndDate][datetime], 
 	[DiscontinuedDate][datetime], 
-	[ThumbNailPhoto]varchar(max),
-	[ThumbnailPhotoFileName]varchar(max),
-	[rowguid]varchar(max),
+	[ThumbNailPhoto]nvarchar(max),
+	[ThumbnailPhotoFileName]nvarchar(max),
+	[rowguid]nvarchar(max),
 	[ModifiedDate][datetime],
 	
 	);
@@ -103,9 +102,9 @@ GO
 
 create table ProductModel(
 	[ProductModelID][int], 
-	[Name]varchar(max) , 
-	[CatalogDescription]varchar(max) , 
-	[rowguid]varchar(max) , 
+	[Name]nvarchar(max) , 
+	[CatalogDescription]nvarchar(max) , 
+	[rowguid]nvarchar(max) , 
 	[ModifiedDate][datetime]
 );
 GO
@@ -113,8 +112,8 @@ GO
 create table ProductCategory(
 	[ProductCategoryID][int], 
 	[ParentProductCategoryID][int], 
-	[Name]varchar(max) , 
-	[rowguid]varchar(max) , 
+	[Name]nvarchar(max) , 
+	[rowguid]nvarchar(max) , 
 	[ModifiedDate][datetime],
 );
 GO
@@ -122,8 +121,8 @@ GO
 create table ProductModelProductDescription(
 	[ProductModelID][int], 
 	[ProductDescriptionID][int], 
-	[Culture]varchar(max) , 
-	[rowguid]varchar(max) , 
+	[Culture]nvarchar(max) , 
+	[rowguid]nvarchar(max) , 
 	[ModifiedDate][datetime],
 );
 GO
@@ -137,15 +136,22 @@ create table ProductDescription(
 GO
 
 
-select * from Address as a
-where a.AddressID in
+-----------------------------------------------------
+select AddressID,AddressLine1,AddressLine2,City,StateProvince,CountryRegion,PostalCode from Address 
+where AddressID in
 (select c2.AddressID 
 from Customer c1 inner join CustomerAddress c2 
 on c1.CustomerID=c2.CustomerID 
 where c1.CompanyName='Modular Cycle Systems');
-------------
 
-----------------
+
+------------------------------------------------------
+select * from SalesOrderHeader JOIN SalesOrderDetail on SalesOrderHeader.SalesOrderID=SalesOrderDetail.SalesOrderID Join
+ Product on SalesOrderDetail.ProductID=Product.ProductID 
+where SalesOrderHeader.CustomerID=635;
+
+
+---------------------------------------------------
 
 select c.CompanyName from Customer as c
 where c.CustomerID in 
@@ -153,7 +159,16 @@ where c.CustomerID in
 select c1.CustomerID 
 from CustomerAddress c1 inner join Address c2 
 on c1.AddressID=c2.AddressID 
-where c2.City='dallas');
+where c2.City='Dallas');
 
 
-select c1.OrderQty, c2.Name, c2.ListPrice from SalesOrderDetail c1 inner join Product c2 on c1.ProductID=c2.ProductID
+--------------------------------
+
+--fourth
+select CompanyName 
+from Customer 
+where CustomerID in
+( select CustomerID 
+from SalesOrderHeader 
+Group By CustomerID 
+Having ((Sum(SubTotal)+Sum(TaxAmt)+Sum(Freight))>100000));
