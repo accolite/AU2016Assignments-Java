@@ -1,0 +1,41 @@
+--query 5
+
+select sod.SalesOrderID , sod.UnitPrice 
+from SalesOrderDetail sod 
+join SalesOrderHeader soh on soh.SalesOrderID =sod.SalesOrderID 
+where sod.SalesOrderID 
+  in( select s.SalesOrderID as ordernums 
+      from SalesOrderDetail s 
+      group by s.SalesOrderID 
+      having COUNT(*)=1)
+
+
+--query 6
+
+select ProductAW.Name,CustomerAW.CompanyName 
+from ProductAW
+join ProductModel on ProductModel.Name='Racing Socks' and ProductModel.ProductModelID=ProductAW.ProductModelID 
+join SalesOrderDetail on SalesOrderDetail.ProductID =ProductAW.ProductID
+join SalesOrderHeader on SalesOrderHeader.SalesOrderID =SalesOrderDetail.SalesOrderID
+join CustomerAW on CustomerAW.CustomerID=SalesOrderHeader.CustomerID;
+
+
+--query 7
+
+SELECT COUNT(DISTINCT PAW.ProductID)
+FROM   ProductCategory PC
+  JOIN ProductAW PAW ON PAW.ProductCategoryID = PC.ProductCategoryID and PC.Name = 'Cranksets'
+  JOIN SalesOrderDetail SOD ON PAW.ProductID = SOD.ProductID
+  JOIN SalesOrderHeader SOH ON SOH.SalesOrderID = SOD.SalesOrderID
+  JOIN CustomerAW CAW ON SOH.CustomerID = CAW.CustomerID
+  JOIN CustomerAddress CA ON CAW.CustomerID = CA.CustomerID
+  JOIN Address ADR ON CA.AddressID = ADR.AddressID AND ADR.City = 'London';
+
+--query 8
+
+select sum(sh.SubTotal) as TotalOrderSum, adr.CountryRegion
+from SalesOrderHeader sh 
+ join CustomerAddress ca on ca.CustomerID = sh.CustomerID
+ join Address adr on adr.AddressID = ca.AddressID 
+ group by adr.CountryRegion
+ order by TotalOrderSum desc
