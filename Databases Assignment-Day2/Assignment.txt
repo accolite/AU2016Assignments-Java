@@ -1,0 +1,32 @@
+--fifth query
+
+select salesOrderDetail.SalesOrderID,salesOrderDetail.UnitPrice from dbo.SalesOrderDetail salesOrderDetail where salesOrderDetail.SalesOrderID  = ANY (select salesOrderDetail.SalesOrderID from dbo.SalesOrderHeader salesOrderHeader where salesOrderDetail.SalesOrderID=salesOrderDetail.SalesOrderID  group by SalesOrderHeader.SalesOrderID having COUNT(SalesOrderHeader.SalesOrderID) =1);
+
+--sixth query
+select customer.CompanyName, productAW.Name from dbo.SalesOrderDetail salesOrderDetail, dbo.SalesOrderHeader salesOrderHeader, dbo.CustomerAW customer, dbo.ProductAW productAW, dbo.ProductModel productModel where customer.CustomerID=salesOrderHeader.CustomerID and salesOrderHeader.SalesOrderID= SalesOrderDetail.SalesOrderID and salesOrderDetail.ProductID=productAW.ProductID and productAW.ProductModelID=productModel.ProductModelID and productModel
+.Name='Racing Socks'; 
+
+
+--seventh query
+select count(customer.CustomerID) from dbo.CustomerAW customer,dbo.CustomerAddress customerAddress,dbo.Address address where customer.CustomerID=CustomerAddress.CustomerID and CustomerAddress.AddressID=Address.AddressID and address.City='London'
+
+intersect
+
+select count(salesOrderHeader.CustomerID) from dbo.SalesOrderHeader salesOrderHeader, dbo.SalesOrderDetail salesOrderDetail,dbo.ProductAW product, dbo.ProductCategory productCategory where productCategory.Name ='Cranksets' and product.ProductCategoryID=productCategory.ProductCategoryID and salesOrderDetail.SalesOrderID = salesOrderHeader.SalesOrderID and salesOrderDetail.ProductID = product.ProductID;
+
+select * from dbo.ProductCategory productCategory join
+dbo.ProductAW productAW on productCategory.ProductCategoryID = productAW.ProductCategoryID and productCategory.Name='Cranksets'
+join dbo.SalesOrderDetail salesOrderDetail 
+on productAW.ProductID=salesOrderDetail.ProductID
+join  dbo.SalesOrderHeader salesOrderHeader 
+on salesOrderHeader.SalesOrderID=salesOrderDetail.SalesOrderID
+join dbo.CustomerAW customer 
+on customer.CustomerID = salesOrderHeader.CustomerID
+join dbo.CustomerAddress customerAddress
+on customerAddress.CustomerID=customer.CustomerID
+join dbo.Address address
+on address.AddressID = customerAddress.AddressID
+and address.City='London';
+
+--eight query
+select sum(salesOrderHeader.SubTotal) sumValue,address.CountryRegion from dbo.SalesOrderHeader salesOrderHeader,Assignment4.dbo.Address address,Assignment4.dbo.CustomerAddress customerAddress,Assignment4.dbo.CustomerAW customer where customerAddress.CustomerID = customer.CustomerID and customerAddress.AddressID=address.AddressID and salesOrderHeader.CustomerID=customer.CustomerID  group by address.CountryRegion order by sumValue desc;
