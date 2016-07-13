@@ -65,3 +65,24 @@ AND header.SalesOrderID = detail.SalesOrderID
 AND product.ProductID = detail.ProductID
 AND header.CustomerID = customer.CustomerID
 
+--7--
+
+SELECT count(*) as No_of_products
+from ProductAW product, ProductCategory category, SalesOrderDetail detail, SalesOrderHeader header, CustomerAW customer, CustomerAddress ca, [Address] addr
+where category.Name = 'Cranksets'
+AND product.ProductCategoryID = category.ProductCategoryID
+AND detail.ProductID = product.ProductID
+AND detail.SalesOrderID = header.SalesOrderID
+AND header.CustomerID = customer.CustomerID
+AND customer.CustomerID = ca.CustomerID
+AND ca.AddressID = addr.AddressID
+AND addr.City = 'London'
+
+--8--
+
+SELECT addr.CountryRegion, SUM(header.SubTotal+ header.TaxAmt+ header.Freight) AS TOTAL_SALES 
+FROM SalesOrderHeader header, CustomerAddress ca, [Address] addr
+WHERE header.CustomerID = ca.CustomerID 
+AND ca.AddressID=addr.AddressID 
+GROUP BY addr.CountryRegion
+ORDER BY TOTAL_SALES DESC
