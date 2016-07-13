@@ -21,6 +21,7 @@ create table SalesLT.Customer(
 	[ModifiedDate] datetime not null
 )
 select * from SalesLT.Customer
+
 create table SalesLT.Address(
 	AddressID int primary key not null,
 	AddressLine1 nvarchar(60) not null,
@@ -150,50 +151,69 @@ select * from SalesLT.SalesOrderDetail
 
 --querys
 --1
-select * from SalesLT.Address
-where AddressID in
+select * from SalesLT.Address as a inner join
 	(
 		select AddressID from SalesLT.CustomerAddress as ca inner join SalesLT.Customer as c on ca.CustomerID = c.CustomerID
 		where c.CompanyName = 'Modular Cycle Systems'
-	)
+	) as ca on a.AddressID=ca.AddressID 
 --3
-select CompanyName from SalesLT.Customer
-where CustomerID in
+select distinct CompanyName from SalesLT.Customer as c inner join
 	(
 		select CustomerID from SalesLT.CustomerAddress as ca inner join SalesLT.Address as a on ca.AddressID = a.AddressID
 		where a.City = 'Dallas'
-	)
-order by CompanyName
+	) as ca on c.CustomerID = ca.CustomerID
+--order by CompanyName
 --2
 select sod.OrderQty, p.Name, p.ListPrice from SalesLT.SalesOrderDetail as sod inner join SalesLT.Product as p on sod.ProductID = p.ProductID
-where sod.SalesOrderID in 
+inner join  
 	(
-		select SalesOrderID from SalesLT.SalesOrderHeader where CustomerID = 29660
-	)
+		select SalesOrderID from SalesLT.SalesOrderHeader where CustomerID = 635
+	) as soh on sod.SalesOrderID = soh.SalesOrderID
 --4
-select CompanyName from SalesLT.Customer
-where CustomerID in
+select distinct CompanyName from SalesLT.Customer as c inner join
 	(
 		Select CustomerID from SalesLT.SalesOrderHeader where SubTotal + TaxAmt + Freight > $100000
- 	)
-Order by CompanyName
+ 	) as soh on c.CustomerID = soh.CustomerID
+--Order by CompanyName
 --6
-select p.Name, c.CompanyName from SalesLT.Customer as c, SalesLT.Product as p
-where c.CustomerID in
-	(
-		select CustomerID from SalesLT.SalesOrderHeader as soh
-		where  soh.SalesOrderID in
-			(
-				select SalesOrderID from SalesLT.SalesOrderDetail as sod
-				where sod.ProductID in
-					(
-						select ProductID from SalesLT.Product as prod inner join SalesLT.ProductModel as prodm
-						on prod.ProductModelID = prodm.ProductModelID where prodm.Name='Racing Socks'
-					)
-			)
-	)
-	and p.ProductID in 
-	(
-		select ProductID from SalesLT.Product as prod inner join SalesLT.ProductModel as prodm
-		on prod.ProductModelID = prodm.ProductModelID where prodm.Name='Racing Socks'
-	)
+select p.Name, c.CompanyName from SalesLT.Customer as c inner join SalesLT.SalesOrderHeader as soh
+	on c.CustomerID = soh.CustomerID inner join SalesLT.SalesOrderDetail as sod
+	on soh.SalesOrderID = sod.SalesOrderID inner join SalesLT.Product as p
+	on sod.ProductID = p.ProductID inner join SalesLT.ProductModel as pm
+	on p.ProductModelID = pm.ProductModelID where pm.Name='Racing Socks'
+--5
+select c.CustomerID as 'Single Item Order',soh.SalesOrderID,sod.UnitPrice--, sod.OrderQty
+	from SalesLT.Customer as c inner join SalesLT.SalesOrderHeader as soh
+	on c.CustomerID = soh.CustomerID inner join SalesLT.SalesOrderDetail as sod
+	on soh.SalesOrderID = sod.SalesOrderID
+	where soh.SalesOrderID in
+		(
+			select SalesOrderID from SalesLT.SalesOrderDetail group by SalesOrderID having count(SalesOrderID)=1
+		)
+--7
+select count(*) as 'Cranksets to London' from SalesLT.Product as p inner join SalesLT.ProductCategory as pc
+	on p.ProductCategoryID = pc.ProductCategoryID and pc.Name like 'Cranksets'
+	inner join SalesLT.SalesOrderDetail as sod
+	on sod.ProductID = p.ProductID
+	inner join SalesLT.SalesOrderHeader as soh
+	on soh.SalesOrderID = sod.SalesOrderID
+	inner join SalesLT.Address as a
+	on soh.BillToAddressID = a.AddressID and City like 'London'
+--8
+select coalesce(sum(soh.SubTotal),0) as 'Total Order Value', a.CountryRegion from SalesLT.SalesOrderHeader as soh
+	right join SalesLT.Address as a on soh.BillToAddressID = a.AddressID
+	group by a.CountryRegion
+	order by sum(soh.SubTotal) desc
+
+
+
+
+
+
+
+--test queries
+select * from SalesLT.SalesOrderHeader as soh
+	full join SalesLT.Address as a 
+	on (soh.BillToAddressID = a.AddressID or soh.ShipToAddressID = a.AddressID) and a.CountryRegion like 'Canada'
+
+select CountryRegion from SalesLT.Address group by CountryRegion
