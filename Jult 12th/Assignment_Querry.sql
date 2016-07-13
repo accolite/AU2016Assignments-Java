@@ -49,10 +49,10 @@ GO
 
 --6
 --List the product name and the CompanyName for all Customers who ordered ProductModel 'Racing Socks'.
-DROP VIEW CustomerTable1
+DROP VIEW CustomerTable
 GO
 
-CREATE View SalesLT.CustomerTable1
+CREATE View SalesLT.CustomerTable
 AS SELECT soh.CustomerID 
 FROM SalesLT.SalesOrderHeader soh join SalesLT.SalesOrderDetail sod
 on soh.SalesOrderId = sod.SalesOrderId
@@ -63,7 +63,7 @@ Where pm.Name='Racing Socks';
 Go
 
 SELECT distinct CompanyName 
-FROM SalesLT.CustomerTable1 cv join SalesLT.Customer cu 
+FROM SalesLT.CustomerTable cv join SalesLT.Customer cu 
 on cu.CustomerId=cv.CustomerId
 
 SELECT Name 
@@ -86,8 +86,8 @@ select count(*) from SalesLT.Address ad join SalesLT.SalesOrderHeader soh
 
 --Query 8
 --Show the total order value for each CountryRegion. List by value with the highest first
-select SUM(soh.SubTotal+soh.TaxAmt+soh.Freight) CountryTotalOrder
-from SalesLT.SalesOrderHeader soh join SalesLT.Address ad 
+select CountryRegion,SUM(soh.SubTotal+soh.TaxAmt+soh.Freight) CountryTotalOrder 
+from SalesLT.SalesOrderHeader soh full join SalesLT.Address ad 
 on soh.BillToAddressId=ad.AddressId
 group by ad.CountryRegion 
-order by 1 desc
+order by 2 desc
