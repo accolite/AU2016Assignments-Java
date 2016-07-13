@@ -1,0 +1,1 @@
+SELECT SalesOrderID, max(UnitPrice)  from SalesOrderDetail group by SalesOrderID having (count(*)= 1)

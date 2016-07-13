@@ -1,0 +1,2 @@
+
+SELECT count(*) from(ProductAW as PA join ProductCategory AS PC ON PA.ProductCategoryID = PC.ProductCategoryID JOIN SalesOrderDetail as SD on PA.ProductID = SD.ProductID JOIN SalesOrderHeader as SH on SH.SalesOrderID = SD.SalesOrderID JOIN CustomerAddress as CA on CA.CustomerID = sh.CustomerID join Address as A on A.AddressID = ca.AddressID) where city = 'LONDON' and PC.Name = 'Cranksets'
