@@ -50,7 +50,7 @@ IN ( select distinct CustomerID from SalesOrderHeader where SubTotal + TaxAmt + 
 --Final 5
 select s.OrderQty,s.SalesOrderID, s.UnitPrice FROM SalesOrderDetail s WHERE SalesOrderID in (
 	select d.SalesOrderID FROM SalesOrderDetail d 
-	GROUP BY(d.SalesOrderID) HAVING SUM(d.OrderQty)=1	
+	GROUP BY(d.SalesOrderID) HAVING COUNT(d.SalesOrderID)=1
 );
 
 --Final 6
@@ -75,6 +75,6 @@ SELECT COUNT(*) AS CranksetsShippedToLondon from Product p where ProductCategory
 --Final 8
 --Show the total order value for each CountryRegion. 
 
-SELECT SUM(TaxAmt+SubTotal+Freight) as CountryTotal from SalesOrderHeader soh
+SELECT isnull(SUM(TaxAmt+SubTotal+Freight), 0) as CountryTotal from SalesOrderHeader soh
 full join Address a on soh.BillToAddressID = a.AddressID
 group by(CountryRegion) ORDER BY 1 DESC;
