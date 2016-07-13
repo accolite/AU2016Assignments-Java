@@ -76,5 +76,5 @@ SELECT COUNT(*) AS CranksetsShippedToLondon from Product p where ProductCategory
 --Show the total order value for each CountryRegion. 
 
 SELECT SUM(TaxAmt+SubTotal+Freight) as CountryTotal from SalesOrderHeader soh
-join Address a on soh.BillToAddressID = a.AddressID
+full join Address a on soh.BillToAddressID = a.AddressID
 group by(CountryRegion) ORDER BY 1 DESC;
