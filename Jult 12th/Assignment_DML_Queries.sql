@@ -63,33 +63,26 @@ GO
 
 --Query 6
 --List the product name and the CompanyName for all Customers who ordered ProductModel 'Racing Socks'.
-<<<<<<< HEAD:Jult 12th/Assignment_DML_Queries.sql
 DROP VIEW CustomerTable2
 GO
 
 CREATE View SalesLT.CustomerTable2
-=======
 DROP VIEW CustomerTable
 GO
 
 CREATE View SalesLT.CustomerTable
->>>>>>> f84cc0791d153ead6f6f919c983484102cdd23dd:Jult 12th/Assignment_Querry.sql
 AS SELECT soh.CustomerID 
 FROM SalesLT.SalesOrderHeader soh join SalesLT.SalesOrderDetail sod
 on soh.SalesOrderId = sod.SalesOrderId
 join SalesLT.Product p on sod.ProductId=p.ProductId
 join SalesLT.ProductModel pm on pm.ProductModelID=p.ProductModelID
 Where pm.Name='Racing Socks';
-
 Go
 
-<<<<<<< HEAD:Jult 12th/Assignment_DML_Queries.sql
 SELECT CompanyName 
 FROM SalesLT.CustomerTable2 cv join SalesLT.Customer cu 
-=======
 SELECT distinct CompanyName 
 FROM SalesLT.CustomerTable cv join SalesLT.Customer cu 
->>>>>>> f84cc0791d153ead6f6f919c983484102cdd23dd:Jult 12th/Assignment_Querry.sql
 on cu.CustomerId=cv.CustomerId
 
 SELECT Name 
@@ -110,17 +103,11 @@ select * from SalesLT.Address ad join SalesLT.SalesOrderHeader soh
 
 --Query 8
 --Show the total order value for each CountryRegion. List by value with the highest first
-<<<<<<< HEAD:Jult 12th/Assignment_DML_Queries.sql
 select CountryRegion,SUM(soh.SubTotal) CountryTotalOrder 
-=======
 select CountryRegion,SUM(soh.SubTotal+soh.TaxAmt+soh.Freight) CountryTotalOrder 
->>>>>>> f84cc0791d153ead6f6f919c983484102cdd23dd:Jult 12th/Assignment_Querry.sql
 from SalesLT.SalesOrderHeader soh full join SalesLT.Address ad 
 on soh.BillToAddressId=ad.AddressId
 group by ad.CountryRegion 
 order by 2 desc
-<<<<<<< HEAD:Jult 12th/Assignment_DML_Queries.sql
 
 
-=======
->>>>>>> f84cc0791d153ead6f6f919c983484102cdd23dd:Jult 12th/Assignment_Querry.sql
