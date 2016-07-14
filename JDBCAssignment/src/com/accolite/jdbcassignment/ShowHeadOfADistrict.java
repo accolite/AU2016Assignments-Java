@@ -1,0 +1,57 @@
+package com.accolite.jdbcassignment;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+
+
+public class ShowHeadOfADistrict {
+	 PreparedStatement pstmt = null;
+	Connection conn = null;
+	 Connection conn2 = null;
+   Statement stmt = null,stmt2=null;
+	public ShowHeadOfADistrict() {
+		// TODO Auto-generated constructor stub
+		}
+	
+		public  void displayingHeadOfADistrict()
+		{
+			try {
+				//Scanner sc=new Scanner(System.in);
+				conn = DriverManager.getConnection(Constants.DB_URL_WITHOUT_DB,Constants.username,Constants.password);
+				stmt=conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+				String sql=" Select database2.dbo.Citizen.citizenId as citizenid,database2.dbo.Citizen.name as citizenname from database1.dbo.District inner join database2.dbo.Citizen on database1.dbo.District.HeadId=database2.dbo.Citizen.citizenId where database1.dbo.District.districtId=36";
+				 ResultSet rs=stmt.executeQuery(sql);
+				 rs.beforeFirst();
+					while(rs.next()) {
+						int id = rs.getInt("citizenid");
+						String name=rs.getString("citizenname");
+						System.out.println(id+" "+name);
+					}
+				rs.close();
+				
+		 } catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				closeResources();
+			}
+	 }
+	 private  void closeResources() {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+			} catch (SQLException se2) {
+				se2.printStackTrace();
+			}
+			try {
+				if (conn != null)
+					conn.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
