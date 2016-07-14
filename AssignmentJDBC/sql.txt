@@ -1,0 +1,41 @@
+insert into temp.dbo.state values(1,'Delhi'),(2,'MP'),(3,'UP');
+insert into temp.dbo.District values(1,'Uttam Nagar'),(2,'Chandni Chowk'),(3,'Vasant Village'),(4,'Annupur'),(5,'Bhopal'),(6,'Agra'),(7,'Aligarh'),(8,'Allahbad')
+insert  into temp.dbo.Diststate values(1,1,2),(2,1,NULL),(3,1,NULL),(4,2,NULL),(5,2,6),(6,3,NULL),(7,3,7),(8,3,NULL)
+insert into temp2.dbo.Citizen values(1,'Modi',2,58),(2,'Kejari',2,40),(3,'Ram',1,20),(4,'sham',3,20),(5,'sita',5,21),(6,'gita',5,21),(7,'Amar',6,22),(8,'Akbar',7,23),(9,'Anthony',8,24);
+insert into relation values(1,6);
+select Name from State;
+--select * from temp2.dbo.Citizen join temp.dbo.Diststate on (temp2.dbo.Citizen.DistrictID=temp.dbo.Diststate.DistrictID and temp2.dbo.Citizen.DistrictID!=NULL) join temp.dbo.State on (temp.dbo.Diststate.StateID=temp.dbo.State.ID) ;
+
+select count(*),temp.dbo.State.Name from temp2.dbo.Citizen join temp.dbo.Diststate on (temp2.dbo.Citizen.DistrictID=temp.dbo.Diststate.DistrictID )join temp.dbo.State on (temp.dbo.Diststate.StateID=temp.dbo.State.ID) Group by temp.dbo.State.ID,temp.dbo.State.Name;
+select  *from temp2.dbo.Citizen join temp.dbo.Diststate on (temp2.dbo.Citizen.DistrictID=temp.dbo.Diststate.DistrictID )join temp.dbo.State on (temp.dbo.Diststate.StateID=temp.dbo.State.ID);
+--4
+--update temp2.dbo.Citizen set temp2.dbo.Citizen.DistrictID=NULL where temp2.dbo.Citizen.DistrictID=2;
+delete from temp.dbo.District where temp.dbo.District.ID=2;
+delete from temp.dbo.Diststate where temp.dbo.Diststate.DistrictID=2;
+update temp2.dbo.Citizen set temp2.dbo.Citizen.DistrictID=NULL where temp2.dbo.Citizen.DistrictID=2;
+
+--delete from temp.dbo.State
+
+--5
+delete from temp.dbo.State where temp.dbo.State.ID=2;
+update temp.dbo.Diststate set temp.dbo.Diststate.StateID=NULL where temp.dbo.Diststate.StateID=2;
+
+--6
+--select count(*),temp.dbo.State.Name from temp2.dbo.Citizen join temp.dbo.Diststate on (temp2.dbo.Citizen.DistrictID=temp.dbo.Diststate.DistrictID )join temp.dbo.State on (temp.dbo.Diststate.StateID=temp.dbo.State.ID) Group by temp.dbo.State.ID,temp.dbo.State.Name;
+select temp2.dbo.Citizen.Name from temp2.dbo.Citizen join temp.dbo.Diststate on (temp2.dbo.Citizen.DistrictID=temp.dbo.Diststate.DistrictID )join temp.dbo.State on (temp.dbo.Diststate.StateID=temp.dbo.State.ID) where temp.dbo.State.ID='3';
+
+--7
+select temp2.dbo.Citizen.Name from temp2.dbo.Citizen join temp.dbo.Diststate on (temp2.dbo.Citizen.DistrictID=temp.dbo.Diststate.DistrictID )join temp.dbo.State on (temp.dbo.Diststate.StateID=temp.dbo.State.ID) where temp.dbo.Diststate.DistrictID='2';
+
+--8
+select Name from temp2.dbo.Citizen where ID=(select Head from temp.dbo.Diststate where temp.dbo.Diststate.DistrictID=3);
+
+--9
+update Diststate set Head=4 where Head=3;
+delete from temp.dbo.vip where ID=3;
+--
+select DistrictID from temp2.dbo.Citizen where ID=3
+--10
+
+
+--11
