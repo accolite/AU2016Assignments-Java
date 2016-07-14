@@ -1,3 +1,12 @@
+/****************************************************************************
+* Copyright (c) 2016 by Accolite.com. All rights reserved
+*
+* Created date :: Jul 14, 2016
+*
+*  @author :: Jegan Muthaiah
+* ***************************************************************************
+*/
+
 package com.accolite.Assignment;
 
 import java.sql.Connection;
@@ -7,21 +16,37 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
-
 import org.au.workshop.util.Constants;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class InteractiveApplication.
+ */
 public class InteractiveApplication {
-	Statement stmt;
-	Connection conn;
+	
+	/** The stmt 2. */
+	Statement stmt,stmt2;
+	
+	/** The conn 1. */
+	Connection conn,conn1;
+	
+	/** The rs. */
 	ResultSet rs;
+	
+	/** The dbmd. */
 	DatabaseMetaData dbmd;
 	
+	/**
+	 * Instantiates a new interactive application.
+	 */
 	public InteractiveApplication() {
 		super();
 		try {
 			Class.forName(Constants.SQL_SERVER_JDBC_DRIVER);
 			stmt=null;
+			stmt2=null;
 			conn=null;
+			conn1=null;
 			rs=null;
 			dbmd=null;
 		} catch (ClassNotFoundException e) {
@@ -30,6 +55,9 @@ public class InteractiveApplication {
 		}
 	}
 	
+	/**
+	 * List states.
+	 */
 	public void ListStates(){
 		try {
 			conn = DriverManager.getConnection(Constants.DB_URL_WITHOUT_DB_NAME,Constants.USER,Constants.PASSWORD);
@@ -44,13 +72,18 @@ public class InteractiveApplication {
 				System.out.println(id+"\t"+name);
 			}
 			rs.close();
-			closeResources();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			closeResources();
 			e.printStackTrace();
+		}finally{
+			closeResources();
 		}
 	}
 	
+	/**
+	 * List districts.
+	 */
 	public void ListDistricts(){
 		try {
 			conn = DriverManager.getConnection(Constants.DB_URL_WITHOUT_DB_NAME,Constants.USER,Constants.PASSWORD);
@@ -59,20 +92,24 @@ public class InteractiveApplication {
 			System.out.println("District ID\tName\n----------------------------");
 			rs.beforeFirst();
 			while (rs.next()) {
-				// Retrieve by column name
 				int id = rs.getInt("Did");
 				String name = rs.getString("Name");
 				System.out.println(id+"\t"+name);
 			}
 			rs.close();
-			closeResources();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			closeResources();
 			e.printStackTrace();
+		}finally{
+			closeResources();
 		}
 		
 	}
 	
+	/**
+	 * Citizen count.
+	 */
 	public void Citizen_Count(){
 		try {
 			conn = DriverManager.getConnection(Constants.DB_URL_WITHOUT_DB_NAME,Constants.USER,Constants.PASSWORD);
@@ -87,60 +124,55 @@ public class InteractiveApplication {
 				System.out.println(name+"\t"+id);
 			}
 			rs.close();
-			closeResources();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			closeResources();
 			e.printStackTrace();
+		}finally{
+			closeResources();
 		}
 		
 	}
 	
+	/**
+	 * List citizen state.
+	 *
+	 * @param sid the sid
+	 */
 	public void List_Citizen_State(int sid){
 		try {
 			conn = DriverManager.getConnection(Constants.DB_URL_WITHOUT_DB_NAME,Constants.USER,Constants.PASSWORD);
 			stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			rs=stmt.executeQuery("Select st.sid as id,st.name as name,ct.name as cname  from TEST1.dbo.State st,TEST1.dbo.District dt,TEST2.dbo.Citizen ct	where st.sid="+sid+" and st.Sid=dt.sid and dt.Hid=ct.Headid");
 			System.out.println("StateID\tState Name\tCitizen Count\n----------------------------");
-			rs.beforeFirst();
 			while (rs.next()) {
 				// Retrieve by column name
 				int id = rs.getInt("id");
 				String name = rs.getString("name");
 				String cname = rs.getString("cname");
-	//			boolean vip=isVIP(id);
-	//			if(vip==true)
-	//				System.out.println("****"+id+"\t"+name+"\t"+cname);
-	//			else
+				boolean vip=isVIP(id);
+				if(vip==true)
+					System.out.println("****"+id+"\t"+name+"\t"+cname);
+				else
 				System.out.println(id+"\t"+name+"\t"+cname);
-
 			}
 			rs.close();
-			closeResources();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			closeResources();
 			e.printStackTrace();
+		}finally{
+			closeResources();
 		}
 		
 	}
 	 
-	public boolean isVIP(int id){
-		try{
-		conn = DriverManager.getConnection(Constants.DB_URL_WITHOUT_DB_NAME,Constants.USER,Constants.PASSWORD);
-		stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-		rs=stmt.executeQuery("Select * from TEST2.dbo.Citizen ct where ct.Cid="+id+" and (ct.Relation=ct.pid or ct.Headid=ct.Cid)");
-		rs.beforeFirst();
-		if(rs.next())
-			return true;
-		return false;
-		}catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			
-			return false;
-			}
-		
-	}
 	
+	/**
+	 * List citizen district.
+	 *
+	 * @param Did the did
+	 */
 	public void List_Citizen_District(int Did){
 		try {
 			conn = DriverManager.getConnection(Constants.DB_URL_WITHOUT_DB_NAME,Constants.USER,Constants.PASSWORD);
@@ -153,23 +185,70 @@ public class InteractiveApplication {
 				int id = rs.getInt("id");
 				String name = rs.getString("name");
 				String cname = rs.getString("cname");
-		//		boolean vip=isVIP(id);
-	//			if(vip==true)
-//					System.out.println("****"+id+"\t"+name+"\t"+cname);
-//				else
+				boolean vip=isVIP(id);
+				if(vip==true)
+					System.out.println("****"+id+"\t"+name+"\t"+cname);
+				else
 				System.out.println(id+"\t"+name+"\t"+cname);
-
-//				System.out.println(id+"\t"+name+"\t"+cname);
-			}
+				}
 			rs.close();
-			closeResources();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			closeResources();
 			e.printStackTrace();
+		}finally{
+			closeResources();
+		}
+	}
+
+
+	/**
+	 * Checks if the  citizen is vip.
+	 *
+	 * @param id the id
+	 * @return true, if is vip
+	 */
+	public boolean isVIP(int id){
+		try{
+		conn1 = DriverManager.getConnection(Constants.DB_URL_WITHOUT_DB_NAME,Constants.USER,Constants.PASSWORD);
+		stmt2 = conn1.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		ResultSet rs2=stmt2.executeQuery("Select * from TEST2.dbo.Citizen ct where ct.Cid="+id+" and (ct.Relation=ct.Pid or ct.Headid=ct.Cid)");
+		rs2.beforeFirst();
+		if(rs2.next())
+			return true;
+		return false;
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			closeRes();
+			e.printStackTrace();
+			return false;
+		}finally{
+				closeRes();
 		}
 		
 	}
+	
+	private void closeRes() {
+		try {
+			if (stmt2 != null)
+				stmt2.close();
+		} catch (SQLException se2) {
+			se2.printStackTrace();
+		}
+		try {
+			if (conn1 != null)
+				conn1.close();
+		} catch (SQLException se) {
+			se.printStackTrace();
+		}
+	}
 
+	
+	/**
+	 * District head.
+	 *
+	 * @param Did the did
+	 */
 	public void District_Head(int Did){
 		try {
 			conn = DriverManager.getConnection(Constants.DB_URL_WITHOUT_DB_NAME,Constants.USER,Constants.PASSWORD);
@@ -186,37 +265,58 @@ public class InteractiveApplication {
 				System.out.println(id+"\t"+name+"\t"+cid+"\t"+cname);
 			}
 			rs.close();
-			closeResources();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			closeResources();
 			e.printStackTrace();
+		}finally{
+			closeResources();
 		}
-		
 	}
 
+	/**
+	 * Removes the state.
+	 *
+	 * @param sid the sid
+	 */
 	public void RemoveState(int sid){
 		try {
 			conn = DriverManager.getConnection(Constants.DB_URL_WITHOUT_DB_NAME,Constants.USER,Constants.PASSWORD);
 			stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			stmt.executeUpdate("DELETE FROM TEST1.dbo.State where sid="+sid);
-			closeResources();
 		} catch (Exception e) {
+			closeResources();
 			e.printStackTrace();
+		}finally{
+			closeResources();
 		}
 	}
 	
+	/**
+	 * Removes the district.
+	 *
+	 * @param did the did
+	 */
 	public void RemoveDistrict(int did){
 		try {
 			conn = DriverManager.getConnection(Constants.DB_URL_WITHOUT_DB_NAME,Constants.USER,Constants.PASSWORD);
 			stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			stmt.executeUpdate("DELETE FROM TEST1.dbo.District where did="+did);
-			closeResources();
 		} catch (Exception e) {
+			closeResources();
 			e.printStackTrace();
+		}finally{
+			closeResources();
 		}
 	}
 	
 	
+	/**
+	 * Change district head.
+	 *
+	 * @param Did the did
+	 * @param Hid the hid
+	 */
 	public void Change_District_Head(int Did,int Hid){
 		try {
 			conn = DriverManager.getConnection(Constants.DB_URL_WITHOUT_DB_NAME,Constants.USER,Constants.PASSWORD);
@@ -234,15 +334,19 @@ public class InteractiveApplication {
 				}
 			else
 				System.out.println("Invalid Candidate: Age>=60");
-			closeResources();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			closeResources();
 			e.printStackTrace();
+		}finally{
+			closeResources();
 		}
-		
 	}
 	
 	
+	/**
+	 * List meta data.
+	 */
 	public void List_Meta_Data(){
 		try{
 			conn = DriverManager.getConnection(Constants.DB_URL1,Constants.USER,Constants.PASSWORD);
@@ -265,9 +369,15 @@ public class InteractiveApplication {
 			closeResources();
 		}catch (Exception e) {
 			System.out.println("Connection Failed");
-	}
+			closeResources();
+		}finally{
+			closeResources();
+		}
 	}
 	
+	/**
+	 * Restore db.
+	 */
 	public void Restore_Db(){
 		try{
 			closeResources();
@@ -287,20 +397,23 @@ public class InteractiveApplication {
 				+"MOVE N'TEST2' TO N'D:\\Training\\Eclipse_Workspace\\Country\\Database\\TEST2_Data.mdf',"  
 				+"MOVE N'TEST2_Log' TO N'D:\\Training\\Eclipse_Workspace\\Country\\Database\\TEST2_Log.ldf'"); 
 			
-		closeResources();
 		}
 		catch (Exception e) {
-		System.out.println("Restore Failed");
+			closeResources();
+			System.out.println("Restore Failed");
+		}finally{
+			closeResources();
 		}
 	}
 	
 	
+	/**
+	 * Close resources.
+	 */
 	private void closeResources() {
 		try {
 			if (stmt != null)
 				stmt.close();
-//			if (stmt2 != null)
-//				stmt2.close();
 		} catch (SQLException se2) {
 			se2.printStackTrace();
 		}
@@ -311,6 +424,12 @@ public class InteractiveApplication {
 			se.printStackTrace();
 		}
 	}
+	
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args){
 		int choice=0;
 		Scanner sc=new Scanner(System.in);
