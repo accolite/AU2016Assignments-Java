@@ -1,11 +1,36 @@
+/****************************************************************************
+
+* Copyright (c) 2016 by Accolite.com. All rights reserved
+
+*
+
+* Created date :: Jul 19, 2016
+
+*
+
+*  @author :: Diksha Garg
+
+* ***************************************************************************
+
+*/
 package au.accolite.mutithreadingAssignment;
 
 import java.util.Scanner;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class FruitMarket.
+ */
 public class FruitMarket {
 	
+/**
+ * The main method.
+ *
+ * @param args the arguments
+ * @throws InterruptedException the interrupted exception
+ */
 public static void main(String[] args) throws InterruptedException {
 	
 		Thread t1;
