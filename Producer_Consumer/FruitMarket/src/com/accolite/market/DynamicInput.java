@@ -71,21 +71,42 @@ public class DynamicInput {
 	 * @param marketPlace the market place
 	 * @param in the console input
 	 */
+	@SuppressWarnings("deprecation")
 	private static void handleConsumer(int choose, HashMap<String, Thread> consumers, MarketPlace marketPlace,Scanner in) {
+		int watermelons;
+		int grapes;
+		int oranges;
+		int apples;
+		String name;
+		Thread newThread;
+		Thread consumer;
 		switch(choose){
-			case 1: System.out.println("Enter name, #apples, #oranges, #grapes, #watermelons");
-					String name=in.next();
-					int apples=in.nextInt();
-					int oranges=in.nextInt();
-					int grapes=in.nextInt();
-					int watermelons=in.nextInt();
-					Thread newThread=new Thread(new Consumer(apples,oranges,grapes,watermelons,marketPlace),name);
+			case 1: System.out.println("Enter consumer name, #apples, #oranges, #grapes, #watermelons");
+					name=in.next();
+					apples=in.nextInt();
+					oranges=in.nextInt();
+					grapes=in.nextInt();
+					watermelons=in.nextInt();
+					newThread=new Thread(new Consumer(apples,oranges,grapes,watermelons,marketPlace),name);
 					consumers.put(name, newThread);
 					newThread.start();
 					break;
-			case 2:
+			case 2: System.out.println("Enter consumer name:");
+					name = in.next();
+					consumer=consumers.remove(name);
+					consumer.stop();
 					break;
-			case 3: 
+			case 3: System.out.println("Enter consumer name, #apples, #oranges, #grapes, #watermelons");
+					name=in.next();
+					apples=in.nextInt();
+					oranges=in.nextInt();
+					grapes=in.nextInt();
+					watermelons=in.nextInt();
+					newThread=new Thread(new Consumer(apples,oranges,grapes,watermelons,marketPlace),name);
+					consumer=consumers.remove(name);
+					consumer.stop();
+					consumers.put(name, newThread);
+					newThread.start();
 					break;
 		}
 	}
@@ -99,20 +120,40 @@ public class DynamicInput {
 	 * @param in the console input
 	 */
 	private static void handleFarmer(int choose, HashMap<String, Thread> farmers, MarketPlace marketPlace,Scanner in) {
+		int watermelons;
+		int grapes;
+		int oranges;
+		int apples;
+		String name;
+		Thread newThread;
+		Thread farmer;
 		switch(choose){
-			case 1: System.out.println("Enter name, #apples, #oranges, #grapes, #watermelons");
-					String name=in.next();
-					int apples=in.nextInt();
-					int oranges=in.nextInt();
-					int grapes=in.nextInt();
-					int watermelons=in.nextInt();
-					Thread newThread=new Thread(new Farmer(apples,oranges,grapes,watermelons,marketPlace),name);
+			case 1: System.out.println("Enter farmer name, #apples, #oranges, #grapes, #watermelons");
+					name=in.next();
+					apples=in.nextInt();
+					oranges=in.nextInt();
+					grapes=in.nextInt();
+					watermelons=in.nextInt();
+					newThread=new Thread(new Farmer(apples,oranges,grapes,watermelons,marketPlace),name);
 					farmers.put(name, newThread);
 					newThread.start();
 					break;
-			case 2:
+			case 2: System.out.println("Enter farmer name:");
+					name = in.next();
+					farmer=farmers.remove(name);
+					farmer.stop();
 					break;
-			case 3: 
+			case 3: System.out.println("Enter farmer name, #apples, #oranges, #grapes, #watermelons");
+					name=in.next();
+					apples=in.nextInt();
+					oranges=in.nextInt();
+					grapes=in.nextInt();
+					watermelons=in.nextInt();
+					newThread=new Thread(new Consumer(apples,oranges,grapes,watermelons,marketPlace),name);
+					farmer=farmers.remove(name);
+					farmer.stop();
+					farmers.put(name, newThread);
+					newThread.start();
 					break;
 		}
 	}
