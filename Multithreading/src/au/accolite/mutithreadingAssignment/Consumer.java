@@ -1,16 +1,50 @@
+/****************************************************************************
+
+* Copyright (c) 2016 by Accolite.com. All rights reserved
+
+*
+
+* Created date :: Jul 19, 2016
+
+*
+
+*  @author :: Diksha Garg
+
+* ***************************************************************************
+
+*/
 package au.accolite.mutithreadingAssignment;
 
 import java.util.Scanner;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Consumer.
+ */
 public class Consumer implements Runnable {
 	
+	/** The apple queue. */
 	BlockingQueue appleQueue=new ArrayBlockingQueue(5);
+	
+	/** The orange queue. */
 	BlockingQueue orangeQueue=new ArrayBlockingQueue(5);
+	
+	/** The grape queue. */
 	BlockingQueue grapeQueue=new ArrayBlockingQueue(5);
+	
+	/** The watermelon queue. */
 	BlockingQueue watermelonQueue=new ArrayBlockingQueue(5);
 	
+	/**
+	 * Instantiates a new consumer.
+	 *
+	 * @param appleQueue the apple queue
+	 * @param orangeQueue the orange queue
+	 * @param grapeQueue the grape queue
+	 * @param watermelonQueue the watermelon queue
+	 */
 	public Consumer(BlockingQueue appleQueue, BlockingQueue orangeQueue, BlockingQueue grapeQueue, BlockingQueue watermelonQueue) {
 		
 		this.appleQueue=appleQueue;
@@ -20,6 +54,9 @@ public class Consumer implements Runnable {
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 */
 	public void run() {
 		// TODO Auto-generated method stub
 		
