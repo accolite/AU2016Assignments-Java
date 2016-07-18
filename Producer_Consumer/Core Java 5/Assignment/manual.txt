@@ -1,0 +1,8 @@
+Here Thread2 : producer
+     Thread1 : consumer
+Producer or farmer adds every fruit individually 
+while customer or consumer withdraws multiple fruits
+through consumer(apple_no, orange_no, grape_no, watermelon_no).
+The storage is of boolean type.
+Here producer adds 1 apple, 1 orange, 1 grape and 1 water melon.
+while consumer withdraws through (1, 1, 1, 1).
