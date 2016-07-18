@@ -14,7 +14,7 @@ public class Fruits {
 		System.out.println("Grape: "+grapeBlockingDeque.size()+" wm: "+wmBlockingDeque.size());
 	}
 	
-	public void addFruits(int apple, int orange, int grape, int wm){
+	public synchronized void addFruits(int apple, int orange, int grape, int wm){
 		System.out.println("I'm in add fruits");
 		int size;
 		while(apple-- > 0){
@@ -45,7 +45,7 @@ public class Fruits {
 		}
 	}
 
-	public void removeFruits(int apple, int orange, int grape, int wm) {
+	public synchronized void removeFruits(int apple, int orange, int grape, int wm) {
 		// TODO Auto-generated method stub
 		
 		while(apple-- > 0){
