@@ -1,7 +1,28 @@
+/****************************************************************************
+
+* Copyright (c) 2016 by Accolite.com. All rights reserved
+
+*
+
+* Created date :: Jul 18, 2016
+
+*
+
+*  @author :: Diksha Garg
+
+* ***************************************************************************
+
+*/
 package com.accolite.annotationAssignment;
 
 public class TestObjectHandler {
 	
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 * @throws Exception the exception
+	 */
 	public static void main(String[] args) throws Exception{
 		ObjectHandler handler = new ObjectHandler();
 		Object employee = handler.createObject(EmployeeClass.class.getName());
