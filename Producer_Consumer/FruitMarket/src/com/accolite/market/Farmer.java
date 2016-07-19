@@ -31,6 +31,9 @@ public class Farmer implements Runnable {
 	/** The marketPlace which maintains the queues */
 	MarketPlace marketPlace;
 	
+	/** The thread object */
+	Thread myThread;
+	
 	/**
 	 * Instantiates a new consumer.
 	 *
@@ -39,16 +42,24 @@ public class Farmer implements Runnable {
 	 * @param oranges the number of oranges
 	 * @param watermelons the number of watermelons
 	 * @param marketPlace the market place where various queues present
+	  * @param name the name of the farmer
 	 */
-	public Farmer(int apples, int grapes, int oranges, int watermelons, MarketPlace marketPlace) {
+	public Farmer(int apples, int grapes, int oranges, int watermelons, MarketPlace marketPlace,String name) {
 		super();
 		this.apples = apples;
 		this.grapes = grapes;
 		this.oranges = oranges;
 		this.watermelons = watermelons;
 		this.marketPlace = marketPlace;
+		myThread = new Thread(this,name);
 	}
-
+	
+	/**
+	 * Start the thread.
+	 */
+	public void start(){
+		myThread.start();
+	}
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -65,7 +76,9 @@ public class Farmer implements Runnable {
 					apples--; //brought one apple
 					System.out.println(Thread.currentThread().getName()+" have brought an apple into market place");
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					System.out.println(Thread.currentThread().getName()+" interrupted");
+					if(farmerQuit)
+						break;
 				}
 			}
 			/** sell oranges if farmer wants*/
@@ -76,7 +89,9 @@ public class Farmer implements Runnable {
 					oranges--; //brought one orange
 					System.out.println(Thread.currentThread().getName()+" have brought an orange into market place");
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					System.out.println(Thread.currentThread().getName()+" interrupted");
+					if(farmerQuit)
+						break;
 				}
 			}
 			/** sell grapes if farmer wants*/
@@ -87,7 +102,9 @@ public class Farmer implements Runnable {
 					grapes--; //brought one grape
 					System.out.println(Thread.currentThread().getName()+" have brought a grape into market place");
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					System.out.println(Thread.currentThread().getName()+" interrupted");
+					if(farmerQuit)
+						break;
 				}
 			}
 			/** sell watermelons if farmer wants*/
@@ -98,9 +115,22 @@ public class Farmer implements Runnable {
 					watermelons--; //brought one watermelon
 					System.out.println(Thread.currentThread().getName()+" have brought a watermelon into market place");
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					System.out.println(Thread.currentThread().getName()+" interrupted");
+					if(farmerQuit)
+						break;
 				}
 			}
+			/**wait for update*/
+			if(apples+oranges+grapes+watermelons==0)
+				try {
+					Thread.sleep(60000);
+				} catch (InterruptedException e) {
+					System.out.println(Thread.currentThread().getName()+" interrupted");
+					if(farmerQuit)
+						break;
+				} catch (Exception e){
+					e.printStackTrace();
+				}
 		}
 	}
 

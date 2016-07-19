@@ -42,10 +42,10 @@ public class DynamicInput {
 		MarketPlace marketPlace = new MarketPlace(apples, oranges, grapes, watermelons);
 		
 		/** The map of threads for farmers */
-		HashMap<String,Thread> farmers=new HashMap<>();
+		HashMap<String,Farmer> farmers=new HashMap<>();
 		
 		/** The map of threads for consumers */
-		HashMap<String,Thread> consumers=new HashMap<>();
+		HashMap<String,Consumer> consumers=new HashMap<>();
 
 		boolean doLoop = true; // loop variable
 		while (doLoop) {
@@ -72,14 +72,14 @@ public class DynamicInput {
 	 * @param in the console input
 	 */
 	@SuppressWarnings("deprecation")
-	private static void handleConsumer(int choose, HashMap<String, Thread> consumers, MarketPlace marketPlace,Scanner in) {
+	private static void handleConsumer(int choose, HashMap<String, Consumer> consumers, MarketPlace marketPlace,Scanner in) {
 		int watermelons;
 		int grapes;
 		int oranges;
 		int apples;
 		String name;
-		Thread newThread;
-		Thread consumer;
+		Consumer newThread;
+		Consumer consumer;
 		switch(choose){
 			case 1: System.out.println("Enter consumer name, #apples, #oranges, #grapes, #watermelons");
 					name=in.next();
@@ -87,14 +87,15 @@ public class DynamicInput {
 					oranges=in.nextInt();
 					grapes=in.nextInt();
 					watermelons=in.nextInt();
-					newThread=new Thread(new Consumer(apples,oranges,grapes,watermelons,marketPlace),name);
+					newThread=new Consumer(apples,oranges,grapes,watermelons,marketPlace,name);
 					consumers.put(name, newThread);
 					newThread.start();
 					break;
 			case 2: System.out.println("Enter consumer name:");
 					name = in.next();
 					consumer=consumers.remove(name);
-					consumer.stop();
+					consumer.consumerQuit=true;
+					consumer.myThread.interrupt(); //interrupt to make the thread to realize the changes
 					break;
 			case 3: System.out.println("Enter consumer name, #apples, #oranges, #grapes, #watermelons");
 					name=in.next();
@@ -102,11 +103,12 @@ public class DynamicInput {
 					oranges=in.nextInt();
 					grapes=in.nextInt();
 					watermelons=in.nextInt();
-					newThread=new Thread(new Consumer(apples,oranges,grapes,watermelons,marketPlace),name);
-					consumer=consumers.remove(name);
-					consumer.stop();
-					consumers.put(name, newThread);
-					newThread.start();
+					consumer=consumers.get(name);
+					consumer.apples=apples;
+					consumer.grapes=grapes;
+					consumer.oranges=oranges;
+					consumer.watermelons=watermelons;
+					consumer.myThread.interrupt(); //interrupt to make the thread to realize the changes
 					break;
 		}
 	}
@@ -119,14 +121,14 @@ public class DynamicInput {
 	 * @param marketPlace the market place
 	 * @param in the console input
 	 */
-	private static void handleFarmer(int choose, HashMap<String, Thread> farmers, MarketPlace marketPlace,Scanner in) {
+	private static void handleFarmer(int choose, HashMap<String, Farmer> farmers, MarketPlace marketPlace,Scanner in) {
 		int watermelons;
 		int grapes;
 		int oranges;
 		int apples;
 		String name;
-		Thread newThread;
-		Thread farmer;
+		Farmer newThread;
+		Farmer farmer;
 		switch(choose){
 			case 1: System.out.println("Enter farmer name, #apples, #oranges, #grapes, #watermelons");
 					name=in.next();
@@ -134,14 +136,15 @@ public class DynamicInput {
 					oranges=in.nextInt();
 					grapes=in.nextInt();
 					watermelons=in.nextInt();
-					newThread=new Thread(new Farmer(apples,oranges,grapes,watermelons,marketPlace),name);
+					newThread=new Farmer(apples,oranges,grapes,watermelons,marketPlace,name);
 					farmers.put(name, newThread);
 					newThread.start();
 					break;
 			case 2: System.out.println("Enter farmer name:");
 					name = in.next();
 					farmer=farmers.remove(name);
-					farmer.stop();
+					farmer.farmerQuit=true;
+					farmer.myThread.interrupt(); //interrupt to make the thread to realize the changes
 					break;
 			case 3: System.out.println("Enter farmer name, #apples, #oranges, #grapes, #watermelons");
 					name=in.next();
@@ -149,11 +152,12 @@ public class DynamicInput {
 					oranges=in.nextInt();
 					grapes=in.nextInt();
 					watermelons=in.nextInt();
-					newThread=new Thread(new Consumer(apples,oranges,grapes,watermelons,marketPlace),name);
-					farmer=farmers.remove(name);
-					farmer.stop();
-					farmers.put(name, newThread);
-					newThread.start();
+					farmer=farmers.get(name);
+					farmer.apples=apples;
+					farmer.grapes=grapes;
+					farmer.oranges=oranges;
+					farmer.watermelons=watermelons;
+					farmer.myThread.interrupt(); //interrupt to make the thread to realize the changes
 					break;
 		}
 	}

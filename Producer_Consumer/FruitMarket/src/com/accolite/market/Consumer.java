@@ -30,6 +30,9 @@ public class Consumer implements Runnable {
 	/** The marketPlace which maintains the queues */
 	MarketPlace marketPlace;
 	
+	/** The thread object */
+	Thread myThread;
+	
 	/**
 	 * Instantiates a new farmer.
 	 *
@@ -38,16 +41,24 @@ public class Consumer implements Runnable {
 	 * @param oranges the number of oranges
 	 * @param watermelons the number of watermelons
 	 * @param marketPlace the market place where various queues present
+	 * @param name the name of the consumer
 	 */
-	public Consumer(int apples, int grapes, int oranges, int watermelons, MarketPlace marketPlace) {
+	public Consumer(int apples, int grapes, int oranges, int watermelons, MarketPlace marketPlace,String name) {
 		super();
 		this.apples = apples;
 		this.grapes = grapes;
 		this.oranges = oranges;
 		this.watermelons = watermelons;
 		this.marketPlace = marketPlace;
+		myThread = new Thread(this,name);
 	}
-
+	
+	/**
+	 * Starts the thread.
+	 */
+	public void start(){
+		myThread.start();
+	}
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -64,7 +75,9 @@ public class Consumer implements Runnable {
 					apples--; //consumed one apple
 					System.out.println(Thread.currentThread().getName()+" have got an apple from "+farmerName);
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					System.out.println(Thread.currentThread().getName()+" interrupted");
+					if(consumerQuit)
+						break;
 				}
 			}
 			/** take oranges if consumer wants*/
@@ -75,7 +88,9 @@ public class Consumer implements Runnable {
 					oranges--; //consumed one orange
 					System.out.println(Thread.currentThread().getName()+" have got an orange from "+farmerName);
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					System.out.println(Thread.currentThread().getName()+" interrupted");
+					if(consumerQuit)
+						break;
 				}
 			}
 			/** take grapes if consumer wants*/
@@ -86,7 +101,9 @@ public class Consumer implements Runnable {
 					grapes--; //consumed one grape
 					System.out.println(Thread.currentThread().getName()+" have got a grape from "+farmerName);
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					System.out.println(Thread.currentThread().getName()+" interrupted");
+					if(consumerQuit)
+						break;
 				}
 			}
 			/** take watermelons if consumer wants*/
@@ -97,9 +114,22 @@ public class Consumer implements Runnable {
 					watermelons--; //consumed one watermelon
 					System.out.println(Thread.currentThread().getName()+" have got a watermelon from "+farmerName);
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					System.out.println(Thread.currentThread().getName()+" interrupted");
+					if(consumerQuit)
+						break;
 				}
 			}
+			/**wait for update*/
+			if(apples+oranges+grapes+watermelons==0)
+				try {
+					Thread.sleep(60000);
+				} catch (InterruptedException e) {
+					System.out.println(Thread.currentThread().getName()+" interrupted");
+					if(consumerQuit)
+						break;
+				} catch (Exception e){
+					e.printStackTrace();
+				}
 		}
 	}
 
