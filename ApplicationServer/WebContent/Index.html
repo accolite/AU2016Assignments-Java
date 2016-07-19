@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>My Calculator</title>
+</head>
+<body style="background-color: blue;">
+	<div style="font-size:30px; text-align:center"><label > Calculator </label> </div>
+	<form method="post" action="./CalculateServlet" style="text-align:center; margin-top:5%;">
+	
+                        <label >Operand 1 : </label> <input type="text" name="no1"> <br>
+                        </br>
+                      
+                        <label> Operand 2 :</label> <input type="text" name="no2"> <br> 
+                         </br>
+                        <label> Operator :  </label>
+                       
+                       
+                        
+                        <select name="opt">
+                                <option value="p"> + </option>
+                                <option value="m"> - </option>
+                                <option value="mul"> * </option>
+                                <option value="d"> / </option>
+                                                                                                                                
+                        </select>
+                         </br>
+                                
+                        <br>
+                        <input type="submit" value="Go">
+                </form>
+</body>
+</html>
