@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<people>
+    <person>
+        <address>asd,asd,asd</address>
+        <birthday>
+            <birthDay>21</birthDay>
+            <birthMonth>10</birthMonth>
+            <birthYear>1992</birthYear>
+        </birthday>
+        <email>mitul@accolite.com</email>
+        <name>
+            <firstName>Mitul</firstName>
+            <lastName>Kapoor</lastName>
+        </name>
+        <personID>1</personID>
+    </person>
+    <person>
+        <address>qwe,qwe,qwe</address>
+        <birthday>
+            <birthDay>1</birthDay>
+            <birthMonth>11</birthMonth>
+            <birthYear>1994</birthYear>
+        </birthday>
+        <email>kapoor@accolite.com</email>
+        <name>
+            <firstName>QWE</firstName>
+            <lastName>RTY</lastName>
+        </name>
+        <personID>2</personID>
+    </person>
+</people>
