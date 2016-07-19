@@ -44,7 +44,7 @@ public class Farmer implements Runnable {
 	 * @param marketPlace the market place where various queues present
 	  * @param name the name of the farmer
 	 */
-	public Farmer(int apples, int grapes, int oranges, int watermelons, MarketPlace marketPlace,String name) {
+	public Farmer(int apples, int oranges, int grapes, int watermelons, MarketPlace marketPlace,String name) {
 		super();
 		this.apples = apples;
 		this.grapes = grapes;
