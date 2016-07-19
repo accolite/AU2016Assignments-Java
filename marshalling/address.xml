@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<address>
+    <email>abc@xyz.com</email>
+    <name>
+        <firstname>abc</firstname>
+        <lastname>xyz</lastname>
+    </name>
+    <phn>12345677</phn>
+</address>
