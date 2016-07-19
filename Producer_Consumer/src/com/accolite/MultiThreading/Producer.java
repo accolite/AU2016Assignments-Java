@@ -73,24 +73,28 @@ public class Producer implements Runnable{
 		try {
 			for(i=0;i<var_apple;i++)
 			{
+				System.out.println(name+" waiting to add Apple");
 				apple.put(name);
 				System.out.println(name+" Added 1 Apple :"+apple.size());
 				
 			}
 			for(i=0;i<var_orange;i++)
 			{
+				System.out.println(name+" waiting to add Orange");
 				orange.put(name);
 				System.out.println(name+" Added 1 Orange :"+orange.size());
 				
 			}
 			for(i=0;i<var_grape;i++)
 			{
+				System.out.println(name+" waiting to add Grape");
 				grape.put(name);
 				System.out.println(name+" Added 1 Grape :"+grape.size());
 				
 			}
 			for(i=0;i<var_watermelon;i++)
 			{
+				System.out.println(name+" waiting to add Watermelon");
 				watermelon.put(name);
 				System.out.println(name+" Added 1 Watermelon : "+watermelon.size());
 				

@@ -73,23 +73,27 @@ public class Consumer implements Runnable{
 		try {
 			for(i=0;i<var_apple;i++)
 			{	
+				System.out.println(name+" waiting for Apple");
 				apple.take();
 				System.out.println(name+" bought 1 apple");
 			}
 			for(i=0;i<var_orange;i++)
 			{	
+				System.out.println(name+" waiting for Orange");
 				orange.take();
 				System.out.println(name+" bought 1 orange");
 				
 			}
 			for(i=0;i<var_grape;i++)
 			{	
+				System.out.println(name+" waiting for Grape");
 				grape.take();
 				System.out.println(name+" bought 1 grape");
 				
 			}
 			for(i=0;i<var_watermelon;i++)
 			{
+				System.out.println(name+" waiting for Watermelon");
 				watermelon.take();
 				System.out.println(name+" bought 1 watermelon");
 				

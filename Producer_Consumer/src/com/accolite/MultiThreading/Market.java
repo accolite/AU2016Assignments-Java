@@ -127,9 +127,10 @@ public class Market {
 				}
 				case 3:{
 					market.PrintFruits();
+					break;
 				}
 				default:{
-					System.out.println("Enter a valid choice:");
+					System.out.println("Enter a valid choice:");					
 				}
 			}
 			try {
