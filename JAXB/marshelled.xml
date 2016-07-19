@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Employees>
+    <Employee id="1">
+        <Name>
+            <firstName>Rajesh</firstName>
+            <lastName>R</lastName>
+        </Name>
+        <age>23</age>
+        <Address>
+            <city>Bangalore</city>
+            <state>Karnataka</state>
+            <country>India</country>
+        </Address>
+    </Employee>
+    <Employee id="2">
+        <Name>
+            <firstName>Ganesh</firstName>
+            <lastName>A</lastName>
+        </Name>
+        <age>24</age>
+        <Address>
+            <city>Chennai</city>
+            <state>Tamilnadu</state>
+            <country>India</country>
+        </Address>
+    </Employee>
+    <Employee id="3">
+        <Name>
+            <firstName>Ramesh</firstName>
+            <lastName>S</lastName>
+        </Name>
+        <age>23</age>
+        <Address>
+            <city>Bangalore</city>
+            <state>Karnataka</state>
+            <country>India</country>
+        </Address>
+    </Employee>
+</Employees>
