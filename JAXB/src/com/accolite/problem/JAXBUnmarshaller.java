@@ -10,7 +10,7 @@ public class JAXBUnmarshaller {
 
 	 try {
 
-		File file = new File("D:\\workspace\\Jaxb\\new.xml");
+		File file = new File("new.xml");
 		JAXBContext jaxbContext = JAXBContext.newInstance(AddList.class);
 
 		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();

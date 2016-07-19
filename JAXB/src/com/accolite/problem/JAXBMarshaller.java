@@ -25,7 +25,7 @@ public class JAXBMarshaller {
       
       try {
 
-  		File file = new File("D:\\workspace\\Jaxb\\new.xml");
+  		File file = new File("new.xml");
   		JAXBContext jaxbContext = JAXBContext.newInstance(AddList.class);
   		Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 
