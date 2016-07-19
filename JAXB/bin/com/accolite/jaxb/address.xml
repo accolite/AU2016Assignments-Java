@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addresses id="1">
+    <addresses>
+        <email>gouthami.mogili@gmail.com</email>
+        <firstName>Gouthami</firstName>
+        <lastName>Mogili</lastName>
+        <phoneNumber>9876543210</phoneNumber>
+    </addresses>
+    <addresses>
+        <email>gouthami.mogili@accoliteindia.com</email>
+        <firstName>G</firstName>
+        <lastName>M</lastName>
+        <phoneNumber>9999999999</phoneNumber>
+    </addresses>
+    <location>Telangana</location>
+</addresses>
