@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addresses>
+    <list_of_addresses>
+        <date>2/1/1997</date>
+        <name>
+            <first>mohit</first>
+            <last>devda</last>
+        </name>
+        <phone_no>9996669996</phone_no>
+    </list_of_addresses>
+    <list_of_addresses>
+        <date>4/6/1994</date>
+        <name>
+            <first>goggu</first>
+            <last>ram</last>
+        </name>
+        <phone_no>9996555596</phone_no>
+    </list_of_addresses>
+</addresses>
