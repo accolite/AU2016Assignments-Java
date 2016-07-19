@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<employees>
+	<addresses>
+		<id>1</id>
+		<name>pawan</name>
+		<email>pawan.com</email>
+		<phone>212-346-1234</phone>
+	</addresses>
+	<addresses>
+		<id>2</id>
+		<name>soman</name>
+		<email>soman.com</email>
+		<phone>212-346-1234</phone>
+	</addresses>
+	<addresses >
+		<id>3</id>
+		<name>Akash</name>
+		<email>Akash.com</email>
+		<phone>212-346-1234</phone>
+	</addresses>
+	<addresses >
+		<id>4</id>
+		<name>Rakesh</name>
+		<email>Rakesh.com</email>
+		<phone>212-346-1234</phone>
+	</addresses>
+</employees>
