@@ -27,51 +27,34 @@ public class Farmer implements Runnable {
 			case 1:
 				System.out.println("enter the number of apples");
 				number = sc.nextInt();
-				if (Fruits.apple.remainingCapacity() >= Fruits.apple.size() + number) {
-					for (int i = 0; i < number; i++)
-						Fruits.apple.put("producer " + Thread.currentThread().getName());
-					System.out.println(Fruits.apple.size());
-					break;
-				} else {
-					System.out.println("array size limit exceeded");
-					Thread.currentThread().stop();
+				for (int i = 0; i < number; i++) {
+					Fruits.apple.put("producer " + Thread.currentThread().getName());
+					System.out.println("producer " + Thread.currentThread().getName() + i);
 				}
-
 				break;
 			case 2:
 				System.out.println("enter the number of orange");
 				number = sc.nextInt();
-				if (Fruits.orange.remainingCapacity() >= Fruits.orange.size() + number) {
-					for (int i = 0; i < number; i++)
-						Fruits.orange.put("producer " + Thread.currentThread().getName());
-
-				} else {
-					System.out.println("array size limit exceeded");
-					Thread.currentThread().stop();
+				for (int i = 0; i < number; i++) {
+					Fruits.orange.put("producer " + Thread.currentThread().getName());
+					System.out.println("producer " + Thread.currentThread().getName() + i);
 				}
 
 				break;
 			case 3:
 				System.out.println("enter the number of banana");
 				number = sc.nextInt();
-				if (Fruits.banana.remainingCapacity() >= Fruits.banana.size() + number) {
-					for (int i = 0; i < number; i++)
-						Fruits.banana.put("producer " + Thread.currentThread().getName());
-				} else {
-					System.out.println("array size limit exceeded");
-					Thread.currentThread().stop();
+				for (int i = 0; i < number; i++) {
+					Fruits.banana.put("producer " + Thread.currentThread().getName());
+					System.out.println("producer " + Thread.currentThread().getName() + i);
 				}
-
 				break;
 			case 4:
 				System.out.println("enter the number of water melon");
 				number = sc.nextInt();
-				if (Fruits.watermelon.remainingCapacity() >= Fruits.watermelon.size() + number) {
-					for (int i = 0; i < number; i++)
-						Fruits.watermelon.put("producer " + Thread.currentThread().getName());
-				} else {
-					System.out.println("array size limit exceeded");
-					Thread.currentThread().stop();
+				for (int i = 0; i < number; i++) {
+					Fruits.watermelon.put("producer " + Thread.currentThread().getName());
+					System.out.println("producer " + Thread.currentThread().getName() + i);
 				}
 
 				break;
