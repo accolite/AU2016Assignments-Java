@@ -23,10 +23,20 @@ public class CalculatorServlet extends HttpServlet
                 else if(opt.equals("mul"))
                 		out.println(Integer.parseInt(n1) * Integer.parseInt(n2));
                 else if(opt.equals("d")) 
-               		out.println(Integer.parseInt(n1) / Integer.parseInt(n2));
+                {
+                		try
+               			{
+                			out.println(Integer.parseInt(n1) / Integer.parseInt(n2));	
+               			}
+               			catch(ArithmeticException e)
+               			{
+               				out.println("Invalid Choice");
+               			}
+                		
+                }
+               		
               			
-        }
-        
+        }        
         public void doGet(HttpServletRequest request,HttpServletResponse response) throws IOException,ServletException
         {
                 doPost(request,response);
