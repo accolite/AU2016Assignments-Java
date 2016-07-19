@@ -1,0 +1,131 @@
+package com.accolite.demo;
+
+
+import static org.junit.Assert.assertEquals;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+public class TestGenerate {
+
+    private  ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private  ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+
+    @Before
+    public void setUpStreams() {
+        System.setOut(new PrintStream(outContent));
+        System.setErr(new PrintStream(errContent));
+    }
+
+    @After
+    public void cleanUpStreams() {
+        System.setOut(null);
+        System.setErr(null);
+    }
+    
+    
+    
+    
+    @Test
+    public void testgetValue()
+    {
+        Coin c=new Coin("momin");
+        assertEquals(0,c.getValue());
+        c=new Coin("pENNY");
+        assertEquals(1,c.getValue());
+        c=new Coin("nickel");
+        assertEquals(5,c.getValue());
+        c=new Coin("dime");
+        assertEquals(10,c.getValue());
+        c=new Coin("quarter");
+        assertEquals(25,c.getValue());
+        c=new Coin("halfDollar");
+        assertEquals(50,c.getValue());
+        c=new Coin("silverDollar");
+        assertEquals(100,c.getValue());
+        
+    }
+    
+    
+    
+    @Test 
+    public void testInsert()
+    {
+        Coin c=new Coin("Penny");
+        ATM atm=new ATM();
+        atm.insert(c);
+        assertEquals( "Current value = 1",outContent.toString().trim());
+        c=new Coin("nickel");
+        outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        atm.insert(c);
+        assertEquals( "Current value = 6",outContent.toString().trim());
+        c= new Coin("hgjgjh");
+        atm.insert(c);
+        assertEquals( "illegal value",errContent.toString().trim());
+        c= new Coin("Silverdollar");
+        outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        
+        atm.insert(c);
+        assertEquals( "Current value = 106 (sufficient credit)",outContent.toString().trim());
+        
+    }
+    
+    
+    @Test 
+    public void TestReturnCoins()
+    {
+        ATM atm=new ATM();
+        Coin c= new Coin("momin");
+        atm.returnCoins();
+        assertEquals("no coins to return",errContent.toString().trim());
+        
+        c=new Coin("Penny");
+        atm.insert(c);
+        outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        atm.returnCoins();
+        assertEquals( "Take your coins",outContent.toString().trim());
+        
+       
+        
+    }
+    
+    @Test 
+    public void TestVend()
+    {
+        ATM atm=new ATM();
+        Coin c=new Coin("ljlkjl");
+        try {
+            atm.vend();
+        } catch (Exception e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+        assertEquals("Not enough credit: add 75",outContent.toString().trim());
+        
+        atm=new ATM();
+        c= new Coin("silverdollar");
+        atm.insert(c);
+        outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        try {
+            atm.vend();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        assertEquals("Get your drink\rCurrent value = 25",outContent.toString().trim().replace("\n",""));
+        
+    }
+    
+    
+    
+    
+}
