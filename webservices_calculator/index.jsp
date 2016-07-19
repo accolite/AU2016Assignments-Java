@@ -24,7 +24,20 @@ function isNumberKey(evt){
 </script>
 </head>
 <body>
+	<%
+ 	//String string = request.getHeader("Referer");
+ 	//out.println(string);
+ 	String string = request.getHeader("Referer");
+	//System.out.println(string);
+ 	if(string != null && string.contains("http://localhost:8080/SimpleCalc/"))
+ 	out.println("Result is: "+request.getParameter("result"));
+ 	/*
+ 	if(string.equals("http://localhost:8080/SimpleCalc/"))
+ 	{
 	
+ 		out.println("Result is"+request.getParameter("result"));
+ 	}*/
+	%>	
 	<h1>Welcome to Calculator Program</h1>
 	<form action="calculate.jsp" method="get">
 	<fieldset>
@@ -44,20 +57,7 @@ function isNumberKey(evt){
 
 	</fieldset>
 	</form>
-	<%
- 	//String string = request.getHeader("Referer");
- 	//out.println(string);
- 	String string = request.getHeader("Referer");
-	//System.out.println(string);
- 	if(string != null && string.contains("http://localhost:8080/SimpleCalc/"))
- 	out.println("Result is: "+request.getParameter("result"));
- 	/*
- 	if(string.equals("http://localhost:8080/SimpleCalc/"))
- 	{
-	
- 		out.println("Result is"+request.getParameter("result"));
- 	}*/
-	%>
+
 	
 	
 </body>
