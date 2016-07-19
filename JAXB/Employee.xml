@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<employee>
+	<address>
+		<name>
+			<first>Lokesh</first>
+			<last>K</last>
+		</name>
+		<email>lokesh.k@accoliteindia.com</email>
+		<email>lokesh.noble@gmail.com</email>
+		<phone>9944966067</phone>
+		<birthday>
+			<year>1995</year>
+			<month>02</month>
+			<day>07</day>
+		</birthday>
+	</address>
+</employee>
