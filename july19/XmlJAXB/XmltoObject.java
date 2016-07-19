@@ -13,7 +13,7 @@ public class XmltoObject {
 		/**
 		 * Get JAXBContextext Object
 		 */
-        File file = new File("D:/au2016/java/XML/address.xml");  
+        File file = new File("D:/addressOutput.xml");  
         JAXBContext jaxbContext = JAXBContext.newInstance(Address.class);  
    
         /**
@@ -26,7 +26,7 @@ public class XmltoObject {
          */
         Address add= (Address) jaxbUnmarshaller.unmarshal(file);  
           
-        System.out.println("Name:"+add.getName()); 
+        System.out.println(add); 
         
       } catch (JAXBException e) {  
         e.printStackTrace();  
