@@ -1,0 +1,14 @@
+<?xml version = "1.0" ?>
+<address>
+	<name>
+	     <first>Alice</first>
+	     <last>Lee</last>
+     </name>
+     <email>alee@aol.com</email>
+     <phone>123-45-6789</phone>
+     <birthday>
+	     <year>1983</year>
+	     <month>07</month>
+     <day>15</day>
+	</birthday>
+</address>
