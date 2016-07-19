@@ -1,0 +1,40 @@
+<?xml version = “1.0” ?>
+<address3>
+<address>
+
+	<name>
+	     <first>Momin</first>
+	     <last>Yadav</last>
+     </name>
+
+
+     <email>alee@aol.com</email>
+     <phone>123-45-6789</phone>
+     <birthday>
+	     <year>1994</year>
+	     <month>10</month>
+     <day>03</day>
+	</birthday>
+</address>
+
+
+<address>
+
+	<name>
+	     <first>Momin</first>
+	     <last>Yadav</last>
+     </name>
+
+
+     <email>alee@aol.com</email>
+     <phone>123-45-6789</phone>
+     <birthday>
+	     <year>1994</year>
+	     <month>10</month>
+     <day>03</day>
+	</birthday>
+</address>
+
+
+</address3>
+
