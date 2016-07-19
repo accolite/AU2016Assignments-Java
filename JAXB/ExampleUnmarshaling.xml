@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<example>
+    <student rollno="35">
+        <firstname>first</firstname>
+        <lastname>last</lastname>
+        <marks>23</marks>
+        <nickname>ravi</nickname>
+    </student>
+    <student rollno="56">
+        <firstname>sec</firstname>
+        <lastname>last</lastname>
+        <marks>23</marks>
+        <nickname>john</nickname>
+    </student>
+</example>
