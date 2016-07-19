@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addList>
+    <list>
+        <age>22</age>
+        <branch>Electrical</branch>
+        <dob>
+            <day>3</day>
+            <month>1</month>
+            <year>1994</year>
+        </dob>
+        <id>1</id>
+        <name>Mohit</name>
+    </list>
+    <list>
+        <age>22</age>
+        <branch>CSE</branch>
+        <dob>
+            <day>24</day>
+            <month>2</month>
+            <year>1994</year>
+        </dob>
+        <id>2</id>
+        <name>Jayesh</name>
+    </list>
+</addList>
