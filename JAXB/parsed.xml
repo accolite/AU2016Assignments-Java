@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<entry>
+    <data>
+        <character>
+            <firstname>Daenerys</firstname>
+            <family>Targaryen</family>
+            <age>20</age>
+        </character>
+        <kingdom>All 7 Kingdoms</kingdom>
+        <pet_type>Dragons</pet_type>
+        <address>Westeros</address>
+        <family_line>Fire and Blood</family_line>
+    </data>
+    <data>
+        <character>
+            <firstname>Arya</firstname>
+            <family>Stark</family>
+            <age>15</age>
+        </character>
+        <kingdom>Winterfell</kingdom>
+        <pet_type>Direwolf</pet_type>
+        <address>Riverlands</address>
+        <family_line>Winter is Coming</family_line>
+    </data>
+</entry>
