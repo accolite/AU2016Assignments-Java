@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<parentAddress>
+    <list>
+        <hno>22</hno>
+        <name>
+            <firstName>ankush</firstName>
+            <lastName>dhama</lastName>
+        </name>
+        <streetno>34</streetno>
+    </list>
+    <list>
+        <hno>99</hno>
+        <name>
+            <firstName>chirag</firstName>
+            <lastName>bansal</lastName>
+        </name>
+        <streetno>184</streetno>
+    </list>
+</parentAddress>
