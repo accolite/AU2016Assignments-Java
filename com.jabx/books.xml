@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<library>
+    <catalog>
+        <book id="123">
+            <author>abi</author>
+            <description>a nice book</description>
+            <genre>horror</genre>
+            <price>95</price>
+            <publish_date>09/05/2014</publish_date>
+            <title>paranormal</title>
+        </book>
+        <book id="143">
+            <author>padu</author>
+            <description>a good book</description>
+            <genre>horror</genre>
+            <price>100</price>
+            <publish_date>10/05/1995</publish_date>
+            <title>supernatural</title>
+        </book>
+    </catalog>
+</library>
