@@ -1,5 +1,7 @@
 package Parsing;
 
+import java.util.List;
+
 import java.io.File;
 
 import javax.xml.bind.JAXBContext;
@@ -12,12 +14,15 @@ public class Unmarshalling {
 		     try {  
 		   
 		        File file = new File("C:\\Users\\Administrator\\Desktop\\Practice.xml");  
-		        JAXBContext jaxbContext = JAXBContext.newInstance(Address.class);  
+		        JAXBContext jaxbContext = JAXBContext.newInstance(Student.class);  
 		   
 		        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();  
-		        Address add= (Address) jaxbUnmarshaller.unmarshal(file);  
+		        Student stu= (Student) jaxbUnmarshaller.unmarshal(file);  
 		          
-		        System.out.println(add.getName()+" "+add.getPhone()+" "+add.getEmail());  
+		     //   System.out.println(add.getName()+" "+add.getPhone()+" "+add.getEmail());  
+		        List<Address> list=stu.getAddress();  
+		        for(Address add:list)  
+		        	System.out.println(add.getId()+" "+add.getName()+" "+add.getPhone()+" "+add.getEmail());  
 		      } catch (JAXBException e) {  
 		        e.printStackTrace();  
 		      }  

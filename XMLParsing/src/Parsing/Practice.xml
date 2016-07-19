@@ -1,6 +1,21 @@
 <?xml version="1.0"?>
+<Student>
 <address>
+	<id>1</id>
 	<name>Arnika Titoria</name>
 	<phone>9560250811</phone>
 	<email>arnikatitoria@yahoo.com</email>
 </address>
+<address>
+	<id>2</id>
+	<name>Anshika Sharma</name>
+	<phone>9560250811</phone>
+	<email>anshikasharma@yahoo.com</email>
+</address>
+<address>
+	<id>3</id>
+	<name>Safiya Rehmat</name>
+	<phone>9560250811</phone>
+	<email>safiyarehmat@yahoo.com</email>
+</address>
+</Student>
