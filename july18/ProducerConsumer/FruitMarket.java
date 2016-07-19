@@ -8,6 +8,8 @@
 */
 package com.accolite.assignmentthread;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -42,8 +44,8 @@ public class FruitMarket {
 		}
 		
 		
-		Produce producer;
-		Consumer consumer;
+		List<Consumer> consumers = new ArrayList<>();
+		List<Produce> produces = new ArrayList<>();
 		
 		boolean cont=true;
 		
@@ -56,30 +58,26 @@ public class FruitMarket {
 			 * Produce
 			 */
 			if(opt.equals("1")){ 
-				producer = new Produce(queue);
-				producer.start();
-				try {
-					producer.join();
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			} 
+				
+				produces.add(new Produce(queue));
+				produces.get(produces.size()-1).start();
+				
+			}
 			
 			/**
 			 * Consume
 			 */
 			else if(opt.equals("2")){
-				consumer = new Consumer(queue);
-				consumer.start();
-				try {
-					consumer.join();
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				consumers.add(new Consumer(queue));
+				consumers.get(consumers.size()-1).start();
+				
 			}
-			
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			System.out.println("Continue y/n");
 			opt = in.next();
 			
@@ -90,7 +88,6 @@ public class FruitMarket {
 		}
 
 
-	  in.close();  
 	}
 
 }

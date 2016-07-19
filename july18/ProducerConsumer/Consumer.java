@@ -52,18 +52,12 @@ public class Consumer extends Thread {
 					/**
 					 * If any fruit at each fruit, buy 1 fruit
 					 */
-					if(queues[fruit-1].isEmpty()==false){
-						queues[fruit-1].take();
-						System.out.println("Consumer at "+this.getName()+" bought "+1+" "+Constants.mapping.get(fruit));
+					queues[fruit-1].take();
+					System.out.println("Consumer at "+this.getName()+" bought "+1+" "+Constants.mapping.get(fruit));
+						
 					}
-					/**
-					 * Else try later when available
-					 */
-					else{
-						System.out.println("Consumer at "+this.getName()+" waiting to buy "+1+" "+Constants.mapping.get(fruit));
-						Thread.sleep(1000);
-					}
-				}
+				sleep(1000);
+				
 			
 		} catch (InterruptedException e) {
 			e.printStackTrace();

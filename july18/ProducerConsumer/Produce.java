@@ -11,6 +11,7 @@ package com.accolite.assignmentthread;
 import java.util.Scanner;
 import java.util.concurrent.BlockingQueue;
 
+
 // TODO: Auto-generated Javadoc
 /**
  * The Class Produce.
@@ -58,19 +59,11 @@ public class Produce extends Thread {
 					/**
 					 * If within capacity at each fruit, add to queue
 					 */
-					if(queues[fruit-1].size()<Constants.capacity[fruit-1]){
-						queues[fruit-1].put(1);
-						System.out.println("Farmer at "+this.getName()+" Produced " + 1 +" "+Constants.mapping.get(fruit));
-					}
-					/**
-					 * Else sleep and then add later
-					 */
-					else{
-						System.out.println("Farmer at "+this.getName()+" waiting to sell "+1+" "+Constants.mapping.get(fruit));
-						Thread.sleep(100);
-					}
-				}
+					queues[fruit-1].put(1);
+					System.out.println("Farmer at "+this.getName()+" Produced " + 1 +" "+Constants.mapping.get(fruit));
 					
+				}
+				Thread.sleep(1000);
 				
 				
 			} catch (InterruptedException e) {
