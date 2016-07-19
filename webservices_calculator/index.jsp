@@ -12,9 +12,9 @@ function isNumberKey(evt){
     	
     	return false;
     }
-    else if(charCode == 46 && (document.getElementById("decimal").value =="no")){
+    else if(charCode == 46 ){
     	document.getElementById("hidden").value = "Float";
-		document.getElementById("decimal").value="yes";
+		//document.getElementById("decimal").value="yes";
 	}
     //else if(charCode == 46 && (document.getElementById("decimal").value =="yes")){
     //	return false;
@@ -29,8 +29,8 @@ function isNumberKey(evt){
 	<form action="calculate.jsp" method="get">
 	<fieldset>
 	<legend>Calculator</legend>
-	Number 1:<br /><input type="number" step="0.00001" id="num" name="integer1" required onkeypress="return isNumberKey(event)"></input><br /><br />
-	Number 2:<br /><input type="number" step="0.00001" id="num" name="integer2" required onkeypress="return isNumberKey(event)"></input><br /><br />
+	Number 1:<br /><input  id="num" name="integer1" required onkeypress="return isNumberKey(event)"></input><br /><br />
+	Number 2:<br /><input id="num" name="integer2" required onkeypress="return isNumberKey(event)"></input><br /><br />
 	Operation: <br /><select name="operation">
 		<option value="add">Add</option>
 		<option value="subtract">Subtract</option>
