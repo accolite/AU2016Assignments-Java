@@ -54,6 +54,7 @@ public class Consumer implements Runnable{
 		this.grape = grape;
 		this.watermelon = watermelon;
 		this.var_apple=var_apple;
+		this.var_orange=var_orange;
 		this.var_grape=var_grape;
 		this.var_watermelon=var_watermelon;
 		sc=new Scanner(System.in);

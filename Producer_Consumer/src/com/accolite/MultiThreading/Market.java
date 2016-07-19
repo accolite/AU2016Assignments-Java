@@ -36,12 +36,12 @@ public class Market {
 	/**
 	 * Instantiates a new market.
 	 */
-	public Market() {
+	public Market(int apple_size,int orange_size,int grape_size,int watermelon_size) {
 		super();
-		apple = new ArrayBlockingQueue(5);
-		orange = new ArrayBlockingQueue(5);
-		grape = new ArrayBlockingQueue(5);
-		watermelon = new ArrayBlockingQueue(5);
+		apple = new ArrayBlockingQueue(apple_size);
+		orange = new ArrayBlockingQueue(orange_size);
+		grape = new ArrayBlockingQueue(grape_size);
+		watermelon = new ArrayBlockingQueue(watermelon_size);
 	}
 	
 	/**
@@ -53,10 +53,10 @@ public class Market {
 		farmer_name=sc1.nextLine();
 		System.out.println("Enter No of Apples to Sell:");
 		var_apple=sc1.nextInt();
-		System.out.println("Enter No of Grapes to Sell:");
-		var_grape=sc1.nextInt();
 		System.out.println("Enter No of Orange to Sell:");
 		var_orange=sc1.nextInt();
+		System.out.println("Enter No of Grapes to Sell:");
+		var_grape=sc1.nextInt();
 		System.out.println("Enter No of Watermelon to Sell:");
 		var_watermelon=sc1.nextInt();
 		farmer=new Producer(apple,orange,grape,watermelon,var_apple,var_orange,var_grape,var_watermelon);
@@ -73,16 +73,24 @@ public class Market {
 		customer_name=sc1.nextLine();
 		System.out.println("Enter No of Apples to Buy:");
 		var_apple=sc1.nextInt();
-		System.out.println("Enter No of Grapes to Buy:");
-		var_grape=sc1.nextInt();
 		System.out.println("Enter No of Orange to Buy:");
 		var_orange=sc1.nextInt();
+		System.out.println("Enter No of Grapes to Buy:");
+		var_grape=sc1.nextInt();
 		System.out.println("Enter No of Watermelon to Buy:");
 		var_watermelon=sc1.nextInt();
 		customer=new Consumer(apple,orange,grape,watermelon,var_apple,var_orange,var_grape,var_watermelon);
 		Thread t1=new Thread(customer,customer_name);
 		t1.start();
 	
+	}
+	
+	public void PrintFruits(){
+		System.out.println("Apples:"+apple.size());
+		System.out.println("Orange:"+orange.size());
+		System.out.println("Grape:"+grape.size());
+		System.out.println("Watermelon:"+watermelon.size());
+		
 	}
 	
 	/**
@@ -92,14 +100,21 @@ public class Market {
 	 */
 	public static void main(String[] args){
 		
-		Market market=new Market();
 		Scanner sc=new Scanner(System.in);
-		int choice;
+		int choice,apple_size,orange_size,grape_size,watermelon_size;
 		boolean flag=true;
 		
 		System.out.println("Welcome to the Market\n--------------------------------------------\n");
+		System.out.println("Enter the Queue size for Apple,Orange,Grape,Watermelon:");
+		apple_size=sc.nextInt();
+		orange_size=sc.nextInt();
+		grape_size=sc.nextInt();
+		watermelon_size=sc.nextInt();
+		Market market=new Market(apple_size,orange_size,grape_size,watermelon_size);
+		
+		
 		while(flag==true){
-			System.out.println("1.Producer\t2.Consumer\nEnter your choice:");
+			System.out.println("1.Producer\t2.Consumer\t3.Fruits in Market\nEnter your choice:");
 			choice=sc.nextInt();
 			switch(choice){
 				case 1:{
@@ -110,12 +125,15 @@ public class Market {
 					market.createConsumer();
 					break;
 				}
+				case 3:{
+					market.PrintFruits();
+				}
 				default:{
 					System.out.println("Enter a valid choice:");
 				}
 			}
 			try {
-				Thread.sleep(5000);
+				Thread.sleep(2000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
