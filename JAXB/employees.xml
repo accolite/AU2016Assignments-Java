@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<employees>
+    <employees>
+        <address>ABC</address>
+        <firstName>Diksha</firstName>
+        <id>1</id>
+        <lastName>Garg</lastName>
+        <phoneNumber>98765432</phoneNumber>
+        <pincode>148101</pincode>
+    </employees>
+    <employees>
+        <address>XYZ</address>
+        <firstName>Anshika</firstName>
+        <id>2</id>
+        <lastName>Sharma</lastName>
+        <phoneNumber>9876012</phoneNumber>
+        <pincode>123456</pincode>
+    </employees>
+</employees>
