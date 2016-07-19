@@ -25,7 +25,10 @@
 			result = num1-num2;
 		}
 		else if(operation.equals("divide")){
+			if(num2!=0.0)
 			result = num1/num2;
+			else
+				response.sendRedirect(redirectURL+"index.jsp?result="+"second number should not be 0");
 		}
 		else if(operation.equals("multiply")){
 			result = num1*num2;
@@ -48,7 +51,10 @@
 			result = num1/num2;
 		}
 		else if(operation.equals("multiply")){
+			if(num2!=0)
 			result = num1*num2;
+			else
+				response.sendRedirect(redirectURL+"index.jsp?result="+"second number can't be 0");
 		}
 		out.println(result);
 		response.sendRedirect(redirectURL+"index.jsp?result="+result);
