@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<address>
+    <birthday>
+        <day>25</day>
+        <month>10</month>
+        <year>1985</year>
+    </birthday>
+    <email>rooney@manutd.com</email>
+    <name>
+        <first>Wayne</first>
+        <last>Rooney</last>
+    </name>
+    <phone>+10-98721-21041</phone>
+</address>
