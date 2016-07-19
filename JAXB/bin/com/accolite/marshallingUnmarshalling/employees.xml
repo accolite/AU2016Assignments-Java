@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<employees>
+    <employees>
+        <firstName>Suryateja</firstName>
+        <id>1</id>
+        <lastName>Rao</lastName>
+        <areaPincode>500036</areaPincode>
+        <mobileNumber>9750719</mobileNumber>
+        <permanentAddress>Banjara Hills,Hyderabad</permanentAddress>
+    </employees>
+    <employees>
+        <firstName>Arjun</firstName>
+        <id>2</id>
+        <lastName>Nair</lastName>
+        <areaPincode>500016</areaPincode>
+        <mobileNumber>987654</mobileNumber>
+        <permanentAddress>SainikPuri, Secunderabad</permanentAddress>
+    </employees>
+</employees>
