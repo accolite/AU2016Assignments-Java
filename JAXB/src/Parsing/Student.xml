@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Student>
+    <address>
+        <email>arnikatitoria@yahoo.com</email>
+        <id>1</id>
+        <name>Arnika Titoria</name>
+        <phone>9560250811</phone>
+    </address>
+    <address>
+        <email>anshikasharma@yahoo.com</email>
+        <id>2</id>
+        <name>Anshika Sharma</name>
+        <phone>9560250811</phone>
+    </address>
+    <address>
+        <email>safiyarehmat@yahoo.com</email>
+        <id>3</id>
+        <name>Safiya Rehmat</name>
+        <phone>9560250811</phone>
+    </address>
+</Student>
