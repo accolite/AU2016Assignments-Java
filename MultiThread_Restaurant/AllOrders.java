@@ -43,7 +43,7 @@ public class AllOrders {
         	/**
         	 * Bill payment
         	 */
-        	System.out.println("Enter bill to pay @order-"+count++);
+        	System.out.println("Enter bill to pay @order-"+ ++count);
         	Float bill = in.nextFloat();
             Runnable payableBill = new BillPayer("order-" + count, bill);
             new Thread(payableBill).start();
