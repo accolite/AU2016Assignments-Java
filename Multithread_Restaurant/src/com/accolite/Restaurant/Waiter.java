@@ -60,8 +60,9 @@ public class Waiter implements Runnable {
 				table_no=(int) WaiterBill.take();        
 				bill_amount=(double)WaiterBill.take();
 				Table[table_no]+=bill_amount;
+				System.out.println("Waiter to Cashier:");
 				for(int i=0;i<6;i++)
-					System.out.println("Table "+i+":"+Table[i]);
+					System.out.println("Table "+i+": "+Table[i]);
 				/** Inserting the values into Cashier Queue */
 				CashierBill.put(customer.incrementAndGet());   
 				CashierBill.put(bill_amount);

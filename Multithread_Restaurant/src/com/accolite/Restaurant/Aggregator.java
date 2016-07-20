@@ -46,7 +46,7 @@ public class Aggregator implements Runnable {
 				currentAverage=(double) AggregatorBill.take();
 				/** Checking for Change in Values */
 				if(currentAverage!=Average){
-					System.out.println("Previous Average:"+Average+"\nCurrent Average"+currentAverage);
+					System.out.println("Aggregator to Owner\nPrevious Average: "+Average+"\nCurrent Average: "+currentAverage);
 					Average=currentAverage;
 				}
 			} catch (InterruptedException e) {
