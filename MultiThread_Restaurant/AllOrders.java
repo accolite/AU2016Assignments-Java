@@ -21,6 +21,8 @@ public class AllOrders {
     	AtomicReference<ArrayList<Float>> billsToPersist = new AtomicReference<ArrayList<Float>>();
     	billsToPersist.set(new ArrayList<>());
     	
+    	in = new Scanner(System.in);
+    	
     	/**
     	 * Continuation criteria
     	 */
