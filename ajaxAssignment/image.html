@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<script>
+var counter = 1;
+
+function doAjax(obj)
+{
+var xmlhttp;
+var Option=obj.id;
+
+if (window.XMLHttpRequest)
+  {
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+
+
+ if (Option == "prev")
+ {
+	counter--;
+	if(counter < 0){
+		counter = 4;
+	}	 
+ }
+ else if(Option =="next")
+ {
+	counter++;
+	if(counter>4){
+		counter = 1;
+	}
+	
+ }
+
+
+  xmlhttp.onreadystatechange = function(){
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+      var filedata = JSON.parse(xmlhttp.responseText);
+      var element = document.getElementById("myDiv");
+	  element.src = filedata.url;
+    }  
+  }
+
+  var url = counter + ".json";
+
+  xmlhttp.open("GET",url,true);
+  xmlhttp.send();
+  
+}
+
+
+</script>
+
+</head>
+<body>
+
+<h2>Slide show</h2>
+
+<img src="1.jpg" alt="image could not be displayed" id="myDiv"/>
+
+<input type="button" id="prev" value="prev" onclick="doAjax(this)">
+<input type="button" id="next" value="next" onclick="doAjax(this)">
+
+</body>
+</html>
