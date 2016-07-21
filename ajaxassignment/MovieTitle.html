@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<title> Movie </title>
+ <script>
+function getNewXmlHttp(){
+var xmlhttp;
+if (window.XMLHttpRequest)
+  {
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  return xmlhttp;
+}
+
+var request = 0;
+var metaData,imageData;
+var i=0;
+
+function doAjax(name,isAjax){
+
+  var xmlhttp = getNewXmlHttp();
+  xmlhttp.onreadystatechange = function(){
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+      metaData=xmlhttp.responseText;
+      metaData=JSON.parse(metaData);
+      getImage(metaData.image[0].url);
+    }  
+  }
+
+  xmlhttp.open("POST",name,true);
+  xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+  xmlhttp.send();
+}
+
+
+function getImage(name,isAjax){
+
+  var xmlhttp = getNewXmlHttp();
+  xmlhttp.onreadystatechange = function(){
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+      imageData=xmlhttp.responseText;
+      imageData=JSON.parse(imageData);
+      var image=document.getElementById('gallery');
+      //var description=document.getElementById('desc');
+      var imgurl=imageData.image[0].imageurl;
+	  image.setAttribute('src',imgurl);
+	  //console.log(imageData.image[0].desc);
+	 // description.innerHtml=imageData.image[0].desc;
+  }
+}
+  xmlhttp.open("POST",name,true);
+  xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+  xmlhttp.send();
+}
+
+
+function right(){
+			if(i===5)
+				i=0;
+			var img=metaData.image[i].url;
+			i++;
+			getImage(img,false);
+		}
+
+function left(){
+			if(i===-1)
+				i=5;
+			var img=metaData.image[i].url;
+			i--;
+			getImage(img,false);
+		}
+
+</script>
+
+
+</script>
+<div>
+	<body>
+		<br/>
+		<h3> <p align=center>Kalaipuli.S Thanu Presents</p></h3>
+		<h4> <p align=center>SuperStar In and As</p></h4>
+		<h1> <p align=center> Kabali </p>  </h1>
+		<font color=red><marquee><b>Nerupuda!!!!!!!!!!!!!!!</b></marquee>
+		</font>
+		
+		<div align="center" ><img id="gallery" style="width:width;height:height;"></div>
+		<p id="desc" align="center">Description</p>
+		<div align="center">&#171;<input type="button" style="width:60px" id="leftbutton" value="Prev" onclick="left()"></div>
+		<div align="center"><input type="button" id="rightbutton" style="width:60px" value="Next" onclick="right()">&#187;</div>
+		<div>
+		<script type="text/javascript">
+		
+		       doAjax('images.json',false);
+
+		</script>
+
+		<p><h3>About</h3>
+			A Malaysian Gangster story directed by Ranjith. <a href="https://en.wikipedia.org/wiki/Kabali_(film)" target="_blank"> click here </a> for more information.
+		</p>
+		<p><h3>Watch the Trailer</h3><br/><iframe src="https://www.youtube.com/v/watch?v=9mdJV5-eias" style="border:none" width=600 height=500></iframe>
+		</body>
+	</div>
+	<br/>
+	<footer>Designed by Jegan Muthaiah</footer>
+	</html>
