@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<body>
+<img max-width="500 px" max-height ="500px" id="image" src="Darth Vader.jpg"></img><p></p/>
+ <div id = "des">imageone</div><p></p/>
+  <div id = "link">Google Images</div><p></p/>
+ <input type='button' id='prev' value='Previous' onclick="fetchImagesUsingAjax(this)" />
+ <input type='button' id='next' value='Next' onclick="fetchImagesUsingAjax(this)" />
+ </body>
+
+<script>
+  var imgNo = 0;
+  var totImage = 6;
+  function fetchImagesUsingAjax(obj){
+     var xmlhttp = new XMLHttpRequest();;
+
+     var callBack = function(){
+     if (xmlhttp.readyState==4 && xmlhttp.status==200)
+      {
+
+       if(obj.id == 'prev')
+       {
+        imgNo = (imgNo - 1 + totImage)%totImage;
+       }
+      else if(obj.id == 'next'){
+        imgNo = (imgNo + 1)%totImage;
+       }
+       var parsedJson = JSON.parse(xmlhttp.responseText);
+       document.getElementById("image").src=parsedJson.images[imgNo].src;
+       document.getElementById("des").innerHTML=parsedJson.images[imgNo].desc;
+	   document.getElementById("link").innerHTML=parsedJson.images[imgNo].link;
+      }  
+     } 
+     xmlhttp.onreadystatechange = callBack;
+     xmlhttp.open("GET","images.txt",true);
+     xmlhttp.send();
+	 }
+
+</script>
+</html>
