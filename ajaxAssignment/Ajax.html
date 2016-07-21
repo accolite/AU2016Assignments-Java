@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<h1><head>Slideshow </head></h1>
+<body>
+<script>
+var i=0;
+function loadPrev()
+
+{
+	i--;
+	if(i==0)
+		i=-1;
+	if(i<0)
+		i=6+i;
+	var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+		if (xhttp.readyState == 4 && xhttp.status == 200) {
+		
+		var my_JSON_object = JSON.parse(xhttp.responseText);
+		var source=my_JSON_object.src;
+		
+		document.getElementById("Id").src = source;
+		document.getElementById("id1").innerHTML=my_JSON_object.description;
+    }
+  };
+  xhttp.open("GET", i+".txt", true);
+  xhttp.send();
+}
+
+function loadNext()
+{
+	i++;
+	if(i<0)
+		i=6+i;
+	if(i==6)
+		i=1;
+	
+	var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+		if (xhttp.readyState == 4 && xhttp.status == 200) {
+		
+		var my_JSON_object = JSON.parse(xhttp.responseText);
+		
+		var source=my_JSON_object.src;
+		
+		document.getElementById("Id").src = source;
+		document.getElementById("id1").innerHTML=my_JSON_object.description;
+    }
+  };
+  xhttp.open("GET", i+".txt", true);
+  xhttp.send();
+}
+
+
+</script>
+
+<img src="#" id="Id" align="center" height="400" width="400" alt="no image Available"/>
+<h1><div id="id1"></div></h1>
+<button type="button" onclick="loadPrev()">Previous</button>
+
+<button type="button" onclick="loadNext()">Next</button>
+
+</body>
+</html>
