@@ -1,0 +1,48 @@
+<html>
+	<body>
+	<img max-width = "500px" max-height= "200px" id = "img" src = "codeforces-logo-with-telegram.png"></img><p></p/>
+	<div id = "des">first_image</div><p></p/>
+	<input type='button' id='prev' value='Previous' onclick="fetchImagesUsingAjax(this)" />
+	<input type='button' id='next' value='Next' onclick="fetchImagesUsingAjax(this)" />
+	</body>
+	
+	<script>
+		function getNewXmlHttp(){
+			var xmlhttp;
+			if (window.XMLHttpRequest)
+				{
+					xmlhttp=new XMLHttpRequest();
+				}
+			else
+				{
+					xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+				}
+			return xmlhttp;
+		}
+		var currImageNo = 0;
+		var totImage = 6;
+		function fetchImagesUsingAjax(obj){
+				 var xmlhttp = getNewXmlHttp();
+				 var callBack = function(){
+					if (xmlhttp.readyState==4 && xmlhttp.status==200)
+						{
+							if(obj.id == 'prev')
+							{
+								currImageNo = (currImageNo - 1 + totImage)%totImage;
+							}
+						else if(obj.id == 'next'){
+								currImageNo = (currImageNo + 1)%totImage;
+							}
+							var parsedJson = JSON.parse(xmlhttp.responseText);
+							document.getElementById("img").src=parsedJson.images[currImageNo].src;
+							document.getElementById("des").innerHTML=parsedJson.images[currImageNo].des;
+						}  
+					} 
+				 xmlhttp.onreadystatechange = callBack;
+				 xmlhttp.open("GET","images.txt",true);
+				 xmlhttp.send();
+		}
+
+	</script>
+	
+</html>
