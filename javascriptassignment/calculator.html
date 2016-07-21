@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Calculator</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style type="text/css">
+		.center{
+			margin: auto;
+		}
+		button{
+			height: 40px;
+			width: 50px;
+			border-radius: 3px;
+			padding: 0px;
+			background-color: #64B5F6;
+		}
+		table{
+			border:0px solid transparent;
+			padding: 4px; 
+			height:300px; 
+			width:400px;
+			background: -webkit-linear-gradient(#BBDEFB,#e3f2fd);
+	</style>
+</head>
+<body>
+
+<div class="center" id="container" style="background-color: #BBDEFB;max-width:400px;max-height:500px; border:1px solid indigo">
+	<div id="editablespace" style="margin:10px 10px">
+		<div id="entries"></div>
+		<div>
+		<input type="text" name="calculable" id="calculable" style="background-color: #E3F2FD;width:380px; height:50px;">
+		</div>
+	</div>
+	<div>
+	<table>
+		<tr>
+			<td><button class="calculableInput" id='back' value="<-"><pre><-</pre></button></td>
+			<td><button class="calculableInput" id='CE' value="CE">CE</button></td>
+			<td><button class="calculableInput" id='C' value="C">C</button></td>
+			<td><button class="calculableInput" id='plusminus' value="+-">+-</td>
+			<td><button class="calculableInput" id='sqrt' value="sqrt">sqrt</td>
+		</tr>
+
+		<tr>
+			<td><button class="calculableInput" id='seven' value="7">7</button></td>
+			<td><button class="calculableInput" id='eight' value="8">8</button></td>
+			<td><button class="calculableInput" id='nine' value="9">9</button></td>
+			<td><button class="calculableInput" id='divide' value="/">/</button></td>
+			<td><button class="calculableInput" id='modulus' value="%">%</button></td>
+		</tr>
+		
+		<tr>
+			<td><button class="calculableInput" id='four' value="4">4</button></td>
+			<td><button class="calculableInput" id='five' value="5">5</button></td>
+			<td><button class="calculableInput" id='six' value="6">6</button></td>
+			<td><button class="calculableInput" id='multiply' value="*">*</button></td>
+			<td><button class="calculableInput" id='reciprocate' value="1/x">1/x</button></td>
+		</tr>
+		
+		<tr>
+			<td><button class="calculableInput" id='one' value="1">1</button></td>
+			<td><button class="calculableInput" id='two' value="2">2</button></td>
+			<td><button class="calculableInput" id='three' value="3">3</button></td>
+			<td><button class="calculableInput" id='minus' value="-">-</button></td>
+			<td><button class="calculableInput" id='equal' value="=">=</button></td>
+		</tr>
+		
+		<tr>
+			<td><button class="calculableInput" id='zero' value="0">0</button></td>
+			<td><button class="calculableInput" id='doublezero' value="00">00</button></td>
+			<td><button class="calculableInput" id='triplezero' value="000">000</button></td>
+			<td><button class="calculableInput" id='decimal' value=".">.</button></td>
+			<td><button class="calculableInput" id='plus' value="+">+</button></td>
+		</tr>
+	</table>
+	</div>
+</div>
+
+<script type="text/javascript" src="second.js"></script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Personal Details</title>
+	<!--A simple HTML page to get and show First Name, Last name, Age, Address, Designation.-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style type="text/css">
+		.center{
+			text-align: center;
+		}
+
+		label{
+			color:#3f51b5;
+			display: block;
+		}
+
+		textarea,select,form input{
+			border-radius:2px;
+			height: 20px;
+			width: 200px;
+			padding: 4px;
+			margin-bottom: 20px;
+		}
+	</style>
+</head>
+<body>
+<h1>Form Registration</h1>
+<div>
+<form class="center" method="get" onsubmit="validate()">
+	<div>
+	<label for="lastName">Last Name</label>
+	<input type="text" name="lastName" id="lastName" placeholder="Last Name"  title="Last name only text"><br/>
+	</div>
+
+	<div>
+	<label for="firstName">First Name</label>
+	<input type="text" name="firstName" id="firstName" placeholder="First Name"  title="First name only text"><br/>
+	</div>
+
+	<div>
+	<label for="fullName">Full Name</label>
+	<input type="text" name="fullName" id="fullName" placeholder="Full Name"  title="Full name only text"><br/>
+	</div>
+
+	<div>
+	<label for="age">Age</label>
+	<input type="text" name="age" id="age" placeholder="Age" title="Only positive age"><br/>
+	</div>
+
+	<div>
+	<label for="email">Email</label>
+	<input type="text" name="email" id="email" placeholder="Email" title="No spaces"><br/>
+	</div>
+
+	<div>
+	<label for="gender">Gender</label>
+	<select name="gender" style="height:30px" id="gender">
+		<option value="" disabled selected></option>
+		<option value="Female">Female</option>
+		<option value="Male">Male</option>
+		<option value="Other">Other</option>
+	</select><br/>
+	</div>
+
+	<div>
+	<label for="address">Address</label>
+	<textarea name="address" id="address" style="height:40px" maxlength="60" placeholder="Address"></textarea><br/>
+	</div>
+
+	<div>
+	<button type="submit" value="Submit">Submit</button>
+	</div>
+
+</form>
+</div>
+<script type="text/javascript" src="first.js"></script>
+</body>
+</html>
