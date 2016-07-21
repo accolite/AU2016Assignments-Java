@@ -1,0 +1,136 @@
+<!Doctype html>
+<html>
+<head>
+
+<title>PictureSlider</title>
+<script>
+
+
+
+function getNewXmlHttp(){
+var xmlhttp;
+if (window.XMLHttpRequest)
+  {
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  return xmlhttp;
+}
+var request = 0;
+function doNext(){
+	document.getElementById("details").style.display="none";
+  var xmlhttp = getNewXmlHttp();
+  
+  var curNo = ++request;
+
+  xmlhttp.onreadystatechange = function(){
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+	var jsonObj = JSON.parse(xmlhttp.responseText);
+	//alert(jsonObj.singers[curNo%4].name);
+      document.getElementById("gaayak").src =  jsonObj.singers[Math.abs(curNo)%4].name;
+      document.getElementById("description").innerHTML =  jsonObj.singers[Math.abs(curNo)%4].des;
+    }  
+  }
+
+  xmlhttp.open("GET","punjabisingers.json",true);
+
+ 
+
+  
+  
+  xmlhttp.send();
+  
+}
+function doPrev(){
+document.getElementById("details").style.display="none";
+  var xmlhttp = getNewXmlHttp();
+  
+  var curNo = --request;
+
+  xmlhttp.onreadystatechange = function(){
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+	var jsonObj = JSON.parse(xmlhttp.responseText);
+	//alert(jsonObj.singers[curNo%4].name);
+      document.getElementById("gaayak").src =  jsonObj.singers[(Math.abs(curNo+4))%4].name;
+	  //console.log(Math.abs(curNo+4));
+	  document.getElementById("description").innerHTML =  jsonObj.singers[(Math.abs(curNo+4))%4].des;
+      
+    }  
+  }
+
+  xmlhttp.open("GET","punjabisingers.json",true);
+
+ 
+
+  
+  
+  xmlhttp.send();
+  
+}
+function getDescr(){
+
+  var xmlhttp = getNewXmlHttp();
+  
+  
+document.getElementById("details").style.display="block";
+  xmlhttp.onreadystatechange = function(){
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+	var jsonObj = JSON.parse(xmlhttp.responseText);
+	//alert(jsonObj.singers[curNo%4].name);
+		if(request>0)
+      document.getElementById("details").innerHTML =  jsonObj.singers[request%4].det;
+	  //console.log(Math.abs(curNo+4));
+	  
+	  else{
+		document.getElementById("details").innerHTML =  jsonObj.singers[(Math.abs(request+4))%4].det;
+	  }
+	  
+      
+    }  
+  }
+
+  xmlhttp.open("GET","punjabisingers.json",true);
+
+ 
+
+  
+  
+  xmlhttp.send();
+  
+}
+
+</script>
+<style>
+.button {
+    background-color: #A6A9A9;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+</style>
+</head>
+<body>
+<div align="center">
+<h2 id="description" align="center">Diljit Dosanjh</h2>
+<input type="button" class="button" value="Previous" onclick="doPrev()">
+<img src="diljit.jpg" id="gaayak" height="200px" width="250px"></img>
+
+<input type="button" class="button" value="Next" onclick="doNext()" ><br>
+
+<input type="button" class="button" value="Description" onclick="getDescr()" ><br>
+<span id="details"></span>
+</div>
+</body>
+</html>
