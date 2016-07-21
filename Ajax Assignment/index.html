@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Image slider</title>
+</head>
+<body>
+
+<table title="">
+	<tr>
+		<td rowspan="3">
+			<img id="image" src="" width="300px" height="200px" />
+		</td>
+		<td>
+			<label id="descl" class="info">Description: </label>
+		</td>
+		<td>
+			<label id="desc" class="info"> details</label>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<label id="refurll" class="info">RefUrl: </label>
+		</td>
+		<td>
+			<a id="refurl" class="info" href=""> </a>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<label id="detailsl" class="info">Details: </label>
+		</td>
+		<td>
+			<label id="detail" class="info">details</label>
+		</td>
+	</tr>
+</table>
+
+<input type="button" value="Prev" name="prev" onclick="previmage()"/>
+
+<input type="button" value="Next" name="next" onclick="nextimage()"/>
+
+<input type="button" id='toggle' value="Get description" name="toggle" onclick="toggle()"/>
+
+<script type="text/javascript">
+		var xmlhttp;
+		var counter = 1;
+		var imgid ;
+		var showing = false;
+		xmlhttp=new XMLHttpRequest();
+		var callBackImage = function(){
+		  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		    {
+		    	console.log(xmlhttp.responseText);
+		    	var obj = JSON.parse(xmlhttp.responseText);
+		    	console.log(obj[0].src);
+		    	document.getElementsByTagName("img")[0].src=obj[0].src;
+		    	document.getElementsByTagName("img")[0].id =obj[0].imgid;
+		    	document.getElementsByTagName('table')[0].title = 'Image id: '+obj[0].imgid;
+		    	imgid = obj[0].imgid;
+		    // document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+		    }  
+		}  
+
+		callBackDetails = function(){
+			if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		    {
+		    	console.log(xmlhttp.responseText);
+		    	var obj = JSON.parse(xmlhttp.responseText);
+		    	// console.log(obj[0]);
+		    	document.getElementById('desc').innerHTML = obj[0].desc;
+
+		    	document.getElementById('refurl').href = "http://"+obj[0].refurl;
+
+		    	document.getElementById('refurl').innerHTML = obj[0].refurl;		    	
+
+		    	document.getElementById('detail').innerHTML = obj[0].detail;
+		    // document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+		    } 	
+		}
+
+		getDetails = function(imgid) {
+			xmlhttp.onreadystatechange = callBackDetails;
+			xmlhttp.open("GET","details.php?imgid="+imgid,true);
+			xmlhttp.send();
+		}
+
+		getimage = function(pgno) {			
+			xmlhttp.onreadystatechange = callBackImage;
+			xmlhttp.open("GET","server.php?page="+pgno,true);
+			xmlhttp.send();
+		}
+
+		nextimage = function(){
+			if(counter!=5){
+				counter++;
+				if(showing)
+					toggle();
+				getimage(counter);
+			}
+		}
+
+		previmage = function(){
+			if(counter!=1){
+				counter--;
+				if(showing)
+					toggle();
+				getimage(counter);
+			}
+		}
+
+		toggle = function() {
+			// console.log(showing)
+			if(showing===false){
+				for (element of document.getElementsByClassName('info')) element.style.visibility = '';
+				document.getElementById('toggle').value = "Hide description";
+				getDetails(document.getElementsByTagName('img')[0].id);
+				showing = true;
+			}
+			else{
+				for (element of document.getElementsByClassName('info')) element.style.visibility = 'hidden';
+				document.getElementById('toggle').value = "Get description";
+				showing = false;
+			}
+		}
+
+		for (element of document.getElementsByClassName('info')) element.style.visibility = 'hidden';
+		getimage(counter);
+
+	</script>
+
+</body>
+</html>
