@@ -1,0 +1,103 @@
+<html>
+<head>
+<title>
+Flowers
+</title
+</head>
+<script>
+function getNewXmlHttp(){
+var xmlhttp;
+if (window.XMLHttpRequest)
+  {
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  return xmlhttp;
+  
+
+}
+
+var current = 1;
+
+function doAjax(ind){
+
+  
+  var xmlhttp = getNewXmlHttp();
+  
+  if (current + ind < 1) {
+	current = 4;
+  }
+  else if (current + ind > 4) {
+	current = 0;
+  }
+  else {
+	current += ind;
+  }
+  
+ xmlhttp.onreadystatechange = function(){
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+		var content = JSON.parse(xmlhttp.responseText);
+		document.getElementById("data").innerHTML = "<img  src=" + content.url+' style="width:700px ;height:520;">'
+
+    }  
+  
+  }
+  var url = current + ".json";
+
+  xmlhttp.open("GET",url,true);
+  
+  
+  xmlhttp.send();
+ } 
+ 
+ function describe() {
+	
+  
+  var xmlhttp = getNewXmlHttp();
+  
+  
+ xmlhttp.onreadystatechange = function(){
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+		var content = JSON.parse(xmlhttp.responseText);
+		document.getElementById("description").innerHTML =  content.description;
+
+    }  
+  
+  }
+  var url = current + ".json";
+
+  xmlhttp.open("GET",url,true);
+  
+  
+  xmlhttp.send();
+ }
+</script>
+<script>
+
+
+
+
+</script>
+<body background="imagebg.jpg" style="font-family: Century Gothic, sans-serif;">
+
+
+
+<div style="height: 600px; width: 700px; margin-left: 350px; background-color: white; margin-top:50px; ">
+	<div style="height: 40px; line-height: 2;color: white; background-color: #0033cc; text-align:center; font-size:20px; font-wieght: bold;"> Landscape</div>
+	<div id="data"> <img  src="1.jpg" style="width:700px;height:520px;"> </div>
+	<button type="button" style="width:150px; height: 40px;font-size:17px; background-color:#0033cc; color:white;" onclick="doAjax(-1)"> < Prev</button> 
+	<button type="button" style="width:150px; height: 40px;font-size:17px; background-color:#0033cc; color:white; margin-left: 130px;" onclick="describe()">Description</button> 
+	<button type="button" style="width:150px; height: 40px; margin-left:110px;font-size:17px; background-color:#0033cc; color:white;" onclick="doAjax(1)">Next > </button>
+	
+	
+</div>
+
+<div id="description" style="height: 600px; width: 700px; margin-left: 350px; background-color: white; margin-top:50px; "> </div>
+</body>
+
+</html>
