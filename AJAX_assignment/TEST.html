@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script>
+var counter=0;
+function doAjaxPrev()
+
+{
+	counter--;
+	if(counter==0)
+		counter=-1;
+	if(counter<0)
+		counter=5+counter;
+	var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+		if (xhttp.readyState == 4 && xhttp.status == 200) {
+		
+		var my_JSON_object = JSON.parse(xhttp.responseText);
+		var source=my_JSON_object.src;
+		document.getElementById("Id").src = source;
+		document.getElementById("id1").innerHTML = my_JSON_object.desc;
+    }
+  };
+  xhttp.open("GET", counter+".txt", true);
+  xhttp.send();
+}
+
+function doAjaxNext()
+{
+	counter++;
+	if(counter<0)
+		counter=5+counter;
+	if(counter==5)
+		counter=1;
+	
+	var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+		if (xhttp.readyState == 4 && xhttp.status == 200) {
+		
+		var my_JSON_object = JSON.parse(xhttp.responseText);
+		var source=my_JSON_object.src;
+		
+		document.getElementById("Id").src = source;
+		document.getElementById("id1").innerHTML =my_JSON_object.desc;;
+    }
+  };
+  xhttp.open("GET", counter+".txt", true);
+  xhttp.send();
+}
+
+
+</script>
+
+<img src="3.jpg" id="Id" align="center" height="400" width="400" alt="no image Available"/>
+<h1><div id="id1"></div></h1>
+
+<button type="button" onclick="doAjaxPrev()">Previous</button>
+
+<button type="button" onclick="doAjaxNext()">Next</button>
+
+</body>
+</html>
