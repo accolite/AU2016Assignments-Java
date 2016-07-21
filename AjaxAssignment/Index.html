@@ -1,0 +1,85 @@
+<html>
+<head>
+<title>Assignment</title>
+<script>
+
+	function getNewXmlHttp(){
+		var xmlhttp;
+		if (window.XMLHttpRequest)
+		  {
+		  xmlhttp=new XMLHttpRequest();
+		  }
+		else
+		  {
+		  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		  }
+		  return xmlhttp;
+	}
+	
+	var counter = 0;
+	function Ajax(obj){
+		  var xmlhttp = getNewXmlHttp();
+		  
+		  
+		  xmlhttp.onreadystatechange = function(){
+		  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+			{
+				
+				var buttonid = obj.id;
+				
+				if(obj.id == "prev"){
+					
+					if(counter <0)
+					counter=6;
+					else
+					counter = counter -1;
+					}
+				
+				if(obj.id == "next")
+				counter = (counter +1)%7;
+				
+				console.log(obj.id);
+				console.log(counter);
+				
+				var jsonobj = JSON.parse(xmlhttp.responseText);
+				document.getElementById("name").innerHTML=jsonobj.images[counter].name;
+				document.getElementById("description").innerHTML=jsonobj.images[counter].description;
+				
+				console.log(jsonobj.images[counter].name);
+				
+				document.getElementById("image").src = jsonobj.images[counter].url;
+				
+				
+			}  
+		  }
+		  xmlhttp.open("POST","urls.json",true);
+		   
+		  xmlhttp.send();
+		  
+	}
+
+	
+</script>
+
+</head>
+<body >
+	
+	<div align="center">
+	
+		<h2  id="name">euro1</h2>
+		<img src="1.jpg" id="image" style="width:800px;height:500px;">
+		<div>
+		<button type="button" id="prev" onclick="Ajax(this)">Previous image</button>
+		<button type="button" id="next" onclick="Ajax(this)">Next image</button>
+		</div>
+		
+		<h4>Description</h4>
+		
+		<textarea id="description" rows="2" cols="100"> euro1,The 2016 UEFA European Championship, commonly referred to as UEFA Euro 2016 or simply Euro 2016, was the 15th UEFA European Championship, the quadrennial international men's football championship of Europe organised by UEFA. </textarea>
+		 
+
+	</div>
+	
+<body>
+
+</html>
