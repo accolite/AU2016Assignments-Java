@@ -1,0 +1,81 @@
+<!doctype html>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Thalaivar</title>
+	<script type="text/javascript">
+		var currentImage;
+		var currentImageIndex=0;
+		var scriptControled=true;
+		var metaData;
+		var slider;
+		function getNewXmlHttp(){
+			var xmlhttp;
+			if (window.XMLHttpRequest)
+			  {
+			  xmlhttp=new XMLHttpRequest();
+			  }
+			else
+			  {
+			  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+			  }
+			  return xmlhttp;
+		}
+		function getMetaJSON(name){
+			var xmlhttp = getNewXmlHttp();
+  			xmlhttp.onreadystatechange = function(){
+  				if (xmlhttp.readyState==4 && xmlhttp.status==200){
+      				metaData = JSON.parse(xmlhttp.responseText);
+      				getImageJSON(metaData.urlData[0].url);
+      				slider=setInterval(function(){
+      					if(currentImageIndex>=metaData.urlData.length)
+      						currentImageIndex=0;
+      					goToNext();
+      				}, 3000);
+      			}  
+  			}
+			xmlhttp.open("POST",name,true);
+			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			xmlhttp.send();
+  		}
+  		function getImageJSON(name){
+  			var xmlhttp = getNewXmlHttp();
+  			xmlhttp.onreadystatechange = function(){
+  				if (xmlhttp.readyState==4 && xmlhttp.status==200){
+      				currentImage = JSON.parse(xmlhttp.responseText);
+      				document.getElementById("image").setAttribute("src","img/"+currentImage.image.url);
+      				document.getElementById("imageInfo").innerHTML=currentImage.image.info;
+      			}  
+  			}
+			xmlhttp.open("POST",name,true);
+			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			xmlhttp.send();
+  		}
+  		function goToPrevious(){
+  			currentImageIndex-=1;
+  			if(currentImageIndex>-1)
+  				getImageJSON(metaData.urlData[currentImageIndex].url);
+  		}
+  		function goToNext(){
+  			currentImageIndex+=1;
+  			if(currentImageIndex<metaData.urlData.length)
+  				getImageJSON(metaData.urlData[currentImageIndex].url);
+  		}
+	</script>
+</head>
+<body>
+	<center>
+		<div style="width:75%">
+			<h1>KABALI</h1>
+			<img id="image" src="" width="width" height="height" alt="waiting to load image"/>
+			<p id="imageInfo">Image info goes here</p>
+			<br>
+			<button onclick="goToPrevious();clearInterval(slider);">Previous</button>
+			<button onclick="goToNext();clearInterval(slider);">&nbsp;&nbsp;Next&nbsp;&nbsp;</button>
+		</div>
+	</center>
+	<script type="text/javascript">
+		getMetaJSON("metaData.json");
+	</script>
+</body>
+</html>
