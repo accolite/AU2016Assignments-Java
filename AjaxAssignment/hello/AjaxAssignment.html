@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+var xmlhttp;
+if (window.XMLHttpRequest)
+  {
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+
+var callBack = function(){
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+    document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+    }  
+}  
+
+xmlhttp.onreadystatechange = callBack;
+
+xmlhttp.open("GET","input.json",true);
+xmlhttp.send();
+
+</script>
+</head>
+<body>
+<h2 class="center">Manual Slideshow</h2>
+
+<div class="content">
+
+<img class="mySlides" src="images/iot.jpg" style="position:relative;left:10%;right:10%;width:50%">
+<img class="mySlides" src="images/iot1.jpg" style="position:relative;left:10%;right:10%;width:50%">
+<img class="mySlides" src="images/iot2.png" style="position:relative;left:10%;right:10%;width:50%">
+
+<a class="btn-floating" style="position:absolute;top:45%;left:0" onclick="plusDivs(-1)">&lt;</a>
+<a class="btn-floating" style="position:absolute;top:45%;right:20%;" onclick="plusDivs(1)">&gt;</a>
+<!--a class="btn-floating" style="position:absolute;top:45%;left:0" onclick="plusDivs(-1)">&lt;</a>
+<a class="btn-floating" style="position:absolute;top:45%;right:20%;color="red"" onclick="plusDivs(1)">&gt;</a-->
+<div style="position:relative;left:30%;right:20%"> image descrition</div>
+</div>
+
+<script>
+var slideIndex = 1;
+showDivs(slideIndex);
+
+function plusDivs(n) {
+  showDivs(slideIndex += n);
+}
+
+function showDivs(n) {
+  var i;
+  //doAjax();
+  var x = document.getElementsByClassName("mySlides");
+ 
+  if (n > x.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = x.length}
+  for (i = 0; i < x.length; i++) {
+     x[i].style.display = "none";
+  }
+  x[slideIndex-1].style.display = "block";
+}
+</script>
+</body>
+</html>

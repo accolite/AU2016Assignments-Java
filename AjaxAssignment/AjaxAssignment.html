@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+var xmlhttp;
+var counter=0;
+function getNewXmlHttp(){
+console.log("hello in doajax");
+if (window.XMLHttpRequest)
+  {
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  return xmlhttp;
+}
+
+
+
+function doAjax(){
+
+counter=(counter+1)%3;
+
+console.log("hello in doajax");
+console.log(counter);
+
+xmlhttp = getNewXmlHttp();
+xmlhttp.open("GET","input.json",true);
+xmlhttp.send();
+
+xmlhttp.onreadystatechange = function(){
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {	console.log("connection is ready");
+      //document.getElementById("myDiv").innerHTML +=  number1 + " " + operation + " " + number2 + " = " + xmlhttp.responseText + "<br/>";
+      //document.getElementById("timings").innerHTML +=  "Request " + curNo + " Completed @ " + new Date() + "<br/>";
+		var text = xmlhttp.response;
+		jsonobj = JSON.parse(text);
+		console.log(jsonobj);
+		showImage(counter,jsonobj);
+	}  
+  };
+  
+}
+function showImage(n,input) {
+ console.log("in showImage");
+ console.log(input);
+ console.log(input.ImageInfo);
+ console.log(input.ImageInfo[0].src);
+  var x = document.getElementById(0);
+var y= document.getElementById(1);
+  console.log(x);
+   console.log(y);
+	x.src=input.ImageInfo[n].src;
+	y.innerHTML=input.ImageInfo[n].reference;
+     x.style.display = "block";
+	 y.style.display = "block";
+  }
+ 
+
+</script>
+
+</head>
+<body>
+<h2 class="center">Manual Slideshow</h2>
+
+<div class="content">
+
+<img id="0" class="mySlides" src="images/iot.jpg" style="position:relative;left:10%;right:10%;width:50%">
+<!--img id="1" class="mySlides" src="images/iot1.jpg" style="position:relative;left:10%;right:10%;width:50%">
+<!--img id="2" class="mySlides" src="images/iot2.png" style="position:relative;left:10%;right:10%;width:50%"-->
+
+<a class="btn-floating" style="position:absolute;top:45%;left:0" onclick="doAjax()">&lt;</a>
+<a class="btn-floating" style="position:absolute;top:45%;right:20%;" onclick="doAjax()">&gt;</a>
+<!--a class="btn-floating" style="position:absolute;top:45%;left:0" onclick="plusDivs(-1)">&lt;</a>
+<a class="btn-floating" style="position:absolute;top:45%;right:20%;color="red"" onclick="plusDivs(1)">&gt;</a-->
+<div id="1" style="position:relative;left:30%;right:20%"> image descrition</div>
+
+</div>
+
+
+</body>
+</html>
