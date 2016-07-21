@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Slideshow</title>
+<script>
+	var counter = 1 ;
+</script>
+</head>
+<body style="background-color:black;">
+	<h1 style="text-align:center; color:white">SlideShow</h1>
+	<div id="pic" style="height:400px; width:700px; overflow:hidden; margin:0 auto;">
+		<img src="1.jpg" style="width:100%">
+	</div>
+	<p id="description" style="color:white; margin-left:650px;">
+	Flowers
+	</p>
+	<button onclick="doAjax(this)"  style="margin-left:250px;">Previous</button>
+<button onclick="doAjax(this)"  style="margin-left:1000px;">Next</button>
+</body>
+<script>
+function doAjax(obj){
+
+var mode = obj.innerHTML;
+
+var xmlhttp;
+if (window.XMLHttpRequest)
+  {
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+var callBack = function(){
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+    
+	var response = JSON.parse(xmlhttp.responseText);
+	pic = document.getElementById("pic");
+	pic.innerHTML = "<img src='" + response.name+"' style='width:100%'>"
+	des=document.getElementById("description");
+	des.innerHTML =  response.des
+    }
+	
+}
+
+
+if(mode=="Previous")
+{
+	if(counter==1)
+		counter=8;
+	else
+		counter--;
+} else {
+	if(counter==8)
+		counter=1;
+	else
+		counter++;
+}
+var url = counter + '.json';
+  
+xmlhttp.onreadystatechange = callBack;
+xmlhttp.open("GET",url,true);
+
+  xmlhttp.send();
+}
+</script>
+</html>
