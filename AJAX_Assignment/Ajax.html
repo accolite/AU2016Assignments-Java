@@ -1,0 +1,82 @@
+<!DOCTYPE html5>
+<html>
+<head>
+<title>AJAX Assignment</title>
+<script>
+function getNewXmlHttp(){
+var xmlhttp;
+if (window.XMLHttpRequest)
+  {
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  return xmlhttp;
+}  
+
+var no=0;
+function loadDoc(obj) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+	var js=JSON.parse(xhttp.responseText);
+     document.getElementById("image").src = js.src;
+	 document.getElementById("dec").innerHTML=js.dec;
+	 //alert(js.src);
+	 //
+    }
+  };
+  if(obj=="Next"){
+	if(no==3){
+		no=0;
+	}
+	else{
+	no++;	}
+  }
+  if(obj=="Previous"){
+	if(no==0){
+		no=3;
+	}
+	else{
+	no--;
+	}
+  }
+  if(no==0){
+		xhttp.open("GET","1.txt",true);
+		xhttp.send();
+	}
+	if(no==1){
+		xhttp.open("GET","2.txt",true);
+		xhttp.send();
+	}
+	if(no==2){
+		xhttp.open("GET","3.txt",true);
+		xhttp.send();
+	}
+	if(no==3){
+		xhttp.open("GET","4.txt",true);
+		xhttp.send();
+	}
+}
+	
+
+</script>
+</head>
+<body>
+
+<form padding=50px>
+<center>
+<div padding=50px><img src="img.jpg" alt="Golden Retriever" style="max-width:800px;height:500px;" id="image"></div>
+<br>
+<div display=inline-block >
+<input type="button" id="Previous" value="Previous" value="action" onclick="loadDoc('Previous')">
+<input type="button" id="Next" value="Next" value="action" onclick="loadDoc('Next')">
+</div>
+</center>
+</form>
+<p id="dec">First image</p>
+</body>
+</html>
+
