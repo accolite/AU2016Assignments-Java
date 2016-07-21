@@ -1,0 +1,78 @@
+<!DOCTYPE>
+<html>
+	<head>
+		<script>
+			var xmlhttp;
+			var cur=0;
+			var obj;
+			var path="0.json"
+				if (window.XMLHttpRequest)
+				  {
+				  xmlhttp=new XMLHttpRequest();
+				  }
+				else
+				  {
+				  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+				  }
+
+				var callBack = function(){
+				  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+					{
+					//document.getElementById("desc").innerHTML="";
+					obj = JSON.parse(xmlhttp.responseText);
+					document.getElementById("slide").src=obj.url;
+					}  
+				}  
+				xmlhttp.open("GET",path,true);
+				xmlhttp.onreadystatechange = callBack;
+				xmlhttp.send();
+				function next(){
+					cur=(cur+1)%5;
+					if(cur<=5){
+					path=cur+".json";
+					xmlhttp.open("GET",path,true);
+					xmlhttp.send();
+					document.getElementById("desc").innerHTML="";
+					//obj = JSON.parse(http_request.responseText);
+					//document.getElementById("slide").src=obj.url;
+					}
+				}
+				function pre(){
+					cur=(cur+4)%5;
+					if(cur>=0){
+						path=cur+".json";
+						xmlhttp.open("GET",path,true);
+						xmlhttp.send();
+						document.getElementById("desc").innerHTML="";
+						//obj = JSON.parse(http_request.responseText);
+						//document.getElementById("slide").src=obj.url;
+					}
+				}
+				function descr(){
+					document.getElementById("desc").innerHTML="";
+					xmlhttp.open("GET",path,true);
+					document.getElementById("desc").innerHTML="Name: "+obj.description+"<br>Decription: "+obj.details;
+					xmlhttp.send();
+					
+				}
+		</script>
+	</head>
+	<body >
+		<div style="width=100%;height:450px;background-color:lightgreen">
+		<div class="slide" style="position:absolute;left:300.53px;top:36.44px">
+			<img id="slide" src="imgs/Jellyfish.jpg" alt="Jellyfish" width="600" height="400">
+		</div></div>
+		<div style="width=100%;height:200px;background-color:lightblue">
+		<div style="position:absolute;left:500px;top:500px">
+			<input type="button" value="PREVIOUS" name="pre" onclick="pre()"></div>
+		<div style="position:absolute;left:600px;top:500px">	
+		<input type="button" value="NEXT" name="next" onclick="next()"></div>
+		</div>
+		<div style="position:absolute;left:540px;top:520px">	
+		<input type="button" value="Description" name="Description" onclick="descr()"></div>
+		</div>
+		<div style="position:absolute;left:700px;top:500px">	
+		<p id="desc"></p></div>
+		
+	</body>
+</html>
