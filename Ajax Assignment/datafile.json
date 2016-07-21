@@ -1,0 +1,83 @@
+[
+  {
+    "id": 1,
+    "url": "images/image1.jpg",
+    "name": "harry potter and philospher's stone",
+    "author": "J K Rowling",
+    "price": 500,
+    "rating": 5
+  },
+  {
+    "id": 2,
+    "url": "images/image2.jpg",
+    "name": "harry potter and chamber of secrets",
+    "author": "J K Rowling",
+    "price": 600,
+    "rating": 5
+  },
+  {
+    "id": 3,
+    "url": "images/image3.jpg",
+    "name": "harry potter and prisoner of azkaban",
+    "author": "J K Rowling",
+    "price": 500,
+    "rating": 5
+  },
+  {
+    "id": 4,
+    "url": "images/image4.jpg",
+    "name": "harry potter and the goblet of fire",
+    "author": "J K Rowling",
+    "price": 500,
+    "rating": 5
+  },
+  {
+    "id": 5,
+    "url": "images/image5.jpg",
+    "name": "harry potter and the order of phoneix",
+    "author": "J K Rowling",
+    "price": 500,
+    "rating": 5
+  },
+  {
+    "id": 6,
+    "url": "images/image6.jpg",
+    "name": "harry potter and the half blood prince",
+    "author": "J K Rowling",
+    "price": 500,
+    "rating": 5
+  },
+  {
+    "id": 7,
+    "url": "images/image7.jpg",
+    "name": "harry potter and the deathly hallows part1",
+    "author": "J K Rowling",
+    "price": 500,
+    "rating": 5
+  },
+    {
+    "id": 8,
+    "url": "images/image8.jpg",
+    "name": "harry potter and the deathly hallows part2",
+    "author": "J K Rowling",
+    "price": 500,
+    "rating": 5
+  },
+    {
+    "id": 9,
+    "url": "images/image9.jpg",
+    "name": "harry potter and the deathly hallows part1",
+    "author": "J K Rowling",
+    "price": 500,
+    "rating": 5
+  },
+    {
+    "id": 10,
+    "url": "images/image10.jpg",
+    "name": "harry potter and the deathly hallows part1",
+    "author": "J K Rowling",
+    "price": 500,
+    "rating": 5
+  }
+    
+]

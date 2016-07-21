@@ -1,0 +1,61 @@
+<html>
+<head>
+    <meta content = "text/html; charset = ISO-8859-1" http-equiv = "content-type">
+    <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css"/>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <style>
+        .mySlides
+        {
+            max-width:100%;
+        }
+    </style>
+</head>
+<body>    
+    <h2><center>Harry Potter Slideshow<center></h2>
+    <div class="w3-content" style="max-width:800px;position:relative">
+        <img class="mySlides" id="image" src="images\image1.jpg" width:auto height:auto>
+        <p id="name">Name:Harry potter and philospher's stone</p>
+        <p id="author">Author:J K Rowling</p>
+        <p id="price">Price:500</p>
+        <p id="rating">Rating:5</p>
+    </div>
+<ul class="pager">
+  <li class="previous"><a href="#" onclick="plusDivs(-1)">Previous</a></li>
+  <li class="next"><a href="#" onclick="plusDivs(1)">Next</a></li>
+</ul>
+<script>
+    var slideIndex=1;
+    showDivs(slideIndex);
+
+function plusDivs(n) {
+  showDivs(slideIndex += n);
+}
+
+function showDivs(n) {
+  var i;
+  if (n > 10) {slideIndex = 1}
+  if (n < 1) {slideIndex = 10}
+  getNewImageXmlHttp(slideIndex);    
+}
+   function getNewImageXmlHttp(slideIndex)
+    {
+        var xmlhttp =new XMLHttpRequest();
+        var dataFile="datafile.json";
+        xmlhttp.open("GET",dataFile,true);
+        xmlhttp.send();
+        
+    xmlhttp.onreadystatechange = function(){
+        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+            {
+                var jsonObj = JSON.parse(xmlhttp.responseText);
+                document.getElementById("image").src=jsonObj[slideIndex-1].url; 
+                document.getElementById("name").innerText=jsonObj[slideIndex-1].name;
+                document.getElementById("author").innerText=jsonObj[slideIndex-1].author;
+                document.getElementById("price").innerText=jsonObj[slideIndex-1].price;
+                document.getElementById("rating").innerText=jsonObj[slideIndex-1].rating;
+            }
+        }
+    }
+</script>       
+</body>
+</html>
