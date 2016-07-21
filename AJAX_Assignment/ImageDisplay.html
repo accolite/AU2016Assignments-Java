@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="jquery.snippet.js"></script>
+<link rel="stylesheet" type="text/css" href="jquery.snippet.css" />
+
+<script>
+var index = 0;
+
+var xmlhttp;
+var getXMLhttp = function() {
+	if (window.XMLHttpRequest)
+	  {
+	  xmlhttp=new XMLHttpRequest();
+	  }
+	else
+	  {
+	  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	  }
+	return xmlhttp;
+  }
+var callBack = function(){
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+	var jsonObject = JSON.parse(xmlhttp.responseText);
+    document.getElementById("myImg").src=jsonObject.url;
+	document.getElementById("myDiv").innerHTML = jsonObject.desc;
+    }  
+}  
+
+
+
+function display(){ 
+ xmlhttp = getXMLhttp();
+  xmlhttp.onreadystatechange = callBack;
+
+ xmlhttp.open("GET","Display.php?index="+index,true);
+
+ xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+
+  xmlhttp.send();
+}
+
+function nextIndex(){
+if(index==5){
+  index=0;
+}
+else{
+  index=index+1;
+}
+}
+
+function prevIndex(){
+if(index==0){
+  index=5;
+}
+else{
+  index=index-1;
+}
+}
+
+
+</script>
+</head>
+<body>
+
+<h2>IMAGE SLIDESHOW</h2>
+<input type='button' id='prev' value='Previous' onclick="prevIndex(); display()" />
+<input type='button' id='next' value='Next' onclick="nextIndex();display()" />
+
+<p id="myDiv"></p>
+<img id="myImg"></img>
+
+<br/>
+
+</body>
+</html>
