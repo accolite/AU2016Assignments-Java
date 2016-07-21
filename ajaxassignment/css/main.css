@@ -1,0 +1,24 @@
+body{
+	width:100%;
+}
+
+#slider{
+	margin-left:30px;
+	width:60%;
+	text-align:center;
+}
+
+#details{
+	position:absolute;
+	width:35%;
+	right:10px;
+	top:10px;
+}
+
+input{
+	
+}
+
+#details{
+	visibility:hidden;
+}

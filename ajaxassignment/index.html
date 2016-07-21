@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Photo Silder </title>
+	<script type="text/javascript" src="jscript.js"></script>
+	<link type="text/css" href='css/main.css' rel="stylesheet"></link>
+
+</head>
+<body >
+	<div id="slider"><img id="image" src="img1.jpg" alt="Smiley face" height="600" width="800">
+	
+	<input type='button' id='prev' value='Previous' onclick="doAjax(this);details.style.visibility= 'hidden';" />
+	<input type='button' id='next' value='Next' onclick="doAjax(this);details.style.visibility= 'hidden';" />
+	<input type='button' id='info' value='info' onclick="details.style.visibility= 'visible';" />
+	
+	</div>
+	<div id="details">
+	<h4>URL</h4><a href="#"><p id="url">dsvdsv</p></a>
+	<h4>Description</h4><p id="desc">Wallpaper1</p>
+	<h4>Details</h4><p id="detail">Size-HD</p>
+	</div>
+</body>
+</html>
