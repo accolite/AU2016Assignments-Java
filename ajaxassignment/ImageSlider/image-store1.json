@@ -1,0 +1,38 @@
+{
+	"images":[
+		{   
+			"id":1,
+			"url":"tulips.jpg", 
+			"alt":"a beautiful flower", 
+			"caption":"Tulip at its full glory", 
+			"detail":"Tulip is a yellow flower found in all windows systems"
+		},
+		{
+			"id":2,
+			"url":"chrysanthemum.jpg", 
+			"alt":"a big flower", 
+			"caption":"The majestic chrys", 
+			"detail":"Another great flower in windows apparently"
+		},
+		{	"id":3,
+			"url":"desert.jpg", 
+			"alt":"barren land", 
+			"caption":"The desert to behold", 
+			"detail":"As barren as it gets"
+		},
+		{
+			"id":4,
+			"url":"jellyfish.jpg", 
+			"alt":"dangerous", 
+			"caption":"The one that killed Steve", 
+			"detail":"Pun intended"
+		},
+		{
+			"id":5,
+			"url":"tulips.jpg", 
+			"alt":"a beautiful flower", 
+			"caption":"Tulip at its full glory", 
+			"detail":"Tulip is a yellow flower found in all windows systems"
+		}
+	]
+}

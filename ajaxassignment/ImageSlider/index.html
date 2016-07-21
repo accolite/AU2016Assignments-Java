@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
+<style type="text/css">
+    .center{
+      text-align: center;
+    }
+</style>
+<title>AJAX Slideshow</title>
+</head>
+<body onload="defaultBlock()">
+
+<h2>SlideShow</h2>
+
+<div class="center">
+  <div>
+  <div>
+    <button id="previous" onclick="getPreviousImage()" style="margin-right:20px;" disabled>Previous</button>
+    <button id="next" onclick="getNextImage()" style="margin-right:20px;">Next</button>
+  </div>
+  <div id="imageDiv" style="margin-top:20px">
+    <img id="slideshow" src="images/Tulips.jpg" alt="a beautiful flower" style="width:30%;height:30%"><br/>
+    <div><h3 id="caption">Tulip at its full glory</h3></div>
+  </div>
+  <div><button id="showMore" onclick="showMore()">Show more</button></div>
+  <div id="detailDiv" style="display:none"></div>
+  <div><button id="showLess" onclick="showLess()" style="display:none">Hide</button></div>
+
+
+</div>
+
+
+<script type="text/javascript" src="js/main.js"></script>
+</body>
+</html>
