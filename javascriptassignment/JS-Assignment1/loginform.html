@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login Form</title>
+</head>
+
+<body>
+    <script>
+        function validate() {
+            var valid = true;
+
+            var name = document.forms["myForm"]["firstname"].value;
+            if ((name == null || name == "") || (/^[a-zA-Z]*$/.test(name) == false)) {
+                alert("Name must be filled out AND Name cannot contain numbers, special characters or spaces.");
+                return false;
+            }
+
+            var fullname = document.forms["myForm"]["fullname"].value;
+            if ((fullname == null || fullname == "") || (/^[a-zA-Z ]*$/.test(fullname) == false)) {
+                alert("Fullname must be filled out AND cannot contain numbers or special characters.");
+                return false;
+            }
+
+            var age = document.forms["myForm"]["age123"].value;
+            console.log(age);
+            if ( age == null || age == "" || isNaN(age) || parseInt(age) < 1 || parseInt(age) > 150) {
+                alert("Age is invalid")
+                return false
+            }
+
+            var email = document.forms["myForm"]["email"].value;
+            if ((email == null || email == "") || (/^[a-zA-Z0-9.]+@[a-zA-Z]+\.[a-z]+$/.test(email) == false)) {
+                alert("Invalid Email.");
+                return false;
+            }
+
+            var address = document.forms["myForm"]["address"].value;
+            if ((address == null || address == "") || (/^[a-zA-Z0-9/:-,. ]*$/.test(address) == false)) {
+                alert("Invalid Address");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+
+    <form action="outputform.html" name="myForm" method="POST" onsubmit="return( validate() )">
+        <fieldset>
+            <legend>Personal information:</legend>
+            First name:
+            <br>
+            <input type="text" name="firstname">
+            <br> Full Name:
+            <br>
+            <input type="text" name="fullname">
+            <br> Age:
+
+            <br>
+            <input type="text" name="age123">
+            <br> Gender:
+
+            <br>
+            <input type="radio" name="gender" value="male" checked> Male
+            <br>
+            <input type="radio" name="gender" value="female"> Female
+            <br>
+            <input type="radio" name="gender" value="other"> Other
+            <br>
+            <br> Email
+            <input type="text" name="email">
+            <br>
+
+            <br> Address:
+            <br>
+            <input type="textbox" name="address">
+            <br>
+            <br>
+            <br>
+            <input type="submit" value="Submit">
+        </fieldset>
+    </form>
+
+
+</body>
+
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>My Calculator</title>
+</head>
+
+<script>
+    function addToDisplay(str) {
+        document.getElementById("Screen").value += str;
+    }
+
+    function evalDisplay() {
+        console.log(document.getElementById("Screen").value);
+        document.getElementById("Screen").value = eval(document.getElementById("Screen").value);
+    }
+
+    function clearDisplay() {
+        document.getElementById("Screen").value = "";
+    }
+</script>
+
+<body>
+    <table border=10 style="background: linear-gradient(to right, cyan, white); height:600px">
+        <th colspan=4> Udit's Calculator </th>
+        <tr>
+            <td colspan=4>
+                <input type=text id="Screen" style="font-size:40px; font-family:'Courier New', Courier, monospace; font-weight:bold">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type=button value="7" style="width:100%;height:100%" OnClick="addToDisplay('7')">
+            </td>
+            <td>
+                <input type=button value="8" style="width:100%;height:100%" OnClick="addToDisplay('8')">
+            </td>
+            <td>
+                <input type=button value="9" style="width:100%;height:100%" OnClick="addToDisplay('9')">
+            </td>
+            <td>
+                <input type=button value="/" style="width:100%;height:100%" OnClick="addToDisplay('/')">
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <input type=button value="4" style="width:100%;height:100%" OnClick="addToDisplay('4')">
+            </td>
+            <td>
+                <input type=button value="5" style="width:100%;height:100%" OnClick="addToDisplay('5')">
+            </td>
+            <td>
+                <input type=button value="6" style="width:100%;height:100%" OnClick="addToDisplay('6')">
+            </td>
+            <td>
+                <input type=button value="*" style="width:100%;height:100%" OnClick="addToDisplay('*')">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type=button value="1" style="width:100%;height:100%" OnClick="addToDisplay('1')">
+            </td>
+            <td>
+                <input type=button value="2" style="width:100%;height:100%" OnClick="addToDisplay('2')">
+            </td>
+            <td>
+                <input type=button value="3" style="width:100%;height:100%" OnClick="addToDisplay('3')">
+            </td>
+            <td>
+                <input type=button value="-" style="width:100%;height:100%" OnClick="addToDisplay('-')">
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <input type=button value="0" style="width:100%;height:100%" OnClick="addToDisplay('0')">
+            </td>
+            <td>
+                <input type=button value="+" style="width:100%;height:100%" OnClick="addToDisplay('+')">
+            </td>
+            <td>
+                <input type=button value="=" style="width:100%;height:100%" OnClick="evalDisplay()">
+            </td>
+            <td>
+                <input type=button value="C" style="width:100%;height:100%" OnClick="clearDisplay()">
+            </td>
+        </tr>
+
+        <tr>
+
+
+    </table>
+
+
+</body>
+
+</html>

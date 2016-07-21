@@ -1,0 +1,20 @@
+The following recursive code will cause a stack overflow if the array list is too large. How can you fix this and still
+retain the recursive pattern?
+var list = readHugeList();
+var nextListItem = function() {
+var item = list.pop();
+if (item) {
+// process the list item...
+nextListItem();
+}
+};
+
+ANSWER : 
+To retain the recursive pattern, the solution will have to be asynchronous. Initially the stack is empty and the only frame on stack is that of the function in nextListItem(). As the function calls itself recursively - frame by frame are occupied on the stack till it's capacity is full and that is when overflow occurs.
+
+The solution would involve replacing the line
+	nextListItem();
+with
+ setTimeout( nextListItem, 0 );
+
+ Now, as setTimeout is non-blocking - nextListItem pops on completion making way for the next frame and recursion continues endlessly without the problem of overflow.

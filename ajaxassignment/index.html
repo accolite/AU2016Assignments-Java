@@ -1,0 +1,65 @@
+<h1> Asynchronous GIF Image Slideshow powered by AJAX/JSON </h1>
+<style>
+body
+{
+  background-color:lightcyan;
+}
+</style>
+<script>
+var i = 1;
+var xmlhttp;
+if (window.XMLHttpRequest)
+  {
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+var callBack = function(){
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+    console.log(xmlhttp.responseText );
+    var jsonObj = JSON.parse(xmlhttp.responseText);
+    console.log( jsonObj );
+    document.getElementById("myImg").src = jsonObj.src;
+    document.getElementById("name").innerHTML = jsonObj.name;
+    document.getElementById("desc").innerHTML = jsonObj.description;
+    document.getElementById("time").innerHTML = "Received at " + new Date();
+    }  
+}  
+function nextscene()
+{
+  if( i <= 5 )
+  {
+    if( i == 5 )
+      i = 0;
+    i = i + 1;
+    xmlhttp.onreadystatechange = callBack;
+    xmlhttp.open("GET", i + ".txt",true);
+    xmlhttp.send();
+  }
+}
+function prevscene()
+{
+  if( i >= 1 )
+  {
+    if( i == 1 )
+      i = 6;
+    xmlhttp.onreadystatechange = callBack;
+    i--;
+    xmlhttp.open("GET", i + ".txt",true);
+    console.log(i);
+    xmlhttp.send();
+  }
+}
+</script>
+
+<div id="myDiv" style="text-align:center">
+<img id="myImg" src="#" height="420px" width="100%">
+<h2 id="name"> NAME </h2>
+<h3 id="desc"> DESC </h3>
+<h5 id="time"> Received Time </h5>
+<button onClick="nextscene()"> RENDER NEXT SCENE </button>
+<button onClick="prevscene()"> RENDER PREVIOUS SCENE </button>
+</div>
