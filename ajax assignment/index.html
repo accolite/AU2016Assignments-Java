@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Slide Show</title>
+	<script>
+var counter = 60;
+var jsonObj;
+function getNewXmlHttp(){
+var xmlhttp;
+if (window.XMLHttpRequest)
+  {
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  return xmlhttp;
+}
+var request = 0;
+function doAjax(obj){
+
+  var xmlhttp = getNewXmlHttp();
+  var url;
+  var objid = obj.id;
+  console.log(obj.id);
+  if(objid == "next"){
+  	console.log("hello");
+  	counter = counter+1;
+  	url = counter%6;
+  	console.log(url);
+  }
+else if(objid == "prev"){
+	counter--;
+	console.log(counter);
+	url = counter%6;
+	console.log(url);
+}
+
+  console.log(counter);
+
+  xmlhttp.onreadystatechange = function(){
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+      //document.getElementById("myDiv").innerHTML +=  number1 + " " + operation + " " + number2 + " = " + xmlhttp.responseText + "<br/>";
+      //document.getElementById("timings").innerHTML +=  "Request " + curNo + " Completed @ " + new Date() + "<br/>";
+    	var text = xmlhttp.responseText;
+    	jsonobj = JSON.parse(text);
+    	console.log(jsonobj);
+    	document.getElementById("image").setAttribute("src",jsonobj["src"]);
+    	document.getElementById("name").innerHTML = jsonobj["name"];
+    	document.getElementById("about").innerHTML = jsonobj["about"];
+    	document.getElementById("date").innerHTML = Date();
+    }  
+  }
+
+  xmlhttp.open("GET",url+".json",true);
+  xmlhttp.send();
+  //xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+
+  
+   
+  
+  //document.getElementById("timings").innerHTML +=  "Request" + curNo + " Initiated @ " + new Date() + "<br/>";
+}
+
+
+function showContent(obj){
+  console.log("hello");
+  if(obj.id == "nameButton"){
+    if(document.getElementById("name").style.display == "none"){
+      document.getElementById("name").style.display = "block";
+      console.log("hello");
+    }
+    else{
+      document.getElementById("name").style.display = "none";
+      console.log("hello");
+    }
+  }
+
+  if(obj.id == "aboutButton"){
+    if(document.getElementById("about").style.display == "none"){
+
+      document.getElementById("about").style.display = "block";
+    }
+    else{
+      document.getElementById("about").style.display = "none";
+    }
+  }
+  if(obj.id == "dateButton"){
+    if(document.getElementById("date").style.display == "none"){
+      document.getElementById("date").style.display = "block";
+    }
+    else{
+      document.getElementById("date").style.display = "none";
+    }
+  }
+}
+
+</script>
+</head>
+<body>
+	<h1 style="text-align:center;">Image Slide Show Assignment</h1>
+	<div>
+		<img src="./Lighthouse.jpg" alt="Lighthouse" width="1000" height="200" id="image" style="align:center">
+		<p style="text-align:center;"><b>Name</b></p><button onclick="showContent(this)" id="nameButton">show</button>
+		<p id="name" style="text-align:center;display:none;">Lighthouse</p>
+		<p style="text-align:center;"> <b>About</b></p><button onclick="showContent(this)" id="aboutButton">show</button>
+		<p style="text-align:center;display:none;" id="about" >A lighthouse is a tower, building, or other type of structure designed to emit light from a system of lamps and lenses, and to serve as a navigational aid for maritime pilots at sea or on inland waterways. Lighthouses mark dangerous coastlines, hazardous shoals, reefs, and safe entries to harbors, and can assist in aerial navigation. Once widely used, the number of operational lighthouses has declined due to the expense of maintenance and use of electronic navigational systems.</p>
+		<p style="text-align:center;"><b>Date</b></p><button onclick="showContent(this)" id="dateButton">show</button>
+		<p style="text-align:center;display:none;" id="date"></p><br /><br /><br />
+		<button onclick="doAjax(this)" id="next">Next</button>
+		<button onclick="doAjax(this)" id="prev">prev</button>
+	</div>
+</body>
+</html>
