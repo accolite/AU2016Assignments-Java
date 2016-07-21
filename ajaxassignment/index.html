@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Awesome Slideshow</title>
+	<script>
+		var counter = 0;
+	</script>
+</head>
+<body>
+	
+	<div id="mainContent" style="width:500px;height:500px;overflow:hidden;">
+		<img src="img/0.jpg" style="width:100%">
+	</div>
+
+	
+
+	<script>
+		function getNewXmlHttp(){
+		var xmlhttp;
+			if (window.XMLHttpRequest){
+				xmlhttp=new XMLHttpRequest();
+			}
+			else{
+				xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			return xmlhttp;
+		}
+		function doAjax(obj){
+
+			var xmlhttp = getNewXmlHttp();
+			type = obj.innerHTML;
+
+			xmlhttp.onreadystatechange = function(){
+			if (xmlhttp.readyState==4 && xmlhttp.status==200)
+			{
+				var res = JSON.parse(xmlhttp.responseText);				
+				var theDiv = document.getElementById("mainContent");
+				var description = document.getElementById("description");
+				var details = document.getElementById("details");
+				theDiv.innerHTML = "<img src='"+ res.url +"' style='width:100%'>";
+				details.innerHTML = res.filename;
+				description.innerHTML = res.description;
+
+			}  
+		}
+			if(type == "Next"){
+				counter = (counter + 1) % 6;
+			}
+			else{
+				counter = (counter - 1) % 6;
+				if(counter < 0 )
+					counter += 6;
+			}
+			url = counter + ".json";
+
+			xmlhttp.open("GET",url,true);
+			document.getElementById("timings").innerHTML =  "Request Initiated @ " + new Date() + "<br/>";
+			xmlhttp.send();
+
+		}
+		doAjax();
+	</script>
+
+	<button onclick="doAjax(this)">Prev</button>
+	<button onclick="doAjax(this)">Next</button>
+
+
+	<p id="details">0.jpg</p>
+	<p id="description">10000 days</p>
+	<p id="timings"></p>
+</body>
+</html>
