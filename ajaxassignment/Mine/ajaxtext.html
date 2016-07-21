@@ -1,0 +1,29 @@
+<p id="demo">Let AJAX change this text.</p>
+
+<button type="button" onclick="loadDoc()">Change Content</button>
+
+<script>
+function loadDoc() {
+  var xhttp;
+  if (window.XMLHttpRequest) {
+    // code for modern browsers
+    xhttp = new XMLHttpRequest();
+    } else {
+    // code for IE6, IE5
+    xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  alert("hi");
+  xhttp.onreadystatechange = function() {
+  alert(xmlhttp.status+" status"+"\n"+xmlhttp.readyState+" ready");
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+	alert("hi");
+      document.getElementById("demo").innerHTML = xhttp.responseText;
+    }
+  };
+  xhttp.open("GET", "/1.txt", true);
+  xhttp.send();
+}
+</script>
+
+</body>
+</html>
