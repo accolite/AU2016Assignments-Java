@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript">
+		var value1 = "";
+		function editValue(obj){
+			value1 += obj.value;
+			console.log(value1);
+			document.getElementById("screen").value = value1; 
+		}
+		function clearValue(){
+			value1="";
+			document.getElementById("screen").value = value1;
+		}
+		function computeValue(){
+			document.getElementById("screen").value = eval(document.getElementById("screen").value);
+			console.log(value);
+		}
+	</script>
+</head>
+<body Name="calc">
+	<div><input type="text" id="screen" Name="screen"></div>
+	<div style="float:left;width:50;height:50;margin-top:20px;margin-bottom:20px;">
+		<input type="button" value="7" OnClick="editValue(this);">
+		<input type="button" value="8" OnClick="editValue(this);">
+		<input type="button" value="9" OnClick="editValue(this);">
+		<input type="button" value="-" OnClick="editValue(this);">
+	</div>
+	<br/>
+	<div style="float:left;width:50;height:50;margin-left:-135px;margin-top:40px;">
+		<input type="button" value="4" OnClick="editValue(this);">
+		<input type="button" value="5" OnClick="editValue(this);">
+		<input type="button" value="6" OnClick="editValue(this);">
+		<input type="button" value="+" OnClick="editValue(this);">
+	</div>
+	<div style="float:left;width:50;height:50;margin-left:-136px;margin-top:80px;">
+		<input type="button" value="1" OnClick="editValue(this);">
+		<input type="button" value="2" OnClick="editValue(this);">
+		<input type="button" value="3" OnClick="editValue(this);">
+		<input type="button" value="+" OnClick="editValue(this);">
+	</div>
+	<div style="float:left;width:50;height:50;margin-left:-135px;margin-top:120px;">
+		<input type="button" value="0" OnClick="editValue(this);">
+		<input type="button" value="c" OnClick="clearValue();">
+		<input type="button" value="." OnClick="editValue(this);">
+		<input type="button" value="/" OnClick="editValue(this);">
+	</div>
+	<div>
+		<input type="button" value="=" OnClick="computeValue();">
+	</div>
+</body>
+</html>
