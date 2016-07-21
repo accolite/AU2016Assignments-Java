@@ -1,0 +1,31 @@
+.nvgt{
+    position:absolute;
+    top: 150px;
+    height: 150px;
+    width: 200px;
+    opacity: 0.6;
+}
+.nvgt:hover{
+    opacity: 0.9;
+}
+#image_slider{
+	position : absolute;
+	left:350px;
+	
+}
+#button{
+	top : 700px;
+	align: center;
+}
+
+#prev{
+   
+    left: 0px;
+}
+#next{
+    
+    right: 0px;
+}
+#1,#2,#3{
+	visibility:hidden;
+}

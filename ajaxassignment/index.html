@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="ajax.js"></script>
+<link rel="stylesheet" type="text/css" href="design.css"></link>
+</head>
+<body>
+<h1 style = "text-align : center" >Top Places in London</h1>
+
+<div class="container">
+        <div class="slider_wrapper">
+            <img id="image_slider" src ="images/british_museum.jpg" alt="One of the best museum">
+            <img class="nvgt" id="prev" src = "images/prev.png" onclick = "loadPrev()"></span>
+            <img class="nvgt" id="next" src = "images/next.png" onclick = "loadNext()"></span>
+			<button type = "button" id = "button" onclick = "display()">Click to get Info</button>
+			<div style="margin-top:400px; margin-left: 400px; z-index:999;">
+			
+			<label id = '1' ></label>
+			<br/>
+			<label id = '2' ></label>
+			<br/>
+			<label id = '3' ></label>
+			</div>
+        </div>
+    </div>
+</body>
+</html>
