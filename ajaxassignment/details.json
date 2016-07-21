@@ -1,0 +1,24 @@
+ 
+	[ 
+			{ 
+			"id":"1", 
+			"description": "Scooby Doo", 
+			"refer": "https://en.wikipedia.org/wiki/Scooby-Doo", 
+			"details": "Scooby-Doo is an American animated cartoon franchise, comprising several animated television series produced from 1969 to the present day.",
+			"url": "image/1.jpg"
+			}, 
+			{ 
+			"id":"2", 
+			"description": "Shinchan", 
+			"refer": "https://en.wikipedia.org/wiki/Crayon_Shin-chan", 
+			"details": " Shin Chan is a Japanese manga series written and illustrated by Yoshito Usui. It follows the adventures of the five-year-old Shinnosuke 'Shin' Nohara and his parents, baby sister, dog, neighbours, and friends and is set in Kasukabe, Saitama Prefecture",
+			"url": "image/2.png" 
+			},
+			{
+			"id":"3", 
+			"description": "Tom and Jerry", 
+			"refer": "https://en.wikipedia.org/wiki/Tom_and_Jerry", 
+			"details": "Tom and Jerry is an American animated series of short films created in 1940, by William Hanna and Joseph Barbera. It centers on a rivalry between its two title characters, Tom and Jerry, and many recurring characters, based around slapstick comedy.",
+			"url": "image/3.jpg"
+			}
+		] 
