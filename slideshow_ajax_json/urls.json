@@ -1,0 +1,8 @@
+{"images":[
+    {"name":"Bulbasaur", "url":"1.png" , "description" :"Bulbasaur, known as Fushigidane in Japan, is a Pokémon species in Nintendo and Game Freak's Pokémon franchise. Designed by Ken Sugimori, their name is a combination of the words bulb and dinosaur."},
+    {"name":"Squirtle", "url":"2.png", "description" :"Squirtle, is a Pokémon species in Nintendo and Game Freak's Pokémon franchise. It was originally conceived by Game Freak's character development team and finalized by Ken Sugimori."},
+    {"name":"Eevee", "url":"3.png", "description" :"Eevee, known in Japan as Eievui, is a Pokémon species in Nintendo and Game Freak's Pokémon franchise. Created by Ken Sugimori, Eevee first appeared in the video games Pokémon Red and Blue."},
+    {"name":"Dragonite", "url":"4.png", "description" :"Dragonite is a draconic, bipedal Pokémon with light orange skin. It has large, grayish-green eyes and a round snout with small nostrils. A pair of long, thin antennae sprout from the top of its head, with a small horn set between them."},
+    {"name":"Cyndaquil", "url":"5.png", "description" :"Cyndaquil is a small, bipedal Pokémon with bluish fur on top of its body, and a milky color on the underside. Cyndaquil seems to be a composite of features from the echidna and the shrew."},
+    {"name":"Butterfree", "url":"6.png", "description" :"Butterfree resembles a vaguely anthropomorphic butterfly with a purple body. Unlike true insects, it only has two body segments and four light blue legs."}
+]}

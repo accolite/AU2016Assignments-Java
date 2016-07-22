@@ -1,0 +1,88 @@
+<html>
+<head>
+<title>Slide Show</title>
+<script>
+
+	function getNewXmlHttp(){
+		var xmlhttp;
+		if (window.XMLHttpRequest)
+		  {
+		  xmlhttp=new XMLHttpRequest();
+		  }
+		else
+		  {
+		  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		  }
+		  return xmlhttp;
+	}
+	
+	var counter = 0;
+	function doAjax(obj){
+		  var xmlhttp = getNewXmlHttp();
+		  
+		  
+		  xmlhttp.onreadystatechange = function(){
+		  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+			{
+				
+				var buttonid = obj.id;
+				
+				if(obj.id == "prev"){
+					
+					if(counter <0)
+					counter=5;
+					else
+					counter = counter -1;
+					}
+				
+				if(obj.id == "next")
+				counter = (counter +1)%6;
+				
+				var jsonobj = JSON.parse(xmlhttp.responseText);
+				document.getElementById("name").innerHTML=jsonobj.images[counter].name;
+				document.getElementById("description").innerHTML=jsonobj.images[counter].description;
+				
+				document.getElementById("image").src = jsonobj.images[counter].url;
+				
+				
+			}  
+		  }
+		  xmlhttp.open("POST","urls.json",true);
+		   
+		  xmlhttp.send();
+		  
+	}
+
+	function removede(obj){
+		
+		console.log(obj.checked);
+		
+		if(obj.checked){
+			document.getElementById("description").style.visibility = "visible "
+		}else{
+			document.getElementById("description").style.visibility = "hidden" ;
+		}
+	}
+	
+</script>
+
+</head>
+<body >
+	
+	<div align="center">
+		<h2  id="name">Bulbasaur</h2>
+		<img src="1.png" id="image" style="width:500px;height:500px;">
+		
+		<button type="button" id="prev" onclick="doAjax(this)">Prev</button>
+		<button type="button" id="next" onclick="doAjax(this)">Next</button>
+		<input type="checkbox" id="check" name="prndesc" onclick="removede(this)" checked>Remove Description<br>
+		
+		<h4>Description</h4>
+		
+		<textarea id="description" rows="4" cols="50"> Bulbasaur, known as Fushigidane in Japan, is a Pokémon species in Nintendo and Game Freak's Pokémon franchise.Designed by Ken Sugimori, their name is a combination of the words bulb and dinosaur. </textarea>
+		
+	</div>
+	
+<body>
+
+</html>
