@@ -1,0 +1,15 @@
+var listelement = Array(50001).join('1.1').split('.');
+
+var ListNextItem = function() {
+    var item = listelement.pop();
+
+    if (item) { //should be list.length
+
+        // recursion here!
+        setTimeout( ListNextItem, 0 );
+
+    }
+};
+ListNextItem();
+The recursion now is endless!
+

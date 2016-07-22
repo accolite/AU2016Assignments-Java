@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Enter details</title>
+</head>
+<style>
+h1 {text-align:center;}
+form {text-align:center; background-color:grey}
+</style>
+<body text-align=center>
+<h1>BioForm</h1>
+<form name="form1" onSubmit="return formValidation();">
+  First name:<br>
+  <input type="text" name="firstname"><br> <br> 
+  Full name:<br>
+  <input type="text" name="fullname"><br> <br> 
+  Address: <br> <br>
+  <textarea name="address">
+</textarea> <br> <br>  
+  Age:<br>
+   <input type="number" name="age" ><br> <br>  
+   Email id:<br>
+   <input type="text" name="email"><br><br>
+  Sex:<br> <br>  
+<input type="radio" name="male" value="male"> Male
+ <input type="radio" name="female" value="female"> Female
+  <input type="radio" name="other" value="other"> Others<br>
+   <br> 
+  
+ <input type="submit" value="Submit">
+</form>
+<script>
+ function formValidation()  
+{    
+var firstname = document.form1.firstname; 
+var fullname = document.form1.fullname; 
+var add = document.form1.address;      
+var male = document.form1.male;  
+var female = document.form1.female; 
+var other= document.form1.other;
+var email = document.form1.email;
+var age = document.form1.age;
+if(AllCharactersAreLetter(firstname))  
+{  
+if(AllCharactersAreLetterAndSpace(fullname))
+{
+if(AllCharactersArealphanumeric(add))  
+{   
+if(AllCharactersArenumeric(age))  
+{  
+if(ValidateEmail(email))  
+{  
+if(validatesex(male,female,other))  
+{  
+}  
+}   
+}  
+}   
+}  
+}  
+return false;  
+}  
+
+function AllCharactersAreLetterAndSpace(name)  
+{   
+var letters = /^[a-zA-Z ]*$/;;  
+if(name.value.match(letters))  
+{  
+return true;  
+}  
+else  
+{  
+alert('Username must have alphabet characters only');  
+name.focus();  
+return false;  
+}  
+}  
+
+
+function AllCharactersAreLetter(name)  
+{   
+var letters = /^[A-Za-z]+$/;  
+if(name.value.match(letters))  
+{  
+return true;  
+}  
+else  
+{  
+alert('Username must have alphabet characters only');  
+name.focus();  
+return false;  
+}  
+}  
+
+function AllCharactersArealphanumeric(add)  
+{   
+var letters = /^[0-9a-zA-Z]+$/;  
+if(add.value.match(letters))  
+{  
+return true;  
+}  
+else  
+{  
+alert('User address must have alphanumeric characters only');  
+add.focus();  
+return false;  
+}  
+}  
+
+function ValidateEmail(email)  
+{  
+var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;  
+if(email.value.match(mailformat))  
+{  
+return true;  
+}  
+else  
+{  
+alert("You have entered an invalid email address!");  
+email.focus();  
+return false;  
+}  
+}  
+
+function AllCharactersArenumeric(age)  
+{   
+var numbers = /^[0-9]+$/;  
+if(age.value.match(numbers))  
+{  
+return true;  
+}  
+else  
+{  
+alert('Age must have numeric characters only');  
+age.focus();  
+return false;  
+}  
+}  
+
+function validatesex(umsex,ufsex,other)  
+{  
+x=0;  
+  
+if(umsex.checked)   
+{  
+x++;  
+} if(ufsex.checked)  
+{  
+x++;   
+}  
+if(other.checked)
+{
+	x++;
+}
+if(x==0)  
+{  
+alert('Select Male/Female/Others');  
+umsex.focus();  
+return false;  
+} 
+else if(x>1)
+{
+	alert('Select either  Male/Female/other');  
+umsex.focus();  
+return false; 
+} 
+else  
+{  
+alert('Form has been successfully Submitted');  
+window.location.reload()  
+return true;
+}  
+}
+</script>
+</body>
+</html>
