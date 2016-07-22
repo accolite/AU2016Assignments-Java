@@ -1,0 +1,13 @@
+We can set timeout for each item so that items are added to an event queue rather then overflowing the stack.
+Being an asynchronous function it doesnt blocks the function.Stack is virtually converted to a queue and the call is
+handeled by that queue handling huge stack call.
+
+
+var nextListItem = function() {
+    var item = list.pop();
+    if (item) { //should be list.length
+        // recursion here!
+        setTimeout( nextListItem, 0 );
+    }
+};
+nextListItem();

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+var exp="";
+function butclick(c) {
+if(c=="="){
+try {
+	document.getElementById("pid").innerHTML=eval(document.getElementById("pid").innerHTML);	
+} catch (e) {
+    if (e instanceof SyntaxError) {
+        alert("Invalid Expression");
+    }
+}
+}
+else{
+    document.getElementById("pid").innerHTML = document.getElementById("pid").innerHTML+c;
+}
+if(c=="C"){
+exp="";
+document.getElementById("pid").innerHTML="&nbsp;";
+}
+}
+</script>
+</head>
+
+<body>
+
+<table style="width:200px">
+<tr>
+<td colspan=3>
+<p id="pid">&nbsp;</p>
+</td>
+<tr>
+  <tr>
+    <td width=33%><button type="button" onclick="butclick('1')" style="width:100%">1</button></td>
+    <td width=33%><button type="button" onclick="butclick('2')" style="width:100%">2</button></td>
+    <td width=33%><button type="button" onclick="butclick('3')" style="width:100%">3</button></td>
+  </tr>
+  <tr>
+    <td><button type="button" onclick="butclick('4')" style="width:100%">4</button></td>
+    <td><button type="button" onclick="butclick('5')" style="width:100%">5</button></td>
+    <td><button type="button" onclick="butclick('6')" style="width:100%">6</button></td>
+  </tr>
+  <tr>
+    <td><button type="button" onclick="butclick('7')" style="width:100%">7</button></td>
+    <td><button type="button" onclick="butclick('8')" style="width:100%">8</button></td>
+    <td><button type="button" onclick="butclick('9')" style="width:100%">9</button></td>
+  </tr>
+  <tr>
+    <td><button type="button" onclick="butclick('+')" style="width:100%">+</button></td>
+    <td><button type="button" onclick="butclick('0')" style="width:100%">0</button></td>
+	<td><button type="button" onclick="butclick('*')" style="width:100%">*</button></td>
+    
+  </tr>
+  <tr>
+  <td><button type="button" onclick="butclick('-')" style="width:100%">-</button></td>
+    <td><button type="button" onclick="butclick('=')" style="width:100%">=</button></td>
+    <td><button type="button" onclick="butclick('/')" style="width:100%">/</button></td>
+<td>
+
+</tr>
+<tr>
+    <td colspan=2><button type="button" onclick="butclick('C')" style="width:100%">C</button></td>
+	<td><button type="button" onclick="butclick('.')" style="width:100%">.</button></td>
+</tr>
+</table>
+
+</body>
+</html>

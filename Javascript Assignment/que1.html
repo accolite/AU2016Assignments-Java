@@ -1,0 +1,115 @@
+<!DOCTYPE>
+<html>
+<head>
+<title>JAVASCRIPT</title>
+<script>
+function check() {
+	var fn=document.getElementById("fname");
+	var p=document.getElementById("pid");
+	p.innerHTML="";
+	if(fn.value===""){
+	p.innerHTML=p.innerHTML+"</br>First name should not be null"
+	}
+	else if (!/^[a-zA-Z]+$/.test(fn.value)) {
+    //
+	p.innerHTML=p.innerHTML+"</br>First name should have only alphabets"
+	}
+	fn=document.getElementById("flname");
+	if(fn.value===""){
+	p.innerHTML=p.innerHTML+"</br>Full name should not be null"
+	}
+	else if (!/^[a-zA-Z\s]+$/.test(fn.value)) {
+    //
+	p.innerHTML=p.innerHTML+"</br>Full name should have only alphabets and spaces"
+	}
+	fn=document.getElementById("email");
+	if(fn.value===""){
+	p.innerHTML=p.innerHTML+"</br>Email should not be null"
+	}
+	else if (/[\s]+$/.test(fn.value)) {
+    //
+	p.innerHTML=p.innerHTML+"</br>Email should not have spaces"
+	}
+	
+	
+	/*
+	if(fn.value.search(/^[a-zA-Z]+$/)===1){
+	alert("right");
+	}
+	else{
+	alert("wrong");
+	}
+	*/
+	fn=document.getElementById("address");
+	if(fn.value===""){
+	p.innerHTML=p.innerHTML+"</br>Adress should not be null"
+	}
+	else if (!/^[a-zA-Z0-9\-\,\/\s]+$/.test(fn.value)) {
+    //
+	p.innerHTML=p.innerHTML+"</br>Address should have alphanumeric and - , / space"
+	}
+	fn=document.getElementById("age");
+	if(fn.value===""){
+	p.innerHTML=p.innerHTML+"</br>Age should not be null"
+	}
+	else if (!/^[0-9]+$/.test(fn.value)) {
+    //
+	p.innerHTML=p.innerHTML+"</br>Age should be between 1 to 150"
+	}
+	
+	else {
+	var x=parseInt(fn.value);
+	if(x<=0||x>150){
+	p.innerHTML=p.innerHTML+"</br>Age should be between 1 to 150"
+	}
+	}
+}
+</script>
+</head>
+
+
+<body>
+<!--<form action="">-->
+<table width="400px">
+  <tr>
+    <td width=30%>First name : </td>
+    <td width=70%><input id="fname" type="text" ></td>
+  </tr>
+  <tr>
+    <td>Full name : </td>
+    <td><input id="flname" type="text" ></td>
+  </tr>
+  <tr>
+    <td>Email : </td>
+    <td><input id="email" type="text" ></td>
+  </tr>
+  <tr>
+    <td>Address : </td>
+    <td><input id="address" type="text" ></input></td>
+  </tr>
+  <tr>
+    <td>Gender : </td>
+    <td><input type="radio" name="gender" value="male" checked> Male<br>
+  <input type="radio" name="gender" value="female"> Female<br>
+  <input type="radio" name="gender" value="other"> Other<br>
+  </td>
+  </tr>
+  
+  <tr>
+    <td>Age : </td>
+    <td><input id="age" type="text" ></input></td>
+  </tr>
+  <tr>
+  <td colspan=2 align=center>
+  <input type="submit" value="Submit" onclick="check()" >
+  </td>
+  </tr>
+  <tr>
+  <td colspan=2 >
+  <p id="pid"></p>
+  </td>
+  </tr>
+</table>
+<!--</form>-->
+</body>
+</html>
