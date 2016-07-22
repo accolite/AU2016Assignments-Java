@@ -1,0 +1,39 @@
+<html>
+<head>
+<script type="text/javascript" src="jscript1.js"></script>
+<title>
+Information
+</title
+</head>
+<body  >
+
+
+
+<div >
+	<div > <h2>Bio-Data</h2></div>
+			
+	<form >
+		
+			First name :
+			<input type="text" id="firstname" 	name="firstname" placeholder="  First Name" onkeyup="fname(this);"> <i id="one"></i><br><br>
+			Full name :
+			<input type="text" id="fullname" name="fullname" placeholder="  Full Name" onkeyup="full_name(this);" ><i id="two"></i> <br><br>
+			Age :
+			<input type="number" id="age" onkeyup="agecheck(this);"  placeholder="Enter b/w 1 to 150"><i id="three"></i> <br><br>
+			Email :
+			<input type="text" id="email" name="email" placeholder=" Email Id"  onkeyup="e_mail(this);"> <i id="four"></i><br><br>
+			Gender:<input type="text" id="gender" onkeyup="gen(this);" placeholder="Male or Female or Other"> <i id="six"></i><br><br>
+			
+			Address : <br>
+			<textarea rows="4" id="address" onkeyup="addresscheck(this);" >
+				
+			</textarea><i id="five"></i> <br><br>
+			
+			
+			<input type="submit"  value="submit" onclick="validate()">
+		
+	</form>
+</div>
+
+</body>
+</html>
