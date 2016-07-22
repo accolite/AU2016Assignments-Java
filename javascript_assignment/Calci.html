@@ -1,0 +1,80 @@
+<!-- ****************************************************************************
+* Copyright (c) 2016 by Accolite.com. All rights reserved
+*
+* Created date :: Jul 21, 2016
+*
+*  @author :: Jegan Muthaiah
+* ***************************************************************************
+ -->
+
+<!DOCTYPE html>
+<html>
+<head>Calculator</head>
+<script type="text/javascript">
+	var answer=0,var1="",var2="",operator;
+	function getNum(number){
+		var displayscreen=document.getElementById('display');
+		var2+=number.value;
+		displayscreen.innerHTML=var2;
+	}
+	function doOperation(t_operator){
+		var displayscreen=document.getElementById('display');
+		operator=t_operator.id;
+		if(var1=="")
+		{
+			var1=var2-0;
+			var2="";
+		}	
+		displayscreen.innerHTML="";
+	}
+	function showAnswer(){
+		var displayscreen=document.getElementById('display');
+		var2=var2-0;
+		if(operator=="add")
+			answer=var1+var2;
+		else if(operator=="sub")
+			answer=var1-var2;
+		else if(operator=="mult")
+			answer=var1*var2;
+		else if(operator=="div"){
+			if(var2==0){
+				alert("Division By Zero");
+				answer=var1;
+			}else{
+				answer=var1/var2;
+			}
+		}	
+		var1=answer;
+		var2="";
+		displayscreen.innerHTML=answer;
+	}
+	function clearScreen(){
+		var displayscreen=document.getElementById('display');
+		answer=0;
+		var1=0;
+		var2="";
+		displayscreen.innerHTML="";
+	}
+</script>
+<body align=center style="border-style:solid;margin:50px 400px 50px 400px">
+	<div>
+		<h1><textarea rows="5" cols="50" id="display">Welcome</textarea><br/></h1> 	
+		<input type="button" id="one" value="1" onclick="getNum(this)" style="width:75px;height:75px">
+		<input type="button" id="two" value="2" onclick="getNum(this)" style="width:75px;height:75px">
+		<input type="button" id="three" value="3" onclick="getNum(this)" style="width:75px;height:75px">
+		<input type="button" id="four" value="4" onclick="getNum(this)" style="width:75px;height:75px"><br/>
+		<input type="button" id="five" value="5" onclick="getNum(this)" style="width:75px;height:75px">
+		<input type="button" id="six" value="6" onclick="getNum(this)" style="width:75px;height:75px">
+		<input type="button" id="seven" value="7" onclick="getNum(this)" style="width:75px;height:75px">
+		<input type="button" id="eight" value="8" onclick="getNum(this)" style="width:75px;height:75px"><br/>
+		<input type="button" id="nine" value="9" onclick="getNum(this)" style="width:75px;height:75px">
+		<input type="button" id="zero" value="0" onclick="getNum(this)" style="width:75px;height:75px">
+		<input type="button" id="add" value="+" onclick="doOperation(this)" style="width:75px;height:75px">
+		<input type="button" id="sub" value="-" onclick="doOperation(this)" style="width:75px;height:75px"><br/>
+		<input type="button" id="mult" value="*" onclick="doOperation(this)" style="width:75px;height:75px">
+		<input type="button" id="div" value="/" onclick="doOperation(this)" style="width:75px;height:75px">
+		<input type="button" id="ans" value="=" onclick="showAnswer()" style="width:75px;height:75px">
+		<input type="button" id="clear" value="C" onclick="clearScreen()" style="width:75px;height:75px"><br/>
+	</div> 
+</body>
+</html>

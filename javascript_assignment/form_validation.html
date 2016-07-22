@@ -1,0 +1,62 @@
+<!-- ****************************************************************************
+* Copyright (c) 2016 by Accolite.com. All rights reserved
+*
+* Created date :: Jul 21, 2016
+*
+*  @author :: Jegan Muthaiah
+* ***************************************************************************
+ -->
+<!DOCTYPE html>
+<html>
+<title> MyPage </title>
+<head> <h1 style="color:red">Accolite Employee Hub</h1> </head>
+<script type="text/javascript">
+		function validate(){
+			var firstname=document.getElementById('fname').value;
+			var secondname=document.getElementById('fullname').value;
+			var address=document.getElementById('address').value;
+			var email=document.getElementById('email').value;
+			
+			if(firstname.search(/[^a-z]/i)>-1){
+				alert("Invalid FirstName");
+			}
+			else if(secondname.search(/[^a-z\s]/i)>-1){
+				alert("Invalid FullName");
+			}
+			else if(address.search(/[^-a-z\s/:,]/i)>-1){
+				alert("Invalid Address");
+			}
+			else if(email.search(/[\s]/i)>-1){
+				alert("Invalid Email");
+			}
+			else{
+				alert("Good to go");
+			}
+		}
+</script>
+
+<body align=center style="border-style:solid;margin:50px 400px 50px 400px">
+	<form method="post" onsubmit="validate()">
+	<div>
+		FirstName<br/>
+			<input type="text" size="20px" id="fname" placeholder="Eg:John" required><br/><br/>
+		FullName<br/>
+			<input type="text" size="20px" id="fullname" placeholder="Eg:Snow"><br/><br/>
+		Gender<br/>
+			<input type="radio" name="gender" value="male" checked>Male
+			<input type="radio" name="gender" value="female">Female
+			<input type="radio" name="gender" value="other">Transgender<br/><br/>
+			
+		Age<br/>
+			<input type="number" name="age" width="40px" placeholder="Eg:30" min="0" max="200"><br/><br/>
+		Address<br/>
+			<textarea id="address" rows="5" cols="25" placeholder="Eg:Door.No:10,5th cross street,Panathur main road,Banglore"></textarea><br/><br/>
+		Email<br/>
+			<textarea id="email" placeholder="abc@gmail.com"></textarea><br/><br/>
+		<input type="submit" value="submit"><br/><br/>
+	</div>
+	
+	</form>
+
+</body>
+</html>
