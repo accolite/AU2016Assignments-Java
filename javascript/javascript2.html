@@ -1,0 +1,65 @@
+<html>
+<head>
+<style>
+body h3{
+   text-align:center;
+}
+.cal{
+margin-top:150px;
+margin-left:580px;
+}
+</style>
+<script>
+function doevaluate(value){
+
+if(value==='C'){
+document.calc.showResult.value='';
+}
+else if(value==='='){
+document.calc.showResult.value=eval(document.calc.showResult.value);
+}
+else{
+document.calc.showResult.value+=value;
+}
+//document.getElementById("ans").innerHTML=document.calc.showResult.value;
+}
+</script>
+</head>
+<body>
+<h3>Calculator Assignment</h3>
+<br/>
+<div class="cal">
+<form Name="calc">
+<table border=5>
+<tr>
+<td colspan=4 id="ans"><input type=text Name="showResult"></td>
+</tr>
+<tr>
+<td><input type=button value="0" OnClick="doevaluate('0');"></td>
+<td><input type=button value="1" OnClick="doevaluate('1');"></td>
+<td><input type=button value="2" OnClick="doevaluate('2')"></td>
+<td><input type=button value="+" OnClick="doevaluate('+')"></td>
+</tr>
+<tr>
+<td><input type=button value="3" OnClick="doevaluate('3')"></td>
+<td><input type=button value="4" OnClick="doevaluate('4')"></td>
+<td><input type=button value="5" OnClick="doevaluate('5')"></td>
+<td><input type=button value="-" OnClick="doevaluate('-')"></td>
+</tr>
+<tr>
+<td><input type=button value="6" OnClick="doevaluate('6')"></td>
+<td><input type=button value="7" OnClick="doevaluate('7')"></td>
+<td><input type=button value="8" OnClick="doevaluate('8')"></td>
+<td><input type=button value="x" OnClick="doevaluate('*')"></td>
+</tr>
+<tr>
+<td><input type=button value="9" OnClick="doevaluate('9')"></td>
+<td><input type=button value="C" OnClick="doevaluate('C')"></td>
+<td><input type=button value="=" OnClick="doevaluate('=')"></td>
+<td><input type=button value="/" OnClick="doevaluate('/')"></td>
+</tr>
+</table>
+</form>
+</div>
+</body>
+</html>

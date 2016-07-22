@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.main{
+margin-top:150px;
+margin-left:580px;
+}
+</style>
+<script>
+// javaScript here 
+function validateform(){  
+var name=document.myform.name.value;  
+var fname=document.myform.fname.value; 
+var mail=document.myform.mail.value;  
+var addr=document.myform.addr.value; 
+var gender=document.myform.gender.value; 
+var age=document.myform.age.value;
+var ans="";
+//alert(name+" "+fname+" "+mail+" "+addr+" "+gender+" "+age); 
+//var regexag= /[1-9][0-9]*/  
+var inValid = /\s/;
+var regexem=/\S+@\S+\.\S+/;
+var regexf = /^[a-zA-Z ]*$/;
+var regexn=/^[a-zA-Z]+$/; 
+var regexad=/^[a-zA-Z0-9\s,'\-:""]*$/;
+if (name===null || name===""||(!name.match(regexn))){  
+ ans=ans+"Name is not correct <br>";   
+}
+if (fname===null || fname===""||(!fname.match(regexf))){  
+  ans=ans+"Full Name is not correct <br>";}
+if (addr===null || addr===""||(!addr.match(regexad))){  
+   ans=ans+"address is not correct <br>";}
+   
+if (mail===null ||mail===""||(!mail.match(regexem))||mail.match(inValid)){  
+ ans=ans+"Email is not correct <br>";   
+}
+if (age===null || age===""||(!(age<110&&age>0))){  
+ ans=ans+"age is not correct <br>";   
+}
+   
+if(ans===""){
+document.getElementById("display").innerHTML="You can go ahead ";
+}
+else{
+document.getElementById("display").innerHTML+=ans;
+}
+}  
+</script>
+</head>
+<body>
+<div class="main">
+<h2>INFORMATION:</h2>
+<form name="myform" action="#" method="post" >
+First Name:<br>
+<input type="text" name="name" ><br>
+Full Name:<br>
+<input type="text" name="fname" ><br>
+E-mail Id:<br>
+<input type="text" name="mail"><br>
+Address:<br>
+<input type="text" name="addr"><br>
+Gender:<br>
+<input type="radio" name="gender" value="male" checked> Male<br>
+<input type="radio" name="gender" value="female"> Female<br>
+<input type="radio" name="gender" value="other"> Other<br>  
+Age:<br>
+<input type="text" name="age" ><br><br>
+</form>
+<input type="submit" value="SUBMIT" onclick="return validateform()" ><br>
+ 
+<label>output: </label>
+<p><span id='display'></span></p>
+</div>
+
+</body>
+
+</html>
+
