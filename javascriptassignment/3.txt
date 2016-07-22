@@ -1,0 +1,31 @@
+The following recursive code will cause a stack overflow if the array list is too large. How can you fix this and still
+retain the recursive pattern?
+
+var list = readHugeList();
+var nextListItem = function() {
+	var item = list.pop();
+	if (item) {
+		// process the list item...
+		nextListItem();
+	}
+};
+
+Ans -  
+
+The solution is 
+
+var list = readHugeList();
+var nextListItem = function() {
+	var item = list.pop();
+	if (item) {
+		// process the list item...
+		setTimeout(nextListItem,0);
+	}
+};
+
+When any function call happens an entry is made in the call stack so that when the called function finished executing the callee function can resume from where it left off.
+Similarily for a recursive function an entry in the call stack will be made for every call. This could potentially cause the stack to run out of memory and cause a stack overflow.
+In which case no further call can be made which will cause the program to that.
+
+The original piece of code was susceptible to this as a huge list would lead to a lot of function calls. 
+If we use setTimeout then the recursive function call is handled by the EventQueue and not the call stack. So the call stack remains clear and hence the program will not crash.

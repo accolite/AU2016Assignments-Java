@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="styles.css">	
+	<script>
+		function calculateValue(){
+			var str = document.getElementById('display').value;
+			var ans = eval(str);
+			document.getElementById('display').value = ans;
+		}
+	</script>
+</head>
+<body>
+	<div class="container">
+		<div id="calc">
+			<div class="row">
+				<input type="text" id='display' disabled>
+			</div>
+			<div class="row">
+				<button class="cell" onclick="document.getElementById('display').value+='1';">1</button>
+				<button class="cell" onclick="document.getElementById('display').value+='2';">2</button>
+				<button class="cell" onclick="document.getElementById('display').value+='3';">3</button>
+				<button class="cell" onclick="document.getElementById('display').value+='+';">+</button>
+			</div>
+			<div class="row">
+				<button class="cell" onclick="document.getElementById('display').value+='4';">4</button>
+				<button class="cell" onclick="document.getElementById('display').value+='5';">5</button>
+				<button class="cell" onclick="document.getElementById('display').value+='6';">6</button>
+				<button class="cell" onclick="document.getElementById('display').value+='-';">-</button>
+			</div>
+			<div class="row">
+				<button class="cell" onclick="document.getElementById('display').value+='7';">7</button>
+				<button class="cell" onclick="document.getElementById('display').value+='8';">8</button>
+				<button class="cell" onclick="document.getElementById('display').value+='9';">9</button>
+				<button class="cell" onclick="document.getElementById('display').value= '0';">C</button>
+			</div>
+			<div class="row">
+				<button class="cell" onclick="calculateValue()">=</button>
+				<button class="cell" onclick="document.getElementById('display').value+='0';">0</button>
+				<button class="cell" onclick="document.getElementById('display').value+='*';">*</button>
+				<button class="cell" onclick="document.getElementById('display').value+='/';">/</button>
+			</div>
+			
+		</div>
+
+
+	</div>
+
+	<div></div>
+</body>
+</html>

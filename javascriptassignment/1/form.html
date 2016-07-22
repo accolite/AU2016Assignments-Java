@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"> 
+	<title>Document</title>
+	<style>
+		label{
+			min-width:300px;
+		}
+	</style>
+	<script>
+		function validateThis(){
+
+			var fname = document.getElementById("fname").value;
+			if(fname == "" || fname == null){
+				alert("Please Fill First Name");
+				return false;
+			} 
+			if(!(/^[a-zA-Z]+$/.test(fname))) {
+				alert("Name can contain only alphabets");
+				return false;
+			}
+
+			var lname = document.getElementById("lname").value;
+			if(lname == "" || lname == null){
+				alert("Please Fill Last Name");
+				return false;
+			} 
+			if(!(/^[a-zA-Z\s]+$/.test(lname))) {
+				alert("Name can contain only alphabets");
+				return false;
+			}
+			var email = document.getElementById("email").value;
+			if(email == "" || email == null){
+				alert("Please Fill Email");
+				return false;
+			} 
+			if(!(/^[a-zA-Z0-9_\.-]+@[a-zA-Z0-9]+\.[a-zA-Z]+$/.test(email))) {
+				alert("Not Valid email");
+				return false;
+			}
+
+			var age = document.getElementById("age").value;
+			if(age == "" || age == null){
+				alert("Please Fill age");
+				return false;
+			} 
+			if(!(/^[0-9]+/.test(age))) {
+				alert("Not Valid age");
+				return false;
+			}
+			parsedAge = parseInt(age)
+			if(parsedAge < 1 || parsedAge > 126) {
+				alert("Be realistic. Dont Lie.");
+				return false;
+			}
+			
+			var address = document.getElementById("address").value;
+			if(address == "" || address == null){
+				alert("Please Fill address");
+				return false;
+			} 
+			if(!(/^[a-zA-Z0-9\/\:\-\,\s]+$/.test(address))) {
+				alert("Not Valid address");
+				return false;
+			}
+
+			alert("All ok");
+
+
+		}
+
+
+	</script>
+</head>
+<body>
+	
+	<form action="" method="post" onsubmit="return validateThis()">
+		
+		<label for="firstname">First Name : </label>
+		<input type="text" name="firstname" placeholder="First Name" id="fname"><br>
+
+		<label for="lasttname">Full Name : </label>
+		<input type="text" name="lastname" placeholder="Full Name" id="lname"> <br>
+
+		<label for="email">Email Id : </label>
+		<input type="text" name="email" placeholder="Email" id="email"> <br>
+		<label for="age">Age : </label>
+		<input type="number" name="age" id="age" placeholder="Age"><br>
+
+		<label for="gender">Gender : </label>
+		<input type="radio" name="gender" value="male" checked> Male
+		<input type="radio" name="gender" value="female"> Female
+		<input type="radio" name="gender" value="other"> Other  <br>
+
+	<!-- 	<select name="loc" id="location" >
+			<option>Bangalore</option>
+			<option>Calcutta</option>
+			<option>Delhi</option>
+		</select> <br>
+	 -->
+	 	<label for="address">Address : </label>
+		<input name="address" id="address">
+		<input type="submit" value="Submit">
+		
+	</form>
+	
+	
+
+</body>
+</html>
