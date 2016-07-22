@@ -1,0 +1,59 @@
+<html>
+<head>
+<style>
+table,td {
+    padding : 10px
+}
+</style>
+</head>
+<body>
+<h3>Simple Calculator</h3>
+<br/>
+<form Name="calc">
+<table border=2>
+<tr>
+<td colspan=4><input type=text Name="display" id = "display"></td>
+</tr>
+<tr>
+<td><input type=button value="0" OnClick="append('0')"></td>
+<td><input type=button value="1" OnClick="append('1')"></td>
+<td><input type=button value="2" OnClick="append('2')"></td>
+<td><input type=button value="+" OnClick="append('+')"></td>
+</tr>
+<tr>
+<td><input type=button value="3" OnClick="append('3')"></td>
+<td><input type=button value="4" OnClick="append('4')"></td>
+<td><input type=button value="5" OnClick="append('5')"></td>
+<td><input type=button value="-" OnClick="append('-')"></td>
+</tr>
+<tr>
+<td><input type=button value="6" OnClick="append('6')"></td>
+<td><input type=button value="7" OnClick="append('7')"></td>
+<td><input type=button value="8" OnClick="append('8')"></td>
+<td><input type=button value="x" OnClick="append('*')"></td>
+</tr>
+<tr>
+<td><input type=button value="9" OnClick="append('9')"></td>
+<td><input type=button value="C" OnClick="calc.display.value=''"></td>
+<td><input type=button value="=" OnClick="evaluateExpression(calc.display.value)"></td>
+<td><input type=button value="/" OnClick="append('/')"></td>
+</tr>
+</table>
+</form>
+</body>
+<script>
+	function evaluateExpression(evaluationString){
+		try {
+			document.getElementById("display").value = eval(evaluationString); 
+		} catch (e) {
+			if (e instanceof SyntaxError) {
+				alert(e.message);
+				document.getElementById("display").value = '';
+			}
+		}
+	}
+	function append(appendString){
+		document.getElementById("display").value += appendString;
+	}
+</script>
+</html>

@@ -1,0 +1,98 @@
+<html>
+	<head><title>Personal Information Form</title><head>
+	
+	<body>
+		<div id = "per_info_form">
+			<form>
+				First Name : <input type = "text" name = "first_name"></input><br/><br/>
+				Full Name : <input type = "text" name = "full_name"></input><br/><br/>
+				Email:  <input type = "text" name = "email"></input><br/><br/>
+				Address: <input type = "text" name = "address"></input><br/><br/>
+				Age: <input type = "text" name = "age"></input><br/><br/>
+				Gender: <input type = "text" name = "gender"></input><br/><br/>
+				<input type = "submit" value="submit" onclick = "validateForm(first_name.value,full_name.value,email.value,
+				address.value,age.value,gender.value)"></input>
+			</form>
+		</div>
+	</body>
+	
+	<script>
+		function validateFirstName(name){
+			var exp = new RegExp("[A-za-z]+$");
+			if(name.match(exp) != name){
+				alert('first name should only contain alphabets');
+			return false;
+		  }
+			return true;
+		}
+
+function validateFullName(full_name,first_name){
+	var first_name_with_space = first_name + " ";
+	var exp = new RegExp("[A-z a-z]+$");
+	if(full_name.match(exp) != full_name){
+		alert('full name should only contain alphabets and spaces');
+	   return false;
+	}
+	exp = new RegExp("^(?:"+first_name_with_space+")");
+	if(full_name.match(exp) != first_name_with_space)
+		{
+			alert('full_name does not have first name in starting');
+			return false;
+		}
+	return true;
+}
+
+function validateAddress(address){
+	var exp = new RegExp("[A-za-z][A-za-z:/,-0-9 ]+$");
+	if(name.match(exp) != address){
+		alert('address format is wrong');
+		return false;
+	}
+	 return true;
+}
+
+function validateGender(gender){
+	if(gender != "male" || gender != "female" || gender != "others"){
+		alert('write male,female or others');
+		return false;
+	  }
+	return true;
+}
+
+function validateEmail(email){
+	alert("validating email");
+	var exp = new RegExp("[ ]");
+	if(exp.test(email)){
+		alert("email can't contain spaces");
+		return false;
+	}
+	
+	exp = new RegExp("(.+)@(.+){2,}\.(.+){2,}");
+	if(!exp.test(email))
+		{
+			alert("email format is wrong");
+			return false;
+		}
+	return true;
+	
+}
+
+function validateAge(age){
+	var exp = new RegExp("[0-9]+$");
+	if(age.match(exp) != age){
+		alert('age format is wrong');
+		return false;
+	}
+	else if(age < 0){
+		alert('age can not be negative');
+		return false;
+	}
+	return true;
+}
+
+function validateForm(first_name,full_name,email,address,age,gender){
+	if(validateFirstName(first_name) && validateFullName(full_name,first_name) && validateEmail(email) && validateAddress(address) && validateGender(gender) && validateAge(age))
+		alert("form validated");
+}
+	</script>
+</html>
