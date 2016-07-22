@@ -1,0 +1,84 @@
+<html>
+<head>	
+
+<script>
+var expression = "";
+function buttonclick(obj){
+
+	var cbutton=obj.name;
+	
+	if(cbutton == "1" ||cbutton == "2" ||cbutton == "3" ||cbutton == "4" ||cbutton == "5" ||cbutton == "6" ||cbutton == "7" ||cbutton == "8" ||
+	cbutton == "9" ||cbutton == "0"||cbutton == "+"||cbutton == "-"||cbutton == "*"||cbutton == "/"){
+	  expression +=cbutton;
+	  document.getElementById("display").value=expression;
+	}
+	
+	if(cbutton == "CLR"){
+		document.getElementById("display").value=" ";
+		expression=" ";
+	}
+	
+	if(cbutton == "="){
+	
+		try {
+			var ans = eval(expression);
+			document.getElementById("display").value=ans;
+			} catch (e) {
+				if (e instanceof SyntaxError) {
+					document.getElementById("display").value="Enter valid expression";
+			}
+			}
+		
+		
+	}
+}
+
+</script>
+
+</head>
+
+<body >
+
+<form name="myform" method="post">
+
+<fieldset style="height:560px;width:254px;">
+<legend>Calculator</legend>
+<div align="center" >
+
+	<p><input type ="text" style="height:40px;width:220px;" id= "display"></p>
+	<p>
+	<input type ="button" style="height:60px;width:54px;" name= "1" value='1' onclick="buttonclick(this)">
+	<input type ="button" style="height:60px;width:54px;" name= "2" value='2' onclick="buttonclick(this)">
+	<input type ="button" style="height:60px;width:54px;" name= "3" value='3' onclick="buttonclick(this)">
+	</p>
+	
+	<p>
+	<input type ="button" style="height:60px;width:54px;" name= "4" value='4' onclick="buttonclick(this)">
+	<input type ="button" style="height:60px;width:54px;" name= "5" value='5' onclick="buttonclick(this)">
+	<input type ="button" style="height:60px;width:54px;" name= "6" value='6' onclick="buttonclick(this)">
+	</p>
+	
+	<p>
+	<input type ="button" style="height:60px;width:54px;" name= "7" value='7' onclick="buttonclick(this)">
+	<input type ="button" style="height:60px;width:54px;" name= "8" value='8' onclick="buttonclick(this)">
+	<input type ="button" style="height:60px;width:54px;" name= "9" value='9' onclick="buttonclick(this)">
+	</p>
+	
+	<p>
+	<input type ="button" style="height:60px;width:54px;" name= "CLR" value='CLR' onclick="buttonclick(this)">
+	<input type ="button" style="height:60px;width:54px;" name= "0" value='0' onclick="buttonclick(this)">
+	<input type ="button" style="height:60px;width:54px;" name= "+" value='+' onclick="buttonclick(this)">
+	</p>
+	
+	<p>
+	<input type ="button" style="height:60px;width:54px;" name= "-" value='-' onclick="buttonclick(this)">
+	<input type ="button" style="height:60px;width:54px;" name= "*" value='*' onclick="buttonclick(this)">
+	<input type ="button" style="height:60px;width:54px;" name= "/" value='/' onclick="buttonclick(this)">
+	</p>
+
+	<p><input type ="button" style="height:60px;width:54px;" name= "=" value='=' onclick="buttonclick(this)"></p>
+</div>
+</fieldset>
+</form>
+</body>		
+</html>

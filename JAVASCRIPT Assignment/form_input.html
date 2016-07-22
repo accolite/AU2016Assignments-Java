@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Employee Data</title>
+
+<script>
+	
+	function validate(){
+		var flag = true;
+		
+		var firstname = document.forms["dataform"]["firstname"].value;
+		var lastname = document.forms["dataform"]["lastname"].value;
+		var age = document.forms["dataform"]["age"].value;
+		var sex = document.forms["dataform"]["sex"].value;
+		var address = document.forms["dataform"]["address"].value;
+		
+			console.log(firstname.length);
+		
+            if (firstname.length == 0 || (/^[a-zA-Z]*$/.test(firstname) == false)) {
+                alert("Invalid First name");
+                return false;
+            }
+            
+            if (lastname.length == 0 || (/^[a-zA-Z ]*$/.test(lastname) == false)) {
+                alert("Invalid last name");
+                return false;
+            }
+            
+            
+            if ( age == "" || isNaN(age) || parseInt(age) < 1 || parseInt(age) > 150) {
+                alert("Invalid Age")
+                return false;
+            }
+			
+			if(sex != "male" || sex != "female" || sex != "other" ){
+				alert("Invalid string")
+                return false;
+			}
+            
+            if ( address.length == 0 || (/^[a-zA-Z0-9\:\-\,\. ]*$/.test(address) == false)) {
+                alert("Invalid Address");
+                return false;
+            }
+            return true;
+	}
+</script>
+
+</head>
+
+<body>
+<div align="center">
+
+<h1>ENTER DATA</h1>
+
+<form name="dataform" method="post" onsubmit="return validate()">
+	First name <br/>
+	<input type = "text" name="firstname"><br/>
+	<br>
+	
+	Last name <br/>
+	<input type = "text" name = "lastname"><br/>
+	<br>
+	
+	Age:<br/>
+	<input type = "number" name = "age" min = "18" max="65"><br/>
+	<br>
+	
+	Sex:<br/><br>
+	<input type = "text" name = "sex"><br>
+	<br>
+	
+	Address:<br>
+	<textarea name = "address"></textarea><br>
+	<button type = "submit" name="submit">Submit</button>
+</form>
+
+</div>
+</body>
+</html>
