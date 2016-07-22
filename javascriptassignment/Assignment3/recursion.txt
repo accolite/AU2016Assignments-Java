@@ -1,0 +1,34 @@
+/*The Problem*/
+	
+	var list = readHugeList();
+	var nextListItem = function() {
+	var item = list.pop();
+	if (item) {
+		// process the list item...
+		nextListItem();
+	}
+	}
+
+
+/*Solution to avoid stack overflow*/
+
+var list = readHugeList();
+
+var nextListItem = function() {
+    var item = list.pop();
+
+    if (item) {
+        
+        setTimeout( nextListItem, 0);
+    }
+};
+
+The problem arises because of the program stack space available in memory.In the former case, whenever a (not null) item is popped 
+from the list,then again the function is called even before the current function ends thereby the current function's stack space
+remains intact & another same function gets called & in this way at a time the program stack space will get overflowed.
+
+By using setTimeout( nextListItem, 0)
+The current function gets enqueued in the event loop queue and thereby the current function will end & its stack will get destroyed.
+By setting time as 0, we ensure that as soon as the function ends from program stack space,it gets executed from the event loop queue
+& thereby on execution, the recursion will continue.At a time,only a single function's  stack space is active at a time.
+ 
