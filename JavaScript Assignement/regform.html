@@ -1,0 +1,84 @@
+<html>
+<head>
+<script type="text/javascript">
+function validate()
+    {
+        var firstName=document.getElementById("firstname").value;
+        var fullName=document.getElementById("fullname").value;
+        var email=document.getElementById("email").value;
+        var address=document.getElementById("address").value;
+        var gender=document.getElementById("gender").value;
+        var age=document.getElementById("age").value;
+        
+       
+       
+        //validating first name as to contain only alphabets with minimum length 3 and maximum length 20
+        var firstNameRegExp = /^[A-Za-z]{3,20}$/ 
+        //validating full name as to contain only aplhabets and spaces with minimum length 3 and  maximum m length 20
+        var fullNameRegExp= /^[A-Za-z ]{3,20}$/ 
+        //validating email to contain word and then @ then aplhabets or underscore followed by . and then aplhanumericals with length of 2 0r 3
+        var emailRegExp=/^\w+@[a-zA-Z_]+\.[a-zA-Z]{2,3}$/
+        //validating address to contain any number of words
+        var addressRegExp=/\w+(\/\:\,\. )*/
+        //validating gender to be either male or female or others
+        var genderRegExp= /male|female|others/
+
+         
+         try{
+         //checking if first name meets teh conditons
+        if(!firstNameRegExp.test(firstName))
+            {
+                alert("first name should contain only aplhabets and be of length between 3 and 20");
+            }
+        else
+        //checking if full name meets the conditions
+        if(!fullNameRegExp.test(fullName))
+            {
+                alert("full name should contain only aplhabets and be of length between 3 and 20");
+            }
+        else
+        //checking if email meets the conditons
+        if(!emailRegExp.test(email))
+            {
+                alert("email should be in abc@def.com");
+            }
+        else
+        //checking the papttern of address
+        if(addressRegExp.exec(address).length != address.length)
+            {
+                alert("adress should contain words and '/', ':', '‐', ',', no other special character should be allowed. Spaces are allowed.");
+            }
+        else
+            //checking if ender meets the condition
+        if(!genderRegExp.test(gender))
+            {
+                alert('Give either male or female or others');
+            }        
+       else
+        //checking if age is as expected
+        if(age < 0 || age > 250)
+            {
+                alert("enter the right age");
+            }
+			}
+			catch(err)
+			{
+				alert('check the format');
+			}
+    }
+</script>
+</head>
+<body>
+<center>
+<form name="myForm" method="post">
+First Name:<input type=text id="firstname"/><br/><br/>
+Full Name:<input type=text id="fullname"/><br/><br/>
+Email Id:<input type="text" id="email"/><br/><br/>
+Address:<input type="textarea" id="address"/><br/><br/>
+Gender:<input type="text" id="gender"/>
+Age:<input type=text id="age"/><br/><br/>
+<input type="button" value="submit" onClick="validate()"/>
+</center>
+</form>
+</body>
+</html>

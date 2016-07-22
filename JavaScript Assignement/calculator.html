@@ -1,0 +1,42 @@
+<html>
+<head>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+</head>
+<body>
+<center>
+<h3>Calculator Application</h3>
+<br/>
+<form Name="calculator">
+<table border=2>
+<tr>
+<td colspan=4><input type=text name="display"></td>
+</tr>
+<tr>
+<td><input type=button class="btn btn-info" value="1" OnClick="calculator.display.value+='1'"></td>
+<td><input type=button class="btn btn-info" value="2" OnClick="calculator.display.value+='2'"></td>
+<td><input type=button class="btn btn-info" value="3" OnClick="calculator.display.value+='3'"></td>
+<td><input type=button class="btn btn-info" value="C" OnClick="calculator.display.value=''"></td>
+</tr>
+<tr>
+<td><input type=button class="btn btn-info" value="4" OnClick="calculator.display.value+='4'"></td>
+<td><input type=button class="btn btn-info" value="5" OnClick="calculator.display.value+='5'"></td>
+<td><input type=button class="btn btn-info" value="6" OnClick="calculator.display.value+='6'"></td>
+<td><input type=button class="btn btn-info" value="=" OnClick="calculator.display.value=eval(calculator.display.value)"></td>
+</tr>
+<tr>
+<td><input type=button class="btn btn-info" value="7" OnClick="calculator.display.value+='7'"></td>
+<td><input type=button class="btn btn-info" value="8" OnClick="calculator.display.value+='8'"></td>
+<td><input type=button class="btn btn-info" value="9" OnClick="calculator.display.value+='9'"></td>
+<td><input type=button class="btn btn-info" value="0" OnClick="calculator.display.value=eval(calculator.display.value)"></td>
+</tr>
+<tr>
+<td><input type=button class="btn btn-info" value="+" OnClick="calculator.display.value+='+'"></td>
+<td><input type=button class="btn btn-info" value="-" OnClick="calculator.display.value+='-'"></td>
+<td><input type=button class="btn btn-info" value="x" OnClick="calculator.display.value+='*'"></td>
+<td><input type=button class="btn btn-info" value="/" OnClick="calculator.display.value+='/'"></td>
+</tr>
+</table>
+</form>
+</center>
+</body>
+</html>
