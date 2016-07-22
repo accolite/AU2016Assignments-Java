@@ -1,0 +1,63 @@
+<html>
+	<head>
+		<title> Data Validation </title>
+		<link rel="stylesheet" type="text/css" href="stylesheet1.css">
+		<script> 
+			function validate() {
+				
+				var age = document.getElementById("age");
+				var reg = new RegExp('^[0-9]+$');
+				if(!reg.test(age.value))
+					document.getElementById("test").innerHTML = "Age should be a number";
+					
+				var fname = document.getElementById("fname");
+				reg = /^[a-zA-Z ]{2,30}$/;
+				if(!reg.test(fname.value)) 
+					document.getElementById("test").innerHTML = "First name should only contain alphabets";	
+				
+				var lname = document.getElementById("lname");
+				reg = /^[a-zA-Z ]{2,30}\s[a-zA-Z ]{2,30}$/;
+				if(!reg.test(lname.value)) 
+					document.getElementById("test").innerHTML = "Full name should  contain last name and first name";
+
+				var address = document.getElementById("address");	
+				reg = /^[a-zA-Z0-9]+[a-zA-Z0-9\s,'-:]*$/;
+				if(!reg.test(lname.value)) 
+					document.getElementById("test").innerHTML = "Address should only contain alphanumerics followed by alphanumerics/space/comma/quote/dash";
+				var email=document.getElementById("mail");
+				
+				var inValid = /\s/;
+
+              var k = inValid.test(email.value);
+               if(k==true)
+			   document.getElementById("test").innerHTML = "email should not have space";
+				
+			}
+		</script>
+	</head>
+	<body>
+		<div style="width:500px;height:500">
+			<form>
+				 <fieldset>
+					<legend>Personal information:</legend>
+					First name:<br>
+					<input type="text" name="firstname" value="Mickey" id="fname"><br> <br/>
+					Last name:<br>
+					<input type="text" name="lastname" id="lname"> <br/> <br/> 
+					Email:<br/>
+					<input type="text" name="email" id="mail"><br/> <br/>
+					Address: <br/>
+					<textarea name="address" placeholder="Enter address here!!!!" id="address"> </textarea> <br> <br/>
+					Age: <br>
+				   <input type="number" name="age" min="1" id="age"> <br/> <br/> 
+					Sex: <br>
+					<input type="radio" name="sex" value="female" checked="checked"> Female <br/>
+					<input type="radio" name="sex" value="male"> Male<br/>
+					<input type="radio" name="sex" value="other"> Other<br/> <br/>
+				  <button type="button" onclick="validate()"> submit </button>				  
+				 </fieldset>
+				 <p id="test"> </p>
+			</form>
+		</div>
+	</body>
+</html>
