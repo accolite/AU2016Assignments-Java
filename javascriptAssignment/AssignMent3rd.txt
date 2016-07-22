@@ -1,0 +1,16 @@
+
+var list = readHugeList();
+
+var nextListItem = function() {
+	var item = list.pop();
+		if (item) {
+		// process the list item...
+		setTimeOut(nextListItem,0);
+	}
+};
+
+The reason why this works is because of the phenomenon of Event Table and Event Queue i.e. when the setTimeOut function is called it places the function 
+on which it was called in an event table and when the specified event happens the function is simply moved to event queue The JavaScript engine 
+constantly checks whether the call stack is empty, and whenever it’s empty, it checks if the event queue has any functions waiting to be invoked.
+If it does, then the first function in the queue gets invoked and moved over into the call stack. If the event queue is empty, then
+ this monitoring process just keeps on running indefinitely and that results in an infinite event Loop.
