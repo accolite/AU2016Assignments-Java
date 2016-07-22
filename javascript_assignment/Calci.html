@@ -7,6 +7,10 @@
 * ***************************************************************************
  -->
 
+
+<!-- 
+Give Input parameter by Parameter -->
+
 <!DOCTYPE html>
 <html>
 <head><h3>Calculator</h3></head>
@@ -62,19 +66,20 @@
 		<input type="button" id="one" value="1" onclick="getNum(this)" style="width:75px;height:75px">
 		<input type="button" id="two" value="2" onclick="getNum(this)" style="width:75px;height:75px">
 		<input type="button" id="three" value="3" onclick="getNum(this)" style="width:75px;height:75px">
-		<input type="button" id="four" value="4" onclick="getNum(this)" style="width:75px;height:75px"><br/>
-		<input type="button" id="five" value="5" onclick="getNum(this)" style="width:75px;height:75px">
+		<input type="button" id="four" value="4" onclick="getNum(this)" style="width:75px;height:75px">
+		<input type="button" id="five" value="5" onclick="getNum(this)" style="width:75px;height:75px"><br/>
 		<input type="button" id="six" value="6" onclick="getNum(this)" style="width:75px;height:75px">
 		<input type="button" id="seven" value="7" onclick="getNum(this)" style="width:75px;height:75px">
-		<input type="button" id="eight" value="8" onclick="getNum(this)" style="width:75px;height:75px"><br/>
+		<input type="button" id="eight" value="8" onclick="getNum(this)" style="width:75px;height:75px">
 		<input type="button" id="nine" value="9" onclick="getNum(this)" style="width:75px;height:75px">
-		<input type="button" id="zero" value="0" onclick="getNum(this)" style="width:75px;height:75px">
+		<input type="button" id="zero" value="0" onclick="getNum(this)" style="width:75px;height:75px"><br/>
+		<input type="button" id="dot" value="." onclick="getNum(this)" style="width:75px;height:75px">
 		<input type="button" id="add" value="+" onclick="doOperation(this)" style="width:75px;height:75px">
-		<input type="button" id="sub" value="-" onclick="doOperation(this)" style="width:75px;height:75px"><br/>
+		<input type="button" id="sub" value="-" onclick="doOperation(this)" style="width:75px;height:75px">
 		<input type="button" id="mult" value="*" onclick="doOperation(this)" style="width:75px;height:75px">
-		<input type="button" id="div" value="/" onclick="doOperation(this)" style="width:75px;height:75px">
-		<input type="button" id="ans" value="=" onclick="showAnswer()" style="width:75px;height:75px">
-		<input type="button" id="clear" value="C" onclick="clearScreen()" style="width:75px;height:75px"><br/>
+		<input type="button" id="div" value="/" onclick="doOperation(this)" style="width:75px;height:75px"><br/>
+		<input type="button" id="ans" value="=" onclick="showAnswer()" style="width:195px;height:75px">
+		<input type="button" id="clear" value="C" onclick="clearScreen()" style="width:195px;height:75px">
 	</div> 
 </body>
 </html>
