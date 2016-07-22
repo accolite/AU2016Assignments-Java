@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<head>
+	<script type="text/javascript" src="valdate.js"></script>
+<style>
+#e_fullname,#e_age
+{
+	color: red;
+}
+</style>
+</head>
+<body>
+
+<form name="myform">
+  First name:<br>
+  <input type="text" id="firstname" name="firstname"><div id="e_firstname"></div>
+  <br>
+  Full name:<br>
+  <input type="text" id="fullname" name="fullname"><div id="e_fullname"></div>
+  <br>
+  gender:<br>
+  <input type="radio" name="gender" value="male" checked> Male<br>
+  <input type="radio" name="gender" value="female"> Female<br>
+  <input type="radio" name="gender" value="others"> others<br>
+
+  age:<br>
+  <input type="text" name="age" id="age" ><div id="e_age"></div>
+  <br>
+  Email:<br>
+  <input type="text" name="Emial-id" id="email" ><br><div id="e_email"></div>
+  Address:
+  <br>
+  <input type="text" name="Address" id="address"><div id="e_address"></div>
+  <br>
+  <input type="button" name="submit" value="submit" onclick="validation()">
+  <br>
+
+
+
+
+</form>
+<p id="success"></p>
+
+
+</body>
+</html>
+
