@@ -1,0 +1,81 @@
+<html>
+<head>
+<title>Calculator</title>
+<script>
+var expression="";
+function add(val)
+{
+	expression+=val;
+	document.getElementById("text").value=expression;
+}
+function clea()
+{
+//console.log("sachin");
+	expression="";
+	document.getElementById("text").value="";
+}
+function answer()
+{
+	//expression="";
+	document.getElementById("text").value=eval(expression);
+	expression="";
+}
+function del()
+{
+	//expression="";
+	expression=expression.slice(0,-1);
+	document.getElementById("text").value=(expression);
+	
+}
+</script>
+<style>
+.button {
+    
+    border: none;
+    
+    padding: 3px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+	border:solid;
+}
+</style>
+
+</head>
+<body>
+<div align="center">
+<h2>Calculator</h2>
+<div class="box">
+<div class="display"><input type="text" readonly size="18" id="text" style="border:solid"></div>
+<div class="keys">
+    <p>
+    <input type="button" class="button " value="/" onclick='add("/")'>
+	<input type="button" class="button " value="DEL" onclick='del()'>
+	</p>
+	
+    <p><input type="button" class="button" value="7" onclick='add("7")'>
+	<input type="button" class="button " value="8" onclick='add("8")'>
+    <input type="button" class="button" value="9" onclick='add("9")'>
+	<input type="button" class="button" value="*" onclick='add("*")'>
+	</p>
+	
+    <p><input type="button" class="button" value="4" onclick='add("4")'>
+	<input type="button" class="button" value="5" onclick='add("5")'>
+    <input type="button" class="button" value="6" onclick='add("6")'>
+	<input type="button" class="button" value="-" onclick='add("-")'>
+	</p>
+	
+    <p><input type="button" class="button" value="1" onclick='add("1")'>
+	<input type="button" class="button" value="2" onclick='add("2")'>
+    <input type="button" class="button" value="3" onclick='add("3")'>
+	<input type="button" class="button" value="+" onclick='add("+")'></p>
+	
+    <p><input type="button" class="button" value="0" onclick='add("0")'>
+	<input type="button" class="button " value="." onclick='add(".")'>
+    <input type="button" class="button" value="C" onclick='clea()'>
+	<input type="button" class="button" value="=" onclick='answer()'></p>
+</div>
+</div>
+</div>
+</body>

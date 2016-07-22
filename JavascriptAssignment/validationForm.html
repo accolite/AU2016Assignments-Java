@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head><title>Form</title>
+<style>
+div.wrapper_class{
+text-align:center;
+font-family:Arial;
+background-color:#91C5CB;
+
+
+}
+input.button1 {
+    
+    border: none;
+    
+    padding: 3px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+}
+</style>
+<script>
+function checkFirstName()
+{
+var fname=document.forms["form1"]["first_name"].value;
+if(fname==null||fname==""||/^[A-Z][a-z]+$/i.test(fname)==false)
+alert("Invalid First Name");
+}
+function checkFullName()
+{
+var fullname=document.forms["form1"]["full_name"].value;
+if(fullname==null||fullname==""||/^[A-Za-z ]+$/i.test(fname)==false)
+alert("Invalid Full Name");	
+}
+function checkEmail()
+{
+var email=document.forms["form1"]["email_id"].value;
+if(email==null||email==""||/^[A-Za-z0-9.]+@[a-zA-Z]+\.[a-z]+$/.test(email)==false)
+alert("Invalid email");	
+}
+function checkAddress()
+{
+var add=document.forms["form1"]["address"].value;
+if(add==null||add==""||/^[A-Za-z0-9\/\ \:\-\,]+$/.test(add)==false)
+alert("Invalid address");	
+}
+function checkAge()
+{
+var age=document.forms["form1"]["age"].value;
+if(age==null||age==""||isNaN(age)==true||parseInt(age)<1||parseInt(age)>100)
+alert("Invalid age");
+
+}
+</script>
+</head>
+<body >
+<div class="wrapper_class" align="center">
+<form action="" method="post" name="form1" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded" autocomplete="off">
+<fieldset>
+<legend><b>Small Form</b></legend>
+First Name:  <input type="text" name="first_name" onblur="checkFirstName()" autofocus ><br><br>
+Full Name:  <input type="text" name="full_name" onblur="checkFullName()"><br><br>
+Age:  <input type="number" name="age" onblur="checkAge()"><br><br>
+Sex:<input type="radio" name="gender" >Male
+<input type="radio" name="gender" >Female
+<input type="radio" name="gender" >Others<br><br>
+Email Id:<input type="text" name="email_id" onblur="checkEmail()"><br><br>
+Address:<br>
+<textarea rows="4" cols="50" placeholder="Enter Address here" onblur="checkAddress()" name="address">
+</textarea><br>
+<input type="submit" class="button1" onclick="">
+</fieldset>
+</form>
+</div>
+</body>
+</html>
