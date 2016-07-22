@@ -1,0 +1,115 @@
+<html>
+<head>
+<title>
+Information
+</title
+</head>
+<body background="imagebg.jpg" style="font-family: Century Gothic, sans-serif;">
+
+
+
+<div style="height: 500px; width: 500px; margin-left: 450px; background-color: white; margin-top:50px;  opacity: 0.7;
+    filter: alpha(opacity=30);">
+	<div style="height: 40px; line-height: 2;color: white; background-color: #0033cc; text-align:center; font-size:20px; font-wieght: bold;"> Personal Information</div>
+			
+	<form  style="height:500px; padding:20px; line-spacing:10px;">
+		
+			First name 
+			<input type="text" id="fname" 	name="firstname" placeholder="  first name" style="margin-left: 50px; width: 300px; height: 28px;"> <br><br>
+			Last name 
+			<input type="text" id="fullName" name="lastname" placeholder="  last name" style="margin-left: 50px; width: 300px; height: 28px;" > <br><br>
+			Age
+			<input type="number" id="age" name="age"  style="margin-left: 95px; width: 300px; height: 28px;"> <br><br>
+			Full name 
+			<input type="text" id="email" name="email" placeholder=" Email Id" style="margin-left: 50px; width: 300px; height: 28px;" > <br><br>
+			Gender
+			<input type="radio" name="gender" value="male" style="margin-left:70px;" checked> Male
+			<input type="radio" name="gender" value="female"> Female
+			<input type="radio" name="gender" value="other"> Other<br><br>
+			
+			Address <br>
+			<textarea rows="4" id="address" style="margin-left:120px; width:310px; margin-top:-20px;">
+				
+			</textarea> <br><br>
+			
+			
+			<input type="submit" style="color: white; background-color: #0033cc;margin-left:150px;height: 40px; width: 150px;font-size:17px; margin-top:90px;" onclick="validate()" value="submit">
+		
+	</form>
+</div>
+<script>
+		function validate() {
+
+			var fname = document.getElementById("fname").value;
+
+			if(fname == "" || fname == null){
+				alert("Please Fill First Name");
+				return false;
+			} 
+
+			if(!(/^[a-zA-Z]+$/.test(fname))) {
+				alert("Name can contain only alphabets");
+				return false;
+			}
+
+			var lname = document.getElementById("fullName").value;
+
+			if(lname == "" || lname == null){
+				alert("Please Fill Full Name");
+				return false;
+			} 
+
+			if(!(/^[a-zA-Z\s]+$/.test(lname))) {
+				alert("Name can contain only alphabets");
+				return false;
+			}
+
+			var email = document.getElementById("email").value;
+
+			if(email == "" || email == null){
+				alert("Please Fill Email");
+				return false;
+			} 
+
+			if(!(/^[a-zA-Z0-9_\.-]+@[a-zA-Z0-9]+\.[a-zA-Z]+$/.test(email))) {
+				alert("Not Valid email");
+				return false;
+			}
+
+			var age = document.getElementById("age").value;
+
+			if(age == "" || age == null){
+				alert("Please Fill age");
+				return false;
+			} 
+
+			if(!(/^[0-9]+/.test(age))) {
+				alert("Not Valid age");
+				return false;
+			}
+
+			parsedAge = parseInt(age)
+			if(parsedAge < 1 || parsedAge > 126) {
+				alert("Be realistic. Dont Lie.");
+				return false;
+			}
+			
+			var address = document.getElementById("address").value;
+			if(address == "" || address == null || address == undefined){
+				alert("Please Fill address");
+				return false;
+			} 
+
+			if(!(/^[\d\w/:-,]+$/.test(address))) {
+				alert("Not Valid address");
+				return false;
+			}
+
+
+
+		}
+
+
+	</script>
+</body>
+</html>

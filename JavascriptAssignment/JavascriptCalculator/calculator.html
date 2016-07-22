@@ -1,0 +1,76 @@
+<html>
+<head>
+<style>
+body{
+background-color :blue;
+}
+
+table{
+margin-left :500px ;
+margin-top:100px;
+}
+td {
+background-color:white;
+width="400px; 
+height="400px";
+text-align: center;
+}
+tr{
+width="400px"; 
+height="400px";
+}
+h1{
+text-align :center;
+}
+.btn {
+	height: 50px;
+	width: 50px;
+	border-radius: 100%;
+}
+</style>
+</head>
+<body background="imagebg.jpg">
+<h1>calculator</h1>
+<br/>
+<form Name="calculator">
+<table border=2   width="400px" height="400px">
+<tr>
+<td colspan=4 ><input type=text Name="display" style="height: 50px; width:380px;"></td>
+</tr>
+<tr>
+<td><input class="btn" type=button value="0"  OnClick="Digit(0)"></td>
+<td><input class="btn" type=button value="1" OnClick="Digit(1)"></td>
+<td><input class="btn" type=button value="2" OnClick="Digit(2)"></td>
+<td><input  class="btn" type=button value="+" OnClick="Digit('+')"></td>
+</tr>
+<tr>
+<td><input  class="btn" type=button value="3" OnClick="Digit(3)"></td>
+<td><input class="btn"  type=button value="4" OnClick="Digit(4)"></td>
+<td><input  class="btn" type=button value="5" OnClick="Digit(5)"></td>
+<td><input class="btn"  type=button value="-" OnClick="Digit('-')"></td>
+</tr>
+<tr>
+<td><input  class="btn" type=button value="6" OnClick="Digit(6)"></td>
+<td><input  class="btn" type=button value="7" OnClick="Digit(7)"></td>
+<td><input  class="btn" type=button value="8" OnClick="Digit(8)"></td>
+<td><input  class="btn" type=button value="x" OnClick="Digit('*')"></td>
+</tr>
+<tr>
+<td><input  class="btn" type=button value="9" OnClick="Digit(9)"></td>
+<td><input  class="btn" type=button value="C" OnClick="calculator.display.value= ' '"></td>
+<td><input  class="btn" type=button value="=" OnClick="calculator.display.value=eval(calculator.display.value)"></td>
+<td><input  class="btn" type=button value="/" OnClick="Digit('/')"></td>
+</tr>
+</table>
+</form>
+</body>
+<script>
+function Digit(id)
+{
+calculator.display.value+=id;
+}
+
+</script>
+
+
+</html>
