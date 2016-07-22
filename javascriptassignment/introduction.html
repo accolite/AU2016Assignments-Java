@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Introduction</title>
+		<script>
+		function checkit() {
+		var flag=true;
+		var str = document.getElementById("fname").value;
+		//alert(str);
+		var patt = new RegExp(/^[a-zA-Z]*$/);
+				var res = patt.test(str);
+				
+				if(!res){
+				//alert(document.getElementById("fname-check").innerHTML="invalid");
+				document.getElementById("fname-check").innerHTML="Invalid First Name!";flag=false;}
+		str = document.getElementById("flname").value;
+		patt = new RegExp(/^[a-zA-Z\s]+$/);
+		res = patt.test(str);
+		if(!res){
+				//alert(document.getElementById("fname-check").innerHTML="invalid");
+				document.getElementById("flname-check").innerHTML="Invalid Full Name!";flag=false;}
+		str = document.getElementById("email").value;
+		patt = new RegExp(/^\S+$/);
+		res = patt.test(str);
+		if(!res){
+				//alert(document.getElementById("fname-check").innerHTML="invalid");
+				document.getElementById("email-check").innerHTML="Invalid Email Id!";flag=false;}
+		str = document.getElementById("addrs").value;
+		patt = new RegExp(/^[a-zA-Z\-:,\/\s]+$/);
+		res = patt.test(str);
+		if(!res){
+				//alert(document.getElementById("fname-check").innerHTML="invalid");
+				document.getElementById("addrs-check").innerHTML="Invalid Address!";flag=false;}
+		str = document.getElementById("age").value;
+		patt = new RegExp(/^[0-9]{2}$/);
+		res = patt.test(str);
+		if(!res){
+				//alert(document.getElementById("fname-check").innerHTML="invalid");
+				document.getElementById("age-check").innerHTML="Invalid Age!";flag=false;}
+		//alert("flag");
+		if(flag)
+		{document.getElementById("success").innerHTML="SUCCESS";}
+};
+			
+		</script>
+	</head>
+	<body>
+	<h2 style="text-align:center">Personal Data</h2>
+	
+	<form>
+		<fieldset>
+			<legend>Personal Information:</legend>
+			First Name:&nbsp;&nbsp;
+			<input id="fname" type="text" name="fname" value="">&nbsp;<p style="display:inline" id="fname-check">
+			Only Alphabets allowed.</p><br><br>
+			Full Name: &nbsp;&nbsp;
+			<input id="flname" type="text" name="flname" value="">&nbsp;<p style="display:inline" id="flname-check">
+			Only Alphabets and spaces allowed.</p><br><br>
+			Email: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input id="email" type="text" name="email" value="">&nbsp;<p style="display:inline" id="email-check">
+			NO spaces allowed.</p><br><br>
+			Address:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input id="addrs" type="text" name="desig" value="">&nbsp;<p style="display:inline" id="addrs-check">
+			NO special character allowed except : / - ,</p><br><br>
+			Gender:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="radio" name="gender"
+			value="male" checked="checked">Male&nbsp;&nbsp;
+			<input type="radio" name="gender"
+			value="female">Female&nbsp;&nbsp;
+			<input type="radio" name="gender"
+			value="others">Other<br><br>
+			Age:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input id="age" type="text" name="desig" value="">&nbsp;<p style="display:inline" id="age-check">
+			Only age till 99 allowed.</p><br>
+			<input type="button" id="Submit" value="Submit" onclick="checkit()"><br><br>
+			<p id="success"></p>
+		</fieldset>
+		</form>	
+	</body>
+</html>

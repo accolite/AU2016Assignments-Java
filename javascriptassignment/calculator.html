@@ -1,0 +1,52 @@
+
+<html>
+<head>
+	<title>Calculator</title>
+	<script>
+	function clean(val)
+{
+document.getElementById("d").value=val;
+}
+function inputval(val)
+{
+document.getElementById("d").value+=val;
+}
+function evalu() 
+{ 
+try 
+{ 
+  clean(eval(document.getElementById("d").value)) 
+} 
+catch(e) 
+{
+  clean('Error') 
+} 
+}  </script>
+</head>
+<body>
+
+<div class="box" style="position:absolute;left:300.53px;top:36.44px;border:5px solid lightgreen;background-color:lightgreen ">
+<div class="display" ><input  style="background-color:lightgrey;font-weight:bold;font-size:20px;color:black;width: 300px;height: 80px;padding: 20px 20px;"  type="text" readonly size="18" id="d"></div>
+<div class="keys" style="background-color:lightblue;color:black">
+    <p ><input type="button" style="padding: 20px 20px;font-weight:bold" value="7"  onclick='inputval("7")'>
+	<input type="button" style="padding: 20px 20px;font-weight:bold"  value="8" onclick='inputval("8")'>
+    <input type="button" style="padding: 20px 20px;font-weight:bold"  value="9"  onclick='inputval("9")'>
+	<input type="button" style="padding: 20px 20px;font-weight:bold"  value="*" onclick='inputval("*")'>
+	<input type="button" style="padding: 20px 20px;font-weight:bold"  value="C" onclick='clean("")'>
+	</p>
+    <p><input type="button" style="padding: 20px 20px;font-weight:bold"  value="4" onclick='inputval("4")'>
+	<input type="button" style="padding: 20px 20px;font-weight:bold"  value="5" onclick='inputval("5")'>
+    <input type="button" style="padding: 20px 20px;font-weight:bold"  value="6" onclick='inputval("6")'>
+	<input type="button" style="padding: 20px 20px;font-weight:bold"  value="-" onclick='inputval("-")'></p>
+    <p><input type="button" style="padding: 20px 20px;font-weight:bold"   value="1" onclick='inputval("1")'>
+	<input type="button" style="padding: 20px 20px;font-weight:bold"  value="2" onclick='inputval("2")'>
+    <input type="button" style="padding: 20px 20px;font-weight:bold"  value="3" onclick='inputval("3")'>
+	<input type="button" style="padding: 20px 20px;font-weight:bold" value="+" onclick='inputval("+")'></p>
+    <p><input type="button" style="padding: 20px 20px;font-weight:bold"  value="0" onclick='inputval("0")'>
+	<input type="button" style="padding: 20px 20px;font-weight:bold"  value="." onclick='inputval(".")'>
+	<input type="button" style="padding: 20px 20px;font-weight:bold;" value="/" onclick='inputval("/")'>
+	<input type="button" style="padding: 20px 20px;font-weight:bold"  value="=" onclick='evalu()'></p>
+</div>
+</div>
+</body>
+</html>

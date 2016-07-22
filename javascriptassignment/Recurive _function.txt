@@ -1,0 +1,22 @@
+Initially the call stack in javascript is empty.
+
+If we call a function nextListItem() , then we add a new frame to the top of the stack.
+
+when nextListItem finishes execution , it calls itself, then it'll add a new frame onto the stack.
+
+Since recursive function will keep adding frames until either they finish processing, or they exceed
+the max length of the call stack, resulting in an overflow.
+-----------------
+Because setTimeout() is an asynchronous operation, it doesn't block the function, which means
+nextListItem will be allowed to finish and its frame can be popped off the call stack- preventing it
+from growing. The recursive call will be handled with the event loop insted.
+------------------
+var list = readHugeList();
+var nextListItem = function() {
+var item = list.pop();
+if (item) {
+// process the list item...
+//Here add setTimeout(nextListItem,for any time);
+nextListItem();
+}
+};
