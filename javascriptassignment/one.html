@@ -1,0 +1,77 @@
+<html>
+	<head>
+		<title> Personal Data </title>
+		<link rel="stylesheet" type="text/css" href="stylesheet1.css">
+		<script> 
+			function validate() {
+				
+				var age = document.getElementById("age");
+				var reg = new RegExp('^[0-9]+$');
+				if(!reg.test(age.value))
+					document.getElementById("testAge").innerHTML = "Age should be a number";
+				else	
+					document.getElementById("testAge").innerHTML = " ";
+					
+				var fname = document.getElementById("fname");
+				reg = /^[a-zA-Z]{2,30}$/;
+				if(!reg.test(fname.value)) 
+					document.getElementById("testFirst").innerHTML = "First name should only contain alphabets and no spaces";
+				else	
+					document.getElementById("testFirst").innerHTML = " ";
+				
+				var lname = document.getElementById("lname");
+				//reg = /^[a-zA-Z]+[a-zA-Z\\s]*$/;
+				reg = /^[a-zA-Z ]{2,30}\s[a-zA-Z ]{2,30}$/;
+				if(!reg.test(lname.value)) 
+					document.getElementById("testLast").innerHTML = "Last name should only contain alphabets and please give the full name";
+				else	
+					document.getElementById("testLast").innerHTML = " ";	
+
+				var address = document.getElementById("address");	
+				reg = /^[a-zA-Z0-9]+[a-zA-Z0-9\s,'-.:]*$/;
+				if(!reg.test(lname.value)) 
+					document.getElementById("testAddress").innerHTML = "Address should only contain alphanumerics followed by alphanumerics/space/comma/quote/dash";
+				else	
+					document.getElementById("testAddress").innerHTML = " ";
+					
+				var email = document.getElementById("email").value;
+				reg = /^\S*$/;
+				var atpos = email.indexOf("@");
+				var dotpos = email.lastIndexOf(".");
+				if(reg.test(email) || atpos == -1 || dotpos == -1 || atpos<1 || dotpos<atpos+2 || dotpos+2>=email.length) {
+					document.getElementById("testEmail").innerHTML = "Email should have . and @ and no spaces.";
+				}
+				
+			}
+		</script>
+	</head>
+	<body>
+		<div style="width:500px;height:500">
+			<form>
+				 <fieldset>
+					<legend>Personal information:</legend>
+					First name:<br>
+					<input type="text" name="firstname" value="Mickey" id="fname"><br> <br/>
+					Last name:<br>
+					<input type="text" name="lastname" id="lname"> <br/> <br/> 
+					Address: <br/>
+					<textarea name="address" placeholder="Enter address here!!!!" id="address"> </textarea> <br> <br/>
+					Email: <br/>
+					<input type="text" name="lastname" id="email"> <br> <br/>
+					Age: <br>
+				   <input type="number" name="age" min="1" id="age"> <br/> <br/> 
+					Sex: <br>
+					<input type="radio" name="sex" value="female" checked="checked"> Female <br/>
+					<input type="radio" name="sex" value="male"> Male<br/>
+					<input type="radio" name="sex" value="other"> Other<br/> <br/>
+				  <button type="button" onclick="validate()"> submit </button>				  
+				 </fieldset>
+				 <p id="testFirst"> </p>
+				 <p id="testLast"> </p>
+				 <p id="testAddress"> </p>
+				 <p id="testAge"> </p>
+				 <p id="testEmail"> </p>
+			</form>
+		</div>
+	</body>
+</html>
