@@ -1,0 +1,73 @@
+<html>
+<head>
+<style>
+td {
+background-color:white;
+width="200px; 
+height="200px";
+text-align: center;
+}
+tr{
+width="200px"; 
+height="200px";
+}
+
+body{
+background-color :blue;
+}
+
+table{
+margin-left :600px ;
+margin-top:100px;
+}
+
+h1{
+text-align :center;
+}
+</style>
+</head>
+<body >
+<h1>Simple calculator</h1>
+<br/>
+<form Name="calculator">
+<table border=2   width="200px" height="200px">
+<tr>
+<td colspan=4><input type=text Name="display"  width="200px" height="200px"></td>
+</tr>
+<tr>
+<td><input type=button value="0"  OnClick="Digit(0)"></td>
+<td><input type=button value="1" OnClick="Digit(1)"></td>
+<td><input type=button value="2" OnClick="Digit(2)"></td>
+<td><input type=button value="+" OnClick="Digit('+')"></td>
+</tr>
+<tr>
+<td><input type=button value="3" OnClick="Digit(3)"></td>
+<td><input type=button value="4" OnClick="Digit(4)"></td>
+<td><input type=button value="5" OnClick="Digit(5)"></td>
+<td><input type=button value="-" OnClick="Digit('-')"></td>
+</tr>
+<tr>
+<td><input type=button value="6" OnClick="Digit(6)"></td>
+<td><input type=button value="7" OnClick="Digit(7)"></td>
+<td><input type=button value="8" OnClick="Digit(8)"></td>
+<td><input type=button value="x" OnClick="Digit('*')"></td>
+</tr>
+<tr>
+<td><input type=button value="9" OnClick="Digit(9)"></td>
+<td><input type=button value="C" OnClick="calculator.display.value=' '"></td>
+<td><input type=button value="=" OnClick="calculator.display.value=eval(calculator.display.value)"></td>
+<td><input type=button value="/" OnClick="Digit('/')"></td>
+</tr>
+</table>
+</form>
+</body>
+<script>
+function Digit(id)
+{
+calculator.display.value+=id;
+}
+
+</script>
+
+
+</html>

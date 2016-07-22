@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<style>
+input[type=text], select {
+    width: 20%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    width: 20%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 200px;
+    margin: 8px 40px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+div {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+</style>
+
+
+
+
+<body>
+
+
+<div>
+<form name="myForm" onsubmit="return validateForm()" method="post">
+First name 
+			<input type="text" name="firstname" placeholder="  first name" style="margin-left: 50px; width: 300px; height: 28px;"> <br><br>
+			Last name 
+			<input type="text" name="lastname" placeholder="  last name" style="margin-left: 50px; width: 300px; height: 28px;" > <br><br>
+			Age
+			<input type="number" name="age" min="18" max="35" style="margin-left: 90px; width: 300px; height: 28px;"> <br><br>
+			Email
+			<input type="text" name="Email"  style="margin-left: 70px; width: 300px; height: 28px;"> <br><br>
+			Gender
+			<input type="radio" name="gender" value="male" style="margin-left:70px;" checked> Male
+			<input type="radio" name="gender" value="female"> Female
+			<input type="radio" name="gender" value="other"> Other<br><br>
+			Office Location
+			<select style="margin-left:18px; width: 140px; height: 28px;">
+				  <option value="bangalore">Bangalore</option>
+				  <option value="delhi">Delhi</option>
+				  <option value="hyderabad">Hyderabad</option>
+
+			</select> <br><br>
+			Address <br>
+			<textarea rows="4" name="address" style="margin-left:120px; width:310px; margin-top:-20px;">
+				
+			</textarea> <br><br>
+			
+			
+			<input type="submit" style="color: white; background-color: #0033cc;margin-left:150px;height: 40px; width: 150px;font-size:17px; margin-top:90px;" value="submit">
+
+</form>
+</div>
+
+</body>
+
+<script>
+function isNumeric(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+function validateForm() {
+   alert("hi");
+   
+    var x = document.forms["myForm"]["firstname"].value;
+	
+    if (x == null || x == "" || isNumeric(x) || x.indexOf("@") > -1 ){
+        alert("invalide First Name");
+     
+		}
+	var y = document.forms["myForm"]["Email"].value;
+	
+    if ( y.indexOf(" ") > -1 )
+        alert("invalide Email");
+		
+	var z = document.forms["myForm"]["age"].value;
+     if(!isNumeric(z))
+       alert("invalid age");	 
+
+	var qx = document.forms["myForm"]["address"].value;
+     if(qx.indexOf("@") > -1 || qx.indexOf("#") > -1 || qx.indexOf("$") > -1 || qx.indexOf(" ") > -1) 
+	   alert("invalid address");   
+    }
+
+
+</script>
+</html>
