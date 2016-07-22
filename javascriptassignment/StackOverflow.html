@@ -1,0 +1,18 @@
+<!doctype html>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>StackOverflow</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var list = readHugeList();
+		var nextListItem = function() {
+		var item = list.pop();
+			if (item) {
+				setTimeout(nextListItem(),0);
+			}
+		};
+	</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!doctype html>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Form Validation</title>
+	<script type="text/javascript" src="js/form.js"></script>
+</head>
+<body>
+		<h1>Bio Form</h1>
+	<form action="formview.html">
+		<table>
+			<tbody>
+				<tr>
+					<td>First Name: </td>
+					<td><input type="text" placeholder="Harry" name="firstName" /></td>
+				</tr>
+				<tr>
+					<td>Full Name: </td>
+					<td><input type="text" placeholder="Potter" name="fullName" /></td>
+				</tr>
+				<tr>
+					<td>Email Id: </td>
+					<td><input type="text" placeholder="Harry.Potter@hogwards.com" name="email" /></td>
+				</tr>
+				<tr>
+					<td>Gender:</td>
+					<td><input type="text" placeholder="male" name="gender" /></td>
+				</tr>
+				<tr>
+					<td>Age: </td>
+					<td><input type="number" placeholder="21" name="age" /></td>
+				</tr>
+				<tr>
+					<td>Address: </td>
+					<td><textarea placeholder="4 Privet Drive in Little Whinging,Londen" name="address" rows="5" cols="15"></textarea></td>
+				</tr>
+				<tr>
+					<td colspan="2" style="text-align:left;"><input type="button" Value="Submit" onclick="formValidate();"></td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+</body>
+</html>

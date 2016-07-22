@@ -1,0 +1,152 @@
+<!doctype html>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Calculator</title>
+	<script type="text/javascript">
+		var operation;
+		var number=null;
+		function compute(num1,num2,op){
+			switch(op){
+				case "+":return +num1 + +num2;
+				case "-":return num1-num2;
+				case "*":return num1*num2;
+				case "/":return num1/num2;
+				default: return num2;
+			}
+		}
+	</script>
+	<style type="text/css">
+		.panel {
+			border: 2px solid gray;
+			width: 500px;
+		}
+		input[name="display"] {
+			width: 99%;
+    		font-size: 50px;
+		}
+		table {
+			width: 100%;
+		}
+		td {
+			padding: 0px;
+		}
+		button {
+			width: 100%;
+			padding: 0px;
+			margin: 0px;
+			height: 50px;
+    		font-size: 20px;
+		}
+		.enter-button {
+			height: 100px;
+		}
+	</style>
+</head>
+<body>
+	<center>
+		<div class="panel">
+			<input type="text" name="display" placeholder="0" disabled="true" />
+			<table>
+				<tbody>
+					<tr>
+						<td><button>7</button></td>
+						<td><button>8</button></td>
+						<td><button>9</button></td>
+						<td><button>+</button></td>
+						<td><button>-</button></td>
+					</tr>
+					<tr>
+						<td><button>4</button></td>
+						<td><button>5</button></td>
+						<td><button>6</button></td>
+						<td><button>*</button></td>
+						<td><button>/</button></td>
+					</tr>
+					<tr>
+						<td><button>1</button></td>
+						<td><button>2</button></td>
+						<td><button>3</button></td>
+						<td rowspan="2" colspan="2"><button class="enter-button">Enter</button></td>
+					</tr>
+					<tr>
+						<td><button>.</button></td>
+						<td><button>0</button></td>
+						<td><button>c</button></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</center>
+	<script type="text/javascript">
+		var button = document.getElementsByTagName("button");
+		for(var i=0;i<button.length;i++){
+			if(button[i].innerHTML.search(/[.0-9]/)>-1)
+				button[i].onclick=function () {
+					if(document.getElementsByName("display")[0].value==0 || document.getElementsByName("display")[0].value.search(/[^.0-9]/)>-1)
+						document.getElementsByName("display")[0].value=this.innerHTML;
+					else
+						document.getElementsByName("display")[0].value+=this.innerHTML;
+				}
+			else{
+				switch(button[i].innerHTML){
+					case "+": button[i].onclick=function () {
+								if(!number){
+							  		number=document.getElementsByName("display")[0].value;
+							  	}else{
+							  		number=compute(number,document.getElementsByName("display")[0].value,operation);
+							  	}
+								operation="+";
+								document.getElementsByName("display")[0].value=0;
+							  };
+							  break;
+					case "-": button[i].onclick=function () {
+								if(!number){
+									number=document.getElementsByName("display")[0].value;
+								}else{
+								  	number=compute(number,document.getElementsByName("display")[0].value,operation);
+								}
+								operation="-";
+								document.getElementsByName("display")[0].value=0;
+							  };
+							  break;
+					case "*": button[i].onclick=function () {
+								if(!number){
+								  	number=document.getElementsByName("display")[0].value;
+								  }else{
+								  	number=compute(number,document.getElementsByName("display")[0].value,operation);
+								  }
+								  operation="*";
+								  document.getElementsByName("display")[0].value=0;
+							  };
+							  break;
+					case "/": button[i].onclick=function () {
+								if(!number){
+								  	number=document.getElementsByName("display")[0].value;
+								  }else{
+								  	number=compute(number,document.getElementsByName("display")[0].value,operation);
+								  }
+								  operation="/";
+								  document.getElementsByName("display")[0].value=0;
+							  };
+							  break;
+					case "c": button[i].onclick=function () {
+								number=null;
+							  	document.getElementsByName("display")[0].value=0;
+							  };
+							  break;
+					default: button[i].onclick=function () {
+								if(!number){
+								  	number=document.getElementsByName("display")[0].value;
+								  }else{
+								  	number=compute(number,document.getElementsByName("display")[0].value,operation);
+								  }
+								  document.getElementsByName("display")[0].value=number;
+								  operation="";
+							};
+				}
+			}
+		}
+	</script>
+</body>
+</html>
