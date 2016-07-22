@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<head>
+ <script type="text/javascript" src="validate.js"></script>
+	
+</script>>
+
+</head>
+<html>
+<body>
+<fieldset style="width:30%; background-color:#C0C0C0;margin-left:400px;margin-top:15px;">
+		<form style="left-margin:100px;" onsubmit="return validateForm(this)">
+			First Name:<br>
+			<input type="text" id="firstname"  style="margin-bottom:3px;">
+			<br>
+			Last Name: <br>
+			<input type="text" id="lastname"   style="margin-bottom:3px;">
+			<br>
+			Email Id <br>
+			<input type="text" id="emailid"   style="margin-bottom:3px;">
+			<br>
+			Gender<br>
+			<input type="radio" name="gender" value="male" style="margin-bottom:3px;" checked> Male
+			<input type="radio" name="gender" value="female" style="margin-bottom:3px;"> Female
+			<input type="radio" name="gender" value="other" style="margin-bottom:3px;"> Other<br>
+			
+			Address<br>
+			<textarea id="address" rows="5" cols="30"  style="width:98%; margin-bottom:3px;">
+			</textarea>
+			<br>
+			Age <br>
+			<input type="number" id="age"   style="margin-bottom:3px;">
+			<br>
+			<input type="submit" value="Submit">
+		</form>
+	</fieldset>
+
+
+</body>
+</html>

@@ -1,0 +1,9 @@
+varlist=readHugeList();
+varnextListItem=function(){
+	varitem=list.pop();
+	if(item){
+//processthelistitem...
+nextListItem();
+setTimeout( nextListItem, 0 );
+}
+}
