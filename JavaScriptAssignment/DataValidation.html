@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script> 
+function validateform(){ 
+var firstname=document.bio.firstname.value; 
+var name=document.bio.name.value; 
+var mail=document.bio.mail.value;
+var addr=document.bio.addr.value; 
+var gender=document.bio.gender.value; 
+var age=document.bio.age.value;
+var ans="";  
+ var regFullName = /^[a-zA-Z ]*$/;
+ var regName=/^[a-zA-Z]+$/; 
+ var regexad=/^[a-zA-Z0-9\s,'\-:""]*$/;
+ var regEmail=/[a-z0-9._]+@[a-z0-9]+.[a-z]{2,4}/igm;
+ if (firstname===null ||firstname==="" ||(!firstname.match(regName))){  
+ ans=ans+"FirstName: Enter Only alphabets\n";   
+}
+if (name===null ||name==="" ||(!name.match(regFullName))){  
+ ans=ans+"FullName: Full Name must not contain characters other than alphabets and spaces\n";   
+}
+if(mail===null||mail==="" ||!(mail.match(regEmail))){
+	ans=ans+"E-Mail: Enter valid email\n";
+  }
+if (addr===null ||addr==="" ||(!addr.match(regexad))){  
+   ans=ans+"Address: Only spaces /  : - , are allowed\n";
+   }
+  
+if(!(age>0&&age<110)){
+  ans=ans+("The age must be a number between 1 and 110");
+}
+
+if(!(ans==="")){
+alert(ans);
+}
+else{
+document.getElementById("ans").innerHTML="Good to go";
+}
+}  
+</script>
+</head>
+<body>
+<form name="bio"  method="post" >
+<fieldset >
+<center>
+<h2>Details:</h2><br><br>
+First Name:<input type="text" name="firstname" ><br><br>
+Full Name:<input type="text" name="name" ><br><br>
+E-mail Id:<input type="text" name="mail"><br><br>
+Address:<input type="textarea" name="addr"><br><br>
+Gender:<input type="radio" name="gender" value="male" checked> Male
+<input type="radio" name="gender" value="female"> Female
+<input type="radio" name="gender" value="other"> Other<br>  <br>
+Age:<input type="text" name="age" ><br><br>
+<input type="button" value="SUBMIT" onclick="validateform()">
+</center>
+
+</fieldset
+</form>
+<center><center>
+<p id="ans"></p>
+</body>
+
+</html>
