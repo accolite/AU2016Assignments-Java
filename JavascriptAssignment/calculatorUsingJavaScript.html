@@ -1,0 +1,80 @@
+<html>
+<head>
+ 
+</head>
+<body>
+
+<center>
+<h1 ><font color="purple">  ***My Calculator***</font></h1>
+<br/>
+
+<form Name="calc">
+<table border=2 width = "300" height = "300" style = "background-color: purple;">
+<tr>
+<td colspan=3><input id="idOfText" type=text Name="display" style="width: 100%; height: 100%;"></td>
+<td><input type=button value="Del" onclick="del()"  style="width: 100%; height: 100%;"></td>
+</tr>
+<tr>
+<td ><input type=button value="0" onclick='appendText("0")'  style="width: 100%; height: 100%;"></td>
+<td><input type=button value="1" onclick='appendText("1")' style="width: 100%; height: 100%;"></td>
+<td><input type=button value="2" onclick='appendText("2")' style="width: 100%; height: 100%;"></td>
+<td><input type=button value="+" onclick='appendText("+")' style="width: 100%; height: 100%;"></td>
+</tr>
+<tr>
+<td><input type=button value="3" onclick='appendText("3")' style="width: 100%; height: 100%;"></td>
+<td><input type=button value="4" onclick='appendText("4")' style="width: 100%; height: 100%;"></td>
+<td><input type=button value="5" onclick='appendText("5")' style="width: 100%; height: 100%;"></td>
+<td><input type=button value="-" onclick='appendText("-")' style="width: 100%; height: 100%;"></td>
+</tr>
+<tr>
+<td><input type=button value="6" onclick='appendText("6")' style="width: 100%; height: 100%;"></td>
+<td><input type=button value="7" onclick='appendText("7")' style="width: 100%; height: 100%;"></td>
+<td><input type=button value="8" onclick='appendText("8")' style="width: 100%; height: 100%;"></td>
+<td><input type=button value="x" onclick='appendText("*")' style="width: 100%; height: 100%;"></td>
+</tr>
+<tr>
+<td><input type=button value="9" onclick='appendText("9")' style="width: 100%; height: 100%;"></td>
+<td><input type=button value="C" onclick='clearText("")' style="width: 100%; height: 100%;"></td>
+<td><input type=button value="=" onclick="evaluateExpression()" style="width: 100%; height: 100%;"></td>
+<td><input type=button value="/" onclick='appendText("/")' style="width: 100%; height: 100%;"></td>
+</tr>
+
+</table>
+</form>
+</center>
+
+<script>
+function appendText(val)
+{
+	console.log(val);
+	document.getElementById("idOfText").value+=val;
+}
+function del()
+{
+	var str=document.getElementById("idOfText").value;
+	str = str.slice(0, -1);
+	document.getElementById("idOfText").value=str;
+}
+
+function clearText(val)
+{
+	document.getElementById("idOfText").value=val;
+}
+function evaluateExpression() 
+{ 
+try 
+{ 
+  clearText(eval(document.getElementById("idOfText").value)) ;
+} 
+catch(e) 
+{
+  clearText('Error') ;
+} 
+}
+</script>
+
+
+
+</body>
+</html>
+

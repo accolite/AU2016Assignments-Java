@@ -1,0 +1,119 @@
+<html>
+
+<head>
+<title> Employee Details </title>
+<style>
+
+</style>
+
+ <script>
+  function checkFirstName(inp){
+   var regex = /^[A-Za-z]+$/;
+   if(document.getElementById("id1").value.match(regex)){
+     return true;
+   }
+   else{
+     alert('Input characters only');
+     inp.focus();//
+     return false;
+   }
+  }
+
+  function checkFullName(inp){
+   var regex = /^[a-zA-Z\s]*$/;
+   if(document.getElementById("id2").value.match(regex)){
+     return true;
+   }
+   else{
+     alert('Please input characters and spaces only');
+     inp.focus();
+     return false;
+   }
+  }
+
+  function checkEmail(inp){
+   var RegEx = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+   if(document.getElementById("id3").value.match(RegEx)){
+    return true;
+   }
+   else{
+    alert('Please enter valid email address');
+    inp.focus();
+    return false;
+   }
+  }
+
+  function checkAddress(inp){
+   var RegExpression = /[^,=:/]/
+   if(document.getElementById("id5").value.match(RegExpression)){
+    return true;
+   }
+   else{
+    alert('Please enter valid Address (/ : = and , not allowed)');
+    inp.focus();
+    return false;
+   }
+
+
+  }
+  function submitDetails()
+  {
+	document.getElementById("id7").innerHTML="Details Submitted";
+  }
+
+  function validate(inp)
+  {
+	if(checkAddress(inp)&&checkEmail(inp)&&checkFirstName(inp)&&checkFullName(inp))
+		return true;
+	else 
+	{
+		alert("Please enter valid details");
+		inp.focus();
+	}
+  }
+ </script>
+
+
+</head>
+<h1> Form Detais</h1>
+<body>
+<form>
+FirstName
+<input type="text"  id="id1" onblur="checkFirstName(this)"/>
+<br/>
+<br/>
+LastName<input type="text"  id="id2" onblur="checkFullName(this)"/>
+<br/>
+<br/>
+EmailAddress<input type="text" id="id3" onblur="checkEmail(this)"/>
+ <br>
+ <br>
+Age<input type="number" min="0" max="60"  id="id4"/>
+<br/>
+<br/>
+Gender:<input type="radio" name="Gender" value="Male"/>Male
+ <br/>
+ <input type="radio" name="Gender" value="Female"/>Female
+ <br/>
+ <br>
+OfficeLocation<select>
+<option >Gurgaon</option>
+<option >Delhi</option>
+<option >Noida</option>
+</select>
+<br/>
+<br/>
+Address
+<br/>
+<textarea rows="3" cols="40" id="id5" onblur="checkAddress(this)"></textarea>
+<br/>
+<br/>
+
+<input type="button"  id="id6" value="Submit" onclick="validate()" />
+
+</form>
+<div id="id7" > </div>
+
+</body>
+
+</html>
