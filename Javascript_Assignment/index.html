@@ -1,0 +1,83 @@
+<html>
+<head>
+<title>User Registration</title>
+<script type="text/javascript">
+function validate()
+		{
+		var isValid;
+		document.getElementById("une").innerHTML ="";
+		
+		var alphaExp = new RegExp("^[a-zA-Z]*$");
+		 if(!alphaExp.test(document.getElementById("first").value)){
+			document.getElementById("une").innerHTML += "<br>Only alphabets are allowed";
+		 }
+		 
+		alphaExp = new RegExp("^[a-zA-Z ]*$");
+		if(!alphaExp.test(document.getElementById("fullname").value)){
+			document.getElementById("une").innerHTML += "<br>Only alphabets & spaces are allowed";
+		 }
+     
+         
+        if((document.getElementById("email").value).match(' ')){
+			document.getElementById("une").innerHTML += "<br>Not  a valid email";
+		 }
+				
+		 var gender = document.getElementById("gender").value;
+		  if( gender != "male" && gender != "female" && gender != "others")
+         {
+            document.getElementById("une").innerHTML += "<br>Not a valid gender";
+         }
+
+         alphaExp=new RegExp("^[a-zA-Z0-9\/\\.\\-\,\:]+$");
+         if(!alphaExp.test(document.getElementById("address").value)){
+			document.getElementById("une").innerHTML += "<br>Not  a valid address";
+		 }
+		 
+		 if( document.getElementById("age").value <= 0 )
+         {
+           document.getElementById("une").innerHTML += "<br>Not a valid age";
+         }
+		 return false;
+      }
+</script>
+</head>
+<body bgcolor="lightblue">
+
+<fieldset>
+<legend> Personal Information </legend>
+
+<table align="center">
+<tr>
+	<td>First Name:</td>
+	<td><input id="first" type="text" name="first"></td>
+</tr>
+<tr>
+	<td>Full Name:</td>
+	<td><input id="fullname" type="text" name="fullname"></td>
+</tr>
+<tr>
+	<td>Email:</td>
+	<td><input id="email" type="text" name="email"></td>
+</tr>
+<tr>
+	<td>Address:</td>
+	<td><input id="address" type="textarea" name="address" rows="10" cols="20"></td>
+</tr>
+
+<tr>
+	<td>Gender:</td>
+	<td><input id="gender" type="text" name="gender"></td>
+</tr>
+<tr>
+	<td>Age:</td>
+	<td><input id="age" type="number" name="age"></td>
+</tr>
+
+<tr >
+	<td colspan="2"><input type="submit" value="submit" onclick="return validate();" ></td>
+</tr>
+</table>
+</fieldset>
+<font color='red'> <div id="une"> </div> </font> 
+</body>
+</html>

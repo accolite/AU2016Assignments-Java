@@ -1,0 +1,24 @@
+//qstn to avoid stack overflow
+
+varlist=readHugeList();
+varnextListItem=function(){
+varitem=list.pop();
+if(item){
+//processthelistitem...
+nextListItem();
+}
+}
+
+//Answer
+
+var nextListItem = function() {
+    var item = list.pop();
+
+    if (item) { //should be list.length
+
+        // recursion here!
+        setTimeout( nextListItem, 0 );  //statement added to prevent stack overflow
+
+    }
+};
+
