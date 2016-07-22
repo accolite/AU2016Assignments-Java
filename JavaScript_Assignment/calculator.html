@@ -1,0 +1,43 @@
+<html>
+<head>
+<script src="calculator.js"></script>  
+</head>
+<body style="background-color:powderblue;">
+<h3 style="text-align:center;"><b>Simple calculator</b> </h3>
+<br/>
+<form Name="calculator">
+<table border=2 align="center">
+<tr>
+<td colspan=4 height="50"><input type=text Name="show"></td>
+</tr>
+		<tr>
+		<td><input type=button value="0" OnClick="DisplayDigit(0)"></td>
+		<td><input type=button value="1" OnClick="DisplayDigit(1)"></td>
+		<td><input type=button value="2" OnClick="DisplayDigit(2)"></td>
+		<td><input type=button value="+" OnClick="DisplayDigit('+')"></td>
+		</tr>
+		
+		<tr>
+		<td><input type=button value="3" OnClick="DisplayDigit(3)"></td>
+		<td><input type=button value="4" OnClick="DisplayDigit(4)"></td>
+		<td><input type=button value="5" OnClick="DisplayDigit(5)"></td>
+		<td><input type=button value="-" OnClick="DisplayDigit('-')"> </td>
+		</tr>
+		
+		<tr>
+		<td><input type=button value="6" OnClick="DisplayDigit(6)"></td>
+		<td><input type=button value="7" OnClick="DisplayDigit(7)"></td>
+		<td><input type=button value="8" OnClick="DisplayDigit(8)"></td>
+		<td><input type=button value="x" OnClick="DisplayDigit('*')"></td>
+		</tr>
+		
+		<tr>
+		<td><input type=button value="9" OnClick="DisplayDigit(6)"></td>
+		<td><input type=button value="C" OnClick="calculator.show.value=' '"></td>
+		<td><input type=button value="=" OnClick="calculator.show.value=eval(calculator.show.value)"></td>
+		<td><input type=button value="/" OnClick="DisplayDigit('/')"></td>
+		</tr>
+</table>
+</form>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> Form Validation </title>
+<script src="FormValidation.js"></script>  
+</head>
+
+<body style="background-color:powderblue;">
+<form name= 'bioform' onSubmit="return formValidation();">  
+
+<h1 style="color:Black;" ,"text-align:center;">Bio-Form</h1>
+
+
+<label for="firstname"><b>FirstName:</b></label>  
+<input type="text" name="firstname" size="30" /> <br> <br>
+<label for="fullname"><b>FullName: </b></label> 
+<input type="text" name="fullname" size="30" /> <br> <br>
+<label for="Address"><b>Address:  </b></label> <br>
+<textarea name="Address" rows="4" cols="30"> </textarea> <br> <br>
+<label for="age"><b>Age:      </b></label>  
+<input type="text" name="age" size="30" /> <br> <br>
+<label for="email"><b>Email:    </b></label> 
+<input type="text" name="email" size="30" /> <br> <br>
+<label id="gender"><b>Sex:      </b></label> <br>
+	<input type="radio" name="male" value="male"> Male <br>
+	<input type="radio" name="female" value="female"> Female<br>
+	<input type="radio" name="others" value="other"> Others <br>
+	<br>
+<input type="submit" name="submit" value="Submit" />  
+  
+
+
+</form>
+</body>
+</html>

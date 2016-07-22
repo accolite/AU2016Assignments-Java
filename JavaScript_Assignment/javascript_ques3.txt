@@ -1,0 +1,27 @@
+﻿var list = readHugeList();
+var nextListItem = function() {
+var item = list.pop();
+if (item) {
+// process the list item...
+nextListItem();
+}
+}
+
+StackOverFlow Error can be fixed by using setTimeout.setTimeout is an asynchronous operation, it doesn't block your function,
+ which means nextListItem will be allowed to finish and its frame can be popped off the call stack—preventing it from growing.
+
+var list = Array(10001).join('1.1').split('.');
+
+var nextListItem = function() {
+    var item = list.pop();
+
+    if (item) { //should be list.length
+
+        // recursion here!
+        setTimeout( nextListItem, 0 );
+
+    }
+};
+nextListItem();
+
+This makes recursion endless.
