@@ -1,0 +1,128 @@
+<html>
+<head>
+  <script>
+    function zero(){
+	  calc.display.value  = calc.display.value + '0';
+	  return calc.display.value;
+	}
+	
+	function one(){
+	  calc.display.value  = calc.display.value + '1';
+	  return calc.display.value;
+	}
+	
+	function two(){
+	  calc.display.value  = calc.display.value + '2';
+	  return calc.display.value;
+	}
+	
+	function plus(){
+	  calc.display.value+= '+';
+	  return calc.display.value;
+	}
+	
+	function three(){
+	calc.display.value = calc.display.value + '3';
+	return calc.display.value;
+	}
+	
+	function four(){
+	calc.display.value = calc.display.value + '4';
+	return calc.display.value;
+	}
+	
+	function five(){
+	calc.display.value = calc.display.value + '5';
+	return calc.display.value;
+	}
+	
+	function sub(){
+	calc.display.value = calc.display.value + '-';
+	return calc.display.value;
+	}
+	
+	function six(){
+	calc.display.value = calc.display.value + '6';
+	return calc.display.value;
+	}
+	
+	function seven(){
+	calc.display.value = calc.display.value + '7';
+	return calc.display.value;
+	}
+	
+	function eight(){
+	calc.display.value = calc.display.value + '8';
+	return calc.display.value;
+	}
+	
+	function mul(){
+	calc.display.value = calc.display.value + '*';
+	return calc.display.value;
+	}
+	
+	function nine(){
+	calc.display.value = calc.display.value + '9';
+	return calc.display.value;
+	}
+	
+	function clear(){
+	calc.display.value = '';
+	return calc.display.value;
+	}
+	
+	function equals(){
+	calc.display.value = eval(calc.display.value);
+	return calc.display.value;
+	}
+	
+	function div(){
+	calc.display.value = calc.display.value + '/';
+	return calc.display.value;
+	}
+	
+	function decimal(){
+	calc.display.value = calc.display.value + '.';
+	return calc.display.value;
+	}
+  </script>
+  
+
+</head>
+<body>
+<h3 align="center">Simple Calculator</h3>
+<br/>
+<form Name="calc">
+<table border=2 style="background-color:blue">
+<tr>
+<td colspan=3><input type=text Name="display"></td>
+<td><input type=button value="." OnClick="decimal()"></td>
+</tr>
+<tr>
+<td><input type=button value="0" OnClick="zero();"></td>
+<td><input type=button value="1" OnClick="one()"></td>
+<td><input type=button value="2" OnClick="two()"></td>
+<td><input type=button value="+" OnClick="plus()"></td>
+</tr>
+<tr>
+<td><input type=button value="3" OnClick="three()"></td>
+<td><input type=button value="4" OnClick="four()"></td>
+<td><input type=button value="5" OnClick="five()"></td>
+<td><input type=button value="-" OnClick="sub()"></td>
+</tr>
+<tr>
+<td><input type=button value="6" OnClick="six()"></td>
+<td><input type=button value="7" OnClick="seven()"></td>
+<td><input type=button value="8" OnClick="eight()"></td>
+<td><input type=button value="x" OnClick="mul()"></td>
+</tr>
+<tr>
+<td><input type=button value="9" OnClick="nine()"></td>
+<td><input type=button value="C" OnClick="calc.display.value=''"></td>
+<td><input type=button value="=" OnClick="equals()"></td>
+<td><input type=button value="/" OnClick="div()"></td>
+</tr>
+</table>
+</form>
+</body>
+</html>

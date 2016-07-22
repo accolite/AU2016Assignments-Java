@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<head>
+   <title>Bio data</title>
+   <script>
+     function validateForm(){
+	    <!-- VALIDATING FIRST NAME -->
+	    var fname = document.forms["myForm"]["fName"].value;
+        if (fname == null || fname == "" || !isNaN(fname)) {
+           alert("First Name should contain only alphabets!!!");
+        }
+		<!--VALIDATING FULL NAME -->
+		var fullName = document.forms["myForm"]["fullName"].value;
+		if(!isNaN(fullName)){
+		   alert("Full name cannot have numbers!!!");
+		}
+		<!--VALIDATING EMAIL ID -->
+		var email = document.forms["myForm"]["email"].value;
+		var atpos = email.indexOf("@");
+        var dotpos = email.lastIndexOf(".");
+        if (atpos<1 || dotpos<atpos+2 || dotpos+2>=email.length) {
+           alert("Not a valid e-mail address");
+           return false;
+        }
+		reWhiteSpace = new RegExp(/^\s+$/);
+        if (reWhiteSpace.test(email)) {
+          alert("Please Check Your Fields For Spaces");
+		}
+		<!--VALIDATING ADDRESS -->
+		var address = document.forms["myForm"]["address"].value;
+		validAdd = new RegExp(/^[a-zA-Z0-9]-,:/);
+		if(validAdd.test(address)){
+		  alert("Please check your address field");
+		}
+		<!--VALIDATING GENDER -->
+		var gender = document.forms["myForm"]["sex"].value;
+		if( gender == 'male' || gender == 'female' || gender == 'others'){
+		   alert("Invalid gender");
+		}
+		<!--VALIDATING AGE -->
+		var age = document.forms["myForm"]["age"].value;
+		if( age < '0'){
+		   alert("Age cannot be negative");
+		} 
+	}
+	 </script>
+</head>
+<body>
+   <h2 align="center">BIO-DATA</h2>
+   <form name="myForm" onsubmit="validateForm()" align="center">
+   FirstName:<input type="text" name="fName" /><br /><br/>
+   FullName:<input type="text" name="fullName" /><br /><br />
+   Email id:<input type="email" name="email" /><br /><br />
+   Address:<input type="address" name="address" /><br /><br />
+   Gender: <br/>
+   Male<input type="radio" name="sex" /><br /><br />
+           Female<input type="radio" name="sex" /><br /><br />
+   Age:<input type="number" name="age" /><br /><br />
+   <input type="button" value="submit" onclick="validateForm()"/>
+   </form>
+</body>
+</html> 
+
+
