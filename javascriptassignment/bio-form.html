@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Bio-form</title>
+	<script type="text/javascript">
+		
+		var validate = function(){
+			var fname = document.getElementById("fname").value;
+			var fnamePattern = /^[a-zA-Z]{0,}$/i;
+			var full_name = document.getElementById("full_name").value;
+			var full_namePattern = /^[a-zA-Z ]{0,}$/i;
+			var emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+			var email = document.getElementById("email").value;
+			var address = document.getElementById("address").value;
+			var addressPattern = /[,:/-]/i;
+			var gender = document.getElementById("gender").value;
+			var age = document.getElementById("age").value;
+			var agePattern = /^\d+$/i;
+/*			console.log(typeof age)
+			if(! (typeof age === "number"))
+				alert("Age should be a number");*/
+
+			if(fname.trim()==='' || !fnamePattern.test(fname.trim())){
+				alert("FirstName should not be empty and cannot contain spaces, special characters or numbers");
+				return;
+			}
+
+			if(full_name.trim() === '' || !full_namePattern.test(full_name.trim())){
+				alert("Fullname should not be empty and cannot contain special characters or numbers");
+				return;
+			}
+
+			if(email.trim()==='' || !emailPattern.test(email)){
+				alert("Email ID is not valid");
+				return;
+			}
+
+			if(address.trim()==='' || addressPattern.test(address)){
+				alert("Address should not be empty and should not contain / , - : chars");
+				// document.getElementById("address").value = '';
+				return;
+			}
+
+			if(!(gender === "male" || gender === "female" || gender === "others")){
+				alert("Gender should be any one of the following (male/female/others)");
+				// document.getElementById("gender").value = '';
+				return;
+			}
+
+			if(!agePattern.test(age)){
+				alert("Age should be a finite positive number");
+				// document.getElementById("age").value = '';
+				return;
+			}
+
+			alert("All Fields are valid");
+
+		}
+	</script>
+</head>
+<body>
+<h2> Bio-Form </h2>
+<form action="">
+	<table width="700px" >
+		<tr>
+		<th align="left"> First name </th>
+		<td> <input type="text" id="fname" width="10" /> </td>
+		<tr>
+		<tr>
+		<th align="left"> Full name </th>
+		<td> <input type="text" id="full_name" width="10" />  </td>
+		<tr>
+		<tr>
+		<th align="left"> Email ID </th>
+		<td> <input type="text" id="email" width="10" />  </td>
+		<tr>
+		<tr>
+		<th align="left"> Address </th>
+		<td> <input type="text" id="address" width="10" />  </td>
+		<tr>
+		<tr>
+		<th align="left"> Gender </th>
+		<td> <input type="text" id="gender" width="10" />  </td>
+		<tr>
+		<tr>
+		<th align="left"> Age </th>
+		<td> <input type="text" id="age" width="10" />  </td>
+		<tr>
+		<tr>
+		<th align="left" > <input type="button" value="validate" onclick="validate()"> </input> </th>
+	</table>
+
+</form>
+</body>
+</html>

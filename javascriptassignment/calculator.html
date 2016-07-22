@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Calculator</title>
+</head>
+<body>
+<h2> Calculator </h2>
+<table style="table-layout: fixed; height: 150px; width: 250px;">
+	<tr>
+		<td colspan="3"><input type="text" style="width:100%; height=100%" id="display" value='0' disabled="true"></td>
+		<td><input type="button" style="width:96%; height=100%" name="=" id="=" value="=" onclick="clicked(this)" /></td>
+	</tr>
+	<tr>
+		<td><input type="button" style="width:100%; height=100%" name="7" id="7" value="7" onclick="clicked(this)" /></td>
+		<td><input type="button" style="width:100%; height=100%" name="8" id="8" value="8" onclick="clicked(this)" /></td>
+		<td><input type="button" style="width:100%; height=100%" name="9" id="9" value="9" onclick="clicked(this)" /></td>
+		<td><input type="button" style="width:100%; height=100%" name="+" id="+" value="+" onclick="clicked(this)" /></td>
+	</tr>
+	<tr>
+		<td><input type="button" style="width:100%; height=100%" name="4" id="4" value="4" onclick="clicked(this)" /></td>
+		<td><input type="button" style="width:100%; height=100%" name="5" id="5" value="5" onclick="clicked(this)" /></td>
+		<td><input type="button" style="width:100%; height=100%" name="6" id="6" value="6" onclick="clicked(this)" /></td>
+		<td><input type="button" style="width:100%; height=100%" name="-" id="-" value="-" onclick="clicked(this)" /></td>
+	</tr>
+	<tr>
+		<td><input type="button" style="width:100%; height=100%" name="1" id="1" value="1" onclick="clicked(this)" /></td>
+		<td><input type="button" style="width:100%; height=100%" name="2" id="2" value="2" onclick="clicked(this)" /></td>
+		<td><input type="button" style="width:100%; height=100%" name="3" id="3" value="3" onclick="clicked(this)" /></td>
+		<td><input type="button" style="width:100%; height=100%" name="*" id="*" value="*" onclick="clicked(this)" /></td>
+	</tr>
+	<tr>
+		<td><input type="button" style="width:100%; height=100%" name="C" id="C" value="C" onclick="clicked(this)" /></td>
+		<td><input type="button" style="width:100%; height=100%" name="0" id="0" value="0" onclick="clicked(this)" /></td>
+		<td><input type="button" style="width:100%; height=100%" name="DEL" id="DEL" value="DEL" onclick="clicked(this)" /></td>
+		<td><input type="button" style="width:100%; height=100%" name="/" id="/" value="/" onclick="clicked(this)" /></td>
+	</tr>
+</table>
+<br/> <br>
+<span id="ans">
+</span>
+
+<script type="text/javascript">
+		var display = document.getElementById('display');
+		var ans = document.getElementById('ans');
+		clicked = function(obj) {
+			if(obj.id === 'DEL'){
+				display.value = display.value.substring(0, display.value.length - 1);
+				if(display.value==='')
+					display.value='0';
+			}
+			else if(obj.id === 'C')
+				display.value = '0';
+			else if(obj.id === '=')
+				evaluate();
+			else if(display.value === '0')
+				display.value = obj.id;
+			else{
+				display.value = display.value+''+obj.id;
+			}
+		}
+
+		evaluate = function(){
+			ans.innerHTML = '';
+			if(typeof eval(display.value) ==="number"){
+				display.value=eval(display.value);
+
+			}
+		}
+	</script>
+
+</body>
+</html>

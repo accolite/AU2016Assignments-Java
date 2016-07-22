@@ -1,0 +1,16 @@
+var list = readHugeList();
+var nextListItem = function() {
+	var item = list.pop();
+	if (item) {
+		// process the list item...
+		setTimeout(nextListItem(),0);		// Adds to event loop
+	}
+};
+
+
+/*
+Explanation:
+
+By default, each function call will create its own stack space and this may cause 'stack overflow' error on deep recursive pattern. To avoid this, we can use event queues(event loops). This ensures that, the caller stack finishes before the called function, so that we can avoid 'stack overflow' error. The 'setTimeout' method will add the function to the queue, and thus can be used to avoid 'stack overflow' error on recursive pattern
+
+*/
