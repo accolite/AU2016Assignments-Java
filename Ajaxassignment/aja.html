@@ -1,0 +1,35 @@
+<html>
+<head></head>
+ <body>
+ <img height = "300px" width = "300px" id = "img" src = "Koala.jpg"></img>
+ <div id = "des">first</div>
+ <input type='button' id='prev' value='pre' onclick="fun(this)" />
+ <input type='button' id='next' value='next' onclick="fun(this)" />
+ 
+ </body>
+ <script>
+  var curr = 0;
+  var tot = 4;
+  function fun(obj){
+     var xmlhttp = new XMLHttpRequest();
+     var callBack = function(){
+     if (xmlhttp.readyState==4 && xmlhttp.status==200)
+      {
+       if(obj.id == 'prev')
+       {
+        curr = (curr - 1 + tot)%tot;
+       }
+      else{
+        curr = (curr + 1)%tot;
+       }
+       var parsed = JSON.parse(xmlhttp.responseText);
+       document.getElementById("img").src=parsed.json[curr].src;
+       document.getElementById("des").innerHTML=parsed.json[curr].des;
+      }  
+     } 
+     xmlhttp.onreadystatechange = callBack;
+     xmlhttp.open("GET","js.txt",true);
+     xmlhttp.send();
+  }
+ </script>
+</html>
