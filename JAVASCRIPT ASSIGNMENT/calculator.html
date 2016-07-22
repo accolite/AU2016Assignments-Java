@@ -1,0 +1,107 @@
+<!doctype>
+<html>
+<head>
+<title>CALCULATOR</title>
+</head>
+<style>
+body{
+<!--background-color:blue;-->
+}
+</style
+<body>
+
+<h1  align="center"> CALCULATOR: Momin Yadav</h1>
+<table border=2 align="center">
+<div class="box">
+<tr>
+<td colspan=4><div class="display" align="center"><input type="text"  id="d"></div></td>
+</tr>
+
+<div class="keys">
+    
+	
+	<tr>
+   <td align="center"> <p align="center"><input type="button"  value="7"onclick='v("7")'   >  </td>
+
+	<td align="center"><input type="button"    value="8" onclick='v("8")' ></td>
+	
+	<td align="center"><input type="button"    value="9" onclick='v("9")'></td>
+	
+	<td align="center"><input type="button"    value="*" onclick='v("*")'></td>  </tr>  </p>
+	
+	
+	<tr>
+	<td align="center"><p align="center"><input type="button"  value="4" onclick='v("4")'>  </td>
+
+	<td align="center"><input type="button"    value="5" onclick='v("5")'></td>
+	
+	<td align="center"><input type="button"    value="6" onclick='v("6")'></td>
+	
+	<td align="center"><input type="button"    value="-" onclick='v("-")'></td></tr> </p>
+	
+	<tr>
+	<td align="center"><p align="center"><input type="button"  value="1" onclick='v("1")'>  </td>
+
+	<td align="center"><input type="button"    value="2" onclick='v("2")'></td>
+	
+	<td align="center"><input type="button"    value="3" onclick='v("3")'></td>
+	
+	<td align="center"><input type="button"    value="+" onclick='v("+")'></td></tr> </p>
+	
+	
+	<tr>
+	 <td align="center"><p align="center"><input type="button"  value="0" onclick='v("0")'></td>
+	 
+	   <td align="center"> <input type="button"  value="." onclick='v(".")'></td>
+			
+        <td align="center"><input type="button"  value="C" onclick='c("")'></td>
+		
+		<td align="center"><input type="button"  value="=" onclick='e()'></td></tr>
+	
+		
+		</p>
+		
+		
+		<tr>
+		<td align="center"><p align="center"><input type="button"  value="(" onclick='v("(")'></td>
+	 
+	    <td align="center"><input type="button"  value=")" onclick='v(")")'></td>
+			
+        <td align="center"><input type="button"  value="\" onclick='v("\")'></td>
+		
+
+	
+		
+		</p>
+		
+		
+		
+	
+</div>
+</div>
+</table>
+
+
+<script>
+function c(val)
+{
+document.getElementById("d").value=val;
+}
+function v(val)
+{
+document.getElementById("d").value+=val;
+}
+function e() 
+{ 
+try 
+{ 
+  c(eval(document.getElementById("d").value)) 
+} 
+catch(e) 
+{
+  c('Error') 
+} 
+}  
+</script>
+</body>
+</html>
