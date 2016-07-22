@@ -18,25 +18,25 @@ function validate()
 		 }
      
          
-        if((document.getElementById("email").value).match(' ')){
+        	if((document.getElementById("email").value).match(' ')){
 			document.getElementById("une").innerHTML += "<br>Not  a valid email";
 		 }
 				
 		 var gender = document.getElementById("gender").value;
-		  if( gender != "male" && gender != "female" && gender != "others")
-         {
-            document.getElementById("une").innerHTML += "<br>Not a valid gender";
-         }
+		 if( gender != "male" && gender != "female" && gender != "others")
+       		 {
+         		   document.getElementById("une").innerHTML += "<br>Not a valid gender";
+       		 }
 
-         alphaExp=new RegExp("^[a-zA-Z0-9\/\\.\\-\,\:]+$");
-         if(!alphaExp.test(document.getElementById("address").value)){
+        	 alphaExp=new RegExp("^[a-zA-Z0-9\/\\.\\-\,\:]+$");
+        	 if(!alphaExp.test(document.getElementById("address").value)){
 			document.getElementById("une").innerHTML += "<br>Not  a valid address";
 		 }
 		 
 		 if( document.getElementById("age").value <= 0 )
-         {
-           document.getElementById("une").innerHTML += "<br>Not a valid age";
-         }
+        	 {
+         		  document.getElementById("une").innerHTML += "<br>Not a valid age";
+       		 }
 		 return false;
       }
 </script>
