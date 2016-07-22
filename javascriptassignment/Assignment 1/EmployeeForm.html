@@ -1,0 +1,50 @@
+<html>
+
+<head>
+<title> Employee Detail Form </title>
+<script src="employeeValidation.js">
+</script>
+</head>
+
+<body>
+<form action="" method="get" onsubmit="return check()">
+<div id="divFirstName" style="color:red"></div>
+First Name:<input type="text" name="txtFirstName" id="txtFirstName"/>
+<br/>
+<br/>
+<div id="divFullName" style="color:red"></div>
+Full Name: <input type="text" name="txtFullName" id="txtFullName"/>
+<br/>
+<br/>
+<div id="divEmailId" style="color:red"></div>
+Email Id: <input type="text" name="txtEmailId" id="txtEmailId"/>
+<br/>
+<br/>
+<div id="divAge" style="color:red"></div>
+Age: <input type="text" name="txtAge" id="txtAge"/>
+<br/>
+<br/>
+Gender: <input type="radio" name="radioGender" value="Male" checked="checked"/>Male
+	<br/>
+	
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="radioGender" value="Female"/>Female
+	<br/>
+	
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="radioGender" value="Others"/>Others
+	<br/>
+	<br/>
+<div id="divAddress" style="color:red"></div>
+Address: 
+<br/>
+<textarea rows="4" cols="50" name="taAddress" id="taAddress"></textarea>
+<br/>
+<br/>
+
+<input type="submit" name="btnSubmit" id="btnSubmit" value="Submit"/>
+
+</form>
+</body>
+
+
+
+</html>
