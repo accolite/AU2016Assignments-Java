@@ -37,7 +37,7 @@
             }
 
             var address = document.forms["myForm"]["address"].value;
-            if ((address == null || address == "") || (/^[a-zA-Z0-9\/\:\-\,\. ]*$/.test(address) == false)) {
+            if ((address == null || address == "") || (/^[a-zA-Z0-9\/\:\-\, ]*$/.test(address) == false)) {
                 alert("Invalid Address");
                 return false;
             }
