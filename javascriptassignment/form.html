@@ -1,0 +1,55 @@
+<html>
+<head>
+<title>Form Validation</title>
+</head>
+<body>
+<h3>Input The Info</h3>
+<form name="dataform" onsubmit="return validate()">
+	First name <br/>
+	<input type = "text" name="first"><br/>
+	<br>
+	Full name <br/>
+	<input type = "text" name = "full"><br/>
+	<br>
+	Address:<br/>
+	<textarea name = "address"></textarea><br>
+	Gender    <br/>
+	<input type = "text" name="gender"><br/>
+	Age:<br/>
+	<input type = "number" name = "age"><br/>
+	<br>
+	<input type="submit" name="submit"></button>
+</form>
+</body>
+<script>
+	function validate()
+	{
+		var first = document.forms["dataform"]["first"].value;
+		var full = document.forms["dataform"]["full"].value;
+		var age = document.forms["dataform"]["age"].value;
+		var sex = document.forms["dataform"]["gender"].value;
+		var address = document.forms["dataform"]["address"].value;
+            if (first.length == 0 || (/^[a-zA-Z]*$/.test(first) == false)) {
+                alert("Invalid First name");
+                return false;
+            }
+            if (full.length == 0 || (/^[a-zA-Z ]*$/.test(full) == false)) {
+                alert("Invalid last name");
+                return false;
+            }
+            if ( address.length == 0 || (/^[a-zA-Z0-9/:-,. ]*$/.test(address) == false)) {
+                alert("Invalid Address");
+                return false;
+            }
+            if ( age == "" || isNaN(age) || parseInt(age) < 1 || parseInt(age) > 150) {
+                alert("Invalid Age")
+                return false;
+            }
+			if(sex != "male" && sex != "female" && sex != "other"){
+				alert("Invalid Gender")
+                return false;
+			}
+            return true;
+	}
+</script>
+</html>

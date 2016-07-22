@@ -1,0 +1,9 @@
+var nextListItem = function() {
+    var item = list.pop();
+
+    if (item) {
+        setTimeout( nextListItem, 0 );
+//due to setTimeout function will be enqued instead of stacked
+    }
+};
+nextListItem();
