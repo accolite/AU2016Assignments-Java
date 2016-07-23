@@ -1,0 +1,286 @@
+.centeralign{
+	text-align: center;
+}
+
+.smalltext{
+	font-size:80%;
+	text-align: justify;
+}
+
+.smalltext2{
+	font-size:100%;
+	text-align: justify;
+}
+
+#leftheading {
+	font-size: 1em;
+	font-weight: bold;
+}
+
+#centerheading {
+	font-size: 2.6em;
+	font-weight: bold;
+}
+
+#headdiv {
+	
+	border-top: 1px solid;
+	border-bottom: 1px solid;
+}
+
+#body {
+	margin: 1em;	
+}
+
+#gap1 {
+	position: absolute;
+	top:5em;
+	left:14em;
+	
+	height: 60em;
+	width : 0.5em;
+	border-right: 1px dotted;
+}
+
+#gap2 {
+	position: absolute;
+	top:40em;
+	left:15em;
+	
+	height: 0.5em;
+	width : 25em;
+	border-bottom: 1px dotted;
+}
+
+#gap3 {
+	position: absolute;
+	top:5em;
+	left:40.5em;
+	
+	
+	height: 120em;
+	width : 0.5em;
+	border-left: 1px dotted;
+}
+
+#gap4 {
+	position: absolute;
+	top:65em;
+	left:1em;
+	
+	background:black;
+	height: 1em;
+	width : 40em;
+}
+
+#gap5 {
+	position: absolute;
+	top:29em;
+	left:41em;
+	
+	height: 1em;
+	width : 42em;
+}
+
+#gap6 {
+	position: absolute;
+	top:5em;
+	left:51em;
+	
+	
+	height: 24em;
+	width : 0.5em;
+	border-right: 1px dotted;
+}
+
+#gap7 {
+	position: absolute;
+	top:5em;
+	left:72em;
+	
+	height: 24em;
+	width : 0.5em;
+	border-right: 1px dotted;
+}
+
+#d11 {
+	position: absolute;
+	top:5em;
+	left:1em;
+	
+	height: 60em;
+	width : 13em;
+
+	
+}
+
+#d22left {
+	position: absolute;
+	top:12em;
+	left:15em;
+	
+	height: 28em;
+	width : 8em;
+}
+
+#d22right {
+	position: absolute;
+	top:12em;
+	left:32em;
+	
+	height: 28em;
+	width : 8em;
+}	
+
+#d22center {
+	position: absolute;
+	top:22em;
+	left:23.5em;
+	
+	height: 18em;
+	width : 8em;
+}
+
+#sonia {
+	position: absolute;
+	top:14em;
+	left:23.5em;
+	
+	height: 12em;
+	width : 8em;
+}
+
+#d22 {
+	position: absolute;
+	top:5em;
+	left:15em;
+	
+	height: 7em;
+	width : 25em;
+}
+
+#d33 {
+	position: absolute;
+	top:5em;
+	left:41em;
+	
+	height: 24em;
+	width : 10em;
+}
+
+#d44 {
+	position: absolute;
+	top:5em;
+	left:52em;
+	
+	height: 5em;
+	width : 20em;
+}
+
+#d55 {
+	position: absolute;
+	top:5em;
+	left:73em;
+	
+	height: 24em;
+	width : 10em;
+}
+
+
+#d66 {
+	position: absolute;
+	top:41em;
+	left:15em;
+	
+	height: 5em;
+	width : 25em;
+}
+
+#d66left {
+	position: absolute;
+	top:46em;
+	left:15em;
+	
+	height: 19em;
+	width : 8em;
+}
+
+#d66right {
+	position: absolute;
+	top:46em;
+	left:32em;
+	
+	height: 19em;
+	width : 8em;	
+}
+
+#d66center {
+	position: absolute;
+	top:56em;
+	left:23.5em;
+	
+	height: 9em;
+	width : 8em;
+}
+
+#small {
+	position: absolute;
+	top:47em;
+	left:23.5em;
+	font-weight: bold;
+	
+	height: 9em;
+	width : 8em;
+    border-left: 2px solid red;
+}
+
+#d77 {
+	position: absolute;
+	top:66em;
+	left:1em;
+	
+	background:blue;
+	height: 59em;
+	width : 39em;
+}
+
+#d88 {
+	position: absolute;
+	top:30em;
+	left:41em;
+	
+	border: 2px solid;
+	height: 95em;
+	width : 42em;
+}
+
+#d44left {
+	position: absolute;
+	top:10em;
+	left:52em;
+	
+	height: 19em;
+	width : 9.5em;
+}
+
+#d55right {
+	position: absolute;
+	top:10em;
+	left:62em;
+	
+	height: 19em;
+	width : 10em;
+}
+
+.clearfix:after {
+     visibility: hidden;
+     display: block;
+     font-size: 0;
+     content: " ";
+     clear: both;
+     height: 0;
+     }
+.clearfix { display: inline-block; }
+/* start commented backslash hack \*/
+* html .clearfix { height: 1%; }
+.clearfix { display: block; }
