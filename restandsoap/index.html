@@ -1,0 +1,73 @@
+<html>
+    <head>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <style>
+        #input{
+            width:1000px;
+        }
+        #bodyID{
+            margin-top:20px;
+            margin-left:30px;
+        }
+        </style>
+    </head>
+    <body id="bodyID">
+        <h2>Enter the input required here:</h2><br/>
+        <textarea class="form-control" rows="8" id="inputText"></textarea>
+        <h4>choose any of the following:</h4>
+        <input type="button" class="btn btn-info" value="1" onclick="functionCall(1)"/> <span>To add a message</span><br/><br/>
+        <input type="button" class="btn btn-info" value="2" onclick="functionCall(2)"/> <span>To view all messages sorted by time [recent messages first]</span><br/><br/>
+        <input type="button" class="btn btn-info" value="3" onclick="functionCall(3)"/> <span>To add a comment on message</span><br/><br/>
+        <input type="button" class="btn btn-info" value="4" onclick="functionCall(4)"/> <span>To add a like on message</span><br/><br/>
+        <input type="button" class="btn btn-info" value="5" onclick="functionCall(5)"/> <span>To view all comments on a message</span><br/><br/>
+        <input type="button" class="btn btn-info" value="6" onclick="functionCall(6)"/> <span>To view all likes on a message</span><br/><br/>
+        
+        <script>       
+        function functionCall(option){ 
+             var input=document.getElementById("inputText").value;
+            var xmlhttp =new XMLHttpRequest();
+        switch(option)
+            {
+                case 1:
+                    xmlhttp.open("POST","http://localhost:8081/Messenger/webapi/messages",true);
+                    xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                    xmlhttp.setRequestHeader("Accept", "application/json");
+                    var message={};
+                    message=JSON.parse(input);
+                    xmlhttp.send(JSON.stringify(message));
+                    break;
+                case 2:
+                    xmlhttp.open("GET","http://localhost:8081/Messenger/webapi/messages/all",true);
+                    xmlhttp.send();
+                    break;
+                case 3:
+                    xmlhttp.open("POST","http://localhost:8081/Messenger/webapi/messages/1/addComments",true);
+                    xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                    var message={};
+                    message=JSON.parse(input);
+                    xmlhttp.send(JSON.stringify(message));
+                    break;
+                case 4 :
+                    xmlhttp.open("POST","http://localhost:8081/Messenger/webapi/messages/"+input+"/like",true);
+                    xmlhttp.send();
+                    break;
+                case 5:
+                    xmlhttp.open("GET","http://localhost:8081/Messenger/webapi/messages/1/comments",true);
+                    xmlhttp.send();
+                    break;
+                case 6:
+                    xmlhttp.open("GET","http://localhost:8081/Messenger/webapi/messages/1/likes",true);
+                    xmlhttp.send();
+                    break;
+                    
+            }
+            xmlhttp.onreadystatechange = function(){
+        if (xmlhttp.readyState==4)
+            {
+                document.getElementById("inputText").value=xmlhttp.responseText;
+            }
+            }
+        }
+        </script>
+    </body>
+</html>
