@@ -1,0 +1,306 @@
+#t1 {
+    border-bottom: 1px solid black;
+    border-top:1px solid black;
+   width:100%;
+   height: 10px;
+
+}
+#times
+{
+	color: pink;
+	font-size:47px;
+
+}
+#div1
+{
+	width:100%;
+	height:48%
+
+}
+#left
+{
+	float:left;
+	width:24%;
+}
+#personal
+{
+	column-count: 2;
+
+	height: 40%;
+	text-align:justify;
+	border-right: 1px solid black;
+	border-bottom:1px solid black;
+	padding-right:20px;
+
+}
+#jee
+{
+	column-count: 2;
+	
+	height:59%;
+	text-align:justify;
+	border-right: 1px solid black;
+	border-bottom: 1px solid black;
+
+	padding-right:20px;
+	padding-top:10px;
+	margin-top: 10px;
+	padding-bottom: 13px;
+
+
+}
+
+
+
+
+
+
+
+
+
+#middle
+{
+	height:60%;
+	width:61%;
+	float:left;
+	padding-right:15px;
+	padding-left:10px;
+	border-right: 1px solid black;
+	border-bottom:1px solid black;
+	padding-bottom: 10.75spx;
+
+}
+#zakir
+{		
+	text-align:justify;
+	height: 40%;
+
+}
+
+#zakir_head{
+	font-size: 40px;
+
+}
+#zakir_head2 {
+	font-size:30px;
+    float:left;
+   width:37%;
+   height:3%;
+   padding-right: 10px;
+
+  
+}
+#z_img
+{	padding-right:10px;
+	padding-top:10px;
+	padding-bottom:10px;
+	float:left;
+	width:38%;
+}
+#img
+{	padding-right: 5px;
+	padding-top: 10px;
+	float:left;
+	column-count: 2;
+	border-top: 1px solid black;
+}
+#z_img1
+{	padding-right:10px;
+	padding-top:10px;
+	padding-bottom:10px;
+	float:left;
+	width:38%;
+}
+#img1
+{	padding-right: 5px;
+	padding-top: 10px;
+	float:left;
+	column-count: 2;
+	border-top: 1px solid black;
+}
+#zakir_data
+{	float:left;
+	padding-top: 0px;
+	column-count: 1;
+	width:20%;
+	padding-bottom: 20px;
+
+}
+
+#zakir_data2
+{
+	float:right;
+	column-count: 2;
+	position: relative;
+	font-size: 15px;
+		padding-bottom: 20px;
+
+
+
+}
+
+
+#rohan
+{
+	text-align:justify;
+	height: 20%;
+	float:left;
+}
+#rohan_head{
+	padding-top: 5px;
+	font-size: 40px;
+
+}
+#rohan_data{
+	column-count: 1;
+	width:19.5%;
+	float:left;
+	padding-right: 10px;
+
+}
+#rohan_data2{
+	column-count: 2;
+	position: relative;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+#right
+{
+	float:right;
+	width:10.5%;
+	height:48%
+	padding-left:5px;
+	padding-right: 10px;
+
+}
+#women
+{
+		column-count: 1;
+		height:49%;
+		text-align:justify;
+		color:red;
+		border-bottom:1px solid black;
+		position: relative;
+
+
+}
+#gold
+{
+		column-count: 1;
+		text-align:justify;
+		padding-bottom: 3.5px;
+	border-bottom: 1px solid black;
+
+
+}
+
+
+
+#div2{
+height:49%;
+width:100%;
+text-align: justify;
+border-bottom: 3px solid red;
+}
+#ftii1
+{
+	float: left;
+	padding-right: 10px;
+	width:23.7%;
+	height: 70%;
+	text-align: center;
+	padding-bottom: 20px;
+}
+#ftti
+{
+	column-count: 2;	
+		text-align: justify;
+
+}
+#center
+{
+	width:74%;
+	float:left;
+	padding-top: 10px;
+	padding-left: 10px;
+	height:5%;
+	padding-right: 8px;
+
+}
+#center_head
+{	
+	padding-right: 5px;
+	width:63%;
+	float: left;
+	border-left: 1px dotted black;
+	padding-left: 10px;
+	border-right: 1px solid black;
+	border-bottom: 1px solid black;
+	padding-bottom: 10px;
+}
+#center_to
+{	
+
+	column-count: 4;
+}
+#thsti
+{
+	
+	width: 34%;
+	position: relative;
+	float: right;
+	column-count: 1;	
+	border-bottom: 2px solid black;
+	border-top: 2px solid black;
+	border-left: 2px solid black;
+	border-right: 2px solid black;
+
+}
+#stone
+{
+	float left;
+	width:55%;
+	column-count: 2;
+	padding-top: 10px;
+	border-top: 1px solid black;
+	
+}
+.imgsrc
+{	
+	border-radius: 5%;
+	 border: 0.3px solid blue;
+	 margin-left: 10px;
+	 margin-right: 10px;
+	 height: 80%;
+
+}
+#rathnagiri
+{	height:18%;
+	margin-left: 10px;
+	width:30%;
+	float:left;
+	 border-left: 1px dotted black;
+	 margin-top: 10px;
+	 padding-bottom: 30px;
+
+}
+#ceg
+{
+	float: right;
+	width: 43%;
+	height:50%;
+	padding-top: 10px;
+	padding-right: 10px;
+
+}
