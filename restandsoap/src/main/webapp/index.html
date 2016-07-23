@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+	<div class="row">
+		<div style="width:60%;float:left;">
+			<h2>List all Messages</h2>
+			<button id="getMessagesButton">Get All Messages</button>
+
+			<hr>
+			<h2>Add Messages</h2>
+			User : 
+			<select class="userSelect" id="useridmsg"></select> <br>
+			Message : <input type="text" name="messagebox" id="bodymsg"> <br>
+			<button id="addMessagesButton">Add it</button>
+			
+			<hr>
+			<h2>View Likes</h2>
+			Message : 
+			<select class="msgSelect" id="likemsgview"></select> <br>
+			<button id="viewLikesButton">View all likes</button> <br>		
+			
+			<hr>
+			
+			<h2>View Comments</h2>
+			Message : 
+			<select class="msgSelect" id="commentmsgview"></select> <br>
+			<button id="viewCommentsButton">View all Comments</button>	<br>		
+		
+			<hr>
+
+			<h2>Add Comment</h2>
+			User : 
+			<select class="userSelect" id="useridcmt"></select> <br>
+			Message : 
+			<select class="msgSelect" id="addCommentselect"></select> <br>
+			Comment :
+			<input type="text" id="addcommenttb"> <br>
+			<button id="addCommentsButton">Add this Comment</button> <br>
+
+			<hr>
+
+			<h2>Add Like</h2>
+			User : 
+			<select class="userSelect" id="useridlk"></select> <br>
+			Message : 
+			<select class="msgSelect" id="addlikeselect"></select>  <br>
+			<button id="addLikeButton">Add this Like</button> <br>
+
+		</div>
+		<div style="width:35%;float:left;border:5px solid green;margin-top:100px;" id="result">
+
+			
+		</div>
+	</div>
+
+	<script src="jquery.js"></script>
+	<script src="jfunc.js"></script>
+</body>
+</html>
