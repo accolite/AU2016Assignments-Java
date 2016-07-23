@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>AU -assignment</title>
+    <script>
+
+        var i = 2;
+        var data_file = "source.json";
+
+        function callAjax(buttonValue)
+        {
+            var xmlhttp;
+            if (window.XMLHttpRequest)
+            {
+                xmlhttp=new XMLHttpRequest();
+            }
+            else
+            {
+                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+            }
+
+            xmlhttp.onreadystatechange=function()
+            {
+                if (xmlhttp.readyState==4 && xmlhttp.status==200) //Success
+                {
+                    if(buttonValue.value == "Prev"){
+                        if(i<0){
+                            i = 300;
+                        }
+                        i--;
+                    }else{
+                        i++;
+                    }
+                    var objResponse = JSON.parse(xmlhttp.responseText); //JSON.parse Parses a string as JSON
+                    document.getElementById("image_slideshow").src =objResponse.images[i%3].url;
+                }
+            }
+            xmlhttp.open("GET",data_file,true);
+            xmlhttp.send();
+        }
+    </script>
+
+</head>
+
+
+<body>
+
+<input type="button" value="Prev" onclick="callAjax(this)" id="prev"/>
+<br>
+<input type="button" value="Next" onclick="callAjax(this)" id="next"/>
+<br>
+
+<img src="image1.jpg" alt="Image Could not be loaded." id="image_slideshow"/>
+
+<br>
+<!--<input type="label" id="description"/>-->
+</body>
+
+
+</html>
