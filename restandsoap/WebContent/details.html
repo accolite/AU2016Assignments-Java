@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Details</title>
+</head>
+<body>
+<fieldset name="Message" id="msgheader">
+	<div id="message">
+		
+	</div>	
+</fieldset>
+<div>
+	<span id="likedby"></span>
+	<input type="button" id="likebutton" value="Like" onclick="postLike()">
+</div>
+<div>
+	<textarea id="comment" rows="2" cols="50"></textarea>
+	<input type="button" name="cmt" value="Comment" onclick="postComment()">
+</div>
+<div id="comments">
+<table id="tbl"></table>
+</div>
+<script type="text/javascript" src="details.js"></script>
+</body>
+</html>
