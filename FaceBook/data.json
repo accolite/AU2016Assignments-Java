@@ -1,0 +1,75 @@
+{"messageList": [
+{
+"owner": "Sachin",
+"comments": [
+{
+"name": "Sachin",
+"message_id": "123",
+"userid": "1",
+"content": "Nice"
+},
+{
+"name": "Momin",
+"message_id": "123",
+"userid": "3",
+"content": "Great"
+},
+{
+"user_id": 2,
+"name": "Gagan",
+"message_id": 123,
+"content": "Nice bro"
+}
+],
+"description": "This is my first message",
+"message_id": "123",
+"time": "1234",
+"ownerid": "1",
+"likes": [
+{
+"name": "Sachin",
+"message_id": "123",
+"id": "1"
+},
+{
+"name": "Chirag",
+"messsage_id": "123",
+"id": "2"
+}
+]
+},
+{
+"owner": "Ankush",
+"comments": [
+{
+"user_id": 12,
+"name": "Diksha",
+"message_id": 345,
+"content": "Nice work ankush"
+},
+{
+"user_id": 12,
+"name": "Diksha",
+"message_id": 345,
+"content": "Nice work jagan"
+}
+],
+"owner_id": 0,
+"description": "This is Ankush message",
+"message_id": 345,
+"time": 12345,
+"likes": []
+},
+{
+"owner": "Jagan",
+"owner_id": 0,
+"description": "This is Jagan message",
+"message_id": 456,
+"time": 12,
+"likes": [{
+"name": "Sachin",
+"message_id": 456,
+"id": 1
+}]
+}
+]}
