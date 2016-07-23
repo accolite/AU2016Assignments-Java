@@ -1,0 +1,116 @@
+#main1{
+   text-align:center;
+   align: center;
+   margin-left:450px;
+   font-size: 30px;
+}
+
+#right1{
+   margin-left:200px;
+   text-align: right;
+   }
+
+.parent-one-div-one{
+	width:25%;
+	float:left;
+	border-right-style:dotted;
+	border-right-width:2px;
+	padding-right: 7px;
+}
+
+.parent-one-div-two{
+	width:41%;
+	float:left;
+	padding-left: 5px;
+	border-right-style:dotted;
+	border-right-width:2px;
+	padding-right: 7px;
+}
+
+#parent2{
+	height:1070px;
+}
+
+.parent-two-div-one{
+	width:25%;
+	float:left;
+	padding-right: 7px;
+	border-right-style: dotted;
+	border-right-width: 2px;
+}
+
+.parent-two-div-two{
+	width:66%;
+	padding-left: 7px;
+	float:left;
+	border-style : dotted;
+	border-width: 2px;
+}
+
+#parent-one-div-one-two{
+	float:left;
+   -webkit-column-count: 2;
+    -moz-column-count: 2; 
+    column-count: 2;
+	column-width: 10px;
+    column-gap: 10px;
+    width:325px;
+	position:relative;
+	border-bottom-style:dotted;
+	border-bottom-width:2px;
+	padding-bottom: 7px;
+}
+
+#parent-one-div-two-two{
+	width:25%;
+	margin:0px;
+	float:left;
+	border-bottom-style:dotted;
+	border-bottom-width:2px;
+}
+
+#parent-one-div-two-three-two{
+	float:left;
+   -webkit-column-count: 2;
+    -moz-column-count: 2; 
+    column-count: 2;
+	column-width: 10px;
+    column-gap: 10px;
+	width:400px;
+	border-bottom-style:dotted;
+	border-bottom-width:2px;
+}
+
+#parent-one-div-three-two{
+	-webkit-column-count: 2;
+    -moz-column-count: 2; 
+    column-count: 2;
+	column-width: 10px;
+    column-gap: 10px;
+	padding-left:5px;
+	border-bottom-style:dotted;
+	border-bottom-width:2px;
+	padding-bottom: 7px;
+}	
+
+#parent-two-div-one-two{
+	float:left;
+   -webkit-column-count: 2;
+    -moz-column-count: 2; 
+    column-count: 2;
+	column-width: 10px;
+    column-gap: 10px;
+	border-bottom-style: dotted;
+	border-bottom-width: 2px;
+}
+
+#parent-two-div-one-four{
+	float:left;
+   -webkit-column-count: 2;
+    -moz-column-count: 2; 
+    column-count: 2;
+	column-width: 10px;
+    column-gap: 10px;
+	
+}
+
