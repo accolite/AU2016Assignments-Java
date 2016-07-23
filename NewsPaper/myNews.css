@@ -1,0 +1,135 @@
+header
+{	
+	margin:0px;
+ border-bottom:2px solid grey;
+ border-top:2px solid grey;
+ color:red;
+ 
+}
+ html, body { width: 100%;
+	height: 100%;
+	
+	
+}
+#heading{ text-align: center;
+	font-family: serif;
+	font-size:50px;
+}
+#smallHeading{
+ text-align: center;
+}
+#div1-1{
+	border-bottom: dotted black 1px;
+	border-right: dotted black 1px;
+	 margin: 0 auto; 
+	float: left;
+	width: 58%;
+	
+	position: relative;
+}
+h2{
+	text-align:justify;
+}
+#div1-2{ padding-left: 10px;
+	border-right: dotted black 1px;
+	float: left;
+	width: 15%;
+	
+	position: relative;
+}
+#div1-3{
+	
+	float: right;
+	width: 24%;
+	
+	position: reletive;
+}
+#div2-1{ margin-top: -30px;
+	border-right: dotted black 1px;
+	float: left;
+	width: 18%;
+	
+	position: relative;
+}
+#div2-2{ padding-left:30px;
+	float: left;
+	width: 39%;
+	margin-top: -30px;
+	position: relative;
+}
+#div2-3{
+	padding-left:20px;
+	border-left: dotted black 1px;
+	border-top: dotted black 1px;
+	float: right;
+	width: 39%;
+	
+	position: relative;
+}
+#div3-1{
+	clear: left;
+	border: solid black 1px;
+	float: left;
+	width: 20%;
+	
+	position: relative;
+}
+#div3-2{ padding-left:20px;
+	border-top: dotted black 1px;
+	float: left;
+	width: 36%;
+	
+	position: relative;
+}
+#div3-3{
+	
+	float: right;
+	width: 39%;
+	
+	position: relative;
+}
+#div4-1{
+	border-top: dotted black 1px;
+	border-bottom: solid black 3px;
+	float: left;
+	width: 60%;
+	position: relative;
+}
+#div4-2{
+	border: dotted black 1px;
+	float: right;
+	width: 39%;
+	
+	position: relative;
+}
+.collumn{
+	-webkit-column-count: 3;
+	word-break:break-all;
+	 white-space: normal;
+	
+}
+.collumn1{
+	-webkit-column-count: 1;
+	word-break:break-all;
+	 white-space: normal;
+	
+}
+.collumn2{
+	-webkit-column-count: 2;
+	word-break:break-all;
+	 white-space: normal;
+	
+}
+.image{	float: right;
+		width: 39%;
+		position: relative;
+		display: block;
+		
+	
+}
+
+.collumn4{ -webkit-column-count: 4;
+	word-break:break-all;
+	 white-space: normal;
+	
+}
