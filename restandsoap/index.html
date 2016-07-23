@@ -17,6 +17,7 @@
         <h4>choose any of the following:</h4>
         <input type="button" class="btn btn-info" value="1" onclick="functionCall(1)"/> <span>To add a message</span><br/><br/>
         <input type="button" class="btn btn-info" value="2" onclick="functionCall(2)"/> <span>To view all messages sorted by time [recent messages first]</span><br/><br/>
+        <h4>Enter the message id for the following:</h4><input type="textbox" class="form-control" id="msgId"/><br/>
         <input type="button" class="btn btn-info" value="3" onclick="functionCall(3)"/> <span>To add a comment on message</span><br/><br/>
         <input type="button" class="btn btn-info" value="4" onclick="functionCall(4)"/> <span>To add a like on message</span><br/><br/>
         <input type="button" class="btn btn-info" value="5" onclick="functionCall(5)"/> <span>To view all comments on a message</span><br/><br/>
@@ -41,22 +42,26 @@
                     xmlhttp.send();
                     break;
                 case 3:
-                    xmlhttp.open("POST","http://localhost:8081/Messenger/webapi/messages/1/addComments",true);
+                    var msgID=document.getElementById("msgId").value;
+                    xmlhttp.open("POST","http://localhost:8081/Messenger/webapi/messages/"+msgID+"/addComments",true);
                     xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
                     var message={};
                     message=JSON.parse(input);
                     xmlhttp.send(JSON.stringify(message));
                     break;
                 case 4 :
-                    xmlhttp.open("POST","http://localhost:8081/Messenger/webapi/messages/"+input+"/like",true);
+                    var msgID=document.getElementById("msgId").value;
+                    xmlhttp.open("POST","http://localhost:8081/Messenger/webapi/messages/"+msgID+"/like",true);
                     xmlhttp.send();
                     break;
                 case 5:
-                    xmlhttp.open("GET","http://localhost:8081/Messenger/webapi/messages/1/comments",true);
+                    var msgID=document.getElementById("msgId").value;
+                    xmlhttp.open("GET","http://localhost:8081/Messenger/webapi/messages/"+msgID+"/comments",true);
                     xmlhttp.send();
                     break;
                 case 6:
-                    xmlhttp.open("GET","http://localhost:8081/Messenger/webapi/messages/1/likes",true);
+                    var msgID=document.getElementById("msgId").value;
+                    xmlhttp.open("GET","http://localhost:8081/Messenger/webapi/messages/"+msgID+"/likes",true);
                     xmlhttp.send();
                     break;
                     
