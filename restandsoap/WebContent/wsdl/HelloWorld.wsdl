@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://jersyDemo.accolite.com" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://jersyDemo.accolite.com" xmlns:intf="http://jersyDemo.accolite.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://jersyDemo.accolite.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="addition">
+    <complexType>
+     <sequence>
+      <element name="a" type="xsd:int"/>
+      <element name="b" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="additionResponse">
+    <complexType>
+     <sequence>
+      <element name="additionReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="printHello">
+    <complexType/>
+   </element>
+   <element name="printHelloResponse">
+    <complexType>
+     <sequence>
+      <element name="printHelloReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="ShowEmployee">
+    <complexType>
+     <sequence>
+      <element name="employee" type="impl:Employee"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="Employee">
+    <sequence>
+     <element name="empId" type="xsd:int"/>
+     <element name="name" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <element name="ShowEmployeeResponse">
+    <complexType>
+     <sequence>
+      <element name="ShowEmployeeReturn" type="impl:Employee"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="printHelloResponse">
+
+      <wsdl:part element="impl:printHelloResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="ShowEmployeeResponse">
+
+      <wsdl:part element="impl:ShowEmployeeResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="additionRequest">
+
+      <wsdl:part element="impl:addition" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="additionResponse">
+
+      <wsdl:part element="impl:additionResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="ShowEmployeeRequest">
+
+      <wsdl:part element="impl:ShowEmployee" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="printHelloRequest">
+
+      <wsdl:part element="impl:printHello" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="HelloWorld">
+
+      <wsdl:operation name="addition">
+
+         <wsdl:input message="impl:additionRequest" name="additionRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:additionResponse" name="additionResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="printHello">
+
+         <wsdl:input message="impl:printHelloRequest" name="printHelloRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:printHelloResponse" name="printHelloResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="ShowEmployee">
+
+         <wsdl:input message="impl:ShowEmployeeRequest" name="ShowEmployeeRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:ShowEmployeeResponse" name="ShowEmployeeResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="HelloWorldSoapBinding" type="impl:HelloWorld">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="addition">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="additionRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="additionResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="printHello">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="printHelloRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="printHelloResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="ShowEmployee">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="ShowEmployeeRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="ShowEmployeeResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="HelloWorldService">
+
+      <wsdl:port binding="impl:HelloWorldSoapBinding" name="HelloWorld">
+
+         <wsdlsoap:address location="http://localhost:8080/JersyDemo/services/HelloWorld"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

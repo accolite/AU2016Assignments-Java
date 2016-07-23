@@ -1,0 +1,38 @@
+{ 
+ "messagelist" : [
+   {
+      "mid" : "1",
+      "content" : "udit is awesome",
+      "owner" : "udit",
+      "likes" : ["nishant", "saibalaji"],
+      "comments" : 
+       [
+            {
+                 "comment" : "That is true",
+                 "owner"   : "nishant"
+            },
+            {
+                 "comment" : "Truth has been spoken",
+                 "owner"   : "Jayesh"
+            }
+       ]
+   },
+   {
+      "mid" : "2",
+      "content" : "New studies report that Udit is awesome",
+      "owner" : "nishant",
+      "likes" : ["udit", "saibalaji"],
+      "comments" : 
+       [
+            {
+                 "comment" : "That is true",
+                 "owner"   : "udit"
+            },
+            {
+                 "comment" : "Truth has been spoken",
+                 "owner"   : "Soumyadeep"
+            }
+       ]
+   }
+]
+}

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+   <body style="background-color:purple;color:white;font-family:sans-serif;text-align: center">
+      <h1 style="background-color: #4CAF50;color:purple">CHAT APPLICATION USING JERSEY, AJAX AND JSON</h1>
+      <style>
+         .button1 {
+         background-color: #4CAF50; /* Green */
+         border: none;
+         color: white;
+         padding: 15px 32px;
+         text-align: center;
+         text-decoration: none;
+         display: inline-block;
+         font-size: 16px;
+         }
+         .button2 {
+         background-color: lightcyan; /* Green */
+         border: none;
+         color: violet;
+         padding: 15px 32px;
+         text-align: center;
+         text-decoration: none;
+         display: inline-block;
+         font-size: 16px;
+         }
+         input[type=number] {
+         -webkit-transition: width 4s ease-in-out;
+         transition: width 4s ease-in-out;
+         }
+         input[type=number]:focus {
+         background-color: lightgreen;
+         }
+         input[type=text] {
+         -webkit-transition: width 4s ease-in-out;
+         transition: width 4s ease-in-out;
+         }
+         input[type=text]:focus {
+         background-color: lightcyan;
+         }
+      </style>
+      <script>
+         function fetchMessage() {
+           var xhttp;
+           xhttp = new XMLHttpRequest();
+           xhttp.onreadystatechange = function() {
+             if (xhttp.readyState == 4 && xhttp.status == 200) {
+               console.log( xhttp );
+               document.getElementById("txtHint").innerHTML = xhttp.responseText;
+             }
+           };
+           xhttp.open("GET", "http://localhost:8080/WebServ/webapi/messages/", true);
+           xhttp.send();
+         }
+         
+         function fetchComments() {
+           var xhttp;
+           xhttp = new XMLHttpRequest();
+           xhttp.onreadystatechange = function() {
+             if (xhttp.readyState == 4 && xhttp.status == 200) {
+               console.log( xhttp );
+               document.getElementById("txtHint").innerHTML = xhttp.responseText;
+             }
+           };
+           xhttp.open("GET", "http://localhost:8080/WebServ/webapi/messages/comments?mid=" + document.getElementById("number_comment").value, true);
+           xhttp.send();
+         }
+         
+         
+         function fetchLikes() {
+           var xhttp;
+           xhttp = new XMLHttpRequest();
+           xhttp.onreadystatechange = function() {
+             if (xhttp.readyState == 4 && xhttp.status == 200) {
+               console.log( xhttp );
+               document.getElementById("txtHint").innerHTML = xhttp.responseText;
+             }
+           };
+           xhttp.open("GET", "http://localhost:8080/WebServ/webapi/messages/likes?mid=" + document.getElementById("number_like").value, true);
+           xhttp.send();
+         }
+         
+         
+         function addComment() {
+           var xhttp;
+           xhttp = new XMLHttpRequest();
+           xhttp.onreadystatechange = function() {
+             if (xhttp.readyState == 4 && xhttp.status == 200) {
+               console.log( xhttp );
+               document.getElementById("txtHint").innerHTML = xhttp.responseText;
+             }
+           };
+           var mid = document.getElementById("comm_mid").value;
+           var comment = document.getElementById("comm_content").value;
+           var by = document.getElementById("comm_by").value;
+           console.log(mid);
+           console.log(comment);
+           console.log(by);
+           xhttp.open("POST", "http://localhost:8080/WebServ/webapi/messages/addc?mid=" + mid + "&comment=" + comment + "&owner=" + by, true);
+           xhttp.send();
+         }
+         
+         
+         function addLike(){
+           var xhttp;
+           xhttp = new XMLHttpRequest();
+           xhttp.onreadystatechange = function() {
+             if (xhttp.readyState == 4 && xhttp.status == 200) {
+               console.log( xhttp );
+               document.getElementById("txtHint").innerHTML = xhttp.responseText;
+             }
+           };
+           var mid = document.getElementById("like_mid").value;
+           var liker = document.getElementById("like_liker").value;
+           console.log(mid);
+           console.log(liker);
+           xhttp.open("POST", "http://localhost:8080/WebServ/webapi/messages/addl?mid=" + mid + "&liker=" + comment, true);
+           xhttp.send();
+         }
+         
+      </script>
+      <table style="width:100%">
+         <tr style="width:100%">
+            <td style="width:50%">
+               <form action="" style="color:white; text-align:left; align:left">
+                  <input type="button" id="fetchdata" onclick="fetchMessage()" class="button1" value="Fetch All Message">
+                  <br><br><br><br>
+                  Enter Message ID <input type="number" id="number_comment" value="Enter Message ID" min="1"> <br>
+                  <input type="button" id="fetchdata" onclick="fetchComments()" class="button1" value="View Comments">
+                  <br><br>
+                  <br><br>
+                  Enter Message ID <input type="number" id="number_like" value="Enter Message ID" min="1"> <br>
+                  <input type="button" id="fetchdata" onclick="fetchLikes()" class="button1" value="View Likes">
+                  <br><br>
+                  <br><br>
+                  Enter Message ID <input type="number" id="comm_mid" min="1"> <br>
+                  Comment Content <input type="text" id="comm_content"> <br>
+                  Comment By <input type="text" id="comm_by"> <br>
+                  <input type="button" id="fetchdata" onclick="addComment()" class="button1" value="Add Comment">
+                  <br><br>
+                  <br><br>
+                  Enter Message ID <input type="like_mid" value="Enter Message ID"> <br>
+                  Liker <input type="like_liker"> <br>
+                  <input type="button" id="fetchdata" onclick="addLike()" class="button1" value="Add Like">
+                  <br><br>
+                  Enter Message ID <input type="number" value="Enter Message ID"> <br>
+                  Message <input type="text"> <br>
+                  Owner <input type="text"> <br>s
+                  <input type="button" id="fetchdata" onclick="fetchMessage()" class="button1" value="Add Message">
+               </form>
+            </td>
+            <td style="width:50%">
+               <div class="button2">
+                  <h1 style="color:darkblue">RESULT:</h1>
+                  <span id="txtHint" style="color:purple"></span>
+               </div>
+            </td>
+         </tr>
+      </table>
+   </body>
+</html>
