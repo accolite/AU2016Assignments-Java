@@ -1,0 +1,53 @@
+.pageHeader{
+	color:black;
+	text-align: center;
+	font-size: 30px;
+	border-top: black solid 5px;
+	border-bottom: black solid 5px;
+}
+.centeralign{
+	/*float: center;
+	*/}
+.leftalign{
+	float: left;
+	text-align: left;
+	font-size: 11px;
+    width: 250px;
+}
+.rightalign {
+    float: right;
+    text-align: right;
+    width: 250px;
+}
+
+.mainpage{
+	-webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+    
+}
+
+.leftdiv{
+	float: left;
+	border-right: dotted black 2px;
+}
+
+.rightdiv{
+	float: right;
+	}
+
+.mainleftheader{
+	color:black;
+	text-align: center;
+	font-size: 50px;
+	float: left;
+	
+}
+.generalParagraph{
+	text-indent: 10px;
+	text-align: justify;
+	}
+.image{
+	float:right;
+	overflow: auto;
+	}
