@@ -1,0 +1,30 @@
+{
+    "messageList": [
+
+        {
+            "messageid":"1",
+            "ownerid": "1",
+            "owner": "Sachin",
+            "description":"This is my first message",
+            "likes": [{
+                "name": "Sachin",
+                "id": "1"
+            }, {
+                "name": "Chirag",
+                "id": "2"
+            }],
+            "comments": [{
+                    "content": "Nice",
+                    "userid": "1",
+                    "name": "Sachin"
+                }, {
+                    "content": "Great",
+                    "userid": "3",
+                    "name": "Momin"
+                }
+
+            ]
+        }
+
+    ]
+}
