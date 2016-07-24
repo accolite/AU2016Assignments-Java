@@ -1,32 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>FB</title>
-	<style type="text/css">
-		.menu {
-			float: left;
-			position: relative;
-    		top: 70px;
-    		left: 90px;
-		}
-		.menu * {
-			width: 100%;
-		}
-		.display {
-			float: left;
-			position: relative;
-			left: 500px;
-			width: 50%;
-		}
-		table {
-			width: 100%;
-		}
-		.commentTable {
-			position: relative;
-    		left: 60px;
-		}
-	</style>
-	<script type="text/javascript">
+<title>FB</title>
+<style type="text/css">
+.menu {
+	float: left;
+	position: relative;
+	top: 70px;
+	left: 90px;
+}
+
+.menu * {
+	width: 100%;
+}
+
+.display {
+	float: left;
+	position: relative;
+	left: 500px;
+	width: 50%;
+}
+
+table {
+	width: 100%;
+}
+
+.commentTable {
+	position: relative;
+	left: 60px;
+}
+</style>
+<script type="text/javascript">
 		function getNewXmlHttp(){
 			var xmlhttp;
 			if (window.XMLHttpRequest)
@@ -92,11 +96,12 @@
 			row.appendChild(col);
 			return row;
 		}
-		function populateDisplay(user_name,messageArray){
+		function populateDisplay(user_name,messageArray,overwrite){
 			if(user_name=="")
 				user_name=document.getElementsByName("user")[0].value;
 			var tableBody=document.getElementsByClassName("tableBody")[0];
-			tableBody.innerHTML="";
+			if(overwrite)
+				tableBody.innerHTML="";
 			for (var i = messageArray.length - 1; i >= 0; i--) {
 				var message=messageArray[i];
 				tableBody.appendChild(newRow(user_name,message));
@@ -110,7 +115,7 @@
   				if (xmlhttp.readyState==4 && xmlhttp.status==200){
   					var userArray=JSON.parse(xmlhttp.responseText);
   					for (var i = userArray.length - 1; i >= 0; i--) {
-  						populateDisplay(userArray[i]["name"],userArray[i]["message"]);
+  						populateDisplay(userArray[i]["name"],userArray[i]["message"],false||i == userArray.length - 1);
   					}
       			}  
   			}
@@ -123,7 +128,7 @@
 			var xmlhttp = getNewXmlHttp();
   			xmlhttp.onreadystatechange = function(){
   				if (xmlhttp.readyState==4 && xmlhttp.status==200){
-      				populateDisplay("",JSON.parse(xmlhttp.responseText));
+      				populateDisplay("",JSON.parse(xmlhttp.responseText),true);
       			}  
   			}
 			xmlhttp.open("GET","http://localhost:8080/RestAndSoap/webapi/facebook/getMessage?user_name="+user_name,true);
@@ -141,7 +146,7 @@
 			xmlhttp.open("GET","http://localhost:8080/RestAndSoap/webapi/facebook/getComment?user_name="+user_name+"&message_id="+message_id+"&comment_id="+comment_id,true);
   			xmlhttp.send();
 		}
-		function getLikes(user_name){
+		function getLikers(user_name){
 			var message_id=prompt("enter message Id");
 			var xmlhttp = getNewXmlHttp();
   			xmlhttp.onreadystatechange = function(){
@@ -170,7 +175,7 @@
   				if (xmlhttp.readyState==4 && xmlhttp.status==200){
       				var userArray=JSON.parse(xmlhttp.responseText);
   					for (var i = userArray.length - 1; i >= 0; i--) {
-  						populateDisplay(userArray[i]["name"],userArray[i]["message"]);
+  						populateDisplay(userArray[i]["name"],userArray[i]["message"],false||i == userArray.length - 1);
   					}
       			}  
   			}
@@ -180,14 +185,18 @@
   			xmlhttp.send();
 		}
 		function addLike(messageID){
-			var user_name=document.getElementsByName("user")[0].value;
+			var who_liked=document.getElementsByName("user")[0].value;
+			var user_name=document.querySelector("#msg"+messageID+" input[type=hidden]").value;
 			var xmlhttp = getNewXmlHttp();
   			xmlhttp.onreadystatechange = function(){
   				if (xmlhttp.readyState==4 && xmlhttp.status==200){
-      				getMessage("");
+  					var userArray=JSON.parse(xmlhttp.responseText);
+  					for (var i = userArray.length - 1; i >= 0; i--) {
+  						populateDisplay(userArray[i]["name"],userArray[i]["message"],false||i == userArray.length - 1);
+  					}
       			}  
   			}
-			var queryParams = "user_name=" + user_name + "&message_id=" + messageID;
+			var queryParams = "user_name=" + user_name + "&message_id=" + messageID+"&who_liked="+who_liked;
 			xmlhttp.open("POST","http://localhost:8080/RestAndSoap/webapi/facebook/addLike?"+queryParams,true);
 			xmlhttp.setRequestHeader("Content-type","text/plain;charset=utf-8");
   			xmlhttp.send();
@@ -199,7 +208,10 @@
 			var xmlhttp = getNewXmlHttp();
   			xmlhttp.onreadystatechange = function(){
   				if (xmlhttp.readyState==4 && xmlhttp.status==200){
-      				getAllMessage("");
+  					var userArray=JSON.parse(xmlhttp.responseText);
+  					for (var i = userArray.length - 1; i >= 0; i--) {
+  						populateDisplay(userArray[i]["name"],userArray[i]["message"],false||i == userArray.length - 1);
+  					}
       			}  
   			}
 			var queryParams = "user_name=" + user_name + "&comment=" + comment+ "&message_id="+messageID+ "&who_commented="+who_commented;
@@ -212,23 +224,18 @@
 <body>
 	<div class="menu">
 		<input type="text" name="user" placeholder="HarryPotter" value="log10" />
-		<br>
-		<input type="button" name="addMessage" value="Write down your status" />
-		<br>
-		<input type="button" name="getMyMessages" value="Get My Messages" />
-		<br>
-		<input type="button" name="getAllMessages" value="News Feed">
-		<br>
-		<input type="button" name="getComment" value="Get Comment">
-		<br>
+		<br> <input type="button" name="addMessage"
+			value="Write down your status" /> <br> <input type="button"
+			name="getMyMessages" value="Get My Messages" /> <br> <input
+			type="button" name="getAllMessages" value="News Feed"> <br>
+		<input type="button" name="getComment" value="Get Comment"> <br>
 		<input type="button" name="getAllComment" value="Get All Comment">
-		<br>
-		<input type="button" name="getLikes" value="Get Likes">
+		<br> <input type="button" name="getLikers" value="Get Likers">
 	</div>
 	<div class="display">
 		<table>
 			<tbody class="tableBody">
-				
+
 			</tbody>
 		</table>
 	</div>
@@ -254,10 +261,10 @@
 		getAllCmt.onclick=function(){
 			getAllComment(user.value);
 		}
-		var getLs=document.getElementsByName("getLikes")[0];
-		getLs.onclick=function(){
-			getLikes(user.value);
+		var getLrs=document.getElementsByName("getLikers")[0];
+		getLrs.onclick=function(){
+			getLikers(user.value);
 		}
-	</script>	
+	</script>
 </body>
 </html>

@@ -1,3 +1,9 @@
+/****************************************************************************
+* Copyright (c) 2016 by Accolite.com. All rights reserved
+* Created date :: Jul 24, 2016
+*  @author :: Lokesh K
+* ***************************************************************************
+*/
 package com.accolite.service;
 
 import java.io.File;
@@ -12,49 +18,70 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class JSONHandler.
+ */
 public class JSONHandler {
+	
+	/** The parser. */
 	JSONParser parser;
+	
+	/** The user array. Array of all  the users*/
 	JSONArray userArray;
+	
+	/** The user. current user who requires our service*/
 	JSONObject user;
+	
+	/** The user index. */
 	int userIndex;
+	
+	/** The file where data stored. */
 	File f;
-//	@SuppressWarnings("unchecked")
+
+	/**
+	 * Instantiates a new JSON handler.
+	 *
+	 * @param name the name
+	 */
+	// @SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	public JSONHandler(String name) {
 		parser = new JSONParser();
 		f = new File("FBdata.json");
-//		f.delete();
-		if(f.exists()){
+//		 f.delete();
+		if (f.exists()) {
 			try {
-				userIndex=0;
-				userArray=(JSONArray) parser.parse(new FileReader(f));
-				for(Object u:userArray){
-					JSONObject usr=(JSONObject)u;
-					if(name.equals((String)usr.get("name"))){
-						user=usr;
+				userIndex = 0;
+				userArray = (JSONArray) parser.parse(new FileReader(f));
+				for (Object u : userArray) {
+					JSONObject usr = (JSONObject) u;
+					if (name.equals((String) usr.get("name"))) {
+						user = usr;
 						break;
 					}
 					userIndex++;
 				}
-			}  catch (IOException e) {
-				// TODO Auto-generated catch block
+			} catch (IOException e) {
 				e.printStackTrace();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}else{
+		} else {
 			try {
 				f.createNewFile();
 				userArray = new JSONArray();
-				user=new JSONObject();
+				//user1
+				user = new JSONObject();
 				user.put("name", "log10");
-				JSONArray userMessage=new JSONArray();
-				JSONObject message=new JSONObject();
+				JSONArray userMessage = new JSONArray();
+				JSONObject message = new JSONObject();
 				message.put("id", 0);
-				message.put("message","Happy Fun Friday");
+				message.put("message", "Happy Fun Friday");
 				message.put("like", 0);
-				JSONArray messageComment=new JSONArray();
-				JSONObject comment=new JSONObject();
+				message.put("likers", new JSONArray());
+				JSONArray messageComment = new JSONArray();
+				JSONObject comment = new JSONObject();
 				comment.put("id", 0);
 				comment.put("name", "jegan");
 				comment.put("comment", "boring pa!");
@@ -63,7 +90,28 @@ public class JSONHandler {
 				userMessage.add(message);
 				user.put("message", userMessage);
 				userArray.add(user);
-				FileWriter fw=new FileWriter(f);
+				//user2
+				user = new JSONObject();
+				user.put("name", "jegan");
+				userMessage = new JSONArray();
+				message = new JSONObject();
+				message.put("id", 0);
+				message.put("message", "Ethan peruda ithaiye kepinga");
+				message.put("like", 0);
+				message.put("likers", new JSONArray());
+				messageComment = new JSONArray();
+				message.put("comment", messageComment);
+				userMessage.add(message);
+				user.put("message", userMessage);
+				userArray.add(user);
+				//user3
+				user = new JSONObject();
+				user.put("name", "srithar");
+				userMessage = new JSONArray();
+				user.put("message", userMessage);
+				userArray.add(user);
+				//writing json into file
+				FileWriter fw = new FileWriter(f);
 				userArray.writeJSONString(fw);
 				fw.close();
 			} catch (IOException e) {
@@ -71,37 +119,64 @@ public class JSONHandler {
 			}
 		}
 	}
-	public void addMessage(String message){
-		JSONObject msg=new JSONObject();
-		JSONArray userMsg=(JSONArray)user.get("message");
-		msg.put("id",""+userMsg.size()+1);
+
+	/**
+	 * Adds the message.
+	 *
+	 * @param message the message
+	 */
+	@SuppressWarnings("unchecked")
+	public void addMessage(String message) {
+		JSONObject msg = new JSONObject();
+		JSONArray userMsg = (JSONArray) user.get("message");
+		msg.put("id", "" + userMsg.size() + 1);
 		msg.put("message", message);
 		msg.put("like", 0);
-		msg.put("comment",new JSONArray());
+		msg.put("likers", new JSONArray());
+		msg.put("comment", new JSONArray());
 		userMsg.add(msg);
 		user.put("message", userMsg);
 		userArray.set(userIndex, user);
 		try {
-			FileWriter fw=new FileWriter(f);
+			FileWriter fw = new FileWriter(f);
 			userArray.writeJSONString(fw);
 			fw.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	public String getMessage(){
-		JSONArray userMsg=(JSONArray)user.get("message");
-//		System.out.println(userMsg+"\n"+userMsg.toJSONString());
+
+	/**
+	 * Gets the message.
+	 *
+	 * @return the message
+	 */
+	public String getMessage() {
+		JSONArray userMsg = (JSONArray) user.get("message");
 		return userMsg.toJSONString();
 	}
-	public String getAllMessage(){
+
+	/**
+	 * Gets all user's message.
+	 *
+	 * @return the all message
+	 */
+	public String getAllMessage() {
 		return userArray.toJSONString();
 	}
+
+	/**
+	 * Adds the comment.
+	 *
+	 * @param messageID the message ID
+	 * @param comment the comment
+	 * @param name the name
+	 */
+	@SuppressWarnings("unchecked")
 	public void addComment(int messageID, String comment, String name) {
 		JSONArray userMsg = (JSONArray) user.get("message");
 		JSONObject message = (JSONObject) userMsg.get(messageID);
-		if(message==null)
+		if (message == null)
 			return;
 		JSONArray comments = (JSONArray) message.get("comment");
 		JSONObject cmnt = new JSONObject();
@@ -114,82 +189,95 @@ public class JSONHandler {
 		user.put("message", userMsg);
 		userArray.set(userIndex, user);
 		try {
-			FileWriter fw=new FileWriter(f);
+			FileWriter fw = new FileWriter(f);
 			userArray.writeJSONString(fw);
 			fw.close();
 			return;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	public String getComment(int messageID, int commentID){
-		JSONArray userMsg=(JSONArray)user.get("message");
-		JSONObject message=(JSONObject)userMsg.get(messageID);
-		if(message==null)
+
+	/**
+	 * Gets the comment.
+	 *
+	 * @param messageID the message ID
+	 * @param commentID the comment ID
+	 * @return the comment
+	 */
+	public String getComment(int messageID, int commentID) {
+		JSONArray userMsg = (JSONArray) user.get("message");
+		JSONObject message = (JSONObject) userMsg.get(messageID);
+		if (message == null)
 			return "";
-		JSONArray comments = (JSONArray)message.get("comment");
-		JSONObject comment=(JSONObject)comments.get(commentID);
-		if(comment!=null)
+		JSONArray comments = (JSONArray) message.get("comment");
+		JSONObject comment = (JSONObject) comments.get(commentID);
+		if (comment != null)
 			return comment.toJSONString();
 		return "";
 	}
-	public String getAllComment(int messageID){
-		JSONArray userMsg=(JSONArray)user.get("message");
-		JSONObject message=(JSONObject)userMsg.get(messageID);
-		if(message==null)
+
+	/**
+	 * Gets the all comment.
+	 *
+	 * @param messageID the message ID
+	 * @return the all comment
+	 */
+	public String getAllComment(int messageID) {
+		JSONArray userMsg = (JSONArray) user.get("message");
+		JSONObject message = (JSONObject) userMsg.get(messageID);
+		if (message == null)
 			return "";
-		JSONArray comments = (JSONArray)message.get("comment");
+		JSONArray comments = (JSONArray) message.get("comment");
 		return comments.toJSONString();
 	}
-	public void addLike(int messageID){
-//		System.out.println(messageID+" "+user);
-		JSONArray userMsg=(JSONArray)user.get("message");
-		JSONObject message=(JSONObject)userMsg.get(messageID);
-		if(message==null)
+
+	/**
+	 * Adds the like.
+	 *
+	 * @param messageID the message ID
+	 * @param whoLiked the who liked
+	 */
+	@SuppressWarnings("unchecked")
+	public void addLike(int messageID,String whoLiked) {
+		JSONArray userMsg = (JSONArray) user.get("message");
+		JSONObject message = (JSONObject) userMsg.get(messageID);
+		if (message == null)
 			return;
-		int likes=-1;
-		try{
-			likes=((Integer)message.get("like")).intValue();
-		}catch(ClassCastException e){
-			likes=((Long)message.get("like")).intValue();
+		int likes = -1;
+		try {
+			likes = ((Integer) message.get("like")).intValue();
+		} catch (ClassCastException e) {
+			likes = ((Long) message.get("like")).intValue();
 		}
-//		System.out.println(likes+" "+message.get("like"));
-		message.put("like", likes+1);
-//		System.out.println(message.get("like"));
+		message.put("like", likes + 1);
+		JSONArray likers=(JSONArray)message.get("likers");
+		likers.add(whoLiked);
+		message.put("likers", likers);
 		userMsg.set(messageID, message);
 		user.put("message", userMsg);
 		userArray.set(userIndex, user);
 		try {
-			FileWriter fw=new FileWriter(f);
+			FileWriter fw = new FileWriter(f);
 			userArray.writeJSONString(fw);
 			fw.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-//		System.out.println(new JSONHandler("log10").getLikes(messageID));
 	}
-	public int getLikes(int messageID){
-		JSONArray userMsg=(JSONArray)user.get("message");
-		JSONObject message=(JSONObject)userMsg.get(messageID);
-		if(message==null)
-			return -1;
-		try{
-			return ((Integer)message.get("like")).intValue();
-		}catch(ClassCastException e){
-			return ((Long)message.get("like")).intValue();
-		}
+
+	/**
+	 * Gets the likers.
+	 *
+	 * @param messageID the message ID
+	 * @return the likers
+	 */
+	public String getLikers(int messageID) {
+		JSONArray userMsg = (JSONArray) user.get("message");
+		JSONObject message = (JSONObject) userMsg.get(messageID);
+		if (message == null)
+			return "";
+		JSONArray likers = (JSONArray) message.get("likers");
+		return likers.toJSONString();
 	}
-//	public static void main(String[]args){
-//		JSONHandler jh=new JSONHandler("log10");
-//		System.out.println(jh.getMessage());
-//		jh.addMessage("Happy Week end");
-//		System.out.println(jh.getMessage());
-//		jh.addLike(1);
-//		System.out.println(jh.getLikes(1));
-//		jh.addComment(1, "week end sollave illa", "jegan");
-//		System.out.println(jh.getAllComment(1));
-//		System.out.println(jh.getComment(1, 0));
-//	}
 }
