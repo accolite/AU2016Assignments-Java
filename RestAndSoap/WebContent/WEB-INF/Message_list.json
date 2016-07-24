@@ -1,0 +1,33 @@
+{
+    "List_Of_Messages": [
+
+        {
+		    "owner_id": "1",
+            "message_id":"1",  
+            "owner": "Momin",
+            "Detail":"Checking for messages",
+            "Likes": [{
+                "name": "Momin",
+                "id": "1"
+            }, {
+                "name": "Sachin",
+                "id": "2"
+            },{
+                "name": "Vikas",
+                "id": "3"
+            }],
+            "Comments": [{
+                    "content": "Good",
+                    "userid": "2",
+                    "name": "Sachin"
+                }, {
+                    "content": "Great",
+                    "userid": "3",
+                    "name": "Vikas"
+                }
+
+            ]
+        }
+
+    ]
+}
