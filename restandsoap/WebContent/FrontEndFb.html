@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+
+<script>
+function getHTTPObject() {
+    if (typeof XMLHttpRequest != 'undefined') {
+        return new XMLHttpRequest();
+    } try {
+        return new ActiveXObject("Msxml2.XMLHTTP");
+    } catch (e) {
+        try {
+            return new ActiveXObject("Microsoft.XMLHTTP");
+        } catch (e) {}
+    }
+    return false;
+}
+function getLike() {
+    var xhttp;
+    xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (xhttp.readyState == 4 && xhttp.status == 200) {
+        console.log( xhttp );
+        console.log(document.getElementById("inp3").value);
+        document.getElementById("getAll").innerHTML = xhttp.responseText;
+      }
+    };
+    xhttp.open("POST", "http://localhost:8082/FaceBook/webapi/queries/viewlikesonmessage?message=" + document.getElementById("inp3").value, true);
+   // xhttp.open("GET", "http://localhost:8080/WebServ/webapi/messages/addLike?id=" + personId + "&name=" + likedBy + "&messId=" + messageId, true);
+    xhttp.send();
+  }
+ 
+function getcomm() {
+    var xhttp;
+    xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (xhttp.readyState == 4 && xhttp.status == 200) {
+        console.log( xhttp );
+        document.getElementById("getAll").innerHTML = xhttp.responseText;
+      }
+    };
+    xhttp.open("POST", "http://localhost:8082/FaceBook/webapi/queries/viewcommentsonmessage?message=" + document.getElementById("inp3").value, true);
+    xhttp.send();
+  }
+  
+function getMsg() {
+    var xhttp;
+    xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (xhttp.readyState == 4 && xhttp.status == 200) {
+        console.log( xhttp );
+        document.getElementById("getAll").innerHTML = xhttp.responseText;
+      }
+    };
+    xhttp.open("GET", "http://localhost:8082/FaceBook/webapi/queries/sortedmessages",true);
+    xhttp.send();
+  }
+  
+function addComm(){
+    var xhttp;
+    xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (xhttp.readyState == 4 && xhttp.status == 200) {
+        console.log( xhttp );
+        document.getElementById("getAll").innerHTML = xhttp.responseText;
+      }
+    };
+
+    xhttp.open("POST", "http://localhost:8082/FaceBook/webapi/queries/addComment?message_id=" + document.getElementById("inp1").value + "&content=" + document.getElementById("inp3").value+"&name="+document.getElementById("inp2").value,true);
+    xhttp.send();
+  }
+function addLike(){
+	var xhttp;
+    xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (xhttp.readyState == 4 && xhttp.status == 200) {
+        console.log( xhttp );
+        document.getElementById("getAll").innerHTML = xhttp.responseText;
+      }
+    };
+
+    xhttp.open("POST", "http://localhost:8082/FaceBook/webapi/queries/addLike?name=" + document.getElementById("inp2").value + "&message_id=" + document.getElementById("inp1").value,true);
+    xhttp.send();
+  }
+function addMsg() {
+    var xhttp;
+    xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (xhttp.readyState == 4 && xhttp.status == 200) {
+        console.log( xhttp );
+        document.getElementById("getAll").innerHTML = xhttp.responseText;
+      }
+    };
+    var id = document.getElementById("inp1").value;
+    var user = document.getElementById("inp2").value;
+    var msg = document.getElementById("inp3").value;
+    var time = document.getElementById("inp4").value;
+    //console.log(mid);
+    //console.log(comment);
+    //console.log(by);
+    xhttp.open("POST", "http://localhost:8082/FaceBook/webapi/queries/addMessage?message_id="+id+"&name="+user+"&message="+msg+"&time="+time , true);
+    xhttp.send();
+  }
+</script>
+</head>
+<body>
+<div id="container">
+<p id="p1tag">Insert Message ID Here</p><input id="inp1" type="text" name="id" value="">
+<p id="p2tag">Insert User name Here</p><input id="inp2" type="text" name="id" value="">
+<p id="p3tag">Insert Message/Comment Here</p><input id="inp3" type="text" name="id" value="">
+<p id="p3tag">Insert Time(in sec)</p><input id="inp4" type="text" value="">
+
+<button id="lk" type="button" name="like" value="LIKE" onclick="getLike();">GET Likes </button>
+<button id="com" type="button" name="comm" value="comm" onclick="getcomm();">GET Comments</button>
+<button id="msg" type="button" name="msg" value="msg" onclick="getMsg();">GET Sorted Message</button>
+<button id="addlk" type="button" name="like" value="addLIKE" onclick="addLike();">Add Likes </button>
+<button id="addmsg" type="button" name="like" value="ADDMSG" onclick="addMsg();">Add Message </button>
+<button id="addcomm" type="button" name="like" value="ADDCOMM" onclick="addComm();">Add Comment </button>
+
+<div><p id="getAll"></p></div>
+</div>
+
+</body>
+</html>
