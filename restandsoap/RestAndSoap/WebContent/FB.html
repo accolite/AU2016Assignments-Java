@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>FB</title>
+	<style type="text/css">
+		.menu {
+			float: left;
+			position: relative;
+    		top: 70px;
+    		left: 90px;
+		}
+		.menu * {
+			width: 100%;
+		}
+		.display {
+			float: left;
+			position: relative;
+			left: 500px;
+			width: 50%;
+		}
+		table {
+			width: 100%;
+		}
+	</style>
+	<script type="text/javascript">
+		function getNewXmlHttp(){
+			var xmlhttp;
+			if (window.XMLHttpRequest)
+			  {
+			  xmlhttp=new XMLHttpRequest();
+			  }
+			else
+			  {
+			  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+			  }
+			  return xmlhttp;
+		}
+		function newRowForComments(comment){
+			return document.createElement("tr");
+		}
+		function newCommentTable(comment){
+			var table=document.createElement("table");
+			var tbody=document.createElement("tbody");
+			for (var i = comment.length - 1; i >= 0; i--) {
+				tbody.appendChild(newRowForComments(comment[i]));
+			}
+			table.appendChild(tbody)
+			return table;
+		}
+		function newRow(user_name,message){
+			var row=document.createElement("tr");
+			var col=document.createElement("td");
+			row.id="msg"+message["id"];
+			var para=document.createElement("p");
+			para.innerHTML=message["message"];
+			col.appendChild(para);
+			var nameHidden=document.createElement("input");
+			nameHidden.type="hidden";
+			nameHidden.value=user_name;
+			col.appendChild(nameHidden);
+			var likeButton=document.createElement("input");
+			likeButton.name="msg"+message["id"];
+			likeButton.value=message["like"]+" LIKE";
+			likeButton.class="likeButton";
+			likeButton.type="button";
+			likeButton.onclick=function(){
+				addLike(this.name.slice(3));
+			}
+			col.appendChild(likeButton);
+			var commentButton=document.createElement("input");
+			commentButton.name="msg"+message["id"];
+			commentButton.value="COMMENT";
+			commentButton.class="commentButton";
+			commentButton.type="button";
+			commentButton.onclick=function(){
+				addComment(this.name.slice(3));
+			}
+			col.appendChild(commentButton);
+			col.appendChild(document.createElement("br"));
+			col.appendChild(newCommentTable(message["comment"]));
+			row.appendChild(col);
+			return row;
+		}
+		function populateDisplay(user_name,messageArray){
+			if(user_name=="")
+				user_name=document.getElementsByName("user")[0].value;
+			var tableBody=document.getElementsByClassName("tableBody")[0];
+			for (var i = messageArray.length - 1; i >= 0; i--) {
+				var message=messageArray[i];
+				tableBody.appendChild(newRow(user_name,message));
+			}
+		}
+		function getAllMessage(user_name){
+			if(user_name=="")
+				user_name=document.getElementsByName("user")[0].value;
+			var xmlhttp = getNewXmlHttp();
+  			xmlhttp.onreadystatechange = function(){
+  				if (xmlhttp.readyState==4 && xmlhttp.status==200){
+  					var userArray=JSON.parse(xmlhttp.responseText);
+  					for (var i = userArray.length - 1; i >= 0; i--) {
+  						populateDisplay(userArray[i]["name"],userArray[i]["message"]);
+  					}
+      			}  
+  			}
+			xmlhttp.open("GET","http://localhost:8080/RestAndSoap/webapi/facebook/getAllMessage?user_name="+user_name,true);
+  			xmlhttp.send();
+		}
+		function getMessage(user_name){
+			if(user_name=="")
+				user_name=document.getElementsByName("user")[0].value;
+			var xmlhttp = getNewXmlHttp();
+  			xmlhttp.onreadystatechange = function(){
+  				if (xmlhttp.readyState==4 && xmlhttp.status==200){
+      				populateDisplay("",JSON.parse(xmlhttp.responseText));
+      			}  
+  			}
+			xmlhttp.open("GET","http://localhost:8080/RestAndSoap/webapi/facebook/getMessage?user_name="+user_name,true);
+  			xmlhttp.send();
+		}
+		function addMessage(user_name){
+			var message=prompt(user_name+", enter your status:");
+			var xmlhttp = getNewXmlHttp();
+  			xmlhttp.onreadystatechange = function(){
+  				if (xmlhttp.readyState==4 && xmlhttp.status==200){
+      				getMessage("");
+      			}  
+  			}
+			xmlhttp.open("POST","http://localhost:8080/RestAndSoap/webapi/facebook/addMessage",true);
+			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			var queryParams = "user_name=" + user_name + "&message=" + message; 
+  			xmlhttp.send(queryParams);
+		}
+		function addLike(messageID){
+			var user_name=document.getElementsByName("user")[0].value;
+			var xmlhttp = getNewXmlHttp();
+  			xmlhttp.onreadystatechange = function(){
+  				if (xmlhttp.readyState==4 && xmlhttp.status==200){
+      				getMessage("");
+      			}  
+  			}
+			xmlhttp.open("POST","http://localhost:8080/RestAndSoap/webapi/facebook/addLike",true);
+			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			var queryParams = "user_name=" + user_name + "&message_id=" + messageID; 
+  			xmlhttp.send(queryParams);
+		}
+		function addComment(messageID){
+			var who_commented=document.getElementsByName("user")[0].value;
+			var comment=prompt(who_commented+", enter your comment:");
+			var user_name=document.querySelector("#msg"+messageID+" input[type=hidden]").value;
+			var xmlhttp = getNewXmlHttp();
+  			xmlhttp.onreadystatechange = function(){
+  				if (xmlhttp.readyState==4 && xmlhttp.status==200){
+      				getAllMessage("");
+      			}  
+  			}
+			xmlhttp.open("POST","http://localhost:8080/RestAndSoap/webapi/facebook/addComment",true);
+			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			var queryParams = "user_name=" + user_name + "&comment=" + comment+ "&message_id="+messageID+ "&who_commented="+who_commented; 
+  			xmlhttp.send(queryParams);
+		}
+	</script>
+</head>
+<body>
+	<div class="menu">
+		<input type="text" name="user" placeholder="HarryPotter" value="log10" />
+		<br>
+		<input type="button" name="addMessage" value="Write down your status" />
+		<br>
+		<input type="button" name="getMyMessages" value="Get My Messages" />
+		<br>
+		<input type="button" name="getAllMessages" value="News Feed">
+	</div>
+	<div class="display">
+		<table>
+			<tbody class="tableBody">
+				
+			</tbody>
+		</table>
+	</div>
+	<script type="text/javascript">
+		var addMsg=document.getElementsByName("addMessage")[0];
+		var user=document.getElementsByName("user")[0];
+		addMsg.onclick=function(){
+			addMessage(user.value);
+		}
+		var getMsg=document.getElementsByName("getMyMessages")[0];
+		getMsg.onclick=function(){
+			getMessage(user.value);
+		}
+	</script>	
+</body>
+</html>

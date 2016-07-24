@@ -14,7 +14,7 @@ public class FB {
 	@Path("getMessage")
 	@Produces(MediaType.TEXT_PLAIN)
 	public String getMessage(@DefaultValue("") @QueryParam("user_name")String user){
-		return new JSONHandler(user).getMessage();
+		return (new JSONHandler(user)).getMessage();
 	}
 	
 	@GET

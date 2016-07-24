@@ -11,7 +11,6 @@ import java.util.Iterator;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 public class JSONHandler {
 	JSONParser parser;
@@ -23,14 +22,15 @@ public class JSONHandler {
 	public JSONHandler(String name) {
 		parser = new JSONParser();
 		f = new File("FBdata.json");
+//		f.delete();
 		if(f.exists()){
 			try {
 				userIndex=0;
 				userArray=(JSONArray) parser.parse(new FileReader(f));
-				for (Iterator iterator = userArray.iterator(); iterator.hasNext();) {
-					JSONObject object = (JSONObject) iterator.next();
-					if(object.get("name").equals(name)){
-						user=object;
+				for(Object u:userArray){
+					JSONObject usr=(JSONObject)u;
+					if(name.equals((String)usr.get("name"))){
+						user=usr;
 						break;
 					}
 					userIndex++;
@@ -38,7 +38,7 @@ public class JSONHandler {
 			}  catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (ParseException e) {
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -50,12 +50,12 @@ public class JSONHandler {
 				user.put("name", "log10");
 				JSONArray userMessage=new JSONArray();
 				JSONObject message=new JSONObject();
-				message.put("id", 1);
+				message.put("id", 0);
 				message.put("message","Happy Fun Friday");
 				message.put("like", 0);
 				JSONArray messageComment=new JSONArray();
 				JSONObject comment=new JSONObject();
-				comment.put("id", 1);
+				comment.put("id", 0);
 				comment.put("name", "jegan");
 				comment.put("comment", "boring pa!");
 				messageComment.add(comment);
@@ -92,6 +92,7 @@ public class JSONHandler {
 	}
 	public String getMessage(){
 		JSONArray userMsg=(JSONArray)user.get("message");
+//		System.out.println(userMsg+"\n"+userMsg.toJSONString());
 		return userMsg.toJSONString();
 	}
 	public String getAllMessage(){
@@ -146,23 +147,34 @@ public class JSONHandler {
 		JSONObject message=(JSONObject)userMsg.get(messageID);
 		if(message==null)
 			return;
-		message.put("like", ((Integer)message.get("like")).intValue()+1);
+		int likes=-1;
+		try{
+			likes=((Integer)message.get("like")).intValue();
+		}catch(ClassCastException e){
+			likes=((Long)message.get("like")).intValue();
+		}
+		message.put("like", likes+1);
 	}
 	public int getLikes(int messageID){
 		JSONArray userMsg=(JSONArray)user.get("message");
 		JSONObject message=(JSONObject)userMsg.get(messageID);
 		if(message==null)
 			return -1;
-		return ((Integer)message.get("like")).intValue();
+		try{
+			return ((Integer)message.get("like")).intValue();
+		}catch(ClassCastException e){
+			return ((Long)message.get("like")).intValue();
+		}
 	}
-	public static void main(String[]args){
-		JSONHandler jh=new JSONHandler("log10");
-		jh.addMessage("Happy Week end");
-		System.out.println(jh.getMessage());
-		jh.addLike(1);
-		System.out.println(jh.getLikes(1));
-		jh.addComment(1, "week end sollave illa", "jegan");
-		System.out.println(jh.getAllComment(1));
-		System.out.println(jh.getComment(1, 0));
-	}
+//	public static void main(String[]args){
+//		JSONHandler jh=new JSONHandler("log10");
+//		System.out.println(jh.getMessage());
+//		jh.addMessage("Happy Week end");
+//		System.out.println(jh.getMessage());
+//		jh.addLike(1);
+//		System.out.println(jh.getLikes(1));
+//		jh.addComment(1, "week end sollave illa", "jegan");
+//		System.out.println(jh.getAllComment(1));
+//		System.out.println(jh.getComment(1, 0));
+//	}
 }
