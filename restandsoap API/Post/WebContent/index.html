@@ -1,0 +1,146 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Shoutbox </title>
+<style>
+div.container{position:absolute;top:9px;left:90px;width:100px;height:500px;background-color: lightblue;}
+#inp1{position:absolute;top:90px;left:180px;width:300px;height:20px;}
+#lk{position:absolute;top:129px;left:180px;}
+#com{position:absolute;top:129px;left:300px;}
+#msg{position:absolute;top:129px;left:450px;}
+#p1tag{position:absolute;top:40px;left:200px;}
+#addlk{position:absolute;top:129px;left:600px;}
+#inp2{position:absolute;top:90px;left:490px;width:300px;height:20px;}
+#inp3{position: absolute;top:90px;left:810px;width:300px;height:20px;}
+#p2tag{position: absolute;top:40px;left:500px;}
+#p3tag{position: absolute;top:40px;left:820px;}
+#addmsg{position: absolute;top:129px;left:810px;}
+#addcmmnt{position: absolute;top:129px;left:690px;}
+#shw{position: absolute;top:129px;left:960px;}
+</style>
+
+<script type="text/javascript">
+	function getMsg() {
+           var xhttp;
+           xhttp = new XMLHttpRequest();
+           xhttp.onreadystatechange = function() {
+             if (xhttp.readyState == 4 && xhttp.status == 200) {
+               console.log( xhttp );
+               document.getElementById("getAll").innerHTML = xhttp.responseText;
+             }
+           };
+           xhttp.open("GET", "http://localhost:8080/Post/webapi/jsonfb/getmsg/"+document.getElementById("inp1").value,true);
+           xhttp.send();
+         }
+         
+	function getall(){
+		var xhttp;
+		xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (xhttp.readyState == 4 && xhttp.status == 200) {
+            console.log( xhttp );
+            document.getElementById("getAll").innerHTML = xhttp.responseText;
+          }
+        };
+        xhttp.open("GET", "http://localhost:8080/Post/webapi/jsonfb/getmsg/all",true);
+        xhttp.send();
+	}
+	
+         function getcomm() {
+           var xhttp;
+           xhttp = new XMLHttpRequest();
+           xhttp.onreadystatechange = function() {
+             if (xhttp.readyState == 4 && xhttp.status == 200) {
+               console.log( xhttp );
+               document.getElementById("getAll").innerHTML = xhttp.responseText;
+             }
+           };
+           xhttp.open("GET", "http://localhost:8080/Post/webapi/jsonfb/getcomments/" + document.getElementById("inp1").value, true);
+           xhttp.send();
+         }
+         
+         
+         function getLike() {
+           var xhttp;
+           xhttp = new XMLHttpRequest();
+           xhttp.onreadystatechange = function() {
+             if (xhttp.readyState == 4 && xhttp.status == 200) {
+               console.log( xhttp );
+               document.getElementById("getAll").innerHTML = xhttp.responseText;
+             }
+           };
+           xhttp.open("GET", "http://localhost:8080/Post/webapi/jsonfb/getlke/" + document.getElementById("inp1").value, true);
+           xhttp.send();
+         }
+         
+         
+         function addMsg() {
+           var xhttp;
+           xhttp = new XMLHttpRequest();
+           xhttp.onreadystatechange = function() {
+             if (xhttp.readyState == 4 && xhttp.status == 200) {
+               console.log( xhttp );
+               document.getElementById("getAll").innerHTML = xhttp.responseText;
+             }
+           };
+           var id = document.getElementById("inp1").value;
+           var user = document.getElementById("inp2").value;
+           var msg = document.getElementById("inp3").value;
+           //console.log(mid);
+           //console.log(comment);
+           //console.log(by);
+           xhttp.open("GET", "http://localhost:8080/Post/webapi/jsonfb/addmsg/" + id +"/" + user + "/" + msg, true);
+           xhttp.send();
+         }
+         
+         
+         function addLike(){
+           var xhttp;
+           xhttp = new XMLHttpRequest();
+           xhttp.onreadystatechange = function() {
+             if (xhttp.readyState == 4 && xhttp.status == 200) {
+               console.log( xhttp );
+               document.getElementById("getAll").innerHTML = xhttp.responseText;
+             }
+           };
+
+           xhttp.open("GET", "http://localhost:8080/Post/webapi/jsonfb/addlike/" + document.getElementById("inp1").value + "/" + document.getElementById("inp2").value,true);
+           xhttp.send();
+         }
+         
+         function addCmmnt(){
+        	 var xhttp;
+             xhttp = new XMLHttpRequest();
+             xhttp.onreadystatechange = function() {
+               if (xhttp.readyState == 4 && xhttp.status == 200) {
+                 console.log( xhttp );
+                 document.getElementById("getAll").innerHTML = xhttp.responseText;
+               }
+             };
+
+             xhttp.open("GET", "http://localhost:8080/Post/webapi/jsonfb/addcomment/" + document.getElementById("inp1").value + "/" + document.getElementById("inp2").value+"/"+
+            		 document.getElementById("inp3").value,true);
+             xhttp.send();
+         }
+         
+</script>
+</head>
+<body style="background-color:lightblue">
+<div id="container">
+<p id="p1tag">Insert Message ID Here</p><input id="inp1" type="text" name="id" value="">
+<p id="p2tag">Insert User name Here</p><input id="inp2" type="text" name="id" value="">
+<p id="p3tag">Insert Message Here</p><input id="inp3" type="text" name="id" value="">
+
+
+<button id="lk" type="button" name="like" value="LIKE" onclick="getLike();">GET Likes </button>
+<button id="com" type="button" name="comm" value="comm" onclick="getcomm();">GET Comments</button>
+<button id="msg" type="button" name="msg" value="msg" onclick="getMsg();">GET Message</button>
+<button id="addlk" type="button" name="addlike" value="addLIKE" onclick="addLike();">Add Likes </button>
+<button id="addcmmnt" type="button" name="addcmmnt" value="addCmmnt" onclick="addCmmnt();">Add Comments </button>
+<button id="addmsg" type="button" name="addmsg" value="ADDMSG" onclick="addMsg();">Add Message </button>
+<button id="shw" type="button" name="shw" value="getmsg" onclick="getall();">Show All </button>
+<div style="position:absolute;top:200px;left:300px;width:500px;height:400px;background-color:lightgrey;overflow-y:auto;"><p style="margin:10px 10px 5px 15px;"  id="getAll"></p></div>
+</div><!--/container-->
+</body>
+</html>
