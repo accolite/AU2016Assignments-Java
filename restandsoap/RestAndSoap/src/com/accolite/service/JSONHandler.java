@@ -143,6 +143,7 @@ public class JSONHandler {
 		return comments.toJSONString();
 	}
 	public void addLike(int messageID){
+//		System.out.println(messageID+" "+user);
 		JSONArray userMsg=(JSONArray)user.get("message");
 		JSONObject message=(JSONObject)userMsg.get(messageID);
 		if(message==null)
@@ -153,7 +154,21 @@ public class JSONHandler {
 		}catch(ClassCastException e){
 			likes=((Long)message.get("like")).intValue();
 		}
+//		System.out.println(likes+" "+message.get("like"));
 		message.put("like", likes+1);
+//		System.out.println(message.get("like"));
+		userMsg.set(messageID, message);
+		user.put("message", userMsg);
+		userArray.set(userIndex, user);
+		try {
+			FileWriter fw=new FileWriter(f);
+			userArray.writeJSONString(fw);
+			fw.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//		System.out.println(new JSONHandler("log10").getLikes(messageID));
 	}
 	public int getLikes(int messageID){
 		JSONArray userMsg=(JSONArray)user.get("message");

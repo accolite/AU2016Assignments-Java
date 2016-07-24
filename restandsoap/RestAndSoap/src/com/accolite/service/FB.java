@@ -1,5 +1,6 @@
 package com.accolite.service;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -51,15 +52,18 @@ public class FB {
 	
 	@POST
 	@Path("addMessage")
+	@Consumes(MediaType.TEXT_PLAIN)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String addMessage(@DefaultValue("") @QueryParam("user_name")String user,
 			@DefaultValue("") @QueryParam("message")String message){
+//		System.out.println(user+" "+message);
 		new JSONHandler(user).addMessage(message);
 		return getAllMessage(user);
 	}
 	
 	@POST
 	@Path("addComment")
+	@Consumes(MediaType.TEXT_PLAIN)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String addComment(@DefaultValue("") @QueryParam("user_name")String user,
 			@DefaultValue("") @QueryParam("comment")String comment,
@@ -71,9 +75,11 @@ public class FB {
 	
 	@POST
 	@Path("addLike")
+	@Consumes(MediaType.TEXT_PLAIN)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String addLike(@DefaultValue("") @QueryParam("user_name")String user,
 			@DefaultValue("-1") @QueryParam("message_id")int messageID){
+//		System.out.println(user+" "+messageID);
 		new JSONHandler(user).addLike(messageID);
 		return getAllMessage(user);
 	}
