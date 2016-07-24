@@ -1,0 +1,62 @@
+<html>
+<head>
+<script>
+
+function processReq(){
+	var xmlhttp =new XMLHttpRequest();
+		 var choice= document.getElementById("input1").value;
+			  var pathParam=document.getElementById("input2").value;
+		 var bodyInput=document.getElementById("input3").value;
+
+         switch(choice){
+         
+         case "1":
+        	 
+             xmlhttp.open("POST","http://localhost:8080/RESTandSOAP/webapi/messages/addMsg",true);
+             xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+             xmlhttp.setRequestHeader("Accept", "application/json");
+             var message={};
+             message=JSON.parse(bodyInput);
+             xmlhttp.send(JSON.stringify(message));
+             break;
+         case "2":
+             xmlhttp.open("GET","http://localhost:8080/RESTandSOAP/webapi/messages/viewMessages",true);
+             xmlhttp.send();
+             break;
+         case "3":
+        	 xmlhttp.open("POST","http://localhost:8080/RESTandSOAP/webapi/messages/addComment/"+pathParam,true);
+             xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+             var message={};
+             message=JSON.parse(bodyInput);
+             xmlhttp.send(JSON.stringify(message));
+             break;
+         case "4" :
+             xmlhttp.open("POST","http://localhost:8080/RESTandSOAP/webapi/messages/addLike/"+pathParam,true);
+             xmlhttp.send();
+             break;
+         case "5":
+             xmlhttp.open("GET","http://localhost:8080/RESTandSOAP/webapi/messages/listComments/"+pathParam,true);
+             xmlhttp.send();
+             break;
+         case "6":
+             xmlhttp.open("GET","http://localhost:8080/RESTandSOAP/webapi/messages/listLikes/"+pathParam,true);
+             xmlhttp.send();
+             break;
+         }
+         xmlhttp.onreadystatechange = function(){
+         if(xmlhttp.readyState==4)
+         {
+        	 document.getElementById("ready").innerText=xmlhttp.responseText;
+         }
+         }
+}
+</script>
+</head>
+<body><h1>Web services</h1>
+Operation Number : <input type="text" id="input1"/>
+Path Parameter : <input type="text" id="input2"/>
+Input JSON<textarea id="input3"></textarea>
+<div id="ready"> </div>
+<input type="submit" value="submit" onclick="processReq();"/>
+</body>
+</html>
