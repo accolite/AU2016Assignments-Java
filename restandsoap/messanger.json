@@ -1,0 +1,26 @@
+{ "messages":[ 
+			{	"id": 1,
+				"content": "first message",
+				"comment": [ { "content": " this is awsome",
+							"by who": "noopur"	
+								}
+							{	"content": "make it more awsome",
+								"by who": "smruti"
+							}
+						]
+				"likes": [ "noopur", "smruti"]
+			}
+			{	"id": 2,
+				"content": "second message",
+				"comment": [ { "content": " second message is awsome",
+							"by who": "noopur"	
+								}]
+				"likes": "noopur"
+			}
+			{	"id": 3,
+				"content": "third message",
+				"likes": "monika"
+			}
+			
+]
+}
