@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+   <body style="background-color:pink">
+      <h1>Facebook Implementation</h1>
+      <style>
+      </style>
+      <script>
+		
+		
+		function addMessage(){
+           var xhttp;
+           xhttp = new XMLHttpRequest();
+           xhttp.onreadystatechange = function() {
+             if (xhttp.readyState == 4 && xhttp.status == 200) {
+               console.log( xhttp );
+               document.getElementById("finalResult").innerHTML = xhttp.responseText;
+             }
+           };
+           var messageId = document.getElementById("message_mid").value;
+           var messageContent = document.getElementById("message_content").value;
+		   var messageWriter=document.getElementById("message_owner").value;
+           var writerId=document.getElementById("message_ownerId").value;
+           
+			xhttp.open("POST", "http://localhost:9082/FacebookImplementation/webapi/messages/addmessage?messageid=" + messageId + "&addmess=" + messageContent + "&name=" + messageWriter+ "&id=" + writerId, true);
+           xhttp.send();
+         }
+		
+	  
+	  
+         function viewAllMessages() {
+           var xhttp;
+           xhttp = new XMLHttpRequest();
+           xhttp.onreadystatechange = function() {
+             if (xhttp.readyState == 4 && xhttp.status == 200) {
+               console.log( xhttp );
+               document.getElementById("finalResult").innerHTML = xhttp.responseText;
+             }
+           };
+           xhttp.open("GET", "http://localhost:9082/FacebookImplementation/webapi/messages/", true);
+           xhttp.send();
+         }
+         
+         function viewAllComments() {
+           var xhttp;
+           xhttp = new XMLHttpRequest();
+           xhttp.onreadystatechange = function() {
+             if (xhttp.readyState == 4 && xhttp.status == 200) {
+               console.log( xhttp );
+               document.getElementById("finalResult").innerHTML = xhttp.responseText;
+             }
+           };
+           xhttp.open("GET", "http://localhost:9082/FacebookImplementation/webapi/messages/comments?id=" + document.getElementById("getComment").value, true);
+           xhttp.send();
+         }
+         
+         
+         function viewAllLikes() {
+           var xhttp;
+           xhttp = new XMLHttpRequest();
+           xhttp.onreadystatechange = function() {
+             if (xhttp.readyState == 4 && xhttp.status == 200) {
+               console.log( xhttp );
+               document.getElementById("finalResult").innerHTML = xhttp.responseText;
+             }
+           };
+           
+           xhttp.open("GET", "http://localhost:9082/FacebookImplementation/webapi/messages/likes?id=" + document.getElementById("getLike").value, true);
+           xhttp.send();
+         }
+         
+         
+         function addComment() {
+           var xhttp;
+           xhttp = new XMLHttpRequest();
+           xhttp.onreadystatechange = function() {
+             if (xhttp.readyState == 4 && xhttp.status == 200) {
+               console.log( xhttp );
+               document.getElementById("finalResult").innerHTML = xhttp.responseText;
+             }
+           };
+           var messageId = document.getElementById("comm_mid").value;
+           var commentContent = document.getElementById("comm_content").value;
+           var commenter = document.getElementById("comm_by").value;
+		   var commenterId=document.getElementById("comm_id").value;
+           console.log(messageId);
+           xhttp.open("POST", "http://localhost:9082/FacebookImplementation/webapi/messages/addComment?messageid=" + messageId + "&comment=" + commentContent + "&name=" + commenter + "&id=" + commenterId, true);
+           xhttp.send();
+         }
+         
+         
+         function addLike(){
+           var xhttp;
+           xhttp = new XMLHttpRequest();
+           xhttp.onreadystatechange = function() {
+             if (xhttp.readyState == 4 && xhttp.status == 200) {
+               console.log( xhttp );
+               document.getElementById("finalResult").innerHTML = xhttp.responseText;
+             }
+           };
+           var messageId = document.getElementById("like_mid").value;
+           var likedBy = document.getElementById("like_liker").value;
+		   var personId=document.getElementById("like_id").value;
+           console.log(messageId);
+           console.log(likedBy);
+		   console.log(personId);
+           xhttp.open("GET", "http://localhost:9082/FacebookImplementation/webapi/messages/addLike?id=" + personId + "&name=" + likedBy + "&messId=" + messageId, true);
+           xhttp.send();
+         }
+         
+      </script>
+      <table style="width:100%">
+         <tr style="width:100%">
+            <td style="width:50%">
+               <form>
+                  
+				  Enter Message ID <input type="text" id="getComment"  > <br>
+                  <input type="button" onclick="viewAllComments()" value="View All Comments">
+                  <br><br>
+                  <br><br>
+                  
+				  Enter MessageId <input type="text" id="getLike"  > <br>
+                  <input type="button"  onclick="viewAllLikes()"  value="View All Likes">
+                  <br><br>
+                  <br><br>
+				  
+                  Enter MessageId <input type="text" id="comm_mid" > <br>
+                  Write Comment <input type="text" id="comm_content"> <br>
+                  Write Name <input type="text" id="comm_by"> <br>
+                  Write NAme Id<input type="text" id="comm_id"> <br>
+				  <input type="button"  onclick="addComment()"  value="Add Comment">
+                  <br><br>
+                  <br><br>
+                  
+				  
+				  Enter MessageId <input type="text" id="like_mid"> <br>
+                  LikedBy <input type="text" id="like_liker"> <br>
+                  LikerId <input type="text" id="like_id"> <br>
+				  <input type="button"  onclick="addLike()"  value="Add Like">
+                  <br><br>
+                  
+				  Enter MessageId <input type="text" id="message_mid"> <br>
+                  Message <input type="text" id="message_content" > <br>
+                  Owner <input type="text"  id="message_owner"> <br>
+				  OwnerId <input type="text" id="message_ownerId"> <br>
+                  <input type="button"  onclick="addMessage()" value="Add Message">
+				  <br><br>
+				  <input type="button" onclick="viewAllMessages()" value="ViewMessages">
+                  <br><br><br><br>
+                  
+               </form>
+            </td>
+            <td style="width:50%">
+               <div class="button2">
+                  <h1 style="color:darkblue">Output:</h1>
+                  <span id="finalResult"></span>
+               </div>
+            </td>
+         </tr>
+      </table>
+   </body>
+</html>
