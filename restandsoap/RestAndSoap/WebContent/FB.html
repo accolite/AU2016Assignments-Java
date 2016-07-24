@@ -63,7 +63,7 @@
 			var col=document.createElement("td");
 			row.id="msg"+message["id"];
 			var para=document.createElement("p");
-			para.innerHTML=message["message"];
+			para.innerHTML=user_name+": "+message["message"];
 			col.appendChild(para);
 			var nameHidden=document.createElement("input");
 			nameHidden.type="hidden";
@@ -129,6 +129,40 @@
 			xmlhttp.open("GET","http://localhost:8080/RestAndSoap/webapi/facebook/getMessage?user_name="+user_name,true);
   			xmlhttp.send();
 		}
+		function getComment(user_name){
+			var message_id=prompt("enter message Id");
+			var comment_id=prompt("enter comment Id");
+			var xmlhttp = getNewXmlHttp();
+  			xmlhttp.onreadystatechange = function(){
+  				if (xmlhttp.readyState==4 && xmlhttp.status==200){
+      				alert(xmlhttp.responseText);
+      			}  
+  			}
+			xmlhttp.open("GET","http://localhost:8080/RestAndSoap/webapi/facebook/getComment?user_name="+user_name+"&message_id="+message_id+"&comment_id="+comment_id,true);
+  			xmlhttp.send();
+		}
+		function getLikes(user_name){
+			var message_id=prompt("enter message Id");
+			var xmlhttp = getNewXmlHttp();
+  			xmlhttp.onreadystatechange = function(){
+  				if (xmlhttp.readyState==4 && xmlhttp.status==200){
+      				alert(xmlhttp.responseText);
+      			}  
+  			}
+			xmlhttp.open("GET","http://localhost:8080/RestAndSoap/webapi/facebook/getLikes?user_name="+user_name+"&message_id="+message_id,true);
+  			xmlhttp.send();
+		}
+		function getAllComment(user_name){
+			var message_id=prompt("enter message Id");
+			var xmlhttp = getNewXmlHttp();
+  			xmlhttp.onreadystatechange = function(){
+  				if (xmlhttp.readyState==4 && xmlhttp.status==200){
+      				alert(xmlhttp.responseText);
+      			}  
+  			}
+			xmlhttp.open("GET","http://localhost:8080/RestAndSoap/webapi/facebook/getAllComment?user_name="+user_name+"&message_id="+message_id,true);
+  			xmlhttp.send();
+		}
 		function addMessage(user_name){
 			var message=prompt(user_name+", enter your status:");
 			var xmlhttp = getNewXmlHttp();
@@ -184,6 +218,12 @@
 		<input type="button" name="getMyMessages" value="Get My Messages" />
 		<br>
 		<input type="button" name="getAllMessages" value="News Feed">
+		<br>
+		<input type="button" name="getComment" value="Get Comment">
+		<br>
+		<input type="button" name="getAllComment" value="Get All Comment">
+		<br>
+		<input type="button" name="getLikes" value="Get Likes">
 	</div>
 	<div class="display">
 		<table>
@@ -201,6 +241,22 @@
 		var getMsg=document.getElementsByName("getMyMessages")[0];
 		getMsg.onclick=function(){
 			getMessage(user.value);
+		}
+		var getAllMsg=document.getElementsByName("getAllMessages")[0];
+		getAllMsg.onclick=function(){
+			getAllMessage(user.value);
+		}
+		var getCmt=document.getElementsByName("getComment")[0];
+		getCmt.onclick=function(){
+			getComment(user.value);
+		}
+		var getAllCmt=document.getElementsByName("getAllComment")[0];
+		getAllCmt.onclick=function(){
+			getAllComment(user.value);
+		}
+		var getLs=document.getElementsByName("getLikes")[0];
+		getLs.onclick=function(){
+			getLikes(user.value);
 		}
 	</script>	
 </body>
