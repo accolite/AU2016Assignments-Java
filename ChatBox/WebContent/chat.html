@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script>
+	function doAjax(){
+		var xmlhttp =new XMLHttpRequest();
+		var pathParam= document.getElementById("myText").value;
+		var chatmsg=document.getElementById("chat").value;
+		
+        xmlhttp.open("GET","http://localhost:8080/ServletAndJsp/home?myText="+pathParam+"&chat="+chatmsg,true);
+        xmlhttp.send();
+         xmlhttp.onreadystatechange = function(){
+         if(xmlhttp.readyState==4)
+         {
+        	// document.getElementById("active").innerText=xmlhttp.responseText;
+        	 document.getElementById("chat").innerHTML=xmlhttp.responseText;
+         }
+         }
+}
+</script>
+</head>
+<body>
+<h1>CHAT Room!!</h1>
+<div id="active"></div>
+Your Message:<input type="text" name="myText" id="myText"></input>
+Messages:<textarea name="chat" id="chat"></textarea>
+<input type="submit" value="Send" onclick="doAjax();"></input>
+</body>
+</html>
