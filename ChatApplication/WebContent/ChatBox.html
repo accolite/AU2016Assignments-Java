@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<script>
+function update() {
+	  
+	    	 document.getElementById('target').value = document.getElementById('source').value;
+	     //document.getElementById("target").innerHTML = xhttp.responseText;
+	  
+	}
+	
+</script>
+<body>
+	 <form action="chat" method="post"> 
+	<textarea id="target" name="target"></textarea>
+	<br>
+	<br>
+	<textarea id="source" name="source"></textarea>
+	
+	
+	<input type="submit" onclick="update">Send</button>
+	 </form> 
+</body>
+</html>
