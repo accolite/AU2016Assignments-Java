@@ -14,10 +14,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 
@@ -38,7 +41,7 @@ public class Register {
 	@POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String postRegister(String username) {
+    public String postRegister(String username, @Context HttpServletRequest request) {
 		/**
 		 * Assume invalid user
 		 */
@@ -85,6 +88,13 @@ public class Register {
 					if(rs.next()){
 						user_id=rs.getInt("user_id");
 						userId = user_id.toString();
+						
+						/**
+						 * setting Session vars
+						 */
+						HttpSession session = request.getSession();
+						session.setAttribute("id", userId);
+						session.setAttribute("username", username);
 					}
 					
 				}
