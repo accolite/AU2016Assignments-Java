@@ -32,6 +32,9 @@ public class UserLister extends HttpServlet {
 		List<String> usersLoggedin = (List<String>) this.getServletContext().getAttribute("usersLoggedin");
 		if(usersLoggedin != null) {
 			for (String user : usersLoggedin) {
+				if(user.equals(request.getSession().getAttribute("user")))
+					response.getWriter().append("<b>" + user + "</b><br>");
+				else
 					response.getWriter().append(user+"<br>");
 			}
 

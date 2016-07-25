@@ -2,7 +2,9 @@ package org.au.chat;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,20 +40,19 @@ public class RegistrationHandler extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		String password = request.getParameter("password");
 		String username = request.getParameter("username");
 		
-		request.getSession().setAttribute("user", request.getParameter("username"));
+		//request.getSession().setAttribute("user", request.getParameter("username"));
 		
-		if(this.getServletContext().getAttribute("usersList") == null){
-			List<String> l = new ArrayList<>();
-			l.add(username);
-			this.getServletContext().setAttribute("usersList", l);
-		} else {
-			List<String> usersList = (List<String>) this.getServletContext().getAttribute("usersList");
-			if(!usersList.contains(username))
-				usersList.add(username);
-			this.getServletContext().setAttribute("usersList",usersList);
-		}
+		
+		Map<String,String> map = null;
+		map = (Map<String, String>) this.getServletContext().getAttribute("usersList");
+		if(map==null)
+			map = new HashMap();
+		if(!map.containsKey(username))
+			map.put(username, password);
+		this.getServletContext().setAttribute("usersList",map);
 		response.sendRedirect("login.jsp");
 	}
 

@@ -3,6 +3,7 @@ package org.au.chat;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -41,18 +42,21 @@ public class LoginHandler extends HttpServlet {
 
 		ServletContext sc= request.getServletContext();
 		String username = request.getParameter("username");
-		List<String> allUsers = (List<String>) sc.getAttribute("usersList");
+		String password = request.getParameter("password");
+		
+		Map<String,String> allUsers = (Map<String,String>) sc.getAttribute("usersList");
 		if(allUsers == null){
 			response.getWriter().append("No registered users!");
 			return;
 		}
-		if(!allUsers.contains(username)){
+		if(!allUsers.containsKey(username)){
 			response.getWriter().append("Not a registered user!");
 			return;
 		}
-		
-		;
-		
+		if(!allUsers.get(username).equals(password)){
+			response.getWriter().append("Invalid Password!");
+			return;
+		}
 		
 		
 		if(this.getServletContext().getAttribute("usersLoggedin") == null){
@@ -68,9 +72,9 @@ public class LoginHandler extends HttpServlet {
 		}
 		request.getSession().setAttribute("user", request.getParameter("username"));
 		if(this.getServletContext().getAttribute("chatString")==null){
-			this.getServletContext().setAttribute("chatString",username + " has joined");
+			this.getServletContext().setAttribute("chatString",username + " has joined <br>");
 		} else {
-			this.getServletContext().setAttribute("chatString",this.getServletContext().getAttribute("chatString") + "<br>" + username + " has joined");
+			this.getServletContext().setAttribute("chatString",this.getServletContext().getAttribute("chatString") + "<br>" + username + " has joined <br>");
 		}
 		response.sendRedirect("chatbox.jsp");
 	}

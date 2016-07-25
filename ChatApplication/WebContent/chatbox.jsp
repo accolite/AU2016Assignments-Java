@@ -26,7 +26,9 @@
 </style>
 </head>
 <body>
-Hello <%=session.getAttribute("user") %>
+
+
+Hello <%=session.getAttribute("user") %> <a href="logout.jsp">Log out</a>
 
 	<div class="container" style="width:500px;height:320px;margin:100px auto;">
 		<div class="row">

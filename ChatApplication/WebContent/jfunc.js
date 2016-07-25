@@ -28,6 +28,8 @@ $(document).ready(function(){
 			$("#usr").html(data);
 		});
 	}
+	msgpoll();
+	usrpoll();
 	setInterval(msgpoll, 2000);
 	setInterval(usrpoll, 2000);
 });

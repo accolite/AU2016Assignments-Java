@@ -11,7 +11,7 @@
 <h1>Home</h1>
 
 	<%
-    out.println("first page");
+    
     if((session.getAttribute("user")== null ) || (session.getAttribute("user")== "")){
      %>You are not logged in
 	</br>
