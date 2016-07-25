@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Home</title>
+<script>
+function doAjax(){
+	  var xmlhttp =new XMLHttpRequest();
+	  var pathParam= document.getElementById("msg").value;
+	  var user = "user";	
+	  var chat = document.getElementById("chat").value;
+	  
+	  xmlhttp.onreadystatechange = function() {
+		  if(xmlhttp.readyState==4) {
+		          	document.getElementById("chat").innerText=xmlhttp.responseText;
+		  }
+	  }
+	  
+	  xmlhttp.open("GET","http://localhost:8080/assignmentJ2EE/home?message="+ pathParam + "&chat=" + chat + "&user=" + user, true);
+	  //xmlhttp.open("POST","http://localhost:8080/assignmentJ2EE/home?message="+ pathParam + "&user=" + user, true);
+	  xmlhttp.send();
+	  
+}
+</script>
+</head>
+<body>
+<h1> Chat Room </h1>
+<p id="chat" name="chat"> </p> <br/> <br/>
+
+<textarea name="msg" placeholder="Enter message here!!!!" id="msg"> </textarea> 
+<br>
+<button type="submit" onclick="doAjax();"> Send </button>
+ <br/>
+ 
+<p id="auser" name="auser"> </p>
+</body>
+</html>
