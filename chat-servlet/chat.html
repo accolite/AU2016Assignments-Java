@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<style type="text/css">
+#messageHistory {
+	float: left;
+	width: 50%;
+	left: 15%;
+	height: 500px;
+	border-style: solid;
+	border-width: 1px;
+}
+
+#activeUsers {
+	float: left;
+	width: 20%;
+	margin-left: 8px;
+	height: 500px;
+	border-style: solid;
+	border-width: 1px;
+}
+</style>
+
+<script type="text/javascript">
+
+	var lastMsgId = 0;
+	function getNewXmlHttp() {
+		var xmlhttp;
+		if (window.XMLHttpRequest) {
+			xmlhttp = new XMLHttpRequest();
+		} else {
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		return xmlhttp;
+	}
+	function sendMessage() {
+		var xmlhttp = getNewXmlHttp();
+		var message = document.getElementById("message").value;
+
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				//document.getElementById("myDiv").innerHTML +=  number1 + " " + operation + " " + number2 + " = " + xmlhttp.responseText + "<br/>";
+				//document.getElementById("timings").innerHTML +=  "Request " + curNo + " Completed @ " + new Date() + "<br/>";
+				var text = xmlhttp.responseText;
+				console.log(text);
+				console.log("hello from xmlhttp");
+				//alert(text);
+			}
+		}
+		
+		var parameters = "message="+message;
+		
+		xmlhttp.open("POST",
+				"http://localhost:8080/ServletAssignment/sendMessage", true);
+		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xmlhttp.setRequestHeader("Content-length", parameters .length);
+		xmlhttp.setRequestHeader("Connection", "close");
+
+		// var queryParams = "uid=1" + "&content=" + message; 
+		xmlhttp.send(parameters);
+
+	}
+	
+	function startUp(){
+		setInterval();
+	}
+	
+	function newMessage(){
+		var xmlhttp = getNewXmlHttp();
+		
+
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				//document.getElementById("myDiv").innerHTML +=  number1 + " " + operation + " " + number2 + " = " + xmlhttp.responseText + "<br/>";
+				//document.getElementById("timings").innerHTML +=  "Request " + curNo + " Completed @ " + new Date() + "<br/>";
+				var text = xmlhttp.responseText;
+				console.log(text);
+				console.log("hello from xmlhttp");
+				//alert(text);
+			}
+		}
+		
+		var parameters = "id="+lastMsgId;
+		
+		xmlhttp.open("POST",
+				"http://localhost:8080/ServletAssignment/getMessage", true);
+		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xmlhttp.setRequestHeader("Content-length", parameters .length);
+		xmlhttp.setRequestHeader("Connection", "close");
+
+	}
+	
+</script>
+
+</head>
+<body onload="startup();">
+	<div id="messageHistory"></div>
+	<div id="activeUsers"></div>
+	<div style="clear: both;" id="messageBox">
+		<textarea rows="5" cols="40" id="message"
+			style="border-style: solid; border-width: 2px; margin-top: 3px;"></textarea>
+		<button name="send" value="send" onclick="sendMessage();">send</button>
+	</div>
+
+</body>
+</html>
