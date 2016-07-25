@@ -8,9 +8,14 @@
 </head>
 <body>
 
-<% if(session!=null && session.getAttribute("id")!=null && session.getAttribute("id").equals("admin")){%>
+<% if(session!=null && session.getAttribute("id")!=null && session.getAttribute("id").equals("admin")){
+	pageContext.getServletContext().setAttribute("blocked",new java.util.ArrayList<String>());
+%>
 	<div style="text-align:center">
-	
+		<div>
+			<textarea id="blockedwords"></textarea>
+			<button id="blockthese">Block</button>
+		</div>
 	
 	<h1>ADMIN</h1>
 	</div>

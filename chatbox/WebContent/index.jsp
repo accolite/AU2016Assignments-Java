@@ -7,6 +7,11 @@
 <title>Login</title>
 <script type="text/javascript" src="js/jquery-latest.min.js"></script>
 </head>
+
+<% if(session.getAttribute("username")!=null){
+	%>
+	<script type="text/javascript">location.href="logged_in.jsp";</script>
+	<%} %>
 <body>
 		<div id="loginScreen">
 		<h1>Login</h1>

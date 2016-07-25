@@ -7,7 +7,9 @@ $(document).ready(function(){
 	/**
 	 * Login
 	 * input: username
+	 * input: password
 	 * Output: successful login - logged_in with session
+	 * Output: successful admin login - logged_in with admin session
 	 * Output: unsuccessful login - invalid/empty error
 	 */
     $("#submitbtn").click(function(){
@@ -29,6 +31,7 @@ $(document).ready(function(){
     /**
      * Register
 	 * input: username
+	 * input: password
 	 * Output: successful login - logged_in with session
 	 * Output: unsuccessful login - invalid/empty/already registered error
      */
@@ -49,10 +52,10 @@ $(document).ready(function(){
     });
     
     /**
-     * Action 1- New Post
-     * input: post string and id of requesting user
-     * output: successful - content of post
-     * output: unsuccessful - status
+     * Logout
+     * input: click on logout
+     * output: Successful - session invalidated and sent to index
+     * output: unsuccessful - if session was invalidated before logout. Refresh to see login
      */
     
     $("#logout").click(function(){
@@ -69,6 +72,12 @@ $(document).ready(function(){
         },"json");
 });
 
+    /**
+     * New Post
+     * input: post string and id of requesting user
+     * output: successful - content of post
+     * output: unsuccessful - status
+     */
     
 
     $("#newPostbtn").click(function(){
@@ -78,49 +87,53 @@ $(document).ready(function(){
         		$.post("NewPost", {"user_id" : user_id, "post_content" : post_content}, 
                 		function(data){
                 			if(data.status == "true"){
-                				location.href="logged_in.jsp";
+                				alert(data.post_content+ " added");
                 			}
                 			else{
-                				$('#error').html(data.content)
+                				$.each(data, function(k, v) {
+                					alert(v);
+                				});
                 			}
                 },"json");
     });
     
     /**
-     * Action 2- All posts by user
-     * input_param: user id of requesting user
-     * output: successful - list of users
-     * output: unsuccessful - status
+     * All Posts
+     * input: none
+     * output: all posts and log in/log outs of current server session
      */
-    window.setInterval(function(){
-    var user_id = $("body").attr("data-id").toString();
+    function allPOSTS(){
+	    var user_id = $("body").attr("data-id").toString();
 
-		$.get("AllPosts", {"user_id" : user_id}, 
-    		function(data){
-    			if(data["-1"]!=null){
-    				$('#allPosts').html(data["-1"]["post_contents"]);
-    			}else if(data["-2"]!=null){
-    				$('#allPosts').html(data["-2"]["post_contents"]);
-    			}else if(data["-3"]!=null){
-    				$('#allPosts').html(data["-3"]["post_contents"]);
-    			}else{
-    				$('#allPosts').html("");
-    				$.each(data, function(k, v) {
-    				    //display the key and value pair
-    					$('#allPosts').append("<div>"+v["user_name"]+":"+v["post_content"]+"</div>");
-    				});
-    			}
-    },"json");
-    }, 3000);
-   
+			$.get("AllPosts", {"user_id" : user_id}, 
+	    		function(data){
+	    			if(data["-1"]!=null){
+	    				$('#allPosts').html(data["-1"]["post_contents"]);
+	    			}else if(data["-2"]!=null){
+	    				$('#allPosts').html(data["-2"]["post_contents"]);
+	    			}else if(data["-3"]!=null){
+	    				$('#allPosts').html(data["-3"]["post_contents"]);
+	    			}else{
+	    				$('#allPosts').html("");
+	    				$.each(data, function(k, v) {
+	    				    //display the key and value pair
+	    					if(v["removed"]!=null) $('#allPosts').append(v["removed"]);
+	    					else if(v["added"]!=null) $('#allPosts').append(v["added"]);
+	    					else $('#allPosts').append("<div style='float:clear'>"+v["user_name"]
+	    					+"<div><div style='float:left'>"+v["post_content"]
+	    					+"</div><div style='float:right'>"+v["time_posted"]
+	    					+"</div></div></div><br/>");
+	    				});
+	    			}
+	    },"json");
+	}
+    
     /**
-     * Action 11 - Show friends of friends
-     * input: username of friend
-     * output: successful - Friends of friends
-     * output: unsuccessful - status
+     * Active users
+     * Current active users at service
      */
-    window.setInterval(function(){
-    var user_id = $("body").attr("data-id").toString();
+    function activeUSERS(){
+    	var user_id = $("body").attr("data-id").toString();
 
 		$.get("AllUsers", {"user_id" : user_id}, 
     		function(data){
@@ -134,10 +147,17 @@ $(document).ready(function(){
     				$('#activeUsers').html("");
     				$.each(data, function(k, v) {
     				    //display the key and value pair
-    					$('#activeUsers').append("<div>"+v["user_name"]+"</div>");
+    					$('#activeUsers').append("<div>"+v+"</div>");
     				});
     			}
     },"json");
-    }, 3000);
+    
+    }
+    /**
+     * Call every 2 seconds to update details
+     */
+    window.setInterval(allPOSTS, 2000);
+    window.setInterval(activeUSERS, 2000);
+   
     
 });
