@@ -1,0 +1,61 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>ChatBox</title>
+<style type="text/css">
+	.btn{
+		width:70px;
+		height:30px;
+	}
+</style>
+<script type="text/javascript">
+	function reg(){
+		document.getElementById('log').style.display = 'none';
+		document.getElementById('regi').style.display = 'block';
+	}
+	function admin(){
+			document.getElementById('regi').style.display = 'none';
+			document.getElementById('log').style.display = 'block';
+	}
+	function login(){
+			document.getElementById('regi').style.display = 'none';
+			document.getElementById('log').style.display = 'block';
+	}
+	function chckreg(){
+
+	}
+</script>
+</head>
+<body>
+	<h2 style="text-align:center">ChatBox</h2>
+		<fieldset style="text-align:center">
+			<form action="register.html" method="post">
+			<input type="submit" value="Register" >
+			</form>
+			<form action="login.html" method="post">
+			<input type="submit" value="Login" >
+			</form>
+			<form action="login.html" method="post">
+			<input type="submit" value="Admin" >
+			</form>
+		</fieldset>
+		<div style="position:absolute;top:160px;left:320px;background-color:lightblue;width:700px;height:480px" id="place">
+		<div style="position:absolute;top:170px;left:100px;display:none;" id="regi">
+		<form method="post" action="Register">
+			Name:<input type="text" name="name" value="">
+			Password:<input type="password" name="pass" value="">
+			<input type="submit" name="register" value="Register">
+		</form>
+		</div>
+		<div style="position:absolute;top:170px;left:100px;display:none;" id="log">
+		<form method="post" action="Login">
+			Name:<input type="text" name="name" value="" >
+			Password:<input type="password" name="pass" value="">
+			<button type="submit" name="login" value="login" >Login</button>
+		</form>
+		</div>
+		</div>
+	</body>
+</html>
