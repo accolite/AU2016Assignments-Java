@@ -6,7 +6,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.accolite.java.ActiveUsers;
 import com.accolite.java.User;
 import com.accolite.java.UserList;
@@ -53,6 +52,7 @@ public class UserAuthentication extends HttpServlet {
 				user.setPassword(password);
 				user.setUsername(username);
 				actList.getActiveUsers().add(user);
+				request.getSession().setAttribute("User", username);
 				response.sendRedirect("ChatInterface.jsp?username="+usr);
 			}
 			else

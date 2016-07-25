@@ -31,15 +31,44 @@
 
 	}
 	
+	function updateUser(){
+		
+			var xmlhttp;
+			if (window.XMLHttpRequest)
+			{
+			  xmlhttp=new XMLHttpRequest();
+			}
+			else
+			{
+				xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			
+			xmlhttp.onreadystatechange = function() {
+				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+					
+					document.getElementById("divUsers").innerHTML=xmlhttp.responseText;
+				  
+				}	
+			}
+
+		  xmlhttp.open("GET", "http://localhost:8086/ChatApplication/ActiveUserUpdate", true);
+		  xmlhttp.send();
+
+		
+	}
+	
 </script>
 </head>
 <body>
-	
+	<a href="Logout">Logout</a><br/><br/>
 	<form method="post" action="SendMessage">
+		
 		<input type="hidden" id="hUsername" name="hUsername" value="<%=request.getParameter("username")%>"/>
-		<textarea rows="20" cols="50"></textarea>
-		<textarea rows="20" cols="20" style="margin-left: 50px" id="taMessages" name="taMessages">
+		<textarea rows="20" cols="50">
 		<div id="divMessages" name="divMessages"></div>
+		</textarea>
+		<textarea rows="20" cols="20" style="margin-left: 50px" id="taMessages" name="taMessages">
+		<div id="divUsers" name="divUsers"></div>
 		</textarea>
 		<br/><br/>
 		<input type="text" id="txtMessage" name="txtMessage" style="width: 360px" id="txtMessage" name="txtMessage"/>
