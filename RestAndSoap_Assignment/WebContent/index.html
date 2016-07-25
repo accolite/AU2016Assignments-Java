@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<title>Messenger</title>
+<head style="align:center;font-weight:bold">
+
+ <script>
+function getNewXmlHttp(){
+var xmlhttp;
+if (window.XMLHttpRequest)
+  {
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  return xmlhttp;
+}
+
+var request = 0;
+function DisplayUserProfile(){
+
+  var xmlhttp = getNewXmlHttp();
+  //alert(id + " " + profilename);
+  xmlhttp.onreadystatechange = function(){
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+      var metaData=xmlhttp.responseText;
+      metaData=JSON.parse(metaData);
+      //getImage(metaData.image[0].url);
+      var id=document.getElementById("userId").value;
+      
+      for(var i=0;i<metaData.length;i++){
+    	  if(metaData[i].id==id){
+    	  	document.getElementById("UserName").innerHTML=metaData[i].profileName;
+        }
+	}
+    }  
+  }
+
+  xmlhttp.open("GET","http://localhost:8080/FbMessenger/webapi/profiles",true);
+  xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+  xmlhttp.send();
+}
+function DisplayMessages(){
+
+  var xmlhttp1 = getNewXmlHttp();
+  //alert(id + " " + profilename);
+  //alert("Hi");
+  xmlhttp1.onreadystatechange = function(){
+  if (xmlhttp1.readyState==4 && xmlhttp1.status==200)
+    {
+      var metaData=xmlhttp1.responseText;
+      metaData=JSON.parse(metaData);
+      	//var textnode = document.createTextNode("Water");
+      //alert("Hi");
+      //getImage(metaData.image[0].url);
+      var Msg=document.getElementById("Messages");
+      var node = document.createElement("LI");
+  	  var displaymessage="";
+      var textnode;
+      document.getElementById("Messages").innerHTML="";
+      for(var i=metaData.length-1;i>=0;i--){
+      		var details=metaData[i].id+" - "+metaData[i].message+" - "+metaData[i].author;
+      		//textnode= document.createTextNode(metaData[i].message);
+      		textnode= document.createTextNode(details);
+      		var node = document.createElement("LI");
+      		node.appendChild(textnode);
+    		document.getElementById("Messages").appendChild(node);
+    
+      		//displaymessage.appendChild(metaData[i].message);
+      		//alert(metaData[i].message);
+   		}
+   		//document.getElementById("Messages").innerHTML=displaymessage;
+    }  
+  }
+
+  xmlhttp1.open("GET","http://localhost:8080/FbMessenger/webapi/messages",true);
+  xmlhttp1.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+  xmlhttp1.send();
+}
+
+function addMessage(){
+
+  var xmlhttp1 = getNewXmlHttp();
+  xmlhttp1.onreadystatechange = function(){
+  DisplayMessages();
+  }  
+  
+  var msgid=document.getElementById("msgId").value;
+  var msg=document.getElementById("newmsg").value;
+  var msgAuthor=document.getElementById("msgauthor").value;
+  
+  xmlhttp1.open("POST","http://localhost:8080/FbMessenger/webapi/messages",true);
+  xmlhttp1.setRequestHeader("Content-type","application/json;charset=UTF-8");
+  xmlhttp1.send(JSON.stringify({"id":msgid,"message":msg,"author":msgAuthor}));
+}
+
+function addComment(){
+
+  var xmlhttp1 = getNewXmlHttp();
+   xmlhttp1.onreadystatechange = function(){
+  	alert("Comment Added");
+    }  
+  
+  var msgid=document.getElementById("cmtmsgId").value;
+  var cmt=document.getElementById("newcmt").value;
+  var cmtAuthor=document.getElementById("cmtauthor").value;
+  var url="http://localhost:8080/FbMessenger/webapi/messages/"+msgid+"/comments/";
+  
+  xmlhttp1.open("POST",url,true);
+  xmlhttp1.setRequestHeader("Content-type","application/json;charset=UTF-8");
+  xmlhttp1.send(JSON.stringify({"comment":cmt,"author":cmtAuthor}));
+}
+
+function viewComment(){
+
+  var xmlhttp1 = getNewXmlHttp();
+  xmlhttp1.onreadystatechange = function(){
+  if (xmlhttp1.readyState==4 && xmlhttp1.status==200)
+    {
+    var metaData=xmlhttp1.responseText;
+      metaData=JSON.parse(metaData);
+    
+      var Cmt=document.getElementById("Comments");
+      var node = document.createElement("LI");
+  	  var displaymessage="";
+      var textnode;
+      document.getElementById("Comments").innerHTML="";
+      for(var i=0;i<metaData.length;i++){
+      		var details=metaData[i].id+" - "+metaData[i].comment+" - "+metaData[i].author;
+      		textnode= document.createTextNode(details);
+      		var node = document.createElement("LI");
+      		node.appendChild(textnode);
+    		document.getElementById("Comments").appendChild(node);
+       	}	
+    } 
+  }
+  var msgid=document.getElementById("cmtmsggId").value;
+  var url="http://localhost:8080/FbMessenger/webapi/messages/"+msgid+"/comments/";
+  xmlhttp1.open("GET",url,true);
+  xmlhttp1.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+  xmlhttp1.send();
+}
+
+
+function addLike(){
+
+  var xmlhttp1 = getNewXmlHttp();
+   xmlhttp1.onreadystatechange = function(){
+  	alert("Like Added");
+    }  
+  
+  var msgid=document.getElementById("likemsgId").value;
+  var likeAuthor=document.getElementById("likeauthor").value;
+  var url="http://localhost:8080/FbMessenger/webapi/likes/"+msgid;
+  
+  xmlhttp1.open("POST",url,true);
+  xmlhttp1.setRequestHeader("Content-type","application/json;charset=UTF-8");
+  xmlhttp1.send(JSON.stringify({"author":likeAuthor}));
+}
+
+function viewLikes(){
+
+  var xmlhttp1 = getNewXmlHttp();
+  xmlhttp1.onreadystatechange = function(){
+  if (xmlhttp1.readyState==4 && xmlhttp1.status==200)
+    {
+      var metaData=xmlhttp1.responseText;
+      metaData=JSON.parse(metaData);
+    
+      var Like=document.getElementById("Likes");
+      var node = document.createElement("LI");
+  	  var textnode;
+      document.getElementById("Likes").innerHTML="";
+      for(var i=0;i<metaData.length;i++){
+      		var details=metaData[i].id+" - "+metaData[i].author;
+      		textnode= document.createTextNode(details);
+      		var node = document.createElement("LI");
+      		node.appendChild(textnode);
+    		document.getElementById("Likes").appendChild(node);
+       	}	
+    } 
+  }
+  var msgid=document.getElementById("likemsggId").value;
+  var url="http://localhost:8080/FbMessenger/webapi/likes/"+msgid;
+  xmlhttp1.open("GET",url,true);
+  xmlhttp1.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+  xmlhttp1.send();
+}
+
+</script>
+
+
+
+</head>
+<body>
+	<div style="float:left">
+		<input type="number" id="userId" placeholder="User Id">
+		<label id="UserName" style="font-weight:bold">Profile Name</label><br/>
+		<input type="submit" value="Login" onClick="DisplayUserProfile()"><br/><br/>
+		<input type="submit" value="Show All Messages" onClick="DisplayMessages()"><br/><br/>
+		
+		<input type="textarea" id="msgId" rows="10" cols="25" placeholder="Enter MsgId"><br/>
+		<input type="textarea" id="newmsg" rows="10" cols="25" placeholder="Enter Message"><br/>
+		<input type="textarea" id="msgauthor" rows="10" cols="25" placeholder="Author"><br/>
+		<input type="submit" value="AddMessage" onClick="addMessage()"><br/><br/>
+
+		<input type="textarea" id="cmtmsgId" rows="10" cols="25" placeholder="Enter MsgId"><br/>		
+		<input type="textarea" id="newcmt" rows="10" cols="25" placeholder="Enter Comment"><br/>
+		<input type="textarea" id="cmtauthor" rows="10" cols="25" placeholder="Author"><br/>
+		<input type="submit" value="AddComment" onClick="addComment()"><br/><br/>
+		
+		<input type="textarea" id="cmtmsggId" rows="10" cols="25" placeholder="Enter MsgId"><br/>		
+		<input type="submit" value="ViewComments" onClick="viewComment()"><br/><br/>
+		
+		<input type="textarea" id="likemsgId" rows="10" cols="25" placeholder="Enter MsgId"><br/>		
+		<input type="textarea" id="likeauthor" rows="10" cols="25" placeholder="Author"><br/>
+		<input type="submit" value="AddLike" onClick="addLike()"><br/><br/>
+		
+		<input type="textarea" id="likemsggId" rows="10" cols="25" placeholder="Enter MsgId"><br/>		
+		<input type="submit" value="ViewLikes" onClick="viewLikes()"><br/><br/>
+		
+
+
+	</div>
+		<div style="width:250px;height:400px;float:left;align:center;border-style:solid;margin:20px 30px 20px 20px">
+			<div style="text-size:20px;font-weight:bold">Messsages:</div>
+				<ul id="Messages"></ul>
+		</div>
+		<div style="width:250px;height:400px;float:left;align:center;border-style:solid;margin:20px 30px 20px 20px">
+			<div style="text-size:20px;font-weight:bold">Comments:</div>
+				<ul id="Comments"></ul>
+		</div>
+		<div style="width:250px;height:400px;float:left;align:center;border-style:solid;margin:20px 30px 20px 20px">
+			<div style="text-size:20px;font-weight:bold">Likes:</div>
+				<ul id="Likes"></ul>
+		</div>
+	
+	
+</body>
+
+</html>
