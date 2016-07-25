@@ -4,6 +4,8 @@
 package com.accolite.chatterbox;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -26,7 +28,7 @@ public class ChatterData {
 	private ArrayList<String> filters;
 	
 	/** The active users. */
-	private ArrayList<String> activeUsers;
+	private Set<String> activeUsers;
 
 	/**
 	 * Instantiates a new chatter data.
@@ -34,7 +36,7 @@ public class ChatterData {
 	private ChatterData() {
 		users = new ArrayList<String>();
 		filters = new ArrayList<String>();
-		activeUsers = new ArrayList<String>();
+		activeUsers = new HashSet<String>();
 		messages = "";
 		users.add("admin:e=mc2");
 		users.add("lokesh:log10");
@@ -150,6 +152,6 @@ public class ChatterData {
 	 * @param inActiveUser the inactive user
 	 */
 	public void removeActiveUser(String inActiveUser) {
-		this.activeUsers.remove(this.activeUsers.indexOf(inActiveUser));
+		this.activeUsers.remove(inActiveUser);
 	}
 }

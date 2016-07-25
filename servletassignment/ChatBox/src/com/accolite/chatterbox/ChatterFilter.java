@@ -44,12 +44,8 @@ public class ChatterFilter implements Filter {
 		}
 		ChatterData cdata=ChatterData.getChatterDataInstance();
 		String message=rq.getParameter("message");
-		Enumeration<String> en=rq.getParameterNames();
-		while(en.hasMoreElements())
-			System.out.println(en.nextElement());
-		System.out.println(message+" "+rq.getAttribute("message"));
 		for(String f:cdata.getFilters()){
-			message.replaceAll(f, "***");
+			message=message.replaceAll(f, "***");
 		}
 		rq.setAttribute("message", message);
 		chain.doFilter(request, response);
