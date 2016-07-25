@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<body>
+Choose your id : 
+<select id = "userId">
+  <option value="1">1</option>
+  <option value="2">2</option>
+  <option value="3">3</option>
+</select>
+<form>
+<input type = "button" value = "submit" onClick = "goToUser();"></input>
+</form>
+</body>
+<script>
+	var userId;
+	var name;
+	var profession;
+	
+	function goToUser(){		
+		var e = document.getElementById("userId");
+		var strUser = e.options[e.selectedIndex].text;
+		var userInfoUrl = "http://localhost:8080/RestAssign/webapi/UserService/user";
+		fetchDataFromUrl(userInfoUrl+"?id="+strUser);
+	}
+	
+	function fetchDataFromUrl(url){
+		 var xmlhttp = new XMLHttpRequest();
+		 var callBack = function(){
+			if (xmlhttp.readyState==4 && xmlhttp.status==200)
+				{
+					var base_url = "http://localhost:8080/RestAssign/ManageButtons.html";
+					var parsedJson = JSON.parse(xmlhttp.responseText);
+					id = parsedJson.id;
+					profession = parsedJson.profession;
+					name = parsedJson.name;	
+					window.location.href = base_url+"?id="+id+"&name="+name+"&profession="+profession;
+				}  
+			} 
+		 xmlhttp.onreadystatechange = callBack;
+		 xmlhttp.open("GET",url,true);
+		 xmlhttp.send();
+}
+</script>
+</html>

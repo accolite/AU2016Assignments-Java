@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body onload = setUser()>
+	<p id = "id">id</p>
+	<p id = "name">name</p>
+	<p id = "profession">profession</p>
+	<p>Message:</p>
+	<textarea rows="4" cols="50" id = "new_message">insert your message here</textarea>
+	<p id="resultAddingMessage"></p>
+	<form>
+		<input type = "button" value = "post" onClick = "postMessage();"></input>
+	</form>
+	<p>Likes:</p>
+	<form>
+		enter message id : <input type = "text" pattern = "[0-9]+" id = "message_id_for_viewing_likes"></input>
+		<p id = "resultViewingLikes"></p>
+		<input type = "button" value = "getLikes on this message" onClick = "getLikes();"></input>
+	</form>
+	<p>Like the message:</p>
+	<form>
+		enter message_id which you want to like  : <input type = "text" pattern = "[0-9]+" id = "message_id_for_like"></input>
+		<input type = "button" value = "Like this message" onClick = "likeMessage();"></input>
+		<p id = "likeMessageId"></p>
+	</form>
+	<p>comment the message:</p>
+	<form>
+		enter message_id which you want to comment  : <input type = "text" pattern = "[0-9]+" id = "message_id_for_comment"></input>
+		enter comment on this message <input type = "text" id="commentMessage"></input>
+		<input type = "button" value = "submit" onClick = "commentOnMessage();"></input>
+		<p id="comment_on_message">comments</p>
+	</form>
+	<p>view comments on the message:</p>
+	<form>
+		enter message_id on which you want to see comments  : <input type = "text" pattern = "[0-9]+" id = "message_id_for_viewing_comment"></input>
+		<input type = "button" value = "submit" onClick = "getComments();"></input>
+		<p id="comments_on_message">comments</p>		
+	</form>
+</body>
+
+<script>
+		var url  = window.location.href; 
+		var userId;
+		var tot_num_of_message;
+		var tot_num_of_likes;
+		function setUser(){
+			userId = getParameterByName("id");
+			document.getElementById("id").innerHTML = "id: "+getParameterByName("id"); 
+			document.getElementById("name").innerHTML = "name: "+getParameterByName("name"); 
+			document.getElementById("profession").innerHTML = "profession: "+getParameterByName("profession");
+		}
+		
+		function getParameterByName(name) {
+		    name = name.replace(/[\[\]]/g, "\\$&");
+		    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+		        results = regex.exec(url);
+		    if (!results) return null;
+		    if (!results[2]) return '';
+		    return decodeURIComponent(results[2].replace(/\+/g, " "));
+		}
+		function postMessage(){
+			getMessages(-1);
+			var message = document.getElementById("new_message").value;
+			var jsonMessage = "{id:"+(tot_num_of_message+1)+",userId:"+userId+",parentId:-1,message:"+"'"+message+"'"+"}";
+			var url = "http://localhost:8080/RestAssign/webapi/UserService/PostMessage";
+			var xmlhttp = new XMLHttpRequest();
+			 var callBack = function(){
+				if (xmlhttp.readyState==4 && xmlhttp.status==204)
+					{
+					    tot_num_of_message++;
+						document.getElementById("resultAddingMessage").innerHTML = "<p>Message Added</p>";
+					}  
+				} 
+			 xmlhttp.onreadystatechange = callBack;
+			 xmlhttp.open("PUT",url,true);
+			 xmlhttp.send(jsonMessage);
+		}
+		
+		function getLikes(){
+			var message_id = document.getElementById("message_id_for_viewing_likes").value;
+			var num = getNoOfLikes(message_id);
+			document.getElementById("resultViewingLikes").innerHTML = "<p>"+tot_num_of_likes+" likes on this message</p>";
+		}
+		
+		function getNoOfLikes(messageId){
+			var url = "http://localhost:8080/RestAssign/webapi/UserService/getLikes?messageId="+messageId;
+			var xmlhttp = new XMLHttpRequest();
+			 var callBack = function(){
+				 //alert(xmlhttp.status);
+				if (xmlhttp.readyState==4 && xmlhttp.status==200)
+				 {
+					var parsedJson = JSON.parse(xmlhttp.responseText);
+					tot_num_of_likes = parsedJson.likes.length;
+					//alert(tot_num_of_likes);
+				  }  
+				} 
+			 xmlhttp.onreadystatechange = callBack;
+			 xmlhttp.open("GET",url,false);
+			 xmlhttp.send();
+		}
+		
+		function getMessages(userId){
+			var url = "http://localhost:8080/RestAssign/webapi/UserService/GetMessages?userId="+userId;
+			var xmlhttp = new XMLHttpRequest();
+			 var callBack = function(){
+				if (xmlhttp.readyState==4 && xmlhttp.status==200)
+				 {
+					var parsedJson = JSON.parse(xmlhttp.responseText);
+					tot_num_of_message = parsedJson.messages.length;
+				  }  
+				} 
+			 xmlhttp.onreadystatechange = callBack;
+			 xmlhttp.open("GET",url,false);
+			 xmlhttp.send();
+		}
+		
+		function likeMessage(){
+			getNoOfLikes(-1);
+			var message_id = document.getElementById("message_id_for_like").value;
+			var url = "http://localhost:8080/RestAssign/webapi/UserService/like?userId="+userId+"&id="+(tot_num_of_likes+1)+"&messageId="+message_id;
+			var jsonLike = "{id:"+(tot_num_of_likes+1)+",userId:"+userId+",messageId:"+message_id+"}";
+			var xmlhttp = new XMLHttpRequest();
+			 var callBack = function(){
+				if (xmlhttp.readyState==4 && xmlhttp.status==204)
+					{
+						tot_num_of_likes++;
+						document.getElementById("likeMessageId").innerHTML = "<p>Like Added</p>";
+					}  
+				} 
+			 xmlhttp.onreadystatechange = callBack;
+			 xmlhttp.open("PUT",url,true);
+			 xmlhttp.send(jsonLike);
+		}
+		
+		function commentOnMessage(){
+			var num = getMessages(-1);
+			var parentId = document.getElementById("message_id_for_comment").value;
+			var comment = document.getElementById("commentMessage").value;
+			var url = "http://localhost:8080/RestAssign/webapi/UserService/PostMessage?userId="+userId+"&id="+(tot_num_of_message+1)+"&parentId="+parentId;
+			var jsonComment = "{id:"+(tot_num_of_message+1)+",userId:"+userId+",parentId:"+parentId+",message:"+comment+"}";
+			var xmlhttp = new XMLHttpRequest();
+			 var callBack = function(){
+				if (xmlhttp.readyState==4 && xmlhttp.status==204)
+					{
+						tot_num_of_message++;
+						document.getElementById("comment_on_message").innerHTML = "<p>Comment Added</p>";
+					}  
+				} 
+			 xmlhttp.onreadystatechange = callBack;
+			 xmlhttp.open("PUT",url,true);
+			 xmlhttp.send(jsonComment);
+		}
+		
+		/*function getComments(){
+			var messageId = document.getElementById("message_id_for_viewing_comment").value;
+			var url = "http://localhost:8080/RestAssign/webapi/UserService/GetMessages?messageId="+messageId;
+			var xmlhttp = new XMLHttpRequest();
+			 var callBack = function(){
+				if (xmlhttp.readyState==4 && xmlhttp.status==200)
+				 {
+					var parsedJson = JSON.parse(xmlhttp.responseText);
+					var messagesArray = parsedJson.messages;
+					var i;
+					for(i=0; i<messageArray.length; i++)
+						
+				  }  
+				} 
+			 xmlhttp.onreadystatechange = callBack;
+			 xmlhttp.open("GET",url,false);
+			 xmlhttp.send();
+		}*/
+</script>
+</html>
