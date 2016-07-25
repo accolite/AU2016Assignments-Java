@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Login Page</title>
+<script>
+function getNewXmlHttp(){
+	var xmlhttp;
+	if (window.XMLHttpRequest)
+	  {
+	  xmlhttp=new XMLHttpRequest();
+	  }
+	else
+	  {
+	  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	  }
+	  return xmlhttp;
+	}
+
+	var request = 0;
+function userLogin(){
+
+		  var xmlhttp1 = getNewXmlHttp();
+		   xmlhttp1.onreadystatechange = function(){
+			  	alert("User Logged");
+		  	window.location="http://localhost:8080/ChatBox/chatPage.html";
+		  
+		   }
+		  var name=document.getElementById("name").value;
+		  var password=document.getElementById("password").value;
+		  var url="http://localhost:8080/ChatBox/LoginServlet?name="+name+"&password="+password;
+		  
+		  xmlhttp1.open("GET",url,true);
+		  xmlhttp1.setRequestHeader("Content-type","application/text;charset=UTF-8");
+		  xmlhttp1.send();
+		}
+
+</script>
+
+</head>
+<body>
+	<div>
+		<input type="textarea" id="name" rows="10" cols="25" placeholder="UserName"><br/>
+		<input type="textarea" id="password" rows="10" cols="25" placeholder="Password"><br/>
+		<input type="submit" value="Login" onClick="userLogin()"><br/><br/>
+		</div>
+</body>
+</html>
