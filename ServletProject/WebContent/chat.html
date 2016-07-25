@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<style>
+</style>
+
+<script>
+	function getNewXmlHttp() {
+		var xmlhttp;
+		if (window.XMLHttpRequest) {
+			xmlhttp = new XMLHttpRequest();
+		} else {
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		return xmlhttp;
+	}
+
+	function Ajax() {
+		var xmlhttp = getNewXmlHttp();
+
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				document.getElementById("name").innerHTML = jsonobj.images[counter].name;
+			}
+		}
+		xmlhttp.open("POST", "urls.json", true);
+
+		xmlhttp.send();
+
+	}
+</script>
+
+</head>
+<body>
+	<div class="chat">
+		<p></p>
+	</div>
+	<div class="activeuser">
+		<h6>list of active user</h6>
+		<p></p>
+	</div>
+	<div class="message">
+		<form action="ChatServlet" method="post">
+			Enter Message:<br> <input type="text" name="message"><br>
+			<button type="button" id="next" onclick="Ajax()">Send</button>
+		</form>
+	</div>
+</body>
+</html>
