@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+	function getNewXmlHttp() {
+		var xmlhttp;
+		if (window.XMLHttpRequest) {
+			xmlhttp = new XMLHttpRequest();
+		} else {
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		return xmlhttp;
+	}
+
+	function doAjax(obj) {
+
+		var xmlhttp = getNewXmlHttp();
+		var number1 = document.getElementById('text1').value;
+		var number2 = document.getElementById('text2').value;
+		
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			}
+		}
+
+		xmlhttp.open("POST", "Register", true);
+		xmlhttp.send();
+	}
+</script>
+
+</head>
+<body align="center">
+
+	<form action="Register" method="post" id="form 1">
+		Name:<input type="text" value="" name="Name" /> <br><br>Username:<input
+			type="text" value="" name="userid" /> <br><br>Password:<input
+			type="password" value="" name="password" /><br><br> <input type="submit"
+			value="Register" name="Submit" id="frm1" />
+	</form>
+
+</body>
+</html>
