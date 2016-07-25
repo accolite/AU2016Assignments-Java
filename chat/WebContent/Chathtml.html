@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script>
+function doAjax(){
+	
+	 //System.out.println("hello");
+	   var xmlhttp =new XMLHttpRequest();
+	   var pathParam= document.getElementById("msgarea").value;
+	   var user="abc";
+	
+	   xmlhttp.open("GET","http://localhost:8080/chat/ChatServlet?message="+pathParam +"&user =" + user, true);
+	          xmlhttp.send();
+	         xmlhttp.onreadystatechange = function(){
+	          if(xmlhttp.readyState==4)
+	          {
+	           
+	        	  document.getElementById("chatarea").innerText=xmlhttp.responseText;
+	          }
+	          }
+	 }
+</script>
+</head>
+<body>
+
+Messages:
+<textarea name="chatarea" id="chatarea" ></textarea>
+<br/>
+Enter your msg
+<textarea name="msgarea" id="msgarea" ></textarea>
+<input type="button" value="send " onclick="doAjax()">
+</body>
+</html>
