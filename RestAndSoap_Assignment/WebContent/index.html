@@ -38,7 +38,7 @@ function DisplayUserProfile(){
     }  
   }
 
-  xmlhttp.open("GET","http://localhost:8080/FbMessenger/webapi/profiles",true);
+  xmlhttp.open("GET","http://localhost:8080/MyMessenger/webapi/profiles",true);
   xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
   xmlhttp.send();
 }
@@ -75,7 +75,7 @@ function DisplayMessages(){
     }  
   }
 
-  xmlhttp1.open("GET","http://localhost:8080/FbMessenger/webapi/messages",true);
+  xmlhttp1.open("GET","http://localhost:8080/MyMessenger/webapi/messages",true);
   xmlhttp1.setRequestHeader("Content-type","application/x-www-form-urlencoded");
   xmlhttp1.send();
 }
@@ -91,7 +91,7 @@ function addMessage(){
   var msg=document.getElementById("newmsg").value;
   var msgAuthor=document.getElementById("msgauthor").value;
   
-  xmlhttp1.open("POST","http://localhost:8080/FbMessenger/webapi/messages",true);
+  xmlhttp1.open("POST","http://localhost:8080/MyMessenger/webapi/messages",true);
   xmlhttp1.setRequestHeader("Content-type","application/json;charset=UTF-8");
   xmlhttp1.send(JSON.stringify({"id":msgid,"message":msg,"author":msgAuthor}));
 }
@@ -106,7 +106,7 @@ function addComment(){
   var msgid=document.getElementById("cmtmsgId").value;
   var cmt=document.getElementById("newcmt").value;
   var cmtAuthor=document.getElementById("cmtauthor").value;
-  var url="http://localhost:8080/FbMessenger/webapi/messages/"+msgid+"/comments/";
+  var url="http://localhost:8080/MyMessenger/webapi/messages/"+msgid+"/comments/";
   
   xmlhttp1.open("POST",url,true);
   xmlhttp1.setRequestHeader("Content-type","application/json;charset=UTF-8");
@@ -137,7 +137,7 @@ function viewComment(){
     } 
   }
   var msgid=document.getElementById("cmtmsggId").value;
-  var url="http://localhost:8080/FbMessenger/webapi/messages/"+msgid+"/comments/";
+  var url="http://localhost:8080/MyMessenger/webapi/messages/"+msgid+"/comments/";
   xmlhttp1.open("GET",url,true);
   xmlhttp1.setRequestHeader("Content-type","application/x-www-form-urlencoded");
   xmlhttp1.send();
@@ -153,7 +153,7 @@ function addLike(){
   
   var msgid=document.getElementById("likemsgId").value;
   var likeAuthor=document.getElementById("likeauthor").value;
-  var url="http://localhost:8080/FbMessenger/webapi/likes/"+msgid;
+  var url="http://localhost:8080/MyMessenger/webapi/likes/"+msgid;
   
   xmlhttp1.open("POST",url,true);
   xmlhttp1.setRequestHeader("Content-type","application/json;charset=UTF-8");
@@ -183,7 +183,7 @@ function viewLikes(){
     } 
   }
   var msgid=document.getElementById("likemsggId").value;
-  var url="http://localhost:8080/FbMessenger/webapi/likes/"+msgid;
+  var url="http://localhost:8080/MyMessenger/webapi/likes/"+msgid;
   xmlhttp1.open("GET",url,true);
   xmlhttp1.setRequestHeader("Content-type","application/x-www-form-urlencoded");
   xmlhttp1.send();
