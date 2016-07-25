@@ -25,7 +25,7 @@ $(document).ready(function(){
                if(result=="emptyNotAccepted"){}
                else if(result=="invalid"){}
                
-               else location.href = "logged_in.jsp?username="+txt+"&id="+result;
+               else location.href = "logged_in.jsp";
         	}
         });
     });
@@ -50,7 +50,7 @@ $(document).ready(function(){
                if(result=="emptyNotAccepted"){}
                else if(result=="invalid"){}
                else if(result=="alreadyRegistered"){}
-               else location.href = "logged_in.jsp?username="+txt+"&id="+result;
+               else location.href = "logged_in.jsp";
         	}
         });
     });
