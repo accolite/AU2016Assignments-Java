@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<style type="text/css">
+#messageHistory {
+	float: left;
+	width: 50%;
+	left: 15%;
+	height: 500px;
+	border-style: solid;
+	border-width: 1px;
+	overflow-y: scroll;
+}
+
+.button {
+	align: center;
+	-webkit-appearance: button;
+	-moz-appearance: button;
+	appearance: button;
+	display: inline;
+	text-decoration: none;
+	color: initial;
+	margin-right: 15%;
+	border-left: 15%;
+}
+
+#activeUsers {
+	float: left;
+	width: 20%;
+	margin-left: 8px;
+	height: 500px;
+	border-style: solid;
+	border-width: 1px;
+	overflow-y: scroll;
+}
+</style>
+
+<script type="text/javascript">
+	var lastMsgId = 0;
+	var users = [];
+	function getNewXmlHttp() {
+		var xmlhttp;
+		if (window.XMLHttpRequest) {
+			xmlhttp = new XMLHttpRequest();
+		} else {
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		return xmlhttp;
+	}
+	function sendMessage() {
+		var xmlhttp = getNewXmlHttp();
+		var message = document.getElementById("message").value;
+
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				//document.getElementById("myDiv").innerHTML +=  number1 + " " + operation + " " + number2 + " = " + xmlhttp.responseText + "<br/>";
+				//document.getElementById("timings").innerHTML +=  "Request " + curNo + " Completed @ " + new Date() + "<br/>";
+				var text = xmlhttp.responseText;
+				console.log(text);
+				console.log("hello from xmlhttp");
+				//alert(text);
+			}
+		}
+
+		var parameters = "message=" + message;
+
+		xmlhttp.open("POST",
+				"http://localhost:8080/ServletAssignment/sendMessage", true);
+		xmlhttp.setRequestHeader("Content-type",
+				"application/x-www-form-urlencoded");
+		xmlhttp.setRequestHeader("Content-length", parameters.length);
+		xmlhttp.setRequestHeader("Connection", "close");
+
+		// var queryParams = "uid=1" + "&content=" + message; 
+		xmlhttp.send(parameters);
+
+	}
+
+	function startup() {
+		console.log("hello form startup");
+		setInterval(newMessage, 3000);
+		setInterval(activeUsers, 5000);
+		setInterval(notification,2000);
+		
+	}
+	
+	function username(){
+		var xmlhttp = getNewXmlHttp();
+		
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				//document.getElementById("myDiv").innerHTML +=  number1 + " " + operation + " " + number2 + " = " + xmlhttp.responseText + "<br/>";
+				//document.getElementById("timings").innerHTML +=  "Request " + curNo + " Completed @ " + new Date() + "<br/>";
+				var text = xmlhttp.responseText;
+				//console.log(text);
+				var userHeading = document.getElementById("userHeading");
+				
+			}
+		}
+		
+		xmlhttp.open("POST",
+				"http://localhost:8080/ServletAssignment/getName", true);
+		xmlhttp.setRequestHeader("Content-type",
+				"application/x-www-form-urlencoded");
+		xmlhttp.setRequestHeader("Content-length", parameters.length);
+		xmlhttp.setRequestHeader("Connection", "close");
+
+		xmlhttp.send();
+
+		
+	}
+	
+
+	function newMessage() {
+		var xmlhttp = getNewXmlHttp();
+		console.log("hello from newMessage");
+
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				//document.getElementById("myDiv").innerHTML +=  number1 + " " + operation + " " + number2 + " = " + xmlhttp.responseText + "<br/>";
+				//document.getElementById("timings").innerHTML +=  "Request " + curNo + " Completed @ " + new Date() + "<br/>";
+				var text = xmlhttp.responseText;
+				//console.log(text);
+				var json = JSON.parse(text);
+				var len = json.length;
+				var i = 0;
+
+				var msgHistory = document.getElementById("messageHistory");
+				while (i < len) {
+					var para = document.createElement("p");
+					para.innerHTML = json[i].username + ":  " + json[i].message;
+					msgHistory.appendChild(para);
+					i++;
+				}
+				i = i - 1;
+				console.log(i);
+				console.log(lastMsgId);
+
+				lastMsgId = json[len - 1].messageid;
+				//alert(text);
+			}
+		}
+
+		var parameters = "id=" + lastMsgId;
+
+		xmlhttp.open("POST",
+				"http://localhost:8080/ServletAssignment/getMessage", true);
+		xmlhttp.setRequestHeader("Content-type",
+				"application/x-www-form-urlencoded");
+		xmlhttp.setRequestHeader("Content-length", parameters.length);
+		xmlhttp.setRequestHeader("Connection", "close");
+
+		xmlhttp.send(parameters);
+
+	}
+	
+	function notification(){
+		var xmlhttp = getNewXmlHttp();
+		console.log("in notification ajax");
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				var text = xmlhttp.responseText;
+				var msgHistory = document.getElementById("messageHistory");
+				var para = document.createElement("p");
+				para.innerHTML = text;
+				msgHistory.appendChild(para);
+				
+				
+			}
+		}
+		
+		xmlhttp.open("POST",
+				"http://localhost:8080/ServletAssignment/Notifications", true);
+		xmlhttp.setRequestHeader("Content-type",
+				"application/x-www-form-urlencoded");
+		//xmlhttp.setRequestHeader("Content-length", parameters .length);
+		//xmlhttp.setRequestHeader("Connection", "close");
+
+		xmlhttp.send();
+		
+	}
+
+	function activeUsers() {
+		var xmlhttp = getNewXmlHttp();
+		console.log("hello from activeUsers");
+
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				var text = xmlhttp.responseText;
+				console.log(text);
+				text = text.replace('[', '');
+				text = text.replace(']', '');
+				console.log(text);
+				var res = text.split(",");
+				var len = res.length;
+				var i = 0;
+				
+				var ulen = users.length;
+				
+				var flag = false;
+				var j = 0;
+				//console.log()
+			
+				
+				i = 0;
+				j = 0;
+				var actuse = document.getElementById("activeUsers");
+				var count = actuse.childElementCount;
+				while(i < count){
+					actuse.removeChild(actuse.childNodes[0]);
+					i++;
+				}
+				i = 0;
+				while (i < len) {
+					var actuse = document.getElementById("activeUsers");
+					
+					
+					var para = document.createElement("p");
+					para.innerHTML = res[i];
+					actuse.appendChild(para);
+					
+					users[i] = res[i];
+					i++;
+				}
+			}
+		}
+
+		xmlhttp.open("POST",
+				"http://localhost:8080/ServletAssignment/activeUsers", true);
+		xmlhttp.setRequestHeader("Content-type",
+				"application/x-www-form-urlencoded");
+		//xmlhttp.setRequestHeader("Content-length", parameters .length);
+		xmlhttp.setRequestHeader("Connection", "close");
+
+		xmlhttp.send();
+
+	}
+</script>
+
+</head>
+<body onload="startup();">
+	<h1 id="userHeading"></h1>
+	<div id="messageHistory"></div>
+	<div id="activeUsers"></div>
+	<div style="clear: both;" id="messageBox">
+		<textarea rows="5" cols="40" id="message"
+			style="border-style: solid; border-width: 2px; margin-top: 3px;"></textarea>
+		<button name="send" value="send" onclick="sendMessage();">send</button>
+	</div>
+	<div id="logout">
+		<a href="http://localhost:8080/ServletAssignment/Logout"
+			class="button">Logout</a>
+	</div>
+
+</body>
+</html>
