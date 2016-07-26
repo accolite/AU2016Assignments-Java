@@ -33,9 +33,11 @@ public class Tweet extends HttpServlet {
 			response.sendRedirect("error.html");
 			return;
 		}
+		//session exits and user logged in
 		String user=(String)session.getAttribute("username");
 		String message=(String)request.getAttribute("message");
 		cdata.addMessage(user, message);
+		//redirect the response to FeedMe where updated information is given to the user
 		response.sendRedirect("feedme");
 	}
 

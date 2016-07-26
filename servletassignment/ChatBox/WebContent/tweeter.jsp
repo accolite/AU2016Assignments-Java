@@ -84,6 +84,7 @@ function referesh(){
 		document.getElementsByName("send")[0].onclick=function(){
 			sendMessage(message.value);
 		}
+		<%-- if user logged in do create the referech event --%>
 		if(<%= session.getAttribute("status").equals("loggedin") %>)
 			setInterval(referesh,5000);
 	</script>

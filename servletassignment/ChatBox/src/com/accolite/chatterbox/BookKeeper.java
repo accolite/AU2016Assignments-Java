@@ -21,6 +21,8 @@ public class BookKeeper implements HttpSessionAttributeListener {
 
     /**
      * @see HttpSessionAttributeListener#attributeAdded(HttpSessionBindingEvent)
+     * 
+     * when session attributed added this method gets executed where we get either the user is active or inactive
      */
     public void attributeAdded(HttpSessionBindingEvent event)  { 
     	ChatterData cdata=ChatterData.getChatterDataInstance();
@@ -42,6 +44,9 @@ public class BookKeeper implements HttpSessionAttributeListener {
 
 	/**
      * @see HttpSessionAttributeListener#attributeReplaced(HttpSessionBindingEvent)
+     * 
+     * when session attributed modified (i.e, changing status from 'loggedin' to 'loggedout' or 'loggedout' to 'loggedin') 
+     * this method gets executed where we get either the user is active or inactive
      */
     public void attributeReplaced(HttpSessionBindingEvent event)  { 
     	ChatterData cdata=ChatterData.getChatterDataInstance();

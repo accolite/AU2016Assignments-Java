@@ -33,12 +33,13 @@ public class Login extends HttpServlet {
 		switch(mode){
 		case "login":
 			if(cdata.doAuthorize(name, password)){
+				//look for session if not found set one
 				HttpSession session=request.getSession(false);
 				if(session==null)
 					session=request.getSession();
 				session.setAttribute("username", name);
 				session.setAttribute("status", "loggedin");
-			}
+			}else response.sendRedirect("error.html");
 			response.sendRedirect("tweeter.jsp");
 			break;
 		case "admin":
@@ -48,10 +49,11 @@ public class Login extends HttpServlet {
 					session=request.getSession();
 				session.setAttribute("username", "admin");
 				session.setAttribute("status", "loggedin");
-			}
+			}else response.sendRedirect("error.html");
 			response.sendRedirect("admin.html");
 			break;
 		case "register":
+			//add the user to the chatter box
 			cdata.addUser(name, password);
 			HttpSession session=request.getSession(false);
 			if(session==null)

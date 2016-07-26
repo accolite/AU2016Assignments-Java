@@ -12,6 +12,8 @@ import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class FeedMe
+ * 
+ * servlet which gives the updated information such as messages and active users
  */
 @WebServlet(description = "this servlet feeds client when pinged for updated info", urlPatterns = { "/feedme" })
 public class FeedMe extends HttpServlet {
@@ -35,6 +37,7 @@ public class FeedMe extends HttpServlet {
 			response.sendRedirect("error.html");
 			return;
 		}
+		//session exists and user logged in, so write him the information
 		PrintWriter out=response.getWriter();
 		for(String au:cdata.getActiveUsers())
 			out.append(au+"<br>");

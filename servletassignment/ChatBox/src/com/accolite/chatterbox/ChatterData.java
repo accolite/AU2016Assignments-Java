@@ -10,24 +10,24 @@ import java.util.Set;
 // TODO: Auto-generated Javadoc
 /**
  * The Class ChatterData.
- *
+ * A singleton class that stores all the chatter box's data and have methods to manipulate and retrieve it
  * @author Lokesh K
  */
 public class ChatterData {
 
-	/** The chatter data. */
+	/** The chatter data. the singleton instance*/
 	private static volatile ChatterData chatterData;
 	
 	/** The users. */
 	private ArrayList<String> users;
 	
-	/** The messages. */
+	/** The messages. all the messages are concatenated in this string*/
 	private String messages;
 	
-	/** The filters. */
+	/** The filters. list of filter words*/
 	private ArrayList<String> filters;
 	
-	/** The active users. */
+	/** The active users. set of active users in chatter box*/
 	private Set<String> activeUsers;
 
 	/**
@@ -46,11 +46,15 @@ public class ChatterData {
 	/**
 	 * Gets the chatter data instance.
 	 *
+	 *static method to get the instance of this singleton class
+	 *
 	 * @return the chatter data instance
 	 */
 	public static ChatterData getChatterDataInstance() {
 		if (chatterData == null) {
+			//synchronizing to make it thread safe
 			synchronized (ChatterData.class){
+				//chatterData might have been instantiated in some other thread while for waiting to get the lock
 				if (chatterData == null)
 					chatterData = new ChatterData();
 			}
@@ -61,7 +65,7 @@ public class ChatterData {
 	/**
 	 * Do authorize.
 	 *
-	 * @param name the name
+	 * @param name the user name
 	 * @param password the password
 	 * @return true, if successful
 	 */
@@ -76,7 +80,7 @@ public class ChatterData {
 	/**
 	 * Adds the user.
 	 *
-	 * @param name the name
+	 * @param name the username
 	 * @param password the password
 	 */
 	public void addUser(String name, String password) {
@@ -87,9 +91,10 @@ public class ChatterData {
 	/**
 	 * Adds the filter.
 	 *
-	 * @param words the words
+	 * @param words the filter words
 	 */
 	public void addFilter(String words) {
+		//it comes as comma separated
 		String[] word = words.split(",");
 		for (String w : word) {
 			filters.add(w);
@@ -99,10 +104,11 @@ public class ChatterData {
 	/**
 	 * Adds the message.
 	 *
-	 * @param user the user
+	 * @param user the username
 	 * @param message the message
 	 */
 	public void addMessage(String user, String message) {
+		//concatenating to the message string, in order to display recent message at the top the older message attached at the end
 		messages = user + ":" + message + "<br>" + messages;
 	}
 

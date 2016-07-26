@@ -33,8 +33,10 @@ public class AddFilters extends HttpServlet {
 			response.sendRedirect("error.html");
 			return;
 		}
+		//admin have the session and logged in 
 		if(session.getAttribute("username").equals("admin"))
 			cdata.addFilter(request.getParameter("filters"));
+		//redirect him to his page
 		response.sendRedirect("admin.html");
 	}
 
