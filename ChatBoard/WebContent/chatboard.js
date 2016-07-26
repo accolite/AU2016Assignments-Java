@@ -12,6 +12,9 @@ chatboardCallBack = function(){
 	if (xmlhttpc.readyState==4 && xmlhttpc.status==200){
 		document.getElementById("chatboard").innerHTML = xmlhttpc.responseText;
     }
+	else if(xmlhttpc.status==500){
+		window.location.href = "/ChatBoard";
+	}
 }
     
 activeListCallBack = function(){
