@@ -38,19 +38,20 @@ public class BannedWordFilter implements Filter {
 		// place your code here
 
 		// pass the request along the filter chain
-		//System.out.println("Here with " + request.getParameter("message") );
-		if( request.getParameter("message") != null )
+		String message = request.getParameter("message");
+		ServletContext context = request.getServletContext();
+		String words = (String) context.getAttribute("BannedWords");
+		if( message != null && words != null )
 		{
-			String message = (String) request.getParameter("message");
-			ServletContext context = request.getServletContext();
-			String words = (String) context.getAttribute("BannedWords");
-			//System.out.println("WORDS " + words);
 			String[] wordsArray = words.split(",");
-			//System.out.println("Filtering before " + message);
 			for (int b = 0; b < wordsArray.length; b++) {
 				message = message.replaceAll( wordsArray[b], "");
 			}
-			//System.out.println("Filtering after " + message);
+			request.setAttribute("Fmsg", message);
+			chain.doFilter( request, response);
+		}
+		else
+		{
 			request.setAttribute("Fmsg", message);
 			chain.doFilter( request, response);
 		}
