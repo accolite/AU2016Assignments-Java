@@ -50,7 +50,7 @@ public class BlockerFilter implements Filter {
 		String post_content = (String) request.getParameter("post_content");
 		System.out.println("What is here "+post_content+ " Blocked : "+blocked);
 		if(blocked!=null){
-			if(post_content!=null){
+			if(post_content!=null && blocked.size()>0){
 				for(String word:blocked){
 					if((post_content).contains(word)){
 						String filtered = (String) request.getServletContext().getAttribute("filtered");

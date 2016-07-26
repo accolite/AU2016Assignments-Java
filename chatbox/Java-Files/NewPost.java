@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -43,7 +44,10 @@ public class NewPost extends HttpServlet {
 		 * Get post entered and user_id
 		 */
 		String post = request.getParameter("post_content");
-		post = (String) request.getServletContext().getAttribute("filtered");
+		if(request.getServletContext().getAttribute("blocked")!=null){
+			if(((ArrayList<String>)request.getServletContext().getAttribute("blocked")).size()>0)
+				post = (String) request.getServletContext().getAttribute("filtered");
+		}
 		System.out.println("Filtered post :"+post);
 		String user_id = request.getParameter("user_id");
 		HttpSession session = request.getSession(false);
