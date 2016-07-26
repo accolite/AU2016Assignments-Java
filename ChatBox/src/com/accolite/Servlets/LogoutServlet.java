@@ -1,6 +1,7 @@
 package com.accolite.Servlets;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.ServletException;
@@ -39,6 +40,9 @@ public class LogoutServlet extends HttpServlet {
 		String name=(String) session.getAttribute("username");
 		session.setAttribute("status", "loggedout");
 		//session.invalidate();
+		String msg="-----"+name+" went offline-----";
+		List<String> Messages=mainclass.getMessages();
+		Messages.add(msg);
 		Set<String> activeUsers=mainClass.getActiveUsers(); 
 		activeUsers.remove(name);
 		response.sendRedirect("index.html");

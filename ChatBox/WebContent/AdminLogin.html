@@ -20,9 +20,17 @@ function getNewXmlHttp(){
 function checkAdmin(){
 		var xmlhttp1 = getNewXmlHttp();
 	   xmlhttp1.onreadystatechange = function(){
+		   if (xmlhttp1.readyState==4 && xmlhttp1.status==200)
+		    {
 		  	//alert("Admin Loggin");
-	  	window.location="http://localhost:8080/ChatBox/AdminPage.html";
-	  
+		   var metaData=xmlhttp1.responseText;
+		      //document.getElementById("Messages").innerHTML=metaData; 
+		      console.log(metaData);
+			if(metaData=="success")
+		  		window.location="http://localhost:8080/ChatBox/AdminPage.html";
+			else
+				window.location="http://localhost:8080/ChatBox/index.html";
+		    }
 	   }
 	  var name=document.getElementById("name").value;
 	  var password=document.getElementById("password").value;

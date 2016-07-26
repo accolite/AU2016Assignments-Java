@@ -48,6 +48,9 @@ public class RegisterServlet extends HttpServlet {
 			session=request.getSession();
 		session.setAttribute("username", name);
 		session.setAttribute("status", "loggedin");
+		String msg="     -----"+name+" is online-----";
+		List<String> Messages=mainclass.getMessages();
+		Messages.add(msg);
 		//response.sendRedirect("chatPage.html");
 	}
 

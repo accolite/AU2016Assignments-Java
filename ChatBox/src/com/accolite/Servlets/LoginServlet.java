@@ -37,7 +37,9 @@ public class LoginServlet extends HttpServlet {
 		//System.out.println("Logged:"+name + " " +password);
 		Map<String, String> users=mainclass.getUsers();
 		Set<String> activeUsers=mainClass.getActiveUsers(); 
-		if(!users.isEmpty() && users.get(name).equals(password)){
+		response.setContentType("text/plains");
+	    response.setCharacterEncoding("UTF-8");
+	    if(!users.isEmpty() && users.get(name).equals(password)){
 			HttpSession session=request.getSession(false);
 			if(session==null)
 				session=request.getSession();
@@ -46,13 +48,19 @@ public class LoginServlet extends HttpServlet {
 			activeUsers.add(name);
 			//System.out.println("User Logged:"+name+" "+users.get(name));
 			//response.sendRedirect("chatPage.html");
+			String msg="     -----"+name+" is online-----";
+			List<String> Messages=mainclass.getMessages();
+			Messages.add(msg);
+			String result="success";
+			response.getWriter().write(result);
 		}
-		else{
-			System.out.println("Invalid User");
+	    else
+	    {
+	    	String result="failed";
+	    	response.getWriter().write(result);
 			//response.sendRedirect("index.html");
-		}
 	}
-
+	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
