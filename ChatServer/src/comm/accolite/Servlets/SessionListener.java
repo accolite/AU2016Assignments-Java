@@ -15,8 +15,7 @@ public class SessionListener implements HttpSessionListener {
 
 	@Override
 	  public void sessionCreated(HttpSessionEvent event) {
-		Chat chat=new Chat(event.getSession().getAttribute("name").toString(), event.getSession().getAttribute("name")+"joined");
-		ChatArray.chats.add(chat);
+		
 		
 		
 		System.out.println("sessionCreated - add one session into counter");

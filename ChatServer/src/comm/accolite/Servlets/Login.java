@@ -34,7 +34,7 @@ public class Login extends HttpServlet {
 		String name=request.getParameter("name");
 		String pass=request.getParameter("password");
 //		HashMap<String, String> map=getServletContext().getAttribute("users");
-		if(UsersInfo.map.get(name).equals(pass)==false)
+		if(UsersInfo.map.get(name)==null||UsersInfo.map.get(name).equals(pass)==false)
 		{
 			response.getWriter().append("Invalid Login.");
 		}
@@ -44,18 +44,20 @@ public class Login extends HttpServlet {
 			if(ActiveUsers.map.get(name)!=null&&ActiveUsers.map.get(name).equals(pass)==true)
 			{
 				//you are active already
-				response.sendRedirect("chat.html");
+				response.sendRedirect("chat.jsp");
 			}
 			else
 			{
 				//new user logged in
-	
+				getServletContext().setAttribute("activeusers", ActiveUsers.map);
 				ActiveUsers.map.put(name, pass);
 				HttpSession sess=request.getSession(true);
 				sess.setAttribute("name",name);
 				sess.setAttribute("pass", pass);
-				
-				response.sendRedirect("chat.html");
+				Chat chat=new Chat(name,name+"joined");
+				ChatArray.chats.add(chat);
+				response.sendRedirect("chat.jsp");
+			
 			}
 		}
 		

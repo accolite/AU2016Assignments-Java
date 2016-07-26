@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class AddRestricted
+ * Servlet implementation class OnLoad
  */
-@WebServlet(asyncSupported = true, description = "saves restricted words", urlPatterns = { "/AddRestricted" })
-public class AddRestricted extends HttpServlet {
+@WebServlet(asyncSupported = true, urlPatterns = { "/OnLoad" })
+public class OnLoad extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddRestricted() {
+    public OnLoad() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,14 +27,16 @@ public class AddRestricted extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		getServletContext().setAttribute("restricted_words",RestrictedWords.restricted);
-		String str=request.getParameter("restricted_words");
-		String arr[]=str.split(",");
-		for (int i = 0; i < arr.length; i++) {
-			RestrictedWords.restricted.add(arr[i]);
-			System.out.println(arr[i]);
+		String au=new String();
+		
+		for(String temp:ActiveUsers.map.keySet())
+		{
+			au=au+temp+"<br>";
 		}
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		//String res=au+"*"+chats;
+		response.getWriter().print(au);
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**

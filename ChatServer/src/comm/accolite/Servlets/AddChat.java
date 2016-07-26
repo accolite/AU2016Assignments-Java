@@ -29,10 +29,15 @@ public class AddChat extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+		System.out.println("koljhb");
 		getServletContext().setAttribute("chatarray",ChatArray.chats);
+		System.out.println(request.getParameter("new_chat")+" "+request.getRequestURI());
+		String message=request.getParameter("new_chat");
+		for (int b = 0; b < RestrictedWords.restricted.size(); b++) {
+			message = message.replaceAll( RestrictedWords.restricted.get(b).toString(), "");
+		}
 		
-		Chat temp=new Chat(request.getSession(true).getAttribute("name").toString(),request.getAttribute("new_chat").toString());
+		Chat temp=new Chat(request.getSession().getAttribute("name").toString(),message);
 		ChatArray.chats.add(temp);
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}

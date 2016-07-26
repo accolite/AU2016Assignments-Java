@@ -27,8 +27,11 @@ public class Close extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		
+		String name=request.getSession(true).getAttribute("name").toString();
+		String pass=request.getSession(true).getAttribute("pass").toString();
+		ActiveUsers.map.remove(name);
+		request.getSession().invalidate();
+		response.sendRedirect("FrontPage.html");
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
