@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class LoginServlet
@@ -50,19 +51,30 @@ public class LoginServlet extends HttpServlet {
 		String usr = request.getParameter("userid");
 		String pass = request.getParameter("password");
 		String option = request.getParameter("usertype");
+
 		if (option.equals("admin")) {
 			if (usr.equals("Admin") && pass.equals("Password")) {
-				out.println("Admin Logged In");
-				request.getRequestDispatcher("Filter.html").include(request, response);
+				HttpSession session = request.getSession(false);
+				if (session == null)
+					session = request.getSession();
+				session.setAttribute("username", "Admin");
+				session.setAttribute("status", "loggedin");
+				response.sendRedirect("Filter.html");
 			} else {
 				out.print("Sorry, username or password error for admin!");
+				response.sendRedirect("Login.html");
 			}
 		} else {
-			if (hm.get(usr).equals(pass)) {
-				out.println("Successfully Logged In ");
+			if (hm.get(usr) != null && hm.get(usr).equals(pass)) {
+				HttpSession session = request.getSession(false);
+				if (session == null)
+					session = request.getSession();
+				session.setAttribute("username", usr);
+				session.setAttribute("status", "loggedin");
+				response.sendRedirect("Chat.jsp");
 			} else {
 				out.print("Sorry, username or password error!");
-				request.getRequestDispatcher("Login.html");
+				response.sendRedirect("Login.html");
 			}
 		}
 		out.close();
