@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<title>Home</title>
+</head>
+<body>
+<div id="message"></div>
+<div>
+    <form action="http://localhost:8081/ChatBoxAssignment/Authenticate"  method="post">
+    Username:<input type="textbox"  class="form-control"  name="username" />
+    Password:<input type="passowrd" class="form-control"   name="password"/>
+    <br/>
+    <label class="radio-inline"><input type="radio" name="option" value="register">Register</label>
+    <label class="radio-inline"><input type="radio" name="option"  value="login">Login</label>
+    <label class="radio-inline"><input type="radio" name="option"  value="admin">Admin</label>
+   <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+    </div>
+</body>
+</html>
