@@ -25,12 +25,12 @@ public class Logout extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(request.getSession(false) != null){
 			String user = (String) request.getSession().getAttribute("user");
-			if(user!=null){
+			/*if(user!=null){
 				Set<String> activeList = (HashSet<String>)getServletConfig().getServletContext().getAttribute("activeUsers");
 				activeList.remove(user);
 				List<String> chatboard = (ArrayList<String>)getServletConfig().getServletContext().getAttribute("chatboard");
 				chatboard.add("<br/><small>User <b>"+user+"</b> left the chatboard</small><br/>");
-			}
+			}*/
 			request.getSession().invalidate();
 			response.setContentType("text/html");
 			response.getWriter().write("Successfully logged out. Click <a href=\"/ChatBoard/\">here</a> to login" );
