@@ -48,7 +48,7 @@ public class NewPost extends HttpServlet {
 			if(((ArrayList<String>)request.getServletContext().getAttribute("blocked")).size()>0)
 				post = (String) request.getServletContext().getAttribute("filtered");
 		}
-		System.out.println("Filtered post :"+post);
+		//System.out.println("Filtered post :"+post);
 		String user_id = request.getParameter("user_id");
 		HttpSession session = request.getSession(false);
 		Map<String, String> map = new HashMap<>();

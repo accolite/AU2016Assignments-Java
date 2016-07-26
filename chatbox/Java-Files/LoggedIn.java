@@ -9,6 +9,7 @@
 package com.accolite.servletassignment;
 
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -87,23 +88,38 @@ public class LoggedIn implements HttpSessionAttributeListener, HttpSessionListen
 	@Override
 	public void sessionDestroyed(HttpSessionEvent HSE) {
 		// TODO Auto-generated method stub
+		/**
+		 * Get list of logged in users
+		 */
+		
 		Map<String, String> logged_in = (HashMap<String, String>) HSE.getSession().getServletContext().getAttribute("logged_in"); 
     	String username = (String) HSE.getSession().getAttribute("username");
-    	//String id = (String) HSE.getSession().getServletContext().getAttribute("id");
     	try{
+    		/**
+    		 * Delete leaving users from active users
+    		 */
 			while (logged_in.values().remove(username));
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+    	/**
+    	 * Get all posts from application
+    	 */
     	Map<String, Map<String, String>> all_posts = (LinkedHashMap<String, Map<String, String>>) HSE.getSession().getServletContext().getAttribute("all_posts");
 		Map<String, String> user = new HashMap<>();
-		System.out.println("Size here "+all_posts.size());
+
+		/**
+		 * Removed user notification
+		 */
 		user.put("removed", "<h1>User "+ username + " left</h1>");
 		Integer toInsert = new Integer(all_posts.size());
 		if(all_posts.get(toInsert.toString())!=null)
 				toInsert+=all_posts.size();
-		all_posts.put(toInsert.toString(), user);
-		System.out.println("Size here "+all_posts.size());
+		/**
+		 * New unique id for notification
+		 */
+		all_posts.put("2222-"+new Date().toString()+"-"+toInsert.toString(), user);
+		//System.out.println("Size here "+all_posts.size());
 	}
 
 

@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -84,7 +85,7 @@ public class Login extends HttpServlet {
 				if(rs.next()){
 					map.put("status", "true");
 					/**
-					 * If user is admin
+					 * Set status as admin when user is admin
 					 */
 					if(username.equals("admin")){
 						map.put("status", "admin");
@@ -112,14 +113,17 @@ public class Login extends HttpServlet {
 						 */
 						Map<String, Map<String, String>> all_posts = (LinkedHashMap<String, Map<String, String>>) getServletContext().getAttribute("all_posts");
 						Map<String, String> user = new HashMap<>();
-						System.out.println("Size here "+all_posts.size() + " at login");
+						//System.out.println("Size here "+all_posts.size() + " at login");
 						user.put("added", "<h1>User "+ username + " joined</h1>");
 						
+						/**
+						 * Create new id for logged in notification
+						 */
 						Integer toInsert = new Integer(all_posts.size());
 						if(all_posts.get(toInsert.toString())!=null)
 							toInsert+=all_posts.size();
-						all_posts.put(toInsert.toString(), user);
-						System.out.println("Size here "+all_posts.size() + " at login");
+						all_posts.put("1111-"+new Date().toString()+"-"+toInsert.toString(), user);
+						//System.out.println("Size here "+all_posts.size() + " at login");
 						
 					}
 					

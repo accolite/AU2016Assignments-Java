@@ -42,17 +42,34 @@ public class BlockerFilter implements Filter {
 		// place your code here
 
 		// pass the request along the filter chain
-		
+		/**
+		 * Filtered word context variable
+		 */
 		String prev = (String) request.getServletContext().getAttribute("filtered");
 		request.getServletContext().setAttribute("filtered", prev );
 		
+		/**
+		 * List of blocked words
+		 */
 		List<String> blocked = (List<String>) request.getServletContext().getAttribute("blocked");
 		String post_content = (String) request.getParameter("post_content");
-		System.out.println("What is here "+post_content+ " Blocked : "+blocked);
+		
+		/**
+		 * Start filter when Blocked is set
+		 */
 		if(blocked!=null){
+			/**
+			 * Apply filter on Post not being null and some blocked words are set
+			 */
 			if(post_content!=null && blocked.size()>0){
+				/**
+				 * Run for each For each blocked word
+				 */
 				for(String word:blocked){
 					if((post_content).contains(word)){
+						/**
+						 * Replace with arbitrary string here -----
+						 */
 						String filtered = (String) request.getServletContext().getAttribute("filtered");
 						filtered = post_content.replaceAll(word, "----");
 						request.getServletContext().setAttribute("filtered",filtered);
