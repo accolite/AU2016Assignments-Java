@@ -8,7 +8,7 @@
 </head>
 <body>
 <h2>Register Here!</h2>
-	<form action="Register" method="post">
+	<form action="Registration" method="post">
 		User Name : <input type="text" name="username" > <br>
 		Password : <input type="password" name="password"> <br>
 		<input type="submit" value="Register">

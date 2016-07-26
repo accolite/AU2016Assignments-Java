@@ -6,13 +6,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Chat Application</title>
 </head>
-<script>
 <script type="text/javascript" src="Start.js">
 </script>
 </head>
 <body>
+<h1 style="background-color:black; color:white; text-align:center;">Chat Application</h1>
 Welcome <%=session.getAttribute("user") %>
 
+	
 	<div class="container">
 		<div class="row">
 			<div style="float:left;">
@@ -23,15 +24,16 @@ Welcome <%=session.getAttribute("user") %>
 					<br>
 					<input type="text" id="msgbox"> : 
 					<input type="hidden" value='<%=session.getAttribute("user") %>'	id="userbox">
-					<button id="sendbutton">Post</button>
+					<button id="sendbutton" onclick="sendMessage()">Post</button>
 				</div>
 			</div>
-			<div style="float:left;">
-				<div id="usr">
+			<div>
+				<h2 style="text-align:center; font-color:red;">Active Users:</h2>
+				<div id="usr"style="text-align:center;">
 			
-		</div>
+				</div>
 			</div>
-
+		<a href="Logout.jsp">Log out</a>
 		</div>	
 
 

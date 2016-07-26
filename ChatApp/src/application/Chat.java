@@ -27,7 +27,7 @@ public class Chat extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		response.getWriter().append((String)this.getServletContext().getAttribute("chatString"));
 	}
 
 	/**
@@ -35,8 +35,10 @@ public class Chat extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String username = request.getParameter("username");
-		String msg = (String) request.getAttribute("msg");
+		//String username = request.getParameter("username");
+		String username = (String) request.getSession().getAttribute("user");
+		//String msg = (String) request.getAttribute("msg");
+		String msg = (String) request.getParameter("msg");
 		String newmsg = username + " : " + msg + "<br>";
 		if(this.getServletContext().getAttribute("chatString")==null){
 			this.getServletContext().setAttribute("chatString","");

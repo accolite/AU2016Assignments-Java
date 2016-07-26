@@ -1,8 +1,9 @@
 package application;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,15 +40,16 @@ public class Registration extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String username = request.getParameter("username");
+		String password = request.getParameter("password");
 		request.getSession().setAttribute("user", request.getParameter("username"));
 		if(this.getServletContext().getAttribute("usersList") == null){
-			List<String> l = new ArrayList<>();
-			l.add(username);
+			Map<String,String> l = new HashMap<>();
+			l.put(username,password);
 			this.getServletContext().setAttribute("usersList", l);
 		} else {
-			List<String> usersList = (List<String>) this.getServletContext().getAttribute("usersList");
-			if(!usersList.contains(username))
-				usersList.add(username);
+			Map<String,String> usersList = (Map<String,String>) this.getServletContext().getAttribute("usersList");
+			if(!usersList.containsKey(username))
+				usersList.put(username,password);
 			this.getServletContext().setAttribute("usersList",usersList);
 		}
 		response.sendRedirect("Login.jsp");

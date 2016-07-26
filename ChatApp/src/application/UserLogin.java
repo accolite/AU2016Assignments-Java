@@ -3,6 +3,7 @@ package application;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -41,13 +42,19 @@ public class UserLogin extends HttpServlet {
 		// TODO Auto-generated method stub
 		ServletContext sc= request.getServletContext();
 		String username = request.getParameter("username");
-		List<String> allUsers = (List<String>) sc.getAttribute("usersList");
+		String password = request.getParameter("password");
+		Map<String,String> allUsers = (Map<String,String>) sc.getAttribute("usersList");
 		if(allUsers == null){
 			response.getWriter().append("No registered users!");
 			return;
 		}
-		if(!allUsers.contains(username)){
+		if(!allUsers.containsKey(username)){
 			response.getWriter().append("Not a registered user!");
+			return;
+		}
+		
+		if(!allUsers.get(username).equals(password)){
+			response.getWriter().append("Wrong");
 			return;
 		}
 		
