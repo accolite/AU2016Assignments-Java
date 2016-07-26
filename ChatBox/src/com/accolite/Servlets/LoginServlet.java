@@ -57,21 +57,21 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name=request.getParameter("name");
 		String password=request.getParameter("password");
-		//System.out.println("Logged:"+name + " " +password);
+		
 		Map<String, String> users=mainclass.getUsers();
-		Set<String> activeUsers=mainClass.getActiveUsers(); 
+		//Set<String> activeUsers=mainClass.getActiveUsers(); 
+		
 		response.setContentType("text/plains");
 	    response.setCharacterEncoding("UTF-8");
+	    
 	    if(!users.isEmpty() && users.get(name).equals(password)){
 			HttpSession session=request.getSession(false);
 			if(session==null)
 				session=request.getSession();
 			session.setAttribute("username", name);
 			session.setAttribute("status", "loggedin");
-			activeUsers.add(name);
-			//System.out.println("User Logged:"+name+" "+users.get(name));
-			//response.sendRedirect("chatPage.jsp");
-			String msg="     -----"+name+" is online-----";
+			//activeUsers.add(name);
+			String msg="-----"+name+" is online-----";
 			List<String> Messages=mainclass.getMessages();
 			Messages.add(msg);
 			String result="success";
@@ -81,9 +81,8 @@ public class LoginServlet extends HttpServlet {
 	    {
 	    	String result="failed";
 	    	response.getWriter().write(result);
-			//response.sendRedirect("index.html");
 	}
-	}
+}
 	
 	/**
 	 * Do post.

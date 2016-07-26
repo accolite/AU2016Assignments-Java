@@ -22,10 +22,16 @@ function addUser(){
 
 		  var xmlhttp1 = getNewXmlHttp();
 		   xmlhttp1.onreadystatechange = function(){
-			  	//alert("Registration Successful");
-			  	window.location="http://localhost:8080/ChatBox/chatPage.jsp";
-		     
-		   }
+			   if (xmlhttp1.readyState==4 && xmlhttp1.status==200)
+			    {
+			  	 var metaData=xmlhttp1.responseText;
+		      	if(metaData=="success")
+		  				window.location="http://localhost:8080/ChatBox/chatPage.jsp";
+				else
+						window.location="http://localhost:8080/ChatBox/ErrorHandler.html";
+			    }
+		   	}
+		   
 		  var name=document.getElementById("name").value;
 		  var password=document.getElementById("password").value;
 		  var url="http://localhost:8080/ChatBox/RegisterServlet?name="+name+"&password="+password;

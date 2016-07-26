@@ -52,25 +52,19 @@ public class FilterServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 		HttpSession session=request.getSession(false);
 		if(session==null||session.getAttribute("status").equals("loggedout")){
 			//response.sendRedirect("index.html");
-			//return;
+			return;
 		}
 		List<String> Filters=mainclass.getFilters();
 		
-		//if(session.getAttribute("status").equals("AdminLoggin"))
-		//{
-			String filter=request.getParameter("filters");
-			String[] words = filter.split(",");
-			for (String word : words) {
-				Filters.add(word);
-			//}
-		//response.sendRedirect("AdminPage.html");
-		//System.out.println(Filters);
-			}
+		String filter=request.getParameter("filters");
+		String[] words = filter.split(",");
+		for (String word : words) {
+			Filters.add(word);
+		}
 	}
 	
 

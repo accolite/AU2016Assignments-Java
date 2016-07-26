@@ -55,26 +55,34 @@ public class RegisterServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 		String name=request.getParameter("name");
 		String password=request.getParameter("password");
-		//System.out.println("Register:"+name + " " +password);
+		
 		Map<String, String> users=mainclass.getUsers();
 		Set<String> activeUsers=mainClass.getActiveUsers(); 
-		users.put(name,password);
-		activeUsers.add(name);
-		HttpSession session=request.getSession(false);
-		if(session==null)
-			session=request.getSession();
-		session.setAttribute("username", name);
-		session.setAttribute("status", "loggedin");
-		String msg="     -----"+name+" is online-----";
-		List<String> Messages=mainclass.getMessages();
-		Messages.add(msg);
-		//response.sendRedirect("chatPage.jsp");
-	}
+		response.setContentType("text/plains");
+	    response.setCharacterEncoding("UTF-8");
+		if(activeUsers.contains(name)){
+	    	String result="failed";
+	    	response.getWriter().write(result);
 
+		}
+		else{
+			users.put(name,password);
+			//activeUsers.add(name);
+			HttpSession session=request.getSession(false);
+			if(session==null)
+				session=request.getSession();
+			session.setAttribute("username", name);
+			session.setAttribute("status", "loggedin");
+			String msg="-----"+name+" is online-----";
+			List<String> Messages=mainclass.getMessages();
+			Messages.add(msg);
+			String result="success";
+			response.getWriter().write(result);
+		}
+	}
 	/**
 	 * Do post.
 	 *

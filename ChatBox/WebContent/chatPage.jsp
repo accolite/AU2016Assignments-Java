@@ -17,7 +17,7 @@ function getNewXmlHttp(){
 	  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
 	  }
 	  return xmlhttp;
-	}
+}
 
 	var request = 0;
 function sendMessage(){
@@ -27,7 +27,6 @@ function sendMessage(){
 		  // alert("Msg Added");
 	   }
 	  var message=document.getElementById("msg").value;
-	  //var user="Jegan";//=document.getElementById("password").value;
 	  var url="http://localhost:8080/ChatBox/MessageServlet?message="+message;
 	  
 	  xmlhttp1.open("GET",url,true);
@@ -59,7 +58,6 @@ setInterval(function updateActiveUsers(){
 		      document.getElementById("Users").innerHTML=metaData;
 		     }  
 		  }
-	  //document.getElementById("loggedUser").innerHTML=session.getAttribute("username");
 	  var url="http://localhost:8080/ChatBox/UpdateUserServlet";
 	  xmlhttp1.open("GET",url,true);
 	  xmlhttp1.setRequestHeader("Content-type","application/text;charset=UTF-8");

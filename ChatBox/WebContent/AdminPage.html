@@ -15,38 +15,20 @@ function getNewXmlHttp(){
 	  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
 	  }
 	  return xmlhttp;
-	}
+}
 
 function addFilters(){
 	  var xmlhttp1 = getNewXmlHttp();
 	   xmlhttp1.onreadystatechange = function(){
-		  // alert("Msg Added");
 		   window.location="http://localhost:8080/ChatBox/AdminPage.html";
 	   }
 	  var filter=document.getElementById("filters").value;
-	  //var user="Jegan";//=document.getElementById("password").value;
 	  var url="http://localhost:8080/ChatBox/FilterServlet?filters="+filter;
 	  
 	  xmlhttp1.open("GET",url,true);
 	  xmlhttp1.setRequestHeader("Content-type","application/text;charset=UTF-8");
 	  xmlhttp1.send();
 }
-
-//  function adminLogout(){
-
-// 	  var xmlhttp1 = getNewXmlHttp();
-// 	   xmlhttp1.onreadystatechange = function(){
-// 		   alert("Admin Logged Out");
-// 		   window.location="http://localhost:8080/ChatBox/index.html";
-			  
-// 	   }
-// 	  //var user=session.getAttribute("username");
-// 	  var url="http://localhost:8080/ChatBox/LogoutServlet";
-	  
-// 	  xmlhttp1.open("GET",url,true);
-// 	  xmlhttp1.setRequestHeader("Content-type","application/text;charset=UTF-8");
-// 	  xmlhttp1.send();
-// }
 
 </script>
 </head>

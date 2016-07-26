@@ -56,8 +56,8 @@ public class AdminLoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name=request.getParameter("name");
 		String password=request.getParameter("password");
-		System.out.println("Logged:"+name + " " +password);
-		Set<String> activeUsers=mainClass.getActiveUsers(); 
+		
+		//Set<String> activeUsers=mainClass.getActiveUsers(); 
 		response.setContentType("text/plains");
 	    response.setCharacterEncoding("UTF-8");
 		if(name.equals("Admin") && password.equals("RootUser")){
@@ -66,11 +66,10 @@ public class AdminLoginServlet extends HttpServlet {
 				session=request.getSession();
 			session.setAttribute("username", name);
 			session.setAttribute("status", "AdminLoggin");
-			activeUsers.add(name);
-			String msg="-----"+name+" is online-----";
-			List<String> Messages=mainclass.getMessages();
-			Messages.add(msg);
-			System.out.println("Admin Logged:"+name+" "+password);
+			//activeUsers.add(name);
+			//String msg="-----"+name+" is online-----";
+			//List<String> Messages=mainclass.getMessages();
+			//Messages.add(msg);
 			response.getWriter().write("success");
 		}
 		else{

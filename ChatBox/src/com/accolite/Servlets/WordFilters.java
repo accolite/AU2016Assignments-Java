@@ -55,16 +55,13 @@ public class WordFilters implements Filter {
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		//ChatterData cdata=ChatterData.getChatterDataInstance();
+		
 		String message=request.getParameter("message");
 		List<String> Filters=mainclass.getFilters();
-		//System.out.println(Filters);
-		System.out.println("Filters:" + Filters);
-		System.out.println("Message:" + message);
+		
 		for(String words:Filters){
 			message=message.replaceAll(words,"*****");
 		}
-		System.out.println("Message:" + message);
 		request.setAttribute("message", message);
 		chain.doFilter(request, response);		
 	}
