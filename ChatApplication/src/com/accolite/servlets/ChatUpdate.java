@@ -32,7 +32,9 @@ public class ChatUpdate extends HttpServlet {
 		MessageList msgs=(MessageList) getServletConfig().getServletContext().getAttribute("MESSAGES");
 		String data="";
 		for(int i=0;i<msgs.getMessageLst().size();i++){
+			
 			data+="<b>"+msgs.getMessageLst().get(i).getUsername()+"</b>: "+msgs.getMessageLst().get(i).getMessage()+"<br/><br/>";
+			
 		}
 		response.getWriter().write(data);
 	}

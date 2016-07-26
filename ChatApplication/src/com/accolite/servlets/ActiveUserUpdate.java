@@ -28,20 +28,21 @@ public class ActiveUserUpdate extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		ActiveUsers users=(ActiveUsers) getServletConfig().getServletContext().getAttribute("ACTIVE_USERS");
+		String data="";
+		data+="<font color='red'><b>Active Users</b></font><br/>";
+		for(int i=0;i<users.getActiveUsers().size();i++){
+			data+="<b>"+users.getActiveUsers().get(i).getUsername()+"</b><br/><br/>";
+		
+		}
+		response.getWriter().write(data);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ActiveUsers users=(ActiveUsers) getServletConfig().getServletContext().getAttribute("ACTIVE_USERS");
-		String data="";
-		for(int i=0;i<users.getActiveUsers().size();i++){
-			data+="<b>"+users.getActiveUsers().get(i).getUsername()+"</b><br/><br/>";
-		}
-		response.getWriter().write(data);
+		
 	}
 
 }

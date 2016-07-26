@@ -39,10 +39,14 @@ public class SendMessage extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Message msg=new Message();
-		msg.setMessage(request.getParameter("txtMessage"));
+		msg.setMessage(request.getAttribute("txtMessage").toString());
 		msg.setUsername(request.getParameter("hUsername"));
 		MessageList msgLst=(MessageList) getServletConfig().getServletContext().getAttribute("MESSAGES");
+		
 		msgLst.getMessageLst().add(msg);
+		getServletConfig().getServletContext().setAttribute("MESSAGES",msgLst);
+		
+		response.sendRedirect("ChatInterface.jsp?username="+request.getParameter("hUsername"));
 	}
 
 }

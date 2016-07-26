@@ -46,6 +46,7 @@ public class RegisterUser extends HttpServlet {
 		UserList usrlst=new UserList();
 		usrlst=(UserList) getServletConfig().getServletContext().getAttribute("USERS");
 		usrlst.getUserLst().add(newUser);
+		getServletConfig().getServletContext().setAttribute("USERS",usrlst);
 		response.sendRedirect("index.jsp?msg='Registered successfully'");
 	}
 

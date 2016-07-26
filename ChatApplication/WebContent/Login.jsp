@@ -8,13 +8,28 @@
 </head>
 
 <body>
-<form method="post" action="UserAuthentication">
-	<h1>Login!!!!!!!!!</h1>
+<form method="post" action="UserAuthentication" onsubmit="return check()">
+	<h1>Login</h1>
 	<font color="red">
-	<%request.getParameter("msg"); %></font><br/><br/>
+	<%if(request.getParameter("msg")!=null)
+	{
+		out.println(request.getParameter("msg"));
+		}%>
+	</font><br/><br/>
 	Username: <input type="text" id="txtUsername" name="txtUsername"/><br/><br/>
 	Password: <input type="password" id="txtPassword" name="txtPassword"/><br/><br/>
 	<input type="submit" id="sbtLogin" name="sbtLogin" value="Login" style="margin-left: 100px"/>
 </form>
 </body>
+<script>
+function check()
+{
+	var username=document.getElementById("txtUsername").value;
+	var pwd=document.getElementById("txtPassword").value;
+	if(username!='' && pwd!='' && username!=null && pwd!=null){
+		return true;
+	}
+	return false;
+}
+</script>
 </html>

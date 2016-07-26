@@ -7,9 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.accolite.java.Message;
-import com.accolite.java.MessageList;
-
 /**
  * Servlet implementation class Logout
  */
@@ -30,13 +27,8 @@ public class Logout extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		Message msg=new Message();
-		msg.setMessage("Logged out");
-		msg.setUsername(request.getSession().getAttribute("User").toString());
-		request.getSession().setAttribute("User", null);
 		request.getSession().invalidate();
-		MessageList lst=(MessageList) getServletConfig().getServletContext().getAttribute("MESSAGES");
-		lst.getMessageLst().add(msg);
+		
 		response.sendRedirect("index.jsp");
 	}
 
