@@ -6,8 +6,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.accolite.java.ActiveUsers;
+import com.accolite.java.Message;
+import com.accolite.java.MessageList;
 import com.accolite.java.User;
 import com.accolite.java.UserList;
 
@@ -39,27 +40,44 @@ public class UserAuthentication extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		
 		String username=request.getParameter("txtUsername");
 		String password=request.getParameter("txtPassword");
+		
+		request.getSession().setAttribute("User", username);
+		
 		UserList lst=new UserList();
 		ActiveUsers actList=new ActiveUsers();
+		MessageList msgList=new MessageList();
 		lst= (UserList) getServletConfig().getServletContext().getAttribute("USERS");
-		for(int i=0;i<lst.getUserLst().size();i++){
+		msgList=(MessageList) getServletConfig().getServletContext().getAttribute("MESSAGES");
+		int j=0;
+		for(int i=0;i<lst.getUserLst().size();i++)
+		{
 			String usr=lst.getUserLst().get(i).getUsername();
 			String pwd=lst.getUserLst().get(i).getPassword();
-			if(username==usr && password==pwd){
+			if(username.equals(usr) && password.equals(pwd))
+			{
+				j=1;
 				actList=(ActiveUsers) getServletConfig().getServletContext().getAttribute("ACTIVE_USERS");
+				//System.out.println(actList);
 				User user=new User();
 				user.setPassword(password);
 				user.setUsername(username);
 				actList.getActiveUsers().add(user);
-				response.sendRedirect("ChatInterface.jsp?username="+usr);
+				getServletConfig().getServletContext().setAttribute("ACTIVE_USERS",actList);
+				
+				Message msg=new Message();
+				msg.setMessage("Logged in");
+				msg.setUsername(username);
+				msgList.getMessageLst().add(msg);
+				getServletConfig().getServletContext().setAttribute("MESSAGES",msgList);
+				response.sendRedirect("ChatInterface.jsp?username="+username);
 			}
-			else
-			{
-				response.sendRedirect("Login.jsp?msg='Invalid Username and Password'");
-			}
+			
 		}
+		if(j==0)
+			response.sendRedirect("Login.jsp?msg='Invalid Username and Password'");
 		
 	}
 

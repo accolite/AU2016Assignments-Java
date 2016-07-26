@@ -7,19 +7,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.accolite.java.MessageList;
+import com.accolite.java.ActiveUsers;
 
 /**
- * Servlet implementation class ChatUpdate
+ * Servlet implementation class ActiveUserUpdate
  */
-@WebServlet("/ChatUpdate")
-public class ChatUpdate extends HttpServlet {
+@WebServlet("/ActiveUserUpdate")
+public class ActiveUserUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ChatUpdate() {
+    public ActiveUserUpdate() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,13 +28,12 @@ public class ChatUpdate extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		MessageList msgs=(MessageList) getServletConfig().getServletContext().getAttribute("MESSAGES");
+		ActiveUsers users=(ActiveUsers) getServletConfig().getServletContext().getAttribute("ACTIVE_USERS");
 		String data="";
-		for(int i=0;i<msgs.getMessageLst().size();i++){
-			
-			data+="<b>"+msgs.getMessageLst().get(i).getUsername()+"</b>: "+msgs.getMessageLst().get(i).getMessage()+"<br/><br/>";
-			
+		data+="<font color='red'><b>Active Users</b></font><br/>";
+		for(int i=0;i<users.getActiveUsers().size();i++){
+			data+="<b>"+users.getActiveUsers().get(i).getUsername()+"</b><br/><br/>";
+		
 		}
 		response.getWriter().write(data);
 	}
@@ -43,8 +42,7 @@ public class ChatUpdate extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
 	}
 
 }

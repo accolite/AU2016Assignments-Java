@@ -7,19 +7,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.accolite.java.MessageList;
-
 /**
- * Servlet implementation class ChatUpdate
+ * Servlet implementation class Logout
  */
-@WebServlet("/ChatUpdate")
-public class ChatUpdate extends HttpServlet {
+@WebServlet("/Logout")
+public class Logout extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ChatUpdate() {
+    public Logout() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,15 +26,10 @@ public class ChatUpdate extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		MessageList msgs=(MessageList) getServletConfig().getServletContext().getAttribute("MESSAGES");
-		String data="";
-		for(int i=0;i<msgs.getMessageLst().size();i++){
-			
-			data+="<b>"+msgs.getMessageLst().get(i).getUsername()+"</b>: "+msgs.getMessageLst().get(i).getMessage()+"<br/><br/>";
-			
-		}
-		response.getWriter().write(data);
+		
+		request.getSession().invalidate();
+		
+		response.sendRedirect("index.jsp");
 	}
 
 	/**

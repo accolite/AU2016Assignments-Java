@@ -7,9 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form>
+<form action="AdminServlet" method="post">
 <h1>Enter comma separated list of prohibited words</h1>
-<textarea rows="4" cols="50" style="margin-left: 100px"></textarea><br/><br/>
+<textarea rows="4" cols="50" style="margin-left: 100px" id="taBannedWords" name="taBannedWords"></textarea><br/><br/>
 <input type="submit" value="Save" id="sbtSave" name="sbtSave" style="margin-left: 300px"/>
 </form>
 </body>

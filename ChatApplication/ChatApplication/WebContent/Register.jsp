@@ -7,15 +7,22 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form method="post" action="RegisterUser">
+<form method="post" action="RegisterUser" onsubmit="return check()">
 <h1>Register youself</h1>
-<font color="red"><% 
-request.getParameter("msg");
-%></font><br/><br/>
 Username: <input type="text" id="txtUsername" name="txtUsername" style="margin-left: 100px"/><br/><br/>
 Password: <input type="password" id="txtPassword" name="txtPassword" style="margin-left: 100px"/><br/><br/>
 Confirm Password: <input type="password" id="txtConfirmPassword" name="txtConfirmPassword" style="margin-left: 40px"/><br/><br/>
 <input type="submit" id="sbtRegister" name="sbtRegister" value="Register" style="margin-left: 130px"/>
 </form>
 </body>
+<script>
+function check(){
+	var usr=document.getElementById("txtUsername").value;
+	var pwd=document.getElementById("txtPassword").value;
+	var cpwd=document.getElementById("txtConfirmPassword").value;
+	if(usr!=null && pwd!=null && cpwd!=null && usr!="" && pwd!="" && cpwd!="" && pwd==cpwd)
+		return true;
+	return false;
+}
+</script>
 </html>
