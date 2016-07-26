@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<head>
+<script>
+function load(){
+	 var json;
+	 alert("in onload javascript");
+	 if (window.XMLHttpRequest) {
+		 // code for modern browsers
+		 xhttp = new XMLHttpRequest();
+		 } else {
+		 // code for IE6, IE5
+		 xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		 }
+		 	xhttp.onreadystatechange = function () {
+		 		 //alert(xhttp.status+"");
+		 	 if (xhttp.readyState == 4 && xhttp.status == 200) {
+		 		if(xhttp.responseText=="null"||xhttp.responseText==""){
+		 			window.location.href="http://localhost:8082/FirstAU/MainPage.html";
+		 		} 
+		 		else{
+		 			name=xhttp.responseText;
+		 			document.getElementById("name").innerHTML=name;
+		 		}
+		 	 }
+		 		
+		 	};
+		 	xhttp.open("GET", "http://localhost:8082/FirstAU/LoadSession");
+		 	
+		 	xhttp.send();
+}
+function savelo(){
+	if (window.XMLHttpRequest) {
+		 // code for modern browsers
+		 xhttp = new XMLHttpRequest();
+		 } else {
+		 // code for IE6, IE5
+		 xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		 }
+		 	xhttp.onreadystatechange = function () {
+		 		 //alert(xhttp.status+"");
+		 	 if (xhttp.readyState == 4 && xhttp.status == 200) {
+		 		if(xhttp.responseText=="null"||xhttp.responseText==""){
+		 			window.location.href="http://localhost:8082/FirstAU/MainPage.html";
+		 		} 
+		 		else{
+		 			name=xhttp.responseText;
+		 			document.getElementById("name").innerHTML=name;
+		 		}
+		 	 }
+		 		
+		 	};
+		 	xhttp.open("GET", "http://localhost:8082/FirstAU/Ban");
+		 	xhttp.send();
+}
+</script>
+</head>
+<body onload="onload()">
+<input type="text" id="ta"></input>
+<input type="button" id="but" value=" Save and Logout " onclick="savelo()"></input>
+</body>
+</html>

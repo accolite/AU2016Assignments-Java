@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<head>
+<script>
+function clicked(choice) {
+	
+	 var xhttp;
+	 var json;
+if (window.XMLHttpRequest) {
+  // code for modern browsers
+  xhttp = new XMLHttpRequest();
+  } else {
+  // code for IE6, IE5
+  xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+}
+xhttp.onreadystatechange = function() {
+	 //alert(xhttp.status+"");
+  if (xhttp.readyState == 4 && xhttp.status == 200) {
+	
+};
+xhttp.open("GET", "http://localhost:8082/FirstAU/MainPage1?choice=alogin&uname="+document.getElementById("uname").value+"&pw="++document.getElementById("uname").value, true);
+xhttp.send();
+}
+</script>
+</head>
+<body>
+<h3> Insert Details</h3>
+<input type="text" id="uname"></input>
+<input type="password" id="pw"></input>
+<input type="button" id="but" value="Login"></input>
+</body>
+</html>
+</body>
+</html>
