@@ -40,7 +40,7 @@ public class MessageServlet extends HttpServlet {
 			return;
 		}
 		String user=(String)session.getAttribute("username");
-		String message=request.getParameter("message");
+		String message=(String) request.getAttribute("message");
 		//System.out.println(user + " " +message);
 		String msg=user+":"+message;
 		List<String> Messages=mainclass.getMessages();

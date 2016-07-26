@@ -33,22 +33,22 @@ function sendMessage(){
 	  xmlhttp1.send();
 }
 
-function userLogout(){
+// function userLogout(){
 
-	  var xmlhttp1 = getNewXmlHttp();
-	   xmlhttp1.onreadystatechange = function(){
-		   alert(user + " Logged Out");
-		   window.location="http://localhost:8080/ChatBox/index.html";
+// 	  var xmlhttp1 = getNewXmlHttp();
+// 	   xmlhttp1.onreadystatechange = function(){
+// 		   alert(user + " Logged Out");
+// 		   window.location="http://localhost:8080/ChatBox/index.html";
 
-	   }
-	  //var message=document.getElementById("msg").value;
-	  //var user=session.getAttribute("username");
-	  var url="http://localhost:8080/ChatBox/LogoutServlet";
+// 	   }
+// 	  //var message=document.getElementById("msg").value;
+// 	  var user=session.getAttribute("username");
+// 	  var url="http://localhost:8080/ChatBox/LogoutServlet";
 	  
-	  xmlhttp1.open("GET",url,true);
-	  xmlhttp1.setRequestHeader("Content-type","application/text;charset=UTF-8");
-	  xmlhttp1.send();
-}
+// 	  xmlhttp1.open("GET",url,true);
+// 	  xmlhttp1.setRequestHeader("Content-type","application/text;charset=UTF-8");
+// 	  xmlhttp1.send();
+// }
 
 
 setInterval(function updateMessage(){
@@ -99,9 +99,11 @@ setInterval(function updateActiveUsers(){
 			<div style="text-size:20px;font-weight:bold">Active Users:</div>
 				<div id="Users"></div>
 		</div>
+		<form method="get" action="http://localhost:8080/ChatBox/LogoutServlet">
 		<div style="text-size:20px;float:left;font-weight:bold">
-				<input type="button" value="Logout" id="logout" onClick="userLogout()">
+				<input type="submit" value="Logout" id="logout">
 		</div>
+		</form>
 	</div>
 	<br/>
 	<div style="width:700px;height:100px;float:left;align:center;border-style:solid">

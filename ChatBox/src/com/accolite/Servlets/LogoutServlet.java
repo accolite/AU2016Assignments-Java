@@ -38,9 +38,10 @@ public class LogoutServlet extends HttpServlet {
 		}
 		String name=(String) session.getAttribute("username");
 		session.setAttribute("status", "loggedout");
+		//session.invalidate();
 		Set<String> activeUsers=mainClass.getActiveUsers(); 
 		activeUsers.remove(name);
-		//response.sendRedirect("index.html");
+		response.sendRedirect("index.html");
 	}
 
 	/**

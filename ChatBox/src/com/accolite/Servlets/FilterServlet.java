@@ -35,7 +35,7 @@ public class FilterServlet extends HttpServlet {
 		HttpSession session=request.getSession(false);
 		if(session==null||session.getAttribute("status").equals("loggedout")){
 			//response.sendRedirect("index.html");
-			return;
+			//return;
 		}
 		List<String> Filters=mainclass.getFilters();
 		
