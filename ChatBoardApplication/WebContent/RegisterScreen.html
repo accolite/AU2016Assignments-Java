@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+   <body style="background-color:pink">
+      <h1>Registration</h1>
+      <style>
+      </style>
+      <script>
+		
+		
+         
+         function registerUser() {
+           var xhttp;
+           xhttp = new XMLHttpRequest();
+           xhttp.onreadystatechange = function() {
+             if (xhttp.readyState == 4 && xhttp.status == 200) {
+               console.log(xhttp.responseText);
+             }
+           };
+           var loginIdOfUser = document.getElementById("loginid").value;
+           var passwordOfUser = document.getElementById("pass").value;
+           xhttp.open("POST", "http://localhost:9082/ChatBoardApplication/webapi/registerusers/adduser?id=" + loginIdOfUser + "&password=" + passwordOfUser, true);
+           xhttp.send();
+         }
+         
+         
+         
+      </script>
+      <table style="width:100%">
+         <tr style="width:100%">
+            <td style="width:50%">
+               <form>
+                  
+
+                 
+                  LoginId <input type="text" id="loginid" > <br>
+                  Password<input type="text" id="pass"> <br>
+				         <input type="button"  onclick="registerUser()"  value="Register">
+                  <br><br><br><br>
+                  
+               </form>
+            </td>
+            <td style="width:50%">
+               <div class="button2">
+                  <span id="finalResult"></span>
+               </div>
+            </td>
+         </tr>
+      </table>
+   </body>
+</html>

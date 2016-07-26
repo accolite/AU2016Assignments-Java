@@ -1,0 +1,55 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from ValidatingUserService WSDL service -->
+
+  <service name="ValidatingUser" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://chat.accolite.com"/>
+      <parameter name="wsdlServiceElement" value="ValidatingUserService"/>
+      <parameter name="schemaQualified" value="http://chat.accolite.com,http://json.org"/>
+      <parameter name="wsdlServicePort" value="ValidatingUser"/>
+      <parameter name="className" value="com.accolite.chat.ValidatingUserSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="ValidatingUser"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="validateUser" qname="operNS:validateUser" xmlns:operNS="http://chat.accolite.com" returnQName="retNS:validateUserReturn" xmlns:retNS="http://chat.accolite.com" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:Id" xmlns:pns="http://chat.accolite.com" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:userPassword" xmlns:pns="http://chat.accolite.com" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <fault name="JSONException" qname="fns:fault" xmlns:fns="http://chat.accolite.com" class="org.json.JSONException" type="tns:JSONException" xmlns:tns="http://json.org"/>
+      </operation>
+      <parameter name="allowedMethods" value="validateUser"/>
+
+      <typeMapping
+        xmlns:ns="http://chat.accolite.com"
+        qname="ns:>validateUserResponse"
+        type="java:com.accolite.chat.ValidateUserResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://chat.accolite.com"
+        qname="ns:>validateUser"
+        type="java:com.accolite.chat.ValidateUser"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://json.org"
+        qname="ns:JSONException"
+        type="java:org.json.JSONException"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+  </service>
+</deployment>
