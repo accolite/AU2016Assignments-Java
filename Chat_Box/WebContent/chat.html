@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script>
+	function activeUsers()
+	{
+		var xmlhttp =new XMLHttpRequest();
+		xmlhttp.open("GET","http://localhost:8080/ServletAndJsp/login",true);
+    	xmlhttp.send();
+    	xmlhttp.onreadystatechange = function(){
+    	if(xmlhttp.readyState==4)
+    	{
+    		 document.getElementById("active").innerText=xmlhttp.responseText;
+    	}
+	}
+	}
+
+	function doAjax(){
+		
+		setInterval(function(){
+		var xmlhttp =new XMLHttpRequest();
+		var myText= document.getElementById("myText").value;
+		document.getElementById("myText").value="";
+		var chatmsg=document.getElementById("chat").value;
+		
+		if(myText != null && myText!= ""){
+        	xmlhttp.open("GET","http://localhost:8080/ServletAndJsp/home?myText="+myText+"&chat="+chatmsg,true);
+        	xmlhttp.send();
+        	myText="";
+        	xmlhttp.onreadystatechange = function(){
+        	if(xmlhttp.readyState==4)
+        	{
+        	// document.getElementById("active").innerText=xmlhttp.responseText;
+        		 document.getElementById("chat").innerHTML+=xmlhttp.responseText;
+        	}
+    	}
+	}
+		},3000);
+}
+</script>
+</head>
+<body align="center">
+<h1>CHAT Room!!</h1>
+<div id="active"> </div>
+Your Message:<input type="text" name="myText" id="myText"></input>
+Messages:<textarea name="chat" id="chat"></textarea>
+<input type="submit" value="Send" onclick="doAjax()"></input>
+</br>
+
+<form>
+<input type="submit" value="activeUsers" onclick="activeUsers()"></input>
+</form>
+
+
+<form action="logout">
+<input type="submit" value="logout"></input>
+</form>
+
+</body>
+</html>
