@@ -1,7 +1,6 @@
 package com.accolite.Servlets;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -13,19 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class RegisterServlet
+ * Servlet implementation class AdminLoginServlet
  */
-@WebServlet("/RegisterServlet")
-public class RegisterServlet extends HttpServlet {
+@WebServlet("/AdminLoginServlet")
+public class AdminLoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
 	mainClass mainclass=new mainClass();
-    
-	/**
+    /**
      * @see HttpServlet#HttpServlet()
      */
-    
-	public RegisterServlet() {
+    public AdminLoginServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,17 +34,22 @@ public class RegisterServlet extends HttpServlet {
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		String name=request.getParameter("name");
 		String password=request.getParameter("password");
-		//System.out.println("Register:"+name + " " +password);
-		Map<String, String> users=mainclass.getUsers();
+		System.out.println("Logged:"+name + " " +password);
 		Set<String> activeUsers=mainClass.getActiveUsers(); 
-		users.put(name,password);
-		activeUsers.add(name);
-		HttpSession session=request.getSession(false);
-		if(session==null)
-			session=request.getSession();
-		session.setAttribute("username", name);
-		session.setAttribute("status", "loggedin");
-		//response.sendRedirect("chatPage.html");
+		if(name.equals("Admin") && password.equals("RootUser")){
+			HttpSession session=request.getSession(false);
+			if(session==null)
+				session=request.getSession();
+			session.setAttribute("username", name);
+			session.setAttribute("status", "AdminLoggin");
+			activeUsers.add(name);
+			System.out.println("Admin Logged:"+name+" "+password);
+			//response.sendRedirect("AdminPage.html");
+		}
+		else{
+			System.out.println("Invalid Admin");
+			//response.sendRedirect("index.html");
+		}
 	}
 
 	/**

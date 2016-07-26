@@ -3,12 +3,45 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Admin Login</title>
+<script>
+function getNewXmlHttp(){
+	var xmlhttp;
+	if (window.XMLHttpRequest)
+	  {
+	  xmlhttp=new XMLHttpRequest();
+	  }
+	else
+	  {
+	  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	  }
+	  return xmlhttp;
+	}
+
+function checkAdmin(){
+		var xmlhttp1 = getNewXmlHttp();
+	   xmlhttp1.onreadystatechange = function(){
+		  	//alert("Admin Loggin");
+	  	window.location="http://localhost:8080/ChatBox/AdminPage.html";
+	  
+	   }
+	  var name=document.getElementById("name").value;
+	  var password=document.getElementById("password").value;
+	  var url="http://localhost:8080/ChatBox/AdminLoginServlet?name="+name+"&password="+password;
+	  
+	  xmlhttp1.open("GET",url,true);
+	  xmlhttp1.setRequestHeader("Content-type","application/text;charset=UTF-8");
+	  xmlhttp1.send();
+
+	
+	
+}
+</script>
 </head>
 <body>
 	<div>
 		<input type="textarea" id="name" rows="10" cols="25" placeholder="Admin"><br/>
 		<input type="textarea" id="password" rows="10" cols="25" placeholder="Password"><br/>
-		<input type="submit" value="Register" onClick="CheckAdmin()"><br/><br/>
+		<input type="submit" value="Admin Login" onClick="checkAdmin()"><br/><br/>
 		</div>
 </body>
 </html>

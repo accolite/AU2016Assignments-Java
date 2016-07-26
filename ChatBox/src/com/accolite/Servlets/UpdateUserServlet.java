@@ -2,7 +2,6 @@ package com.accolite.Servlets;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.ServletException;
@@ -10,22 +9,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class RegisterServlet
+ * Servlet implementation class UpdateUserServlet
  */
-@WebServlet("/RegisterServlet")
-public class RegisterServlet extends HttpServlet {
+@WebServlet("/UpdateUserServlet")
+public class UpdateUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+    mainClass mainclass=new mainClass();   
 	
-	mainClass mainclass=new mainClass();
-    
-	/**
+    /**
      * @see HttpServlet#HttpServlet()
      */
-    
-	public RegisterServlet() {
+    public UpdateUserServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,19 +32,17 @@ public class RegisterServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		String name=request.getParameter("name");
-		String password=request.getParameter("password");
-		//System.out.println("Register:"+name + " " +password);
-		Map<String, String> users=mainclass.getUsers();
 		Set<String> activeUsers=mainClass.getActiveUsers(); 
-		users.put(name,password);
-		activeUsers.add(name);
-		HttpSession session=request.getSession(false);
-		if(session==null)
-			session=request.getSession();
-		session.setAttribute("username", name);
-		session.setAttribute("status", "loggedin");
-		//response.sendRedirect("chatPage.html");
+		String user[] = new String[activeUsers.size()];
+		String users="";
+		activeUsers.toArray(user);
+		for(String u:user){
+			users=users+"<br/>"+u;
+		}
+		System.out.println("Active Users:"+ users);
+	    response.setContentType("text/plains");
+	    response.setCharacterEncoding("UTF-8");
+	    response.getWriter().write(users);
 	}
 
 	/**

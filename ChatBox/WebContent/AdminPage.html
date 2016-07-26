@@ -3,18 +3,61 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Admin Page</title>
+<script>
+function getNewXmlHttp(){
+	var xmlhttp;
+	if (window.XMLHttpRequest)
+	  {
+	  xmlhttp=new XMLHttpRequest();
+	  }
+	else
+	  {
+	  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	  }
+	  return xmlhttp;
+	}
+
+function addFilters(){
+	  var xmlhttp1 = getNewXmlHttp();
+	   xmlhttp1.onreadystatechange = function(){
+		  // alert("Msg Added");
+		   window.location="http://localhost:8080/ChatBox/AdminPage.html";
+	   }
+	  var filter=document.getElementById("filters").value;
+	  //var user="Jegan";//=document.getElementById("password").value;
+	  var url="http://localhost:8080/ChatBox/FilterServlet?filters="+filter;
+	  
+	  xmlhttp1.open("GET",url,true);
+	  xmlhttp1.setRequestHeader("Content-type","application/text;charset=UTF-8");
+	  xmlhttp1.send();
+}
+
+function adminLogout(){
+
+	  var xmlhttp1 = getNewXmlHttp();
+	   xmlhttp1.onreadystatechange = function(){
+		   alert("Admin Logged Out");
+		   window.location="http://localhost:8080/ChatBox/index.html";
+			  
+	   }
+	  //var user=session.getAttribute("username");
+	  var url="http://localhost:8080/ChatBox/LogoutServlet";
+	  
+	  xmlhttp1.open("GET",url,true);
+	  xmlhttp1.setRequestHeader("Content-type","application/text;charset=UTF-8");
+	  xmlhttp1.send();
+}
+
+</script>
 </head>
 <body>
+	<h1>Welcome Admin</h1>
 	<br/><br/>
-	<div style="width:600px;height:100px;align:center;border-style:solid">
-			<div style="width:400px;height:50px;align:center;margin:10px 10px 0px 20px">
-				<input type="text" id="msg" placeholder="Enter Filters"></textarea>
-			</div>
-			<div style="text-size:20px;font-weight:bold;margin:0px 10px 0px 20px">
-				<input type="button" value="Add Filter" id="filter">
-				<input type="button" value="Logout" id="logout">
-			</div>
-		</div>
+	<div>
+		<textarea rows="10" cols="20" placeholder="enter comma separated filters" name="filters" id="filters"></textarea><br/>
+		<input type="submit" value="Add Filters" onClick="addFilters()">
+		<input type="submit" value="logout" onClick="adminLogout()">
+	</div>
 	
 </body>
 </html>
