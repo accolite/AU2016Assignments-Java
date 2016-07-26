@@ -9,15 +9,17 @@
 <body>
 
 <% if(session!=null && session.getAttribute("id")!=null && session.getAttribute("id").equals("admin")){
-	pageContext.getServletContext().setAttribute("blocked",new java.util.ArrayList<String>());
 %>
+	
+	<script type="text/javascript" src="js/jquery-latest.min.js"></script>
 	<div style="text-align:center">
 		<div>
-			<textarea id="blockedwords"></textarea>
+			<input id="blockedwords" type="text"></input>
 			<button id="blockthese">Block</button>
 		</div>
 	
 	<h1>ADMIN</h1>
+	<script type="text/javascript" src="js/main.js"></script>
 	</div>
 <%}else{%>
 	<h1> CANNOT ACCESS ADMIN </h1> 

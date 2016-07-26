@@ -13,12 +13,14 @@ $(document).ready(function(){
 	 * Output: unsuccessful login - invalid/empty error
 	 */
     $("#submitbtn").click(function(){
+
         var u_name = $("#username").val();
         var pwd = $("#password").val();
         $.post("Login", {"username" : u_name, "password" : pwd}, 
         		function(data){
         			if(data.status == "true"){
         				location.href="logged_in.jsp";
+        		    	allPOSTS();
         			}else if(data.status == "admin"){
         				location.href="admin.jsp";
         			}
@@ -36,7 +38,6 @@ $(document).ready(function(){
 	 * Output: unsuccessful login - invalid/empty/already registered error
      */
     $("#registerbtn").click(function(){
-        
     	var u_name = $("#username").val();
         var pwd = $("#password").val();
         $.post("Register", {"username" : u_name, "password" : pwd}, 
@@ -97,6 +98,28 @@ $(document).ready(function(){
                 },"json");
     });
     
+
+	/**
+	 * Block
+	 * input: comma separated values of blocked words
+	 * Output: successful - blocked
+	 * Output: unsuccessful - invalid/empty error
+	 */
+    $("#blockthese").click(function(){
+
+        var blocked = $("#blockedwords").val();
+        $.post("Blocked", {"blocked" : blocked}, 
+        		function(data){
+        			if(data.status == "true"){
+        				alert("success");
+        			}
+        			else{
+        				alert("failure");
+        			}
+        },"json");
+    });
+    
+    
     /**
      * All Posts
      * input: none
@@ -104,18 +127,19 @@ $(document).ready(function(){
      */
     function allPOSTS(){
 	    var user_id = $("body").attr("data-id").toString();
-
+	    var x = [];
 			$.get("AllPosts", {"user_id" : user_id}, 
 	    		function(data){
-	    			if(data["-1"]!=null){
+					x[0] = data;
+	    			if(x[0]["-1"]!=null){
 	    				$('#allPosts').html(data["-1"]["post_contents"]);
-	    			}else if(data["-2"]!=null){
+	    			}else if(x[0]["-2"]!=null){
 	    				$('#allPosts').html(data["-2"]["post_contents"]);
-	    			}else if(data["-3"]!=null){
+	    			}else if(x[0]["-3"]!=null){
 	    				$('#allPosts').html(data["-3"]["post_contents"]);
 	    			}else{
 	    				$('#allPosts').html("");
-	    				$.each(data, function(k, v) {
+	    				$.each(x[0], function(k, v) {
 	    				    //display the key and value pair
 	    					if(v["removed"]!=null) $('#allPosts').append(v["removed"]);
 	    					else if(v["added"]!=null) $('#allPosts').append(v["added"]);
@@ -156,6 +180,8 @@ $(document).ready(function(){
     /**
      * Call every 2 seconds to update details
      */
+    allPOSTS();
+    activeUSERS();
     window.setInterval(allPOSTS, 2000);
     window.setInterval(activeUSERS, 2000);
    

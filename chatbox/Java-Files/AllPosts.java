@@ -91,13 +91,12 @@ public class AllPosts extends HttpServlet {
 				while(rs.next()){
 					count+=1;
 					submap = new HashMap<>();
+					Integer post_id = new Integer(rs.getInt("post_id"));
 					submap.put("post_content",rs.getString("post_content"));
 					submap.put("time_posted", rs.getString("time_posted"));
 					Integer user = rs.getInt("user_id");
 					submap.put("user_id", user.toString());
-	
-					count+=1;
-					map.put(count.toString(),submap);
+					map.put("0000-"+post_id.toString()+"-"+user.toString(),submap);
 				}
 				/**
 				 * Getting user names
@@ -137,7 +136,9 @@ public class AllPosts extends HttpServlet {
 	 * Return JSON of posts using GSON
 	 */
 	
-	all_posts.putAll(map);
+	for(String i: map.keySet()){
+		all_posts.putIfAbsent(i, map.get(i));
+	}
 
 	String json = new Gson().toJson(all_posts);
 	response.setContentType("application/json");

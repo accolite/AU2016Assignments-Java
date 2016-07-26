@@ -112,8 +112,14 @@ public class Login extends HttpServlet {
 						 */
 						Map<String, Map<String, String>> all_posts = (LinkedHashMap<String, Map<String, String>>) getServletContext().getAttribute("all_posts");
 						Map<String, String> user = new HashMap<>();
+						System.out.println("Size here "+all_posts.size() + " at login");
 						user.put("added", "<h1>User "+ username + " joined</h1>");
-						all_posts.put(new Integer(all_posts.size()+1).toString(), user);
+						
+						Integer toInsert = new Integer(all_posts.size());
+						if(all_posts.get(toInsert.toString())!=null)
+							toInsert+=all_posts.size();
+						all_posts.put(toInsert.toString(), user);
+						System.out.println("Size here "+all_posts.size() + " at login");
 						
 					}
 					
@@ -126,7 +132,8 @@ public class Login extends HttpServlet {
     	} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			map.put("status", "false");
+			if(request.getSession(false)==null)
+				map.put("status", "false");
 			map.put("content", e.getMessage());
 		}
     	

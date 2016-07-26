@@ -97,9 +97,13 @@ public class LoggedIn implements HttpSessionAttributeListener, HttpSessionListen
 		}
     	Map<String, Map<String, String>> all_posts = (LinkedHashMap<String, Map<String, String>>) HSE.getSession().getServletContext().getAttribute("all_posts");
 		Map<String, String> user = new HashMap<>();
+		System.out.println("Size here "+all_posts.size());
 		user.put("removed", "<h1>User "+ username + " left</h1>");
-		all_posts.put(new Integer(all_posts.size()+1).toString(), user);
-		
+		Integer toInsert = new Integer(all_posts.size());
+		if(all_posts.get(toInsert.toString())!=null)
+				toInsert+=all_posts.size();
+		all_posts.put(toInsert.toString(), user);
+		System.out.println("Size here "+all_posts.size());
 	}
 
 

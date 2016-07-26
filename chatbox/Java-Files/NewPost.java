@@ -43,6 +43,8 @@ public class NewPost extends HttpServlet {
 		 * Get post entered and user_id
 		 */
 		String post = request.getParameter("post_content");
+		post = (String) request.getServletContext().getAttribute("filtered");
+		System.out.println("Filtered post :"+post);
 		String user_id = request.getParameter("user_id");
 		HttpSession session = request.getSession(false);
 		Map<String, String> map = new HashMap<>();
