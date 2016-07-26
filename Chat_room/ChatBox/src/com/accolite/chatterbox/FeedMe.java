@@ -29,6 +29,8 @@ public class FeedMe extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * 
+	 * GET mothed handled here, feeds the user with updated info
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ChatterData cdata=ChatterData.getChatterDataInstance();
@@ -38,9 +40,11 @@ public class FeedMe extends HttpServlet {
 			return;
 		}
 		//session exists and user logged in, so write him the information
+		//again for simplicity sending the response with activeUsers and messages as single entity
 		PrintWriter out=response.getWriter();
 		for(String au:cdata.getActiveUsers())
 			out.append(au+"<br>");
+		//appending delimiter to separate the active users from the message
 		out.append(":::");
 		out.append(cdata.getMessages());
 		out.close();

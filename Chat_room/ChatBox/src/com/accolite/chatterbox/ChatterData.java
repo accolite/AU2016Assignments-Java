@@ -46,7 +46,9 @@ public class ChatterData {
 	/**
 	 * Gets the chatter data instance.
 	 *
-	 *static method to get the instance of this singleton class
+	 * static method to get the instance of this singleton class
+	 * either any servlet, filter or listener in the web container might invoke this
+	 * threadsafe so you can access it from multi-threaded environment also
 	 *
 	 * @return the chatter data instance
 	 */
@@ -65,16 +67,21 @@ public class ChatterData {
 	/**
 	 * Do authorize.
 	 *
-	 * @param name the user name
+	 * @param name the name
 	 * @param password the password
-	 * @return true, if successful
+	 * @return the int 1-user exist, 0-username exist and -1-user not found
 	 */
-	public boolean doAuthorize(String name, String password) {
+	public int doAuthorize(String name, String password) {
 		for (String u : users) {
-			if (u.equals(name + ":" + password))
-				return true;
+			//user stored in as string with ':' separating name and password
+			String []userAuth=u.split(":");
+			if(userAuth[0].equals(name)){
+				if(userAuth[1].equals(password))
+					return 1;
+				else return 0;
+			}
 		}
-		return false;
+		return -1;
 	}
 
 	/**
@@ -84,8 +91,8 @@ public class ChatterData {
 	 * @param password the password
 	 */
 	public void addUser(String name, String password) {
-		if (!doAuthorize(name, password))
-			users.add(name + ":" + password);
+		//adding user name and password as single entity for simplicity purpose
+		users.add(name + ":" + password);
 	}
 
 	/**
@@ -108,7 +115,8 @@ public class ChatterData {
 	 * @param message the message
 	 */
 	public void addMessage(String user, String message) {
-		//concatenating to the message string, in order to display recent message at the top the older message attached at the end
+		//concatenating to the message string, in order to display recent message at the top, the older message attached at the end
+		//the <br> is the html break tag, again for simplicity purpose storing the message in single entity
 		messages = user + ":" + message + "<br>" + messages;
 	}
 
@@ -124,7 +132,7 @@ public class ChatterData {
 	/**
 	 * Gets the filters.
 	 *
-	 * @return the filters
+	 * @return the filters, not the actual list but the copy of the list as an array
 	 */
 	public String[] getFilters() {
 		String[]filters=new String[this.filters.size()];
@@ -135,7 +143,7 @@ public class ChatterData {
 	/**
 	 * Gets the active users.
 	 *
-	 * @return the active users
+	 * @return the active users, not the actual set but the copy of the set as an array
 	 */
 	public String[] getActiveUsers() {
 		String[]activeUsers=new String[this.activeUsers.size()];
