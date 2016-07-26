@@ -102,8 +102,8 @@ $(document).ready(function(){
 	/**
 	 * Block
 	 * input: comma separated values of blocked words
-	 * Output: successful - blocked
-	 * Output: unsuccessful - invalid/empty error
+	 * Output: successful - nothing
+	 * Output: unsuccessful - Error response on javascript
 	 */
     $("#blockthese").click(function(){
 
@@ -154,7 +154,8 @@ $(document).ready(function(){
     
     /**
      * Active users
-     * Current active users at service
+     * input: nothing
+     * output: Current active users at service
      */
     function activeUSERS(){
     	var user_id = $("body").attr("data-id").toString();
@@ -178,10 +179,14 @@ $(document).ready(function(){
     
     }
     /**
-     * Call every 2 seconds to update details
+     * Call on load
      */
     allPOSTS();
     activeUSERS();
+
+    /**
+     * Call every 2 seconds to update details
+     */
     window.setInterval(allPOSTS, 2000);
     window.setInterval(activeUSERS, 2000);
    
