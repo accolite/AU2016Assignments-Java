@@ -1,3 +1,13 @@
+/****************************************************************************
+* Copyright (c) 2016 by Accolite.com. All rights reserved
+*
+* Created date :: Jul 25, 2016
+*
+*  @author :: Jegan Muthaiah
+* ***************************************************************************
+*/
+
+
 package com.accolite.Servlets;
 
 import java.io.IOException;
@@ -12,15 +22,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+// TODO: Auto-generated Javadoc
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class LoginServlet.
  */
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
        
+	/** The mainclass. */
 	mainClass mainclass=new mainClass();
+    
     /**
+     * Instantiates a new login servlet.
+     *
      * @see HttpServlet#HttpServlet()
      */
     public LoginServlet() {
@@ -29,6 +46,12 @@ public class LoginServlet extends HttpServlet {
     }
 
 	/**
+	 * Do get.
+	 *
+	 * @param request the request
+	 * @param response the response
+	 * @throws ServletException the servlet exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -47,7 +70,7 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("status", "loggedin");
 			activeUsers.add(name);
 			//System.out.println("User Logged:"+name+" "+users.get(name));
-			//response.sendRedirect("chatPage.html");
+			//response.sendRedirect("chatPage.jsp");
 			String msg="     -----"+name+" is online-----";
 			List<String> Messages=mainclass.getMessages();
 			Messages.add(msg);
@@ -61,7 +84,14 @@ public class LoginServlet extends HttpServlet {
 			//response.sendRedirect("index.html");
 	}
 	}
+	
 	/**
+	 * Do post.
+	 *
+	 * @param request the request
+	 * @param response the response
+	 * @throws ServletException the servlet exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

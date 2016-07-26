@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <title>Chat</title>
@@ -71,7 +73,7 @@ setInterval(function updateActiveUsers(){
 </head>
 <body>
 	<h1>Welcome to J-Chat </h1>
-	<h2  id="loggedUser"></h2>
+	<h2  id="loggedUser"><%= session.getAttribute("username") %></h2>
 	<script></script>
 	<div style="float:left">
 		<div style="width:300px;height:300px;float:left;align:center;border-style:solid;overflow:scroll;margin:20px 30px 20px 20px">

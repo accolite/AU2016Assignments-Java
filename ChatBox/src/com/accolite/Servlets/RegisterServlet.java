@@ -1,3 +1,12 @@
+/****************************************************************************
+* Copyright (c) 2016 by Accolite.com. All rights reserved
+*
+* Created date :: Jul 25, 2016
+*
+*  @author :: Jegan Muthaiah
+* ***************************************************************************
+*/
+
 package com.accolite.Servlets;
 
 import java.io.IOException;
@@ -12,18 +21,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+// TODO: Auto-generated Javadoc
 /**
- * Servlet implementation class RegisterServlet
+ * Servlet implementation class RegisterServlet.
  */
 @WebServlet("/RegisterServlet")
 public class RegisterServlet extends HttpServlet {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
+	/** The mainclass. */
 	mainClass mainclass=new mainClass();
     
 	/**
-     * @see HttpServlet#HttpServlet()
-     */
+	 * Instantiates a new register servlet.
+	 *
+	 * @see HttpServlet#HttpServlet()
+	 */
     
 	public RegisterServlet() {
         super();
@@ -31,6 +46,12 @@ public class RegisterServlet extends HttpServlet {
     }
 
 	/**
+	 * Do get.
+	 *
+	 * @param request the request
+	 * @param response the response
+	 * @throws ServletException the servlet exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -51,10 +72,16 @@ public class RegisterServlet extends HttpServlet {
 		String msg="     -----"+name+" is online-----";
 		List<String> Messages=mainclass.getMessages();
 		Messages.add(msg);
-		//response.sendRedirect("chatPage.html");
+		//response.sendRedirect("chatPage.jsp");
 	}
 
 	/**
+	 * Do post.
+	 *
+	 * @param request the request
+	 * @param response the response
+	 * @throws ServletException the servlet exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

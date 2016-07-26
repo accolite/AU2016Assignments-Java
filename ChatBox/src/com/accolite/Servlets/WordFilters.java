@@ -1,3 +1,11 @@
+/****************************************************************************
+* Copyright (c) 2016 by Accolite.com. All rights reserved
+*
+* Created date :: Jul 26, 2016
+*
+*  @author :: Jegan Muthaiah
+* ***************************************************************************
+*/
 package com.accolite.Servlets;
 
 import java.io.IOException;
@@ -11,12 +19,14 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 
+// TODO: Auto-generated Javadoc
 /**
- * Servlet Filter implementation class WordFilters
+ * Servlet Filter implementation class WordFilters.
  */
 @WebFilter("/MessageServlet/*")
 public class WordFilters implements Filter {
 
+	/** The mainclass. */
 	mainClass mainclass=new mainClass();
     /**
      * Default constructor. 
@@ -26,6 +36,8 @@ public class WordFilters implements Filter {
     }
 
 	/**
+	 * Destroy.
+	 *
 	 * @see Filter#destroy()
 	 */
 	public void destroy() {
@@ -33,6 +45,13 @@ public class WordFilters implements Filter {
 	}
 
 	/**
+	 * Do filter.
+	 *
+	 * @param request the request
+	 * @param response the response
+	 * @param chain the chain
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ServletException the servlet exception
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -51,6 +70,10 @@ public class WordFilters implements Filter {
 	}
 
 	/**
+	 * Inits the.
+	 *
+	 * @param fConfig the f config
+	 * @throws ServletException the servlet exception
 	 * @see Filter#init(FilterConfig)
 	 */
 	public void init(FilterConfig fConfig) throws ServletException {

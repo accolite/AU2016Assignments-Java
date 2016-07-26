@@ -1,3 +1,12 @@
+/****************************************************************************
+* Copyright (c) 2016 by Accolite.com. All rights reserved
+*
+* Created date :: Jul 25, 2016
+*
+*  @author :: Jegan Muthaiah
+* ***************************************************************************
+*/
+
 package com.accolite.Servlets;
 
 import java.io.IOException;
@@ -12,14 +21,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+// TODO: Auto-generated Javadoc
 /**
- * Servlet implementation class AdminLoginServlet
+ * Servlet implementation class AdminLoginServlet.
  */
 @WebServlet("/AdminLoginServlet")
 public class AdminLoginServlet extends HttpServlet {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** The mainclass. */
 	mainClass mainclass=new mainClass();
+    
     /**
+     * Instantiates a new admin login servlet.
+     *
      * @see HttpServlet#HttpServlet()
      */
     public AdminLoginServlet() {
@@ -28,11 +45,15 @@ public class AdminLoginServlet extends HttpServlet {
     }
 
 	/**
+	 * Do get.
+	 *
+	 * @param request the request
+	 * @param response the response
+	 * @throws ServletException the servlet exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		String name=request.getParameter("name");
 		String password=request.getParameter("password");
 		System.out.println("Logged:"+name + " " +password);
@@ -50,16 +71,20 @@ public class AdminLoginServlet extends HttpServlet {
 			List<String> Messages=mainclass.getMessages();
 			Messages.add(msg);
 			System.out.println("Admin Logged:"+name+" "+password);
-			//response.sendRedirect("AdminPage.html");
 			response.getWriter().write("success");
 		}
 		else{
 			response.getWriter().write("failed");
-			//response.sendRedirect("index.html");
 		}
 	}
 
 	/**
+	 * Do post.
+	 *
+	 * @param request the request
+	 * @param response the response
+	 * @throws ServletException the servlet exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

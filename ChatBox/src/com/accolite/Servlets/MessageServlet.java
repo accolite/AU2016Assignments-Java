@@ -1,3 +1,12 @@
+/****************************************************************************
+* Copyright (c) 2016 by Accolite.com. All rights reserved
+*
+* Created date :: Jul 25, 2016
+*
+*  @author :: Jegan Muthaiah
+* ***************************************************************************
+*/
+
 package com.accolite.Servlets;
 
 import java.io.IOException;
@@ -11,15 +20,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+// TODO: Auto-generated Javadoc
 /**
- * Servlet implementation class MessageServlet
+ * Servlet implementation class MessageServlet.
  */
 @WebServlet("/MessageServlet")
 public class MessageServlet extends HttpServlet {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
        
+	/** The mainclass. */
 	mainClass mainclass=new mainClass();
+    
     /**
+     * Instantiates a new message servlet.
+     *
      * @see HttpServlet#HttpServlet()
      */
     public MessageServlet() {
@@ -28,6 +44,12 @@ public class MessageServlet extends HttpServlet {
     }
 
 	/**
+	 * Do get.
+	 *
+	 * @param request the request
+	 * @param response the response
+	 * @throws ServletException the servlet exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -49,6 +71,12 @@ public class MessageServlet extends HttpServlet {
 	}
 
 	/**
+	 * Do post.
+	 *
+	 * @param request the request
+	 * @param response the response
+	 * @throws ServletException the servlet exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
