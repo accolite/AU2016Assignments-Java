@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -111,8 +112,10 @@ public class Register extends HttpServlet {
 						Map<String, Map<String, String>> all_posts = (LinkedHashMap<String, Map<String, String>>) getServletContext().getAttribute("all_posts");
 						Map<String, String> user = new HashMap<>();
 						user.put("added", "<h1>User "+ username + " joined</h1>");
-						all_posts.put(new Integer(all_posts.size()+1).toString(), user);
-						
+						Integer toInsert = new Integer(all_posts.size());
+						if(all_posts.get(toInsert.toString())!=null)
+							toInsert+=all_posts.size();
+						all_posts.put("1111-"+new Date().toString()+"-"+toInsert.toString(), user);
 					}
 					
 				}
@@ -120,8 +123,9 @@ public class Register extends HttpServlet {
 		    	statement.close();
 		    	connection.close();
     		}
-    	} catch (ClassNotFoundException | SQLException e) {
+    	} catch (ClassNotFoundException | NullPointerException | SQLException e) {
 			// TODO Auto-generated catch block
+    		if(request.getSession(false)==null)
     		map.put("status", "false");
 			e.printStackTrace();
 			map.put("content", e.getMessage());
