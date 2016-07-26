@@ -74,7 +74,7 @@ public class LoginHandler extends HttpServlet {
 		if(this.getServletContext().getAttribute("chatString")==null){
 			this.getServletContext().setAttribute("chatString",username + " has joined <br>");
 		} else {
-			this.getServletContext().setAttribute("chatString",this.getServletContext().getAttribute("chatString") + "<br>" + username + " has joined <br>");
+			this.getServletContext().setAttribute("chatString",this.getServletContext().getAttribute("chatString") + username + " has joined <br>");
 		}
 		response.sendRedirect("chatbox.jsp");
 	}

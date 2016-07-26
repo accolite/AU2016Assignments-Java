@@ -1,8 +1,17 @@
 $(document).ready(function(){
 
-	$("#sendbutton").click(function(){
+$("#sendbutton").click(sendmsg);
+$("#msgbox").keypress(function(e){
+	if(e.which == 13){
+		sendmsg();
+	}
+});
 
-		var x = { username:$("#userbox").val(),	msg:$("#msgbox").val() }
+	var sendmsg = function(){
+	if($("#msgbox").val() == "" || $("#msgbox").val() == null)
+		return;
+
+	var x = { username:$("#userbox").val(),	msg:$("#msgbox").val() }
 
 		$.ajax({
 		    url: 'doChat',
@@ -14,7 +23,9 @@ $(document).ready(function(){
 		    }
 		});
 		$("#msgbox").val("");
-	});
+	};
+
+
 
 	var msgpoll = function(){
 		$.get( "doChat", function( data ) {
@@ -32,4 +43,5 @@ $(document).ready(function(){
 	usrpoll();
 	setInterval(msgpoll, 2000);
 	setInterval(usrpoll, 2000);
+	$("#msg").scrollTop = $("#msg").scrollHeight;
 });
