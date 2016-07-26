@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<style>
+.chat {
+ float: left;
+ width: 50%;
+ left: 15%;
+ height: 500px;
+ border-style: solid;
+ border-width: 2px;
+}
+.activeuser{
+ float: left;
+ width: 20%;
+ margin-left: 8px;
+ height: 500px;
+ border-style: solid;
+ border-width: 2px;
+}
+</style>
+
+<script>
+function getNewXmlHttp(){
+ var xmlhttp;
+ if (window.XMLHttpRequest)
+   {
+   xmlhttp=new XMLHttpRequest();
+   }
+ else
+   {
+   xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+   }
+   return xmlhttp;
+}
+function Ajax() {
+   var xmlhttp = getNewXmlHttp();
+   var message = document.getElementById("message").value;
+
+   xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+     var text = xmlhttp.responseText;
+     console.log(text);
+     console.log("hello from xmlhttp");
+    }
+   }
+   
+     var parameters = "message="+message;
+ 
+   xmlhttp.open("POST","http://localhost:8090/ServletProject/ChatServlet", true);
+   xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+   xmlhttp.send(parameters);
+
+}
+
+function startup(){
+ setInterval(getMessage(),1000);
+ setInterval(getActiveUsers(),1000);
+}
+
+function getMessage(){
+  var xmlhttp = getNewXmlHttp();
+   var message = document.getElementById("showmessage").value;
+   xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+     var text = xmlhttp.responseText;
+     console.log(text);
+     console.log("hello from xmlhttp getmessage ");
+     document.getElementById("showmessage").innerHTML=text;  
+    }
+   }
+   
+   var parameters = "message="+message;
+ 
+   xmlhttp.open("POST","http://localhost:8090/ServletProject/MessageServlet", true);
+   xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+
+   xmlhttp.send(parameters); 
+}
+function getActiveUsers(){
+	  var xmlhttp = getNewXmlHttp();
+	   var active = document.getElementById("activeuser").value;
+	   xmlhttp.onreadystatechange = function() {
+	    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+	     var text = xmlhttp.responseText;
+	     console.log(text);
+	     console.log("hello from xmlhttp activeuser ");
+	     document.getElementById("activeuser").innerHTML=text;  
+	    }
+	   }
+	   
+	   var parameters = "active="+active;
+	 
+	   xmlhttp.open("POST","http://localhost:8090/ServletProject/ActiveServlet", true);
+	   xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+
+	   xmlhttp.send(parameters); 
+	}
+
+</script>
+
+</head>
+<body onLoad="startup();">
+
+ <form action="LogoutServlet" method="post">  
+  <input type="submit" value="logout">  
+  
+ <div class="chat" style="overflow="scroll"">
+     <h6><center>message box</center></h6>
+  <p id="showmessage"></p>
+ </div>
+ <div class="activeuser">
+  <h6><center>list of active user</center></h6>
+  <p id="activeuser"></p>
+ </div>
+ <div style="clear: both;" class="mes">
+Enter Message:<br>
+  <textarea rows="5" cols="60" id="message" style="border-style:2px solid; margin-top: 3px;"></textarea>
+  <button type="button" id="send" onclick="Ajax();">Send</button>
+ </div>
+
+</body>
+</html>
