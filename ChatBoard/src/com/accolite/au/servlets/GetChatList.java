@@ -11,39 +11,38 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-public class RegisterServ extends HttpServlet {
+public class GetChatList extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	HashMap<String, String> map;
-	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		PrintWriter out = response.getWriter();
-		String username = request.getParameter("rusername");
-		String password = request.getParameter("rpassword");
-
 		ServletContext context = getServletConfig().getServletContext();
-	
-		ArrayList<String> activeusers = (ArrayList<String>) context.getAttribute("userlist") ;
-		
-		map = (HashMap<String, String>) context.getAttribute("userdata");
 
-		if (map == null) {
-			map = new HashMap<>();
-			activeusers = new ArrayList<>();
+		HttpSession session = request.getSession(false);
+		if (session == null) {
+			response.sendRedirect("login.html");
+
+		} else {
+			ArrayList<String> list = (ArrayList<String>) context.getAttribute("userlist");
+			
+			String all = " ";
+
+			if (list == null) {
+				context.setAttribute("userlist", new ArrayList<String>());
+			} else {
+				for (String i : list) {
+
+					all = all + "\n" + i;
+
+				}
+
+				response.getWriter().write(all);
+			}
 		}
-
-		map.put(username, password);
-		activeusers.add(username);
-		//System.out.println(activeusers.size());
-
-		context.setAttribute("userdata", map);
-		context.setAttribute("userlist", activeusers);
-		response.sendRedirect("login.html");
-		
 
 	}
 

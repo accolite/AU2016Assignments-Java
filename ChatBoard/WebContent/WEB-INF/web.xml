@@ -22,12 +22,55 @@
   
   <servlet>
     	<servlet-name>Registerservlet</servlet-name>
-    	<servlet-class>com.accolite.au.servlets.Register</servlet-class>	
+    	<servlet-class>com.accolite.au.servlets.RegisterServ</servlet-class>	
   	</servlet>
   
   <servlet-mapping>
     <servlet-name>Registerservlet</servlet-name>
     <url-pattern>/Register</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    	<servlet-name>DirectChatservlet</servlet-name>
+    	<servlet-class>com.accolite.au.servlets.DirectChat</servlet-class>	
+  	</servlet>
+  
+  <servlet-mapping>
+    <servlet-name>DirectChatservlet</servlet-name>
+    <url-pattern>/DirectChat</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
+    	<servlet-name>PostMessageservlet</servlet-name>
+    	<servlet-class>com.accolite.au.servlets.PostMessage</servlet-class>	
+  	</servlet>
+  
+  <servlet-mapping>
+    <servlet-name>PostMessageservlet</servlet-name>
+    <url-pattern>/PostMessage</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
+    	<servlet-name>GetMessageservlet</servlet-name>
+    	<servlet-class>com.accolite.au.servlets.GetMessage</servlet-class>	
+  	</servlet>
+  
+  <servlet-mapping>
+    <servlet-name>GetMessageservlet</servlet-name>
+    <url-pattern>/GetMessage</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
+    	<servlet-name>GetChatListservlet</servlet-name>
+    	<servlet-class>com.accolite.au.servlets.GetChatList</servlet-class>	
+  	</servlet>
+  
+  <servlet-mapping>
+    <servlet-name>GetChatListservlet</servlet-name>
+    <url-pattern>/GetChatList</url-pattern>
   </servlet-mapping>
   
 </web-app>
