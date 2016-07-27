@@ -38,6 +38,10 @@ public class ChatBoardService {
 	}
 	
 	public Boolean addMessage(String username, String message){
+		//Removing restricted words from message
+		for(String restrictedWord: restrictedWordsManager.getRestrictedWords()){
+			message = message.replace(restrictedWord, "");
+		}
 		Message messageObj = new Message(username, message);
 		return (messageManager.addMessage(messageObj) >0);
 	}
