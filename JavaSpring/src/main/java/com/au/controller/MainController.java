@@ -22,6 +22,13 @@ public class MainController {
 		return ms.getAllMessages();
 	}
 	
+	@RequestMapping(value = "/doChat",method=RequestMethod.POST,produces="application/json")
+	@ResponseBody
+	public Boolean putChat(Message message){
+		MessageService ms = new MessageService();
+		return ms.putMessage(message);
+	}
+	
 	@RequestMapping(value = "/doRegister",method=RequestMethod.POST,produces="application/json")
 	@ResponseBody
 	public Boolean doRegister(User user){
@@ -31,9 +38,19 @@ public class MainController {
 	
 	@RequestMapping(value = "/fetchUser",method=RequestMethod.GET,produces="application/json")
 	@ResponseBody
-	public List<user> fetchLoggedInUsers(){
+	public List<User> fetchLoggedInUsers(){
 		UserService us = new UserService();
 		return us.getListofLoggedInUsers();
 	}
+	
+	@RequestMapping(value = "/doLogin",method=RequestMethod.POST,produces="application/json")
+	@ResponseBody
+	public Boolean doLogin(User user){
+		UserService us = new UserService();
+		return us.doLoginUser(user);
+	}
+	
 
+
+	
 }
