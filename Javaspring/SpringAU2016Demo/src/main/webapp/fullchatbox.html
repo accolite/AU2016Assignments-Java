@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+
+</head>
+<head>
+<script>
+var name;
+function load(){
+  var json;
+  alert("in onload javascript");
+  if (window.XMLHttpRequest) {
+  // code for modern browsers
+  xhttp = new XMLHttpRequest();
+  } else {
+  // code for IE6, IE5
+  xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+  }
+   xhttp.onreadystatechange = function () {
+     //alert(xhttp.status+"");
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+    if(xhttp.responseText=="null"||xhttp.responseText==""){
+     window.location.href="http://localhost:8082/FirstAU/MainPage.html";
+    } 
+    else{
+     name=xhttp.responseText;
+     document.getElementById("name").innerHTML=name;
+    }
+    }
+    
+   };
+   xhttp.open("GET", "http://localhost:8082/FirstAU/LoadSession");
+   xhttp.send();
+}
+setInterval(circle,2000);
+function circle() {
+ var xhttp;
+  var json;
+if (window.XMLHttpRequest) {
+// code for modern browsers
+xhttp = new XMLHttpRequest();
+} else {
+// code for IE6, IE5
+xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+}
+ xhttp.onreadystatechange = function () {
+   //alert(xhttp.status+"");
+  if (xhttp.readyState == 4 && xhttp.status == 200) {
+   var val=xhttp.responseText.split(" :@#300 "); 
+   document.getElementById("boxid").innerHTML=val[0];
+   document.getElementById("users").innerHTML=val[1];
+  }
+  
+ };
+ xhttp.open("GET", "http://localhost:8082/FirstAU/Chats");
+ xhttp.send();
+}
+function clicked(choice) {
+ var xhttp;
+  var json;
+if (window.XMLHttpRequest) {
+ // code for modern browsers
+ xhttp = new XMLHttpRequest();
+ } else {
+ // code for IE6, IE5
+ xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+}
+xhttp.onreadystatechange = function () {
+  //alert(xhttp.status+"");
+ if (xhttp.readyState == 4 && xhttp.status == 200) {
+  if(choice=="send"){
+   //alert("hi");
+   //document.getElementById("boxid").innerHTML=xhttp.responseText;  
+  }
+ }
+ 
+};
+//setTimeout()
+//alert("hi");
+if(choice=="logout"){
+ alert("logouting")
+ xhttp.open("GET", "http://localhost:8082/FirstAU/Logout", true);
+ xhttp.send();
+ load();
+}
+if(choice=="send"){
+ document.getElementById("boxid").innerHTML=document.getElementById("boxid").innerHTML+"</br>"+document.getElementById("name").innerHTML+" -> "+document.getElementById("txt").value;  
+ xhttp.open("GET", "http://localhost:8082/FirstAU/sendChat?choice=send&uname="+document.getElementById("name").innerHTML+"&txt="+document.getElementById("txt").value, true);
+ xhttp.send();
+}
+
+}
+</script>
+</head>
+<head>
+<style>
+table, th, td {
+ border: 2px solid black;
+ border-collapse: collapse;
+}
+
+th {
+ padding: 5px;
+ text-align: cent;
+}
+</style>
+</head>
+<head>
+<script>
+</script>
+</head>
+<body onload="load()">
+
+ <div>
+  <p id="name" style="display:inline">nishant</p>
+  <input style="float: right" type="button" Value="Log Out"
+   onclick="clicked('logout')"></input>
+
+ </div>
+</br>
+ <div>
+  <table style="width: 100%; height: 500px">
+   <tr style="height: 20px" align="centre">
+    <th style="width: 70%">Chat Box</th>
+    <th style="width: 20%">Active User</th>
+   </tr>
+   <tr>
+    <td>
+    
+     <p id="boxid" style="overflow-y:scroll;width:100%;height:100%"></p>
+    </td>
+    <td>
+     <p id="users"></p>
+    </td>
+   </tr>
+   <tr style="height: 50px">
+    <td><textarea type="text" id="txt" style="width:99%;height:100%"> </textarea>
+    <td><input type="button" style="width:100%;height:100%" Value="Send" onclick="clicked('send')"></input>
+    </td>
+   </tr>
+  </table>
+ </div>
+</body>
+
+</html>
