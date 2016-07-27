@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>ChatBox</title>
+
+<script>
+function myfunc()
+{
+ setInterval(updateusers, 1000);
+ setInterval(updatechats, 2000);
+ }
+
+function updateusers()
+{
+ var xhttp;
+    xhttp = new XMLHttpRequest();
+    //console.log(xhttp);
+    xhttp.onreadystatechange = function() {
+      if (xhttp.readyState == 4 && xhttp.status == 200) {
+        //console.log( xhttp );
+        var str=xhttp.responseText;
+        console.log(str);
+        document.getElementById("usersarea").innerHTML = xhttp.responseText;
+      }
+    };
+
+    xhttp.open("GET", "http://localhost:8081/ChatBoard/GetChatList",true);
+    xhttp.send();
+}
+
+function updatechats()
+{
+ var xhttp;
+    xhttp = new XMLHttpRequest();
+    //console.log(xhttp);
+    xhttp.onreadystatechange = function() {
+      if (xhttp.readyState == 4 && xhttp.status == 200) {
+        //console.log( xhttp );
+        var str=xhttp.responseText;
+        //console.log(str);
+        document.getElementById("chatarea").innerHTML = xhttp.responseText;
+      }
+    };
+
+    xhttp.open("GET", "http://localhost:8081/ChatBoard/GetMessage",true);
+    xhttp.send();
+}
+
+ 
+ 
+function sendMessage()
+{
+ var xhttp;
+    xhttp = new XMLHttpRequest();
+    
+    xhttp.onreadystatechange = function() {
+     //console.log(xhttp.status);
+      if (xhttp.readyState == 4 && xhttp.status == 200) {
+        //console.log( xhttp );
+        
+      }
+    };
+
+    xhttp.open("POST", "http://localhost:8081/ChatBoard/PostMessage?entertext=" + document.getElementById("text").value ,true);
+    document.getElementById("text").value =" ";
+    xhttp.send();
+}
+
+
+</script>
+
+
+</head>
+<body onload="myfunc()">
+	
+	<textarea id="chatarea" name="chatarea" rows=30 cols=20></textarea>
+	
+	<textarea id="usersarea" name="usersarea" rows=30 cols=10></textarea>
+	
+	<form action="" method="post">
+		<textarea id="text" name="entertext" rows=10 cols=20></textarea>
+		<input type="button" name="send" value="send" onclick="sendMessage()" >
+	</form>
+	
+</body>
+</html>
