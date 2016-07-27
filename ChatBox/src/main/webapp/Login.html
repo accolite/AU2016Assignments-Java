@@ -19,7 +19,41 @@
 
 		var xmlhttp1 = getNewXmlHttp();
 		//alert(id + " " + profilename);
-		window.alert("Hi");
+		//window.alert("Hi");
+
+		var user = document.getElementById("userName").value;
+		var password = document.getElementById("password").value;
+		if (user == "admin" && password == "1234") {
+			location.href = "http://localhost:8010/messanger/Admin.jsp";
+
+
+		} else {
+			var the_data = 'userName=' + user + '&password=' + password;
+			console.log(user + password);
+			xmlhttp1.onreadystatechange = function() {
+				if (xmlhttp1.readyState == 4 && xmlhttp1.status == 200) {
+					console.log(xmlhttp1.responseText);
+					var meta = xmlhttp1.responseText;
+					document.getElementById("Messages").innerHTML = meta;
+					console.log(meta);
+					if (meta == "hiuser") {
+						location.href = "http://localhost:8010/messanger/Message.jsp";
+					}
+				}
+			}
+			xmlhttp1.open("POST",
+					"http://localhost:8010/messanger/Login?userName=" + user
+							+ "&password=" + password, true);
+			xmlhttp1.setRequestHeader("Content-type",
+					"application/x-www-form-urlencoded");
+			xmlhttp1.send();
+		}
+	}
+	function Register() {
+
+		var xmlhttp1 = getNewXmlHttp();
+		//alert(id + " " + profilename);
+		//window.alert("Hi");
 
 		var user = document.getElementById("userName").value;
 		var password = document.getElementById("password").value;
@@ -28,21 +62,21 @@
 		xmlhttp1.onreadystatechange = function() {
 			if (xmlhttp1.readyState == 4 && xmlhttp1.status == 200) {
 				console.log(xmlhttp1.responseText);
-				var meta=xmlhttp1.responseText;
+				var meta = xmlhttp1.responseText;
 				document.getElementById("Messages").innerHTML = meta;
 				console.log(meta);
-				if(meta=="hiuser"){
-		               location.href="http://localhost:8010/messanger/Message.jsp";
+				if (meta == "hiuser") {
+					location.href = "http://localhost:8010/messanger/Message.jsp";
 				}
-			}}
-			xmlhttp1.open("POST",
-					"http://localhost:8010/messanger/Login?userName=" + user
-							+ "&password=" + password, true);
-			xmlhttp1.setRequestHeader("Content-type",
-					"application/x-www-form-urlencoded");
-			xmlhttp1.send();
+			}
 		}
-	
+		xmlhttp1.open("POST",
+				"http://localhost:8010/messanger/Register?userName=" + user
+						+ "&password=" + password, true);
+		xmlhttp1.setRequestHeader("Content-type",
+				"application/x-www-form-urlencoded");
+		xmlhttp1.send();
+	}
 </script>
 </head>
 <body>
@@ -55,7 +89,9 @@
 	<input type="password" id="password" rows="10" cols="25"
 		placeholder="enter password">
 	<br />
-	<input type="submit" value="submit" onclick="Login()">
+	<input type="submit" value="login" onclick="Login()">
+	<br>
+	<input type="submit" value="Register" onclick="Register()">
 	<br>
 
 	</div>

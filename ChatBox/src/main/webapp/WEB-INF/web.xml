@@ -32,4 +32,57 @@
     <servlet-name>Message</servlet-name>
     <url-pattern>/Message</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Login</servlet-name>
+    <url-pattern>/Login</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Listing</display-name>
+    <servlet-name>Listing</servlet-name>
+    <servlet-class>com.Chat.Listing</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Listing</servlet-name>
+    <url-pattern>/Listing</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Register</display-name>
+    <servlet-name>Register</servlet-name>
+    <servlet-class>com.Chat.Register</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Register</servlet-name>
+    <url-pattern>/Register</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Filter</display-name>
+    <servlet-name>Filter</servlet-name>
+    <servlet-class>com.Chat.Filter</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Filter</servlet-name>
+    <url-pattern>/Filter</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Logout</display-name>
+    <servlet-name>Logout</servlet-name>
+    <servlet-class>com.Chat.Logout</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Logout</servlet-name>
+    <url-pattern>/Logout</url-pattern>
+  </servlet-mapping>
+  <filter>
+    <display-name>Filter_words</display-name>
+    <filter-name>Filter_words</filter-name>
+    <filter-class>com.Chat.Filter_words</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>Filter_words</filter-name>
+    <url-pattern>/Filter_words</url-pattern>
+  </filter-mapping>
 </web-app>

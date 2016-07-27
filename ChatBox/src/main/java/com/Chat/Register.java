@@ -8,7 +8,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,43 +22,64 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 /**
- * Servlet implementation class Login
+ * Servlet implementation class Register
  */
-@WebServlet(name = "Login", urlPatterns = { "/Login" })
-public class Login extends HttpServlet {
+@WebServlet(name = "Register", urlPatterns = { "/Register" })
+
+public class Register extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	File file;
 	JSONParser parser;
-	static ArrayList<String> a = null;
+	static ArrayList<String> a=null;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+ 
 
-	/**
-	 * Default constructor.
-	 */
-	public static ArrayList<String> getLogin() {
+    public static ArrayList<String>getLogin() {
 		// TODO Auto-generated constructor stub
-		if (a == null)
-			a = new ArrayList<String>();
-
-		return a;
-
+		if(a==null)
+		a=new ArrayList<String>();
+		
+			return a;
+		
 	}
+	
+	 void populateJson(JSONObject message) {
+	    	
+			Object obj;
+			try {
 
-	void populateJson(JSONObject message) {
+				JSONObject jsonObj = new JSONObject();
+				jsonObj.put("message", message.get("message"));
+				List<String> list = Files.readAllLines(Paths.get("D:\\Files\\Message.json"));
+				list.add(list.size() - 2, ","+jsonObj.toJSONString());
+				Files.write(Paths.get("D:\\Files\\Message.json"), list);
 
-		Object obj;
-		try {
-
-			JSONObject jsonObj = new JSONObject();
-			jsonObj.put("message", message.get("message"));
-			List<String> list = Files.readAllLines(Paths.get("D:\\Files\\Message.json"));
-			list.add(list.size() - 2, "," + jsonObj.toJSONString());
-			Files.write(Paths.get("D:\\Files\\Message.json"), list);
-
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-	}
+	 void populateUser(String a,String b) {
+	    	
+			Object obj;
+			try {
+				List<String> list = Files.readAllLines(Paths.get("D:\\Files\\Users.json"));
+
+				JSONObject jsonObj = new JSONObject();
+				jsonObj.put("name", a);
+				jsonObj.put("password", b);
+				jsonObj.put("id", "id_name");
+				list.add(list.size() - 2, ","+jsonObj.toJSONString());
+				Files.write(Paths.get("D:\\Files\\Users.json"), list);
+
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -81,51 +101,49 @@ public class Login extends HttpServlet {
 		boolean exist = false;
 		boolean password_exist = false;
 		String user = request.getParameter("userName");
-		
 		System.out.println(user);
-		ServletContext context = getServletContext();
+		 ServletContext context=getServletContext();
 		String password = request.getParameter("password");
 		try {
-			parser = new JSONParser();
+			parser=new JSONParser();
 			File file = new File("D:\\Files\\Users.json");
 			Object jsonObject = parser.parse(new FileReader(file));
 			JSONObject obj = (JSONObject) jsonObject;
-			String user_added = "";
+			String user_added="";
 			JSONArray array = (JSONArray) obj.get("Users");
 			for (int i = 0; i < array.size(); i++) {
 				JSONObject use = (JSONObject) array.get(i);
 				if (user.equals(use.get("name"))) {
-					if (password.equals(use.get("password"))) {
-						HttpSession session = request.getSession();
-						session.setAttribute("name", user);
-						if (!a.contains(user)) {
-							a.add(user);
-							JSONObject obj2 = new JSONObject();
-							String message = "user " + user + " has joined";
-							obj2.put("message", message);
-							populateJson(obj2);
-						}
-						context.setAttribute("names_list", a);
-						session.setAttribute("user_id", use.get("user_id"));
+					 {
+						
 						exist = true;
-						password_exist = true;
 						break;
 					}
 				}
 
 			}
-			if (exist == true && password_exist == true) {
+			if (exist == true) {
 				// notify
+				response.getWriter().append("user exist ").append(request.getContextPath());
 
-				response.getWriter().append("hiuser");
+				
+			}
 
-			} else if (exist == true) {
-				// wrong password
-				response.getWriter().append("wrong password").append(request.getContextPath());
-
-			} else {
+			 else {
 				// no such user
-				response.getWriter().append("no such user").append(request.getContextPath());
+				HttpSession session = request.getSession();
+				session.setAttribute("name", user);
+				a.add(user);
+				user_added="<div id='added'>"+user+"</div>";
+				
+				context.setAttribute("names_list", a);
+				JSONObject obj2=new JSONObject();
+				
+				String message="user "+user+" has registered";
+				obj2.put("message", message);
+				populateJson(obj2);
+				populateUser(user,password);
+				response.getWriter().append("hiuser");
 
 			}
 		} catch (ParseException e) {

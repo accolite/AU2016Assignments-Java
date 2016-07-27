@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -48,7 +49,17 @@ public class Message extends HttpServlet {
 
 			JSONObject jsonObj = new JSONObject();
 			jsonObj.put("name", message.get("name"));
-			jsonObj.put("message", message.get("message"));
+			String ss=(String) message.get("message");
+			System.out.println(ss);
+			if(Filter.filter_words!=null){
+			for(int i=0;i<Filter.filter_words.size();i++)
+			{			System.out.println("hello");
+
+				ss=ss.replace(Filter.filter_words.get(i),"***");
+			}
+			System.out.println(ss);
+}
+			jsonObj.put("message", ss);
 			jsonObj.put("message_id", message.get("message_id"));
 			jsonObj.put("user_id", message.get("user_id"));
 			jsonObj.put("time", message.get("time"));
@@ -77,13 +88,17 @@ public class Message extends HttpServlet {
 				JSONObject m = (JSONObject) object;
 				String message_json = (String) m.get("message");
 				String time = (String) m.get("name");
-			
-			
-				all_msg += time+" :"+message_json+"<br>";
+			if(time==null)
+			{
+				all_msg+=message_json+"\r\n";
 			}
-			System.out.println(all_msg);
-			response.getWriter().append(all_msg).append(request.getContextPath());
-
+			else
+			{
+				all_msg += time+" :"+message_json+"\r\n";
+			}
+			//System.out.println(all_msg);
+			response.getWriter().append(all_msg);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -95,8 +110,22 @@ public class Message extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			JSONObject obj=(JSONObject)new JSONParser().parse(request.getParameter("objarray"));
-			populateJson(obj);
+			ServletContext context=getServletContext();
+			String added=(String) context.getAttribute("Message");
+			if(added==null)
+			{
+				JSONObject obj=(JSONObject)new JSONParser().parse(request.getParameter("objarray"));
+				populateJson(obj);
+			}
+			else
+			{
+				request.setAttribute("Message", added);
+				added="";
+			}
+			
+			
+		
+			
 			
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
