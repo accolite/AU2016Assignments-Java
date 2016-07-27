@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Register</title>
+<style>
+input[name="button"]{
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+</style>
+<script>
+function check()
+{
+	var pass=document.getElementById("password").value;
+	var confpass=document.getElementById("confirm_password").value;
+	if(pass!=confpass)
+		alert("Password doesnt match");
+	
+	}
+</script>
+</head>
+<body>
+<div align="center">
+<h1>Register Page</h1><br>
+<form action="register" method="POST">
+Name:        <input type="text" name="name" value="" id="name"><br><br>
+Password:    <input type="password" name="password" value="" id="password"><br><br>
+Confirm Password:<input type="password" name="confirm_password" value="" onblur="check()" id="confirm_password"><br><br>
+<input type="submit" value="Submit" name="button">
+</form>
+</div>
+</body>
+</html>
