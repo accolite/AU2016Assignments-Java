@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Chat box</title>
+<script>
+	function getNewXmlHttp() {
+		var xmlhttp;
+		if (window.XMLHttpRequest) {
+			xmlhttp = new XMLHttpRequest();
+		} else {
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		return xmlhttp;
+	}
+
+	var request = 0;
+	function Login() {
+
+		var xmlhttp1 = getNewXmlHttp();
+		//alert(id + " " + profilename);
+		//window.alert("Hi");
+
+		var user = document.getElementById("userName").value;
+		var password = document.getElementById("password").value;
+		
+			xmlhttp1.onreadystatechange = function() {
+				if (xmlhttp1.readyState == 4 && xmlhttp1.status == 200) {
+					console.log(xmlhttp1.responseText);
+					var meta = xmlhttp1.responseText;
+					 console.log( meta);
+					
+				}
+			}
+			xmlhttp1.open("POST",
+					"http://localhost:8070/SpringProject/Login?userName=" + user
+							+ "&password=" + password, true);
+			xmlhttp1.setRequestHeader("Content-type",
+					"application/x-www-form-urlencoded");
+			xmlhttp1.send();
+		}
+	
+	
+	
+	
+	</script>
+</head>
+<body>
+
+
+
+	<input type="text" id="userName" rows="10" cols="25"
+		placeholder="Enter username">
+	<br />
+	<input type="password" id="password" rows="10" cols="25"
+		placeholder="enter password">
+	<br />
+	<input type="submit" value="login" onclick="Login()">
+	
+	<br>
+	
+</body>
+</html>
