@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<script>
+function myfunc()
+{
+ setInterval(updateusers, 1000);
+ }
+
+ function updateusers()
+{
+ var xhttp;
+    xhttp = new XMLHttpRequest();
+    console.log(xhttp);
+    xhttp.onreadystatechange = function() {
+      if (xhttp.readyState == 4 && xhttp.status == 200) {
+        console.log( xhttp );
+        var str=xhttp.responseText;
+        console.log(str);
+        document.getElementById("users").innerHTML = xhttp.responseText;
+      }
+    };
+
+    xhttp.open("GET", "http://localhost:9082/JndiAssignment/AllEmployees",true);
+    xhttp.send();
+}
+
+
+</script>
+
+</head>
+<body onload="myfunc()">
+	<h1>All Employees</h1>
+	<table style="width: 100%">
+		<tr style="width: 100%">
+			<td style="width: 50%">
+				<form  action="Add.html">
+					<!-- For redirecting to servlet with path loginservlet1 -->
+
+
+					<div id="users" name="users"> </div>
+					<input	type="submit" value="Add"> <br>
+					<br>
+					<br>
+					<br>
+
+				</form>
+			</td>
+			<td style="width: 50%">
+				<div class="button2">
+					<span id="finalResult"></span>
+				</div>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>
