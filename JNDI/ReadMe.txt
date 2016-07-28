@@ -1,0 +1,1 @@
+<Environment> element of <Context> element of a particular web application is equivalent to the <env-entry> element of the particular application's web.xml. If both of them defined the same property, the web.xml entry will get precedence and will replace the previous value of the entry. To avoid that we need to set the override property to false in Context's Environment element. 
