@@ -98,7 +98,19 @@
 
 				
 
-			<Context docBase="JNDI" path="/JNDI" reloadable="true" source="org.eclipse.jst.jee.server:JNDI"/></Host>
+			<Context docBase="JNDI" path="/JNDI" reloadable="true" source="org.eclipse.jst.jee.server:JNDI">
+			<Resource auth="Container"
+						driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+						maxActive="100" maxIdle="20" maxWait="10000" minIdle="5" name="jdbcBlue"
+						password="accolite" type="javax.sql.DataSource" url="jdbc:sqlserver://localhost:1433;"
+						username="sa" />
+
+					<Resource name="mail/Session" auth="Container" type="javax.mail.Session"
+						mail.smtp.host="smtp.gmail.com" mail.smtp.port="587"
+						mail.smtp.auth="true" mail.smtp.user="udit034034@gmail.com"
+						mail.smtp.password="034meowmeow" mail.smtp.starttls.enable="true" />
+				</Context>
+			</Host>
 		</Engine>
 	</Service>
 </Server>
