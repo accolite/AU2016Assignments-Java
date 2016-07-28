@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	<display-name>JndiAssign</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+	  
+		<servlet>
+			<servlet-name>abc</servlet-name>
+			<servlet-class>com.acco.JndiAssign.LookUp</servlet-class>
+		</servlet>
+		<servlet-mapping>
+			<servlet-name>abc</servlet-name>
+			<url-pattern>/lookup/*</url-pattern>
+		</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>mail</servlet-name>
+		<servlet-class>com.acco.JndiAssign.MailServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>mail</servlet-name>
+		<url-pattern>/sendMail/*</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>login</servlet-name>
+		<servlet-class>com.acco.JndiAssign.EmployeeLogin</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>login</servlet-name>
+		<url-pattern>/employeeLogin/*</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>login</servlet-name>
+		<servlet-class>com.acco.JndiAssign.EmployeeRegister</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>login</servlet-name>
+		<url-pattern>/employeeRegister/*</url-pattern>
+	</servlet-mapping>
+	<env-entry>
+		<description>Send pincode by mail</description>
+		<env-entry-name>mailPincode</env-entry-name>
+		<env-entry-value>false</env-entry-value>
+		<env-entry-type>java.lang.Boolean</env-entry-type> <!-- FQCN -->
+	</env-entry>
+	<env-entry>
+		<description>max Exemptions</description>
+		<env-entry-name>maxExemptions</env-entry-name>
+		<env-entry-value>90</env-entry-value>
+		<env-entry-type>java.lang.Integer</env-entry-type> <!-- FQCN -->
+	</env-entry>
+	<resource-ref>
+		<description>JDBC Connection</description>
+		<res-ref-name>TestDB</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+		<res-sharing-scope>Shareable</res-sharing-scope>
+	</resource-ref>
+	<resource-ref>
+		<description>
+			Resource reference to a factory for javax.mail.Session
+			instances that may be used for sending electronic mail
+			messages, preconfigured to connect to the appropriate
+			SMTP server.
+		</description>
+		<res-ref-name>
+			mail/Session
+		</res-ref-name>
+		<res-type>
+			javax.mail.Session
+		</res-type>
+	</resource-ref>
+	<resource-env-ref>
+		<description>
+			Object factory for MyBean instances.
+		</description>
+		<resource-env-ref-name>
+			MyBeanFactory
+		</resource-env-ref-name>
+		<resource-env-ref-type>
+			com.acco.JndiAssign.MyBean
+		</resource-env-ref-type>
+	</resource-env-ref>
+</web-app>
