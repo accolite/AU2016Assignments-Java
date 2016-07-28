@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Employee Home</title>
+<script type="text/javascript">
+	function getNewXmlHttp() {
+		var xmlhttp;
+		if (window.XMLHttpRequest) {
+			xmlhttp = new XMLHttpRequest();
+		} else {
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		return xmlhttp;
+	}
+	function getEmployeeDetails() {
+		var xmlhttp = getNewXmlHttp();
+
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				var text = xmlhttp.responseText;
+				console.log(text);
+				var json = JSON.parse(text);
+				var len = json.length;
+
+				var employeeList = document.getElementById("employeeList");
+				var i = 0;
+
+				while (i < len) {
+					var id = json[i].employeeId;
+					var name = json[i].employeeName;
+					var email = json[i].employeeEmailId;
+					var mob = json[i].employeeMobileNo
+
+					var idElement = document.createElement("p");
+					idElement.innerHTML = id;
+					var nameElement = document.createElement("p");
+					nameElement.innerHTML = name;
+					var emailElement = document.createElement("p");
+					emailElement.innerHTML = email;
+					var mobElement = document.createElement("p");
+					mobElement.innerHTML = mob;
+
+					var empDiv = document.createElement("div");
+					empDiv.setAttribute("id", "employee");
+
+					empDiv.appendChild(idElement);
+					empDiv.appendChild(nameElement);
+					empDiv.appendChild(emailElement);
+					empDiv.appendChild(mobElement);
+
+					employeeList.appendChild(empDiv);
+
+					i++;
+
+				}
+
+			}
+		}
+
+		xmlhttp.open("GET", "http://localhost:8080/ServletAssignment/Manager",
+				true);
+		xmlhttp.setRequestHeader("Content-type",
+				"application/x-www-form-urlencoded");
+
+		xmlhttp.setRequestHeader("Connection", "close");
+
+		xmlhttp.send();
+	}
+</script>
+<style type="text/css">
+#heading {
+	display: inline;
+	font-weight: bold;
+}
+
+#heading p {
+	display: inline;
+	float: left;
+	width: 25%;
+}
+
+#employee {
+	display: inline;
+}
+
+#employee p {
+	display: inline;
+	float: left;
+	width: 25%;
+}
+
+.button {
+	align: center;
+	-webkit-appearance: button;
+	-moz-appearance: button;
+	appearance: button;
+	display: inline;
+	text-decoration: none;
+	color: initial;
+	margin-right: 15%;
+	border-left: 15%;
+}
+</style>
+</head>
+<body onload="getEmployeeDetails();">
+	<div id="heading">
+		<p>EmpId</p>
+		<p>Emp Name</p>
+		<p>Emp EmailId</p>
+		<p>Emp Mobile No.</p>
+	</div>
+	<div id="employeeList"></div>
+
+	<a href="http://localhost:8080/ServletAssignment/addEmployee.html"
+		class="button">Create Employee</a>
+
+</body>
+</html>
