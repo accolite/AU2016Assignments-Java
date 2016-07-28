@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="getemployee.js"></script>
+<meta charset="ISO-8859-1">
+<title>Manager</title>
+</head>
+<body onload="employees()">
+<h1>Manager Portal</h1><br>
+<h3>Add Employee</h3>
+<form action="addEmp" method="Post">
+  Employee Name: <input type="text" name="ename"><br>
+  Email: <input type="email" name="email"><br>
+  <input type="submit" value="Add Employee" >
+</form>
+<br><br>
+All Employee:
+<div id="iemp" ></div>
+</body>
+</html>
