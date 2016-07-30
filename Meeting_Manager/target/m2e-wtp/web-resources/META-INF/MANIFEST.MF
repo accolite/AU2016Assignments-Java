@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Implementation-Title: SpringAU2016Demo Maven Webapp
+Implementation-Version: 1.0-SNAPSHOT
+Built-By: Udit Mehata
+Implementation-Vendor-Id: com.zaheer
+Build-Jdk: 1.8.0_91
+Created-By: Maven Integration for Eclipse
+
