@@ -18,6 +18,7 @@ public class Project{
 	private Date enddate;
 	private int status;
 	private BU bu;
+	
 	public int getProjectid() {
 		return projectid;
 	}
