@@ -84,23 +84,23 @@ public class ProjectDao {
 		return jdbcTemplate.update(query);
 	}
 	
-//	public List<Project> getAllProjects(){
-//		
-//		String sql="select * from dbo.Project";
-//		
-//		return jdbcTemplate.query(sql, new RowMapper<Project>(){
-//
-//			@Override
-//			public Project mapRow(ResultSet arg0, int arg1) throws SQLException {
-//				Project p = new Project();
-//				p.setClientname(arg0.getString("clientname"));
-//				p.setProjectname(arg0.getString("projectname"));
-//				return p;
-//			}
-//			
-//		});
-//		
-//	}
+	public List<Project> getAllProjects(){
+		
+		String sql="select * from dbo.Project";
+		
+		return jdbcTemplate.query(sql, new RowMapper<Project>(){
+
+			@Override
+			public Project mapRow(ResultSet arg0, int arg1) throws SQLException {
+				Project p = new Project();
+				
+				p.setProjectname(arg0.getString("projectname"));
+				return p;
+			}
+			
+		});
+		
+	}
 	
 	
 }

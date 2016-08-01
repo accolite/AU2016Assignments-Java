@@ -12,40 +12,14 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class BuDao {
 	@Autowired
-	private JdbcTemplate jdbcTemplate;
-	
-	
-	
+	private JdbcTemplate jdbcTemplate;	
 
 	public JdbcTemplate getJdbcTemplate() {
 		return jdbcTemplate;
 	}
 
-
-
-
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
-
-
-
-
-//	public Integer getBuId(String buname)
-//	{
-//		String query ="select buid from dbo.bu where buname='"+buname+"'";
-//		return jdbcTemplate.query(query, new ResultSetExtractor< Integer>() {
-//
-//			public Integer extractData(ResultSet rs) throws SQLException, DataAccessException {
-//				
-//				
-//				Integer temp=0;
-//				while (rs.next()){
-//				temp=rs.getInt("buid");
-//				
-//				}
-//				return temp;
-//			}
-//		});
-//	}
+	
 }

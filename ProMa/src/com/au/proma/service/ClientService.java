@@ -3,11 +3,11 @@ package com.au.proma.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.au.proma.dao.UserDao;
+import com.au.proma.dao.ClientDao;
 
 @Service
-public class UserService {
+public class ClientService {
 
 	@Autowired
-	private UserDao userDao;
+	private ClientDao clientDao;
 }

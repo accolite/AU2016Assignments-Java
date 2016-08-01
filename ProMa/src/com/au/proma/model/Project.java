@@ -4,7 +4,10 @@ import java.sql.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.springframework.stereotype.Component;
+
 @XmlRootElement
+@Component
 public class Project{
 	private int projectid;
 	private Client client;
