@@ -28,7 +28,7 @@ public class ClientDao {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 	
-	private List<Client> getAllClients(){
+	public List<Client> getAllClients(){
 		String sql = "select * from dbo.Client";
 		return jdbcTemplate.query(sql, new RowMapper<Client>(){
 
@@ -39,7 +39,7 @@ public class ClientDao {
 		});
 	}
 	
-	private Boolean insertClient(Client client){
+	public Boolean insertClient(Client client){
 		String sql = "insert into dbo.Client(clientname) values(?)";
 		
 		return jdbcTemplate.execute(sql, new PreparedStatementCallback<Boolean>() {
@@ -52,7 +52,7 @@ public class ClientDao {
 		});
 	}
 	
-	private String getClientName(Client client){
+	public String getClientName(Client client){
 		String sql = "select clientname from dbo.Client where clientid=?";
 		 
 		String name = (String)getJdbcTemplate().queryForObject(
