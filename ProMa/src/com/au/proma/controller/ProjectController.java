@@ -4,15 +4,15 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.au.proma.model.BU;
 import com.au.proma.model.Project;
 import com.au.proma.service.ProjectService;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/projects")
@@ -26,6 +26,15 @@ public class ProjectController {
 	public List<Project> getAllProjects(){
 		List<Project> p = projectService.getAllProjects();
 		return p;
+	}
+	
+	@RequestMapping(value="/bus/{bu_id}",method=RequestMethod.GET,produces="application/json")
+	@ResponseBody
+	public List<Project> getProjectsUnderBU(@PathVariable("bu_id") int buid){
+		BU bu = new BU();
+		bu.setBuid(buid);
+		return projectService.getProjectsUnderBU(bu);
+		
 	}
 	
 }
