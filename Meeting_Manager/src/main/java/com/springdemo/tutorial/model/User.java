@@ -1,5 +1,7 @@
 package com.springdemo.tutorial.model;
 
+import org.springframework.jdbc.core.JdbcTemplate;
+
 public class User {
 	private int UserID;
 	private String UserName;
