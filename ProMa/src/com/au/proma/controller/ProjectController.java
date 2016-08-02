@@ -26,7 +26,7 @@ public class ProjectController {
 	
 	@RequestMapping(value="/status",method=RequestMethod.GET,produces="application/json")
 	@ResponseBody
-	public List< Color> statusOfEveryBU()
+	public List<Color> statusOfEveryBU()
 	{
 		//System.out.println(p.getProjectname());
 		return projectService.statusOfEveryBU();
