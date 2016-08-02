@@ -1,0 +1,241 @@
+Meeting Manager
+
+Develop an application to manage sessions or meetings across various locations of Accolite
+
+Expected to have 3 different set of user roles- admin,trainer and trainee
+
+Admin Role 
+create sessions with all details.
+should able to assign to any trainer
+send invite to list of trainer on any sessions created /trainer
+ability to create feedback form for the session and share with all the trainee after the session is finished.Also should have the provision to see the response in pie chart
+See training calendar/list of upcoming trainings
+
+Trainer Role 
+see the sessions assigned to and session details
+send invite to list of trainee on any sessions assigned to him/her
+ability to send notification or reminder to all trainees before the session starts, with his own description.
+should able to create poll during session and see trainee response in pie chart.
+
+Trainee
+   should able to see all session invite and accept or reject.
+   should able to see all reminder or notifications
+   ability to participate in poll
+   ability to participate in feedback
+
+Good to have:
+Upload files, ppt, code snippets by trainer.
+Ability to Download by trainee.
+Share code snippets in sessions.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SOLUTION 
+[ First Iteration - Prototype Model - Scrum/Agile ]
+
+Welcome the user with a login screen. Servlet Validates and redirects to appropriate page
+[ Recycle logic from Tomcat Assignment and Servlet Assignment ] 
+Register Page
+[ All JavaScript validation logic recycled from RegEx stuff ]
+
+FULL STACK : 
+FRONT END
+CSS Libraries - BootStrap
+JS Libraries -Chart.js, [ Somehow integrate D3.js ]
+( To be added libraries for code beautifcation-snippet management, handling file uploads etc in next iteration )
+HTML5, jQuery( Ajax )
+
+BACK END
+Discussion must as 2 members have expertise in PHP.
+For now I am assuming Java but would like to switch to Angular or PHP.
+Server - Tomcat
+
+Assumptions :
+All notifications via email !
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Admin Role 
+create sessions with all details.
+->
+Session details will be stored in a table :
+SESSION - 
+( int SessionID [Primary Key, Auto Inc.] , nvarchar(50) Session Name, (sql.date) Date , (sql.date) Start Time, (sql.date) End Time )
+TRAINERS - 
+( int  SessionID,  int TrainerID,varchar(50) TrainerName, nvarchar(50) TrainerEmail )
+Primary Key - SessionID + TrainerID
+TRAINEE - ( int SessionID, int TraineeID, nvarchar(50) TraineeEmail, Date LoginTime, Date LogoutTime, int accepted )
+Primary Key - SessionID + TraineeID.
+Bring all tables to 3NF
+
+User Table :
+Role Description : 
+
+
+should able to assign to any trainer.
+-> 
+SQL Query - If trainer already exists for session, default behaviour is to add a co-trainer(s)
+No Duplicates.
+
+send invite to list of trainee on any sessions created
+-> Recycle javax.mail module.
+Checkbox on every session creation - If a checkbox is checked by Admin -
+Dyanmically generate Subject, Message Body and send an email from Admin account to all trainees ( Joining SESSION and TRAINEE to get TraineeEmail )
+
+ability to create feedback form for the session and share with all the trainee after the session is finished.Also should have the provision to see the response in pie chart
+See training calendar/list of upcoming trainings Also, we deliver this in 2nd Sprint
+-> I have ideas but better to ask Mathan what is the best way to do it.
+My way involves static DS, listeners etc and Chart.js on front end but there has to be a better way.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Trainer Role 
+
+see the sessions assigned to and session details
+-> Button accessible to Trainer on login to sessions.
+Basically SQL Query to fetch all sessions where TrainerID = x and display other details in say a Bootstrap Modal !
+
+send invite to list of trainee on any sessions assigned to him/her
+-> Recycle admin email module COMPLETELY with higher permission control.
+
+ability to send notification or reminder to all trainees before the session starts, with his own description.
+-> Build on top of previous - only difference is Take Subject and Content.
+Three ways to go about this : 
+1. Assume that trainer sends notification to trainees on button press asynchronously. (EASY)
+2. Take a time from Trainer to send that reminder ->
+2a) Schedule using Listener and static undelivered Email Object ( Time, SessionID, TrainerID, Subject, Content ) 
+2a) Schedule using hourly timed AJAX call and a class which handles Email Object
+
+should able to create poll during session and see trainee response in pie chart.
+-> THIS WILL BE TRICKY ( 2nd Iteration ) - Let’s ask Mathan but here’s how I would do it-
+WAY 1 :
+( Only 1 poll can be active at a time during a session )
+setPoll( Poll Question, Options ) - From Trainer page.
+[ Servlet /poll initialised with static DataStructure ]
+/poll?username=”Username” - By Trainees, they get an option to vote and response is recorded in static hashmap.
+/poll?trainer - Visualize the response using Chart.js 
+OR DRILLDOWN FOR MAX IMPACT (http://bl.ocks.org/mbostock/5944371)
+
+WAY 2 :
+Learn Google Docs and Outsource this work using APIs
+
+
+
+
+
+
+
+
+
+
+
+
+
+Trainee
+
+   should able to see all session invite and accept or reject.
+->
+The email received by the trainee shall contain two URLs.
+localhost:8080/acceptSession?status=true or status=false&sessionId=XYZ
+acceptSessionServlet runs a query to update corresponding trainee’s interest in a session in the DB by setting accepted in Trainee to 0 or 1.
+
+should able to see all reminder or notifications
+-> Email
+
+   ability to participate in poll
+   ability to participate in feedback
+To be decided - Same as before
+
+Good to have:
+Upload files, ppt, code snippets by trainer.
+Ability to Download by trainee.
+Share code snippets in sessions.
+
+[ File upload possible in Servlets. One out of us 4 does POC-other does Flow/Integration into the bigger picture. We do this in second iteration.]
+
+
+
+
+
+
+

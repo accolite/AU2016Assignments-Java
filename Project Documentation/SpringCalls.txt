@@ -1,0 +1,88 @@
+Spring Calls :
+
+
+
+1) 
+/MeetingManager/Admin/createSession
+
+Input (POST) :
+SessionName 
+TrainerID
+Date
+StartTime
+EndTime
+
+Output : 200 
+( Check if updated in DB )
+
+Additional Functionality :
+if( COUNT ( SELECT * FROM session WHERE TrainerID = , Date=, StartTime=, EndTime= ) > 0 )
+	UPDATE
+ELSE
+	CREATE NEW
+
+
+2)
+/MeetingManager/Admin/addTrainer
+
+Input(POST):
+SessionID
+TrainerID
+
+Output : 200
+( Check if updated in DB )
+
+3)
+/MeetingManager/Admin/feedback?SessionID=1
+INPUT(POST):
+SessionID
+
+Behaviour : Puts( SessionID, 0,0,0,0 ) in the DB
+
+4)
+/MeetingManager/Trainer/getSessions:
+INPUT(GET)
+UserID
+
+Output : < SessionName, Date, StartTime, EndTime >
+
+5)
+/MeetingManager/Trainer/inviteAll
+INPUT (POST) (JSON)
+SessionID
+Array<UserID>
+
+Behaviour :
+if( sessionID is associated with TrainerID )
+	Updates rows with ( SessionID, UserID[i], 0 ) in `trainee`
+
+6)
+/MeetingManager/Trainer/SendEmail
+INPUT ( GET )
+SessionID
+Parameters : String Subject,
+String Message
+
+Behaviour :
+Fetches all UserIDs who are trainees for that session and emails them
+
+7)
+/MeetingManager/Trainee/choose
+INPUT (GET)
+SessionID
+UserID
+
+Behaviour : 
+Update accept=1
+
+8)
+/MeetingManager/Trainee/Feedback
+INPUT( POST )
+SessionID
+FeedbackValue1
+FeedbackValue2
+FeedbackValue3
+FeedbackValue4
+
+Behaviour : Update( SessionID, value1, value2, value3, value4 ) into feedback
+
