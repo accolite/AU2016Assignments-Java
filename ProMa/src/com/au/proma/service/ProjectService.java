@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,27 +32,26 @@ public class ProjectService {
 	{
 		return projectDao.insertProject(p);
 	}
-	public HashMap<String, Color> statusOfEveryBU()
+	public List<Color> statusOfEveryBU()
 	{
-		HashMap<String, Color> map=new HashMap<String,Color>();
+		Map<Integer, Color> map=new HashMap<Integer,Color>();
 		
-		ArrayList<Project> projectList=projectDao.statusOfEveryBU();
+		List<Project> projectList=projectDao.statusOfEveryBU();
 		for(Project temp:projectList)
 		{
-			String buname=temp.getBu().getBuname();
+			int buid=temp.getBu().getBuid();
+			String buname = temp.getBu().getBuname();
 			Date today=new Date();
 			Date enddate=temp.getEnddate();
-			//System.out.println(today);
-			//System.out.println("idckb");
-			//System.out.println(enddate);
 			Color c=null;
-			if(map.get(buname)==null)
+			if(map.get(buid)==null)
 			{
 				c=new Color();
-				map.put(buname, c);
+				c.setBu(temp.getBu());
+				map.put(buid, c);
 			}
 			else
-			c=map.get(buname);
+			c=map.get(buid);
 			if(enddate!=null){
 			long duration=today.getTime()-enddate.getTime();
 			long daysleft=TimeUnit.DAYS.convert(duration, TimeUnit.MILLISECONDS);
@@ -66,6 +66,7 @@ public class ProjectService {
 			c.incrementTotal();
 			}
 		}
-		return map;
+		List<Color> list = new ArrayList<Color>(map.values());
+		return list;
 	}
 }

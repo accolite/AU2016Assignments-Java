@@ -1,10 +1,14 @@
 package com.au.proma.service;
 
+import com.au.proma.model.BU;
+
 public class Color {
+	private BU bu;
 	private int red;
 	private int yellow;
 	private int green;
 	private int total;
+	
 	
 	public int getTotal() {
 		return total;
@@ -54,4 +58,12 @@ public class Color {
 	{
 		this.total++;
 	}
+	public BU getBu() {
+		return bu;
+	}
+	public void setBu(BU bu) {
+		this.bu = bu;
+	}
+	
+	
 }
