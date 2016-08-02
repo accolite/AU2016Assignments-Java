@@ -72,7 +72,7 @@ public class ProjectDao {
 	
 	public int updateProject(Project pobj)
 	{
-		String query="update dbo.project set projectmanagerid='"+ pobj.getProjectid()+"' , resourceworking='"+pobj.getResourceworking()+"' ,startdate='"+ pobj.getStartdate().toString()+"' ,enddate='"+pobj.getEnddate().toString()+"' where projectname='"+pobj.getProjectname()+"'and clientname='"+pobj.getClient().getClientname()+"'";
+		String query="update dbo.project set projectmanagerid='"+ pobj.getProjectid()+"' , resourceworking='"+pobj.getResourceworking()+"' ,startdate='"+ pobj.getStartdate().toString()+"' ,enddate='"+pobj.getEnddate().toString()+"' where projectid='"+pobj.getProjectid();
 		return jdbcTemplate.update(query);
 	}
 	

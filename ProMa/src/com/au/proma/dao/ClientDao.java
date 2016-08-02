@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCallback;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
@@ -39,16 +41,18 @@ public class ClientDao {
 		});
 	}
 	
-	public Boolean insertClient(Client client){
+	public int insertClient(Client client){
 		String sql = "insert into dbo.Client(clientname) values(?)";
 		
-		return jdbcTemplate.execute(sql, new PreparedStatementCallback<Boolean>() {
+		
+		return jdbcTemplate.execute(sql, new PreparedStatementCallback<Integer>() {
 
 			@Override
-			public Boolean doInPreparedStatement(PreparedStatement ps) throws SQLException, DataAccessException {
+			public Integer doInPreparedStatement(PreparedStatement ps) throws SQLException, DataAccessException {
 				ps.setString(1, client.getClientname());
-				return ps.execute();
+				return ps.executeUpdate();
 			}
+			
 		});
 	}
 	
