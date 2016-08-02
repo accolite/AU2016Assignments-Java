@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Consumer</title>
+</head>
+<body>
+	
+		<!-- <select id="sel">
+		  <option value="0">Fruits</option>
+		  <option value="1">Apple</option>
+		  <option value="2">Orange</option>
+		  <option value="3">Grape</option>
+		  <option value="4">Banana</option>
+		</select> -->
+		
+		<pre>
+			Fruits                    		        Quantity
+			Apple     	    				<input type="text" name="qty1"></input>
+			Orange	    					<input type="text" name="qty2"></input>
+			Grape	    					<input type="text" name="qty3"></input>
+			Watermelon					<input type="text" name="qty4"></input>
+		
+        		<button name="cons" onclick="send()" >Consume</button>
+        </pre>
+        <span id="a"></span>
+                
+<script>
+		function getNewXmlHttp(){
+			var xmlhttp;
+			if (window.XMLHttpRequest)
+			  {
+			  xmlhttp=new XMLHttpRequest();
+			  }
+			else
+			  {
+			  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+			  }
+			  return xmlhttp;
+		}
+		
+		function send(){
+			//var e = document.getElementById("sel");
+			//var fruit = e.options[e.selectedIndex].value;
+			var quantity1 = document.getElementById("qty1").value;
+			var quantity2 = document.getElementById("qty2").value;
+			var quantity3 = document.getElementById("qty3").value;
+			var quantity4 = document.getElementById("qty4").value;
+			var xmlhttp = getNewXmlHttp();
+			xmlhttp.onreadystatechange = function(){
+			  if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
+			    {
+			    	var text = xmlhttp.responseText;
+			    	console.log("In Consumer");
+			    	alert(text);
+			    }  
+			  }
+			  xmlhttp.open("GET","http://localhost:8080/RestfulProducerConsumer/rest/prodcon/consume?qty1="+quantity1+"&qty2="+quantity2+"&qty3="+quantity3+"&qty4="+quantity4,true);
+  			 // xmlhttp.setRequestHeader("Content-type","text/plain");
+ 			  //xmlhttp.setRequestHeader("Accept","text/plain");
+  			  xmlhttp.send();
+
+		}
+</script>
+</body>
+</html>

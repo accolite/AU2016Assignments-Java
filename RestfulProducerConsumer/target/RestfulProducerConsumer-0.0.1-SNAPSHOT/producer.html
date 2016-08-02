@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Producer</title>
+</head>
+<body>
+		
+		
+		<!-- <select id="sel">
+		  <option value="0">Fruits</option>
+		  <option value="1">Apple</option>
+		  <option value="2">Orange</option>
+		  <option value="3">Grape</option>
+		  <option value="4">Banana</option>
+		</select> -->
+		<pre>
+			Fruits                    		        Quantity
+			Apple     	    				<input type="text" id="qty1"></input>
+			Orange	    					<input type="text" id="qty2"></input>
+			Grape	    					<input type="text" id="qty3"></input>
+			Watermelon					<input type="text" id="qty4"></input>
+		
+        		<button name="Prd" onclick="send()" >Produce</button>
+        </pre>
+        <span id="x"></span>
+        
+<script>
+		function getNewXmlHttp(){
+			var xmlhttp;
+			if (window.XMLHttpRequest)
+			  {
+			  xmlhttp=new XMLHttpRequest();
+			  }
+			else
+			  {
+			  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+			  }
+			  return xmlhttp;
+		}
+		
+		function send(){
+			//var e = document.getElementById("sel");
+			//var fruit = e.options[e.selectedIndex].value;
+			//document.getElementById("x").innerHTML = "abc";
+			var quantity1 = document.getElementById("qty1").value;
+			var quantity2 = document.getElementById("qty2").value;
+			var quantity3 = document.getElementById("qty3").value;
+			var quantity4 = document.getElementById("qty4").value;
+			var xmlhttp = getNewXmlHttp();
+			xmlhttp.onreadystatechange = function(){
+			  if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
+			    {
+			    	var text = xmlhttp.responseText;
+			    	console.log("In Producer");
+			    	alert(text);
+			    }  
+			  }
+			  xmlhttp.open("GET","http://localhost:8080/RestfulProducerConsumer/rest/prodcon/produce?qty1="+quantity1+"&qty2="+quantity2+"&qty3="+quantity3+"&qty4="+quantity4,true);
+  			  //xmlhttp.setRequestHeader("Content-type","text/plain");
+ 			  //xmlhttp.setRequestHeader("Accept","text/plain");
+  			  xmlhttp.send();
+
+		}
+</script>
+
+</body>
+</html>
