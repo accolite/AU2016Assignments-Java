@@ -1,0 +1,39 @@
+
+<div ng-controller="homeCtrl">
+<br/><br/>
+<div>
+    <table>
+        <tr>
+            <td>
+                <input type="text" ng-model="title" placeholder="Title..." >
+            </td>
+            <td>
+                <button type="button" class="btn btn-default" ng-model="category" bs-options="cat.categoryid as cat.categoryname for cat in categories" placeholder="Category" bs-select/>
+            </td>
+            <td>
+                <button type="button" class="btn btn-default" ng-model="location" bs-options="loc.locationid as loc.locationname for loc in locations" placeholder="Location" bs-select/>
+            </td>
+            <td>
+            </td>
+            <td>
+             </td>
+            <td>
+                <input type="button" name="Search" value="Search" ng-click="getAllPosts()">
+            </td>
+            <td>
+                <input type="button" name="Reset" value="Reset" ng-click="reset()">
+            </td>
+        </tr>
+    </table>
+    
+     <rzslider rz-slider-model="min"
+                      rz-slider-high="max"
+                          rz-slider-options="sliderOptions"></rzslider> 
+              
+    
+    <div ng-repeat="post in posts">
+        <min-post post = post> </min-post>
+    </div>
+   
+    
+</div>
