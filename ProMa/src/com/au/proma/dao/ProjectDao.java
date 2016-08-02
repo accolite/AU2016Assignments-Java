@@ -32,7 +32,37 @@ public class ProjectDao {
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
+	public ArrayList<Project> statusOfEveryBU()
+	{
+		String query="select project.projectid,bu.buid,bu.buname,project.startdate,project.enddate, project.completed from dbo.bu left join dbo.project on bu.buid=project.buid";
+		return jdbcTemplate.query(query, new ResultSetExtractor< ArrayList<Project> >() {
 
+			public ArrayList<Project> extractData(ResultSet rs) throws SQLException, DataAccessException {
+				
+				
+				ArrayList<Project> temp=new ArrayList<Project>();
+				while (rs.next()){
+				Project project=new Project();
+				Client client=new Client();
+				User user=new User();
+				BU bu=new BU();
+				project.setProjectid(rs.getInt("projectid"));
+				bu.setBuid(rs.getInt("buid"));
+				bu.setBuname(rs.getString("buname"));
+				project.setStartdate(rs.getDate("startdate"));
+				project.setEnddate(rs.getDate("enddate"));
+				project.setStatus(rs.getInt("completed"));
+				project.setBu(bu);
+				project.setProjectmanager(user);
+				project.setClient(client);
+				//Project obj=new Project(clientname, projectname, managername, resourceworking, startdate, enddate);
+				temp.add(project);
+				}
+				return temp;
+			}
+		});
+	}
+	
 
 	public ArrayList<Project> extractProjectsUnderBU(BU bu)
 	{
