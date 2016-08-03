@@ -5,7 +5,8 @@
 */
 angular.module('app', [
 	'ngRoute',
-	'mgcrea.ngStrap'
+	'mgcrea.ngStrap',
+	'ngAnimate'
 	])
 	.config(function($routeProvider) {
 		$routeProvider
@@ -27,10 +28,12 @@ angular.module('app', [
 		promise.then(function(response){
 			$scope.projects = response.data;
 		})		
-		$scope.modal = {
-		  "title": "Title",
-		  "content": "Hello Modal<br />This is a multiline message!"
-		};
+		
+		var roleurl = "rest/roles"
+		var rolepromise = $http.get(roleurl);
+		rolepromise.then(function(response){
+			$scope.roles = response.data;
+		})
 	})
 	.controller('individualController', function($scope,$http,$routeParams){
 		var url = "rest/projects/bus/" + $routeParams.buid;
