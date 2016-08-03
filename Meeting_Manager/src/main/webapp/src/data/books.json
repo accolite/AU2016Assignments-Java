@@ -1,0 +1,52 @@
+{
+	"books": [
+		{
+			"id": 1,
+			"name": "Effective Java",
+			"author": "Joshua Bloch",
+			"publisher": "Addison-Wesley Professional",
+			"language": "English",
+			"category": "Technical",
+			"pages": "250"
+			},
+		{
+			"id": 2,
+			"name": "Java Concurrency in Practice",
+			"author": "Doug lee bloch",
+			"publisher": "Addison-Wesley Professional",
+			"language": "English",
+			"category": "Technical",
+			"pages": "350"
+		},
+		{
+			"id": 3,
+			"name": "Head First Design Patterns",
+			"author": "Walter White",
+			"publisher": "Pearson India",
+			"language": "English",
+			"category": "Technical",
+			"pages": "200"
+		},
+		{
+			
+			"id": 4,
+			"name": "1984",
+			"author": "George orwell",
+			"publisher": "Penguin Books",
+			"language": "English",
+			"category": "Fiction",
+			"pages": "229"
+		},
+		{
+			
+			"id": 5,
+			"name": "NodeJs in Action",
+			"author": "Mr X.",
+			"publisher": "Pearson India",
+			"language": "English",
+			"category": "Technical",
+			"pages": "350"
+		}
+
+	]
+}

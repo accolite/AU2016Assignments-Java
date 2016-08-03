@@ -36,7 +36,7 @@ public class AdminController {
 		return "Session is created";
 	}
 
-	@RequestMapping(value = "/feedback", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "feedback", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public Feedback getFeedback(@RequestParam("SessionID") int sessionID) { // Take
 																			// int
@@ -47,6 +47,18 @@ public class AdminController {
 															// SessionID, 0 0 0
 															// 0 )
 		jdbc.setFeedback(feedback); // Instead of passing int, pass the session.
+		return feedback;
+	}
+
+	@RequestMapping(value = "fetchFeedback", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public Feedback fetchFeedback(@RequestParam("SessionID") int sessionID) { // Take
+																				// int
+																				// SessionID
+		Session s = new Session();
+		s.setSessionID(sessionID);
+		Feedback feedback = jdbc.fetchFeedback(s); // Instead of passing int,
+													// pass the session.
 		return feedback;
 	}
 

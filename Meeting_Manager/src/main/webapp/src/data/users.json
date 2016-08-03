@@ -1,0 +1,145 @@
+{
+    "users": [
+        {
+            "userName": "lak",
+            "name": "Lakshmi Narayanan",
+            "email": "laknaren16@gmail.com",
+            "booksBorrowed": [
+                {
+                    "bookId": 1,
+                    "dueDate": "1469815811648"
+                }
+            ]
+        },
+        {
+            "userName": "subhajee",
+            "name": "Subhajeet Sarkar",
+            "email": "subhajeet@gmail.com",
+            "booksBorrowed": [
+                {
+                    "bookId": 2,
+                    "dueDate": "1469815811648"
+                },
+                {
+                    "bookId": 1,
+                    "dueDate": "1469815811648"
+                }
+            ]
+        },
+        {
+            "userName": "pushpak",
+            "name": "Pushpak",
+            "email": "push@gmail.com",
+            "booksBorrowed": [
+                {
+                    "bookId": 3,
+                    "dueDate": "1469815811648"
+                }
+            ]
+        },
+        {
+            "userName": "ashutosu",
+            "name": "Ashutosh Upadhyay",
+            "email": "ashutosu@gmail.com",
+            "booksBorrowed": [
+                {
+                    "bookId": 3,
+                    "dueDate": "1469815811648"
+                },
+                {
+                    "bookId": 2,
+                    "dueDate": "1469815811648"
+                }
+            ]
+        },
+        {
+            "userName": "kumadhee",
+            "name": "Dheeraj Kumar",
+            "email": "kumadhe@gmail.com",
+            "booksBorrowed": [
+                {
+                    "bookId": 3,
+                    "dueDate": "1469815811648"
+                },
+                {
+                    "bookId": 2,
+                    "dueDate": "1469815811648"
+                }
+            ]
+        },
+        {
+            "userName": "malviabh",
+            "name": "Abhinav Malviya",
+            "email": "malviyabh@gmail.com",
+            "booksBorrowed": [
+                {
+                    "bookId": 3,
+                    "dueDate": "1469815811648"
+                },
+                {
+                    "bookId": 2,
+                    "dueDate": "1469815811648"
+                }
+            ]
+        },
+        {
+            "userName": "vundyala",
+            "name": "Avinash vundyala",
+            "email": "vundyala@gmail.com",
+            "booksBorrowed": [
+                {
+                    "bookId": 3,
+                    "dueDate": "1469815811648"
+                },
+                {
+                    "bookId": 2,
+                    "dueDate": "1469815811648"
+                }
+            ]
+        },        {
+            "userName": "vidyaL",
+            "name": "Vidya Lakshmi",
+            "email": "vidyaL@gmail.com",
+            "booksBorrowed": [
+                {
+                    "bookId": 3,
+                    "dueDate": "1469815811648"
+                },
+                {
+                    "bookId": 2,
+                    "dueDate": "1469815811648"
+                }
+            ]
+        },        {
+            "userName": "vicky",
+            "name": "Vikas Gupta",
+            "email": "vicky@gmail.com",
+            "booksBorrowed": [
+                {
+                    "bookId": 3,
+                    "dueDate": "1469815811648"
+                },
+                {
+                    "bookId": 2,
+                    "dueDate": "1469815811648"
+                }
+            ]
+        },        {
+            "userName": "Sivanesh",
+            "name": "Sivanesh",
+            "email": "Sivanesh@gmail.com",
+            "booksBorrowed": [
+                {
+                    "bookId": 3,
+                    "dueDate": "1469815811648"
+                },
+                {
+                    "bookId": 2,
+                    "dueDate": "1469815811648"
+                }
+            ]
+        }
+
+
+    ]
+}

@@ -212,4 +212,89 @@ public class JDBCTemplateDao {
 		return -1;
 	}
 
+	/* EXPIREMENTAL POLLING CODE FOLLOWS */
+	public int addPoll(Poll p) {
+		String query = "INSERT into poll VALUES ('" + p.getQ() + "','" + p.getO1() + "','" + p.getO2() + "','"
+				+ p.getO3() + "','" + p.getO4() + "');";
+		return jdbcTemplate.update(query);
+	}
+
+	public int givePoll(User u, Poll p, int choice) {
+		String query = "INSERT INTO pollresponse VALUES ( " + p.getPollID() + ", " + u.getUserID() + ", " + choice
+				+ " );";
+		return jdbcTemplate.update(query);
+	}
+
+	public int[] fetchPoll(Poll p) {
+		String query = "SELECT PollID, Choice, count(*) AS CNT FROM pollresponse GROUP BY PollID, Choice HAVING PollID = "
+				+ p.getPollID();
+		return jdbcTemplate.query(query, new ResultSetExtractor<int[]>() {
+
+			public int[] extractData(ResultSet rs) throws SQLException, DataAccessException {
+				int[] choices = new int[4];
+				int optionNo = 0;
+				while (rs.next()) {
+					choices[optionNo++] = rs.getInt("CNT");
+				}
+				return choices;
+			}
+		});
+	}
+
+	public Feedback fetchFeedback(Session s) {
+		String query = "SELECT * FROM feedback WHERE SessionID = " + s.getSessionID();
+		return jdbcTemplate.query(query, new ResultSetExtractor<Feedback>() {
+
+			public Feedback extractData(ResultSet rs) throws SQLException, DataAccessException {
+				Feedback f = new Feedback();
+				while (rs.next()) {
+					f.setFeedback1(rs.getFloat("Feedback1"));
+					f.setFeedback2(rs.getFloat("Feedback2"));
+					f.setFeedback3(rs.getFloat("Feedback3"));
+					f.setFeedback4(rs.getFloat("Feedback4"));
+				}
+				return f;
+			}
+		});
+	}
+
+	private int addTrainees(ArrayList<User> users, Session session) {
+		int i;
+		String query;
+		for (i = 0; i < users.size(); i++) {
+			if (users.get(i).getUserID() != 0) {
+				query = "insert into trainee values(" + session.getSessionID() + "," + users.get(i).getUserID()
+						+ ",'09:00:00.00'," + "0)";
+				System.out.println("Query :" + query);
+				jdbcTemplate.update(query);
+			}
+		}
+		return 1;
+	}
+
+	public ArrayList<User> getUserIDs(String[] email, Session session) {
+		int i;
+		String query;
+		ArrayList<User> users = new ArrayList<User>();
+		User newUser = new User();
+
+		for (i = 0; i < email.length; i++) {
+			query = "Select UserID FROM userdata WHERE UserEmail = '" + email[i] + "'";
+			newUser = jdbcTemplate.query(query, new ResultSetExtractor<User>() {
+
+				public User extractData(ResultSet rs) throws SQLException, DataAccessException {
+					User u = new User();
+					while (rs.next()) {
+						u.setUserID(rs.getInt("UserID"));
+					}
+					return u;
+				}
+			});
+			if (newUser.getUserID() != session.getTrainerID())
+				users.add(newUser);
+		}
+		addTrainees(users, session);
+		return users;
+	}
+
 }

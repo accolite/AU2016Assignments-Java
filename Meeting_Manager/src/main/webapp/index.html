@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title> Angular Snippets </title>
+  
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+  <link rel="styleSheet" href="bower_components/angular-ui-grid/ui-grid.min.css" />
+</head>
+<body>
+  
+  
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Library of Angular Functionalities for Meeting Manager</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li ng-class="{'active' : activeState == 0 }"><a ui-sref="books.list">Landing Page 1</a></li>
+        <li ng-class="{'active' : activeState == 1 }"><a ui-sref="users">Landing Page 2</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+  <script src="bower_components/lodash/lodash.js"></script> 
+  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <script src="bower_components/chart/dist/Chart.min.js"></script>
+<script src="bower_components/angular-chart/dist/angular-chart.min.js"></script>
+  <script src="src/app/app.js"></script>
+  
+  
+ <body ng-app="library" ng-controller="appController">
+<h5 ng-repeat="x in traineedata">
+<b>Session Name : {{x.sessionName}}</b><br>
+Session Date : {{x.date}} <br>
+SessionID : {{x.sessionID}} <br>
+TrainerID : {{x.trainerID}} <br>
+Session Start Time : {{x.endTime}} <br>
+Session End Time : {{x.startTime}} <br>
+</h5>
+<br>
+<p>TraineeID: <input type="text" ng-model="TraineeID"></p>
+    <button ng-click="getTraineeSessions()"> Get Sessions that Trainee has Accepted </button>
+  
+<h5 ng-repeat="x in trainerdata">
+<b>Session Name : {{x.sessionName}}</b><br>
+Session Date : {{x.date}} <br>
+SessionID : {{x.sessionID}} <br>
+TrainerID : {{x.trainerID}} <br>
+Session Start Time : {{x.endTime}} <br>
+Session End Time : {{x.startTime}} <br>
+</h5>
+<br>
+<p>TrainerID: <input type="text" ng-model="TrainerID"></p>
+    <button ng-click="getTrainerSessions()"> Get Sessions that Trainer will conduct </button>
+
+<br>
+<br>
+<h3> Send Reminders/Notifications </h3> 
+<p> Subject <input type="text" ng-model="Subject"></p>
+<p> Message <input type="textbox" style="height:100px" ng-model="Message"></p>
+<p> Session <input type="text" ng-model="SessionID"></p>
+<button ng-click="sendEmail()"> Send Email </button>
+
+
+<br>
+<h3> Feedback </h3> 
+<p> Session <input type="text" ng-model="FeedbackSessionID"></p>
+<button ng-click="createFeedback()"> Generate Feedback </button>
+
+
+
+<br>
+<h3> Trainee Approves </h3> 
+<p> SessionID <input type="text" ng-model="TraineeSessionID"></p>
+<p> UserID <input type="text" ng-model="TraineeUserID"></p>
+<button ng-click="approve()"> Generate Feedback </button>
+
+
+<br>
+<h3> Trainee Gives Feedback </h3> 
+<p> SessionID <input type="text" ng-model="FeedbackSessionID"></p>
+<p> Question 1 <input type="number" min="1" max="5" ng-model="f1"></p>
+<p> Question 2 <input type="number" min="1" max="5" ng-model="f2"></p>
+<p> Question 3 <input type="number" min="1" max="5" ng-model="f3"></p>
+<p> Question 4 <input type="number" min="1" max="5" ng-model="f4"></p>
+<button ng-click="avgfeedback()"> Submit Session Feedback </button>
+
+
+<br>
+<h3> Trainee Gives Feedback </h3> 
+<p> SessionID <input type="text" ng-model="FeedbackSessionID"></p>
+<p> Question 1 <input type="number" min="1" max="5" ng-model="f1"></p>
+<p> Question 2 <input type="number" min="1" max="5" ng-model="f2"></p>
+<p> Question 3 <input type="number" min="1" max="5" ng-model="f3"></p>
+<p> Question 4 <input type="number" min="1" max="5" ng-model="f4"></p>
+<button ng-click="avgfeedback()"> Submit Session Feedback </button>
+
+
+
+<br>
+<h3> Trainer Creates Poll </h3> 
+<p> Question <input type="text" ng-model="q"></p>
+<p> Option 1 <input type="text" ng-model="o1"></p>
+<p> Option 2 <input type="text" ng-model="o2"></p>
+<p> Option 3 <input type="text" ng-model="o3"></p>
+<p> Option 4 <input type="text" ng-model="o4"></p>
+<button ng-click="addPoll()"> Create a Poll  </button>
+
+<br>
+<h3> Trainee gives a Poll </h3>
+<p> PollID <input type="text" ng-model="TraineePollID"></p>
+<p> UserID <input type="text" ng-model="TraineePollUserID"></p>
+<p> Choice <input type="number" min="1" max="4" ng-model="Choice"></p>
+<button ng-click="givePoll()"> Give Poll </button>
+
+
+
+
+
+<br>
+<h3> Trainer fetches a Poll </h3> 
+<p> PollID <input type="text" ng-model="PollID"></p>
+<button ng-click="fetchPoll()"> Visualise Poll Results  </button>
+<div ng-if="polldata">
+<canvas id="doughnut1" class="chart chart-doughnut"
+  chart-data="data1" chart-labels="labels1">
+</canvas> 
+</div>
+
+<br>
+<h3> Admin Fetches Feedback </h3> 
+<p> SessionID <input type="text" ng-model="fetchFeedbackSessionID"></p>
+<button ng-click="fetchfeedback()"> Admin Fetch Feedback </button>
+<div ng-if="feedbackdata">
+Feedback 1 : {{feedbackdata.feedback1}}<br>
+Feedback 2  : {{feedbackdata.feedback2}} <br>
+Feedback 3 : {{feedbackdata.feedback3}} <br>
+Feedback 4 : {{feedbackdata.feedback4}} <br>
+<canvas id="doughnut" class="chart chart-doughnut"
+  chart-data="data" chart-labels="labels">
+</canvas> 
+</div>
+
+
+
+
+
+ <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<input type="text" ng-model="Common"></input> 
+
+</body>
+</html>

@@ -1,6 +1,5 @@
 package com.springdemo.tutorial.model;
 
-
 public class Feedback {
 
 	private int SessionID, Total;
@@ -53,7 +52,7 @@ public class Feedback {
 	public void setFeedback4(double Feedback4) {
 		this.Feedback4 = Feedback4;
 	}
-	
+
 	public Feedback(int SessionID) {
 		this.SessionID = SessionID;
 		Feedback1 = 0;
@@ -62,7 +61,7 @@ public class Feedback {
 		Feedback4 = 0;
 		Total = 0;
 	}
-	
+
 	public Feedback() {
 		SessionID = -1;
 		Feedback1 = 0;
@@ -71,7 +70,7 @@ public class Feedback {
 		Feedback4 = 0;
 		Total = 0;
 	}
-	
+
 	public Feedback(int SessionID, double Feedback1, double Feedback2, double Feedback3, double Feedback4) {
 		this.SessionID = SessionID;
 		this.Feedback1 = Feedback1;
@@ -80,5 +79,5 @@ public class Feedback {
 		this.Feedback4 = Feedback4;
 		Total = 1;
 	}
-	
+
 }

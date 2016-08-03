@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.springdemo.tutorial.jdbctemplate.JDBCTemplateDao;
+import com.springdemo.tutorial.model.Poll;
 import com.springdemo.tutorial.model.Session;
 import com.springdemo.tutorial.model.User;
 
@@ -29,7 +30,7 @@ public class TraineeController {
 		jdbc.addTrainee(trainee, session);
 		return "Trainee added";
 	}
-	
+
 	@RequestMapping(value = "/getJoinedSessions", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public ArrayList<Session> getSessions(@RequestParam("TraineeID") int TraineeID) {
@@ -37,4 +38,16 @@ public class TraineeController {
 		Trainee.setUserID(TraineeID);
 		return jdbc.getJoinedSessions(Trainee);
 	}
+
+	@RequestMapping(value = "/givePoll", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public int givePoll(@RequestParam("PollID") int PollID, @RequestParam("UserID") int UserID,
+			@RequestParam("choice") int choice) {
+		Poll p = new Poll();
+		p.setPollID(PollID);
+		User u = new User();
+		u.setUserID(UserID);
+		return jdbc.givePoll(u, p, choice);
+	}
+
 }
