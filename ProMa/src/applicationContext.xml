@@ -28,18 +28,6 @@
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 
-	<bean id="udao" class="com.au.proma.dao.UserDao">
-		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
-	</bean>
-	<bean id="pdao" class="com.au.proma.dao.ProjectDao">
-		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
-	</bean>
-	
-	<bean id="bdao" class="com.au.proma.dao.BuDao">
-		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
-	</bean>
-	<bean id="rdao" class="com.au.proma.dao.RoleDao">
-		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
-	</bean>
+
 	
 </beans>
