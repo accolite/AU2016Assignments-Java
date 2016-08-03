@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,11 +22,24 @@ public class AdminController {
 	@Autowired
 	private JDBCTemplateDao jdbc;
 
+	public int checkuser(HttpServletRequest request) {
+		String string = (String) request.getSession().getAttribute("role");
+		if (string.equals("admin"))
+			return 1;
+		else if (string.equals("user")) {
+			return 2;
+		} else {
+			return -1;
+		}
+	}
+	
 	@RequestMapping(value = "/createSession", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public String createSession(@RequestParam("SessionName") String SessionName,
 			@RequestParam("TrainerID") int TrainerID, @RequestParam("Date") Date date,
-			@RequestParam("StartTime") String StartTime, @RequestParam("EndTime") String EndTime) {
+			@RequestParam("StartTime") String StartTime, @RequestParam("EndTime") String EndTime, HttpServletRequest request) {
+		if( checkuser(request) <= 0)
+			return null;
 		Session session = new Session();
 		session.setSessionName(SessionName);
 		session.setTrainerID(TrainerID);
@@ -38,9 +53,11 @@ public class AdminController {
 
 	@RequestMapping(value = "feedback", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public Feedback getFeedback(@RequestParam("SessionID") int sessionID) { // Take
+	public Feedback getFeedback(@RequestParam("SessionID") int sessionID, HttpServletRequest request) { // Take
 																			// int
 																			// SessionID
+		if( checkuser(request) <= 0)
+			return null;
 		Session s = new Session();
 		s.setSessionID(sessionID);
 		Feedback feedback = new Feedback(s.getSessionID()); // New Session( int
@@ -52,9 +69,10 @@ public class AdminController {
 
 	@RequestMapping(value = "fetchFeedback", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public Feedback fetchFeedback(@RequestParam("SessionID") int sessionID) { // Take
+	public Feedback fetchFeedback(@RequestParam("SessionID") int sessionID, HttpServletRequest request) { // Take
 																				// int
-																				// SessionID
+		if( checkuser(request) <= 0)
+			return null;																		// SessionID
 		Session s = new Session();
 		s.setSessionID(sessionID);
 		Feedback feedback = jdbc.fetchFeedback(s); // Instead of passing int,
@@ -65,9 +83,11 @@ public class AdminController {
 	@RequestMapping(value = "/avgFeedback", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public Feedback updateFeedback(@RequestParam("SessionID") int sessionID, @RequestParam("f1") int f1,
-			@RequestParam("f2") int f2, @RequestParam("f3") int f3, @RequestParam("f4") int f4) { // Take
+			@RequestParam("f2") int f2, @RequestParam("f3") int f3, @RequestParam("f4") int f4, HttpServletRequest request) { // Take
 																									// int
 																									// SessionID
+		if( checkuser(request) <= 0)
+			return null;
 		Session s = new Session();
 		s.setSessionID(sessionID);
 		Feedback feedback = new Feedback(s.getSessionID(), f1, f2, f3, f4); // New
