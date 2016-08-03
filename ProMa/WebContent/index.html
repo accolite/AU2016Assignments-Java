@@ -5,7 +5,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-<a href="rest/projects">GO</a>
+<form action="/rest/accounts/login" method="POST">
+name<input type="text" name="name" id="name">
+password<input type="password" name="password" id="password">
+<input type="submit" value="Submit">
+</form>
+<form method="POST" action="/rest/accounts/forgot">
+<input type="text" name="name" id="name">
+<input type="submit" value="Forgot">
+</form>
 
 </body>
 </html>
