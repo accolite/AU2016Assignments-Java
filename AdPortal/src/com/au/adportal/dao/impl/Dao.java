@@ -239,4 +239,19 @@ public class Dao implements DaoInterface{
 		return user;
 	}
 
+	@Override
+	@Transactional
+	public boolean addUser(User user) {
+		boolean result = false;
+		try{
+			entityManager.persist(user);
+			result = true;
+		}
+		catch(Exception e){
+			result = false;
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 }

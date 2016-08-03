@@ -11,6 +11,9 @@ app.config(['$routeProvider',function($routeProvider){
     }).when('/edit',{
         templateUrl: 'templates/edit.html',
         controller: 'editCtrl'
+    }).when('/new',{
+        templateUrl: 'templates/newpost.html',
+        controller: 'newPostCtrl'
     })
     
 
@@ -25,3 +28,22 @@ app.directive('minPost', [function () {
 		templateUrl: 'templates/minPost.html'
 	};
 }])
+
+
+app.directive('showErrors', function(){
+    return{
+        restrict: 'A',
+        require: '^form',
+        link: function (scope, el, attrs, formCtrl) {
+            var inputEl   = el[0].querySelector("[name]");
+            var inputNgEl = angular.element(inputEl);
+            var inputName = inputNgEl.attr('name');
+            inputNgEl.bind('blur', function() {
+                el.toggleClass('has-error', formCtrl[inputName].$invalid);
+            });
+            scope.$on('show-errors-check-validity', function() {
+                el.toggleClass('has-error', formCtrl[inputName].$invalid);
+            });
+        }
+    }
+});

@@ -1,13 +1,21 @@
- <div>
- <table>
+<div style="height:150px;margin:5px;padding:5px; border:1px solid black;">
+<div style="float:left">
+<img src="http://www.gettyimages.pt/gi-resources/images/Homepage/Hero/PT/PT_hero_42_153645159.jpg" alt="Mountain View" style="width:150px;height:150px">
+</div>
+
+<div style="float:left;width:70%;">
+<table width=100%> 
   <tr>
-   <td rowspan="2"><img src=""></td>
-   <td>{{post.title}}</td>
-   <td>{{post.price}}</td>
-  </tr>
-  <tr>
-   <td>by {{post.userid}}</td>
-   <td><input type="button" name="Contact" value="Contact"></td>
-  </tr>
- </table>
+    <td colspan=2><b>{{post.title}}</b></td>
+    <td>{{post.price}}</td>
+</tr>
+ <tr>
+    <td>{{post.username}}<br/>{{post.location}}<br/>{{post.category}}</td>
+<td> {{post.description}}</td>
+<td ><a href="#/edit/{{post.postid}}"><Button>Edit</Button></a><br/>
+<a href="#/delete/{{post.postid}}"><Button>Delete</Button></a><br/>
+<a href="#/contact/{{post.postid}}"><Button>Contact</Button></a></td>
+</tr>
+</table>
+    
 </div>

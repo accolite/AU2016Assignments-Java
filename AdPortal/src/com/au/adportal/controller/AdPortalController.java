@@ -1,6 +1,10 @@
 package com.au.adportal.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -11,6 +15,9 @@ import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,13 +30,17 @@ import com.au.adportal.model.Category;
 import com.au.adportal.model.CurrentUser;
 import com.au.adportal.model.Location;
 import com.au.adportal.model.Post;
+import com.au.adportal.model.User;
 import com.au.adportal.service.ServiceInterface;
+import com.au.adportal.util.Role;
+import com.au.adportal.viewmodel.ViewPost;
 
 @SpringBootApplication
 @RestController
 @ComponentScan("com.au.adportal")
 @EnableAutoConfiguration
 @Configuration
+@EnableAsync
 public class AdPortalController extends SpringBootServletInitializer {
 	@Autowired
 	ServiceInterface service;
@@ -39,6 +50,25 @@ public class AdPortalController extends SpringBootServletInitializer {
 	@Autowired
 	DaoInterface dao;
 
+	@RequestMapping("/user")
+	public @ResponseBody Object getUser(Principal p){
+		OAuth2Authentication aut = (OAuth2Authentication) SecurityContextHolder.getContext().getAuthentication();
+		LinkedHashMap obj = (LinkedHashMap)aut.getUserAuthentication().getDetails();
+		if(obj.get("hd")==null || !obj.get("hd").equals("accoliteindia.com")){
+			SecurityContextHolder.getContext().setAuthentication(null);
+			return null;
+		}
+		String id = aut.getPrincipal().toString();
+		User user = service.getUser(id); 
+		if(user==null){
+			user = new User(id, obj.get("name").toString(), obj.get("email").toString(), "", Role.USER);
+			service.addUser(user);			
+		}
+		current_user.setUser(user);
+		return user;
+	}
+	
+	
 	@RequestMapping(value = "/hello", method = RequestMethod.GET)
 	public String hello() {
 		// dao.makeAdmin("");
@@ -76,12 +106,12 @@ public class AdPortalController extends SpringBootServletInitializer {
 	}
 
 	@RequestMapping(value = "/addpost", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
-	public @ResponseBody int addPost(@RequestBody Post post) {
-		return (service.addPost(current_user, post));
+	public @ResponseBody String addPost(@RequestBody Post post) {
+		return ""+(service.addPost(current_user, post));
 	}
 
 	@RequestMapping(value = "/getallposts", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ArrayList<Post> getAllPosts(@RequestParam(value = "title",required=false) String title,
+	public @ResponseBody ArrayList<ViewPost> getAllPosts(@RequestParam(value = "title",required=false) String title,
 			@RequestParam(value = "location",required=false) Integer locationId, @RequestParam(value = "minPrice",required=false) Integer minPrice,
 			@RequestParam(value = "maxPrice",required=false) Integer maxPrice, @RequestParam(value = "category",required=false) Integer categoryId) {
 		return (service.getAllPosts(current_user, title, locationId, minPrice, maxPrice, categoryId));

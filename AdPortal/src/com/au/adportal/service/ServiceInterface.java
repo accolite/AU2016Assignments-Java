@@ -6,6 +6,8 @@ import com.au.adportal.model.Category;
 import com.au.adportal.model.CurrentUser;
 import com.au.adportal.model.Location;
 import com.au.adportal.model.Post;
+import com.au.adportal.model.User;
+import com.au.adportal.viewmodel.ViewPost;
 
 public interface ServiceInterface {
 	
@@ -21,7 +23,7 @@ public interface ServiceInterface {
 	
 	public boolean deletePost(CurrentUser user, Integer postid);
 	
-	public ArrayList<Post> getAllPosts(CurrentUser user, String title, Integer location, Integer minPrice, Integer maxPrice, Integer category);
+	public ArrayList<ViewPost> getAllPosts(CurrentUser user, String title, Integer location, Integer minPrice, Integer maxPrice, Integer category);
 	
 	public int editPost(CurrentUser user, Post post);
 	
@@ -34,5 +36,9 @@ public interface ServiceInterface {
 	public ArrayList<Location> getLocations();
 	
 	public Post getPost(CurrentUser user, Integer postid);
+	
+	public User getUser(String userid); 
+	
+	public boolean addUser(User user); 
 	
 }

@@ -37,5 +37,7 @@ public interface DaoInterface {
 	public String getLocationName(int locationid);
 	
 	public User getUser(String userid);
+	
+	public boolean addUser(User user);
 
 }

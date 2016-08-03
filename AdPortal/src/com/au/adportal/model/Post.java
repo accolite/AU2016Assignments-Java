@@ -25,12 +25,8 @@ public class Post {
 	private int location;
 	@Column
 	private int category;
-	public int getCategory() {
-		return category;
-	}
-	public void setCategory(int category) {
-		this.category = category;
-	}
+	@Column
+	private String userid;
 	@Column
 	private int status;
 	@Column(name = "created_date", nullable = false)
@@ -88,4 +84,17 @@ public class Post {
 	public void setStatus(int status) {
 		this.status = status;
 	}
+	public String getUserid() {
+		return userid;
+	}
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+	public int getCategory() {
+		return category;
+	}
+	public void setCategory(int category) {
+		this.category = category;
+	}
+	
 }
