@@ -127,7 +127,32 @@
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log." suffix=".txt"/>
 
       
-      
+      <Context docBase="jndi" path="/jndi" reloadable="true" source="org.eclipse.jst.jee.server:jndi">
+        <Resource name="jdbc/MyDatabase"
+        global="jdbc/MyDatabase"
+        auth="Container"
+        type="javax.sql.DataSource"
+        driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+        url="jdbc:sqlserver://localhost:1433"
+        username="sa"
+        password="accolite" 
+       maxActive="100"
+       maxIdle="20"
+        minIdle="5"
+        maxWait="10000"/>
+        <Resource name="mail/Session" auth="Container"
+            type="javax.mail.Session"
+            username="jeganmuthaiah@gmail.com"
+            password="jsjegan123"
+            mail.user="jsjegan123"
+            mail.smtp.auth="true"
+      mail.smtp.starttls.enable="true"
+      mail.smtp.host="smtp.gmail.com"
+      mail.smtp.port="587"
+/>
+
+
+      </Context>
       
       <Context docBase="IT_Inventory" path="/IT_Inventory" reloadable="true" source="org.eclipse.jst.j2ee.server:IT_Inventory"/></Host>
     </Engine>
