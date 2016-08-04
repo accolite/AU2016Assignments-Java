@@ -1,6 +1,8 @@
 package com.au.proma.controller;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,5 +24,10 @@ public class UserController {
 	public @ResponseBody String addUser(@RequestBody User user){
 		Boolean isSuccess = userService.addUser(user);
 		return isSuccess == true ? "Success" : "Failure";
+	}
+	
+	@RequestMapping(method=RequestMethod.GET,produces="application/json")
+	public @ResponseBody List<User> getAllUsers(){
+		return userService.getAllUsers();
 	}
 }
