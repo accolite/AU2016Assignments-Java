@@ -125,8 +125,8 @@
 
 					<Resource name="mail/Session" auth="Container" type="javax.mail.Session"
 						mail.smtp.host="smtp.gmail.com" mail.smtp.port="587"
-						mail.smtp.auth="true" mail.smtp.user="saumyadeep.tarafdar@accoliteindia.com"
-						mail.smtp.password="20top3bottomDartStar" mail.smtp.starttls.enable="true" />
+						mail.smtp.auth="true" mail.smtp.user="arnika54362@gmail.com"
+						mail.smtp.password="arnika23" mail.smtp.starttls.enable="true" />
 				</Context>
 
 			</Host>
