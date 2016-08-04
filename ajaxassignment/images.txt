@@ -1,3 +1,0 @@
-{"images" : [{"src" : "codeforces-logo-with-telegram.png" , "des" : "first_image"},{"src" : "control.png" , "des" : "second_image"},
-		{"src" : "control-270.png" , "des" : "third_image"},{"src" : "cup.png" , "des" : "fourth_image"},
-		{"src" : "gb.png" , "des" : "fifth_image"},{"src" : "ru.png" , "des" : "sixth_image"}]}
