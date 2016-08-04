@@ -38,16 +38,25 @@ app.factory('HomeService',function($http){
             return $http.get('/AdPortal/rest/getcontactinfo?postid='+postid);
         },
         contact : function(postid, message){
-             var paramsData = { postid: postid, message: message};
+            
+            if(postid){
+               
+            
+            if(!message){
+                message="";
+            }
+                 var message = [postid,message];
             var req = {
-                    method: 'POST',
-                    url: '/AdPortal/rest/deletepost',
-                    headers: {
-                        'Content-Type': "application/json"
-                    },
-                    params: paramsData,
-                    transformRequest: angular.identity
-                }
-                return $http(req);
+                method: 'POST',
+                url: '/AdPortal/rest/contact',
+                headers: {
+                    'Content-Type': "application/json"
+                },
+                data: angular.toJson(message),
+                transformRequest: angular.identity
+            }
+            return $http(req);
         }
+        }
+            
 }});

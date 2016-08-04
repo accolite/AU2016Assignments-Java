@@ -1,10 +1,11 @@
 app.controller("homeCtrl", ['$scope', 'HomeService','$modal', '$localStorage', '$window', function ($scope,HomeService, $modal, $localStorage, $window) {
     
 // $scope.message = "This is the home page";
-
+    $scope.contactModal;
     $scope.$storage = $localStorage;
     
     $scope.contactDetails = {};
+    $scope.message=[];
     $scope.cpostid = "";
     
     $scope.min=0;
@@ -99,16 +100,28 @@ app.controller("homeCtrl", ['$scope', 'HomeService','$modal', '$localStorage', '
      }
      );
   }
- 
   $scope.contactPopup = function(postid){
       $scope.getContactInfo(postid);
-      modal = $modal({
-         title: 'Contact', 
+      $scope.contactModal = $modal({
+         title: 'Contact',
          templateUrl: 'templates/contactpopup.html',
          scope: $scope
      });
-     
-     modal.$promise.then(modal.show);
+     $scope.contactModal.$promise.then($scope.contactModal.show);
+  }
+  $scope.contact=function(){
+      console.log("from ctrl"+$scope.contactDetails.message);
+      HomeService.contact($scope.cpostid,$scope.contactDetails.message).
+        then(
+          function(successResponse){
+              $scope.contactModal.hide();
+              $scope.contactDetails.message="";
+          },
+          function(errorResponse){
+              $scope.contactModal.hide();
+              $scope.contactDetails.message="";
+          }
+        );
   }
   
     $scope.getCategories();
