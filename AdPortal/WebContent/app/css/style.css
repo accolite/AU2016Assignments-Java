@@ -19,3 +19,29 @@
     }
   }
 }
+
+ body {
+      padding-top: 1em;
+      background: #e2e1e0;
+      text-align: center;
+    }	
+.card {
+  background: #fff;
+  box-shadow: 0 10px 20px rgba(0,0,10,0), 0 6px 6px rgba(0,0,2,0);
+  box-shadow: 0 1px 1px rgba(77, 182, 172,0.2), 0 0 8px rgba(77, 182, 172,0.2);
+}
+.btn
+{
+  color:black;
+  margin: 2px;;
+}
+
+img
+{
+  max-height:150px;
+  max-width: 150px;;
+}
+.card-header,.btn
+{
+  background: #4db6ac;
+}
