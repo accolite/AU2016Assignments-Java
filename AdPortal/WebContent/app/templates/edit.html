@@ -1,3 +1,51 @@
-<div ng-controller="editCtrl">
-	<h5> Add new post </h5>
+<div class="col-md-7 col-md-offset-2" ng-controller="editCtrl">
+ <h4> Edit post </h4>
+    <form name="form" novalidate>
+        <fieldset>
+            <label for="title">Title</label>
+<!--            <div ng-class="{ 'has-error': form.subject.$invalid && form.subject.$dirty }">-->
+            <div class="form-group" show-errors>
+                <input type="text" name="title" ng-model="title" id="title" class="form-control" placeholder="Enter the title" ng-model="text" required/>
+            </div>
+        </fieldset>
+        
+        <fieldset class="form-group">
+            <label for="category">Category</label>
+            <div class="form-group" show-errors>
+             <select name="category" class="form-control" id="category" ng-model="category" required> 
+      <option ng-repeat="category in categories track by $index" value="{{category.categoryid}}">{{category.categoryname}}     </option> 
+     </select>
+            </div>
+        </fieldset>
+        
+        
+        <fieldset>
+            <label for="location">Location</label>
+            <div class="form-group" show-errors>
+             <select name="location" class="form-control" id="location" ng-model="location" required> 
+      <option ng-repeat="location in locations track by $index" value="{{location.locationid}}">{{location.locationname}}</option> 
+     </select>
+            </div>
+        </fieldset>
+        
+        
+        <fieldset>
+            <label for="description">Description</label>
+            <div class="form-group" show-errors>
+                <textarea name="description" ng-model="description" class="form-control"  placeholder="Enter the description" rows=3 cols="120" required>
+                </textarea>
+            </div>
+        </fieldset>
+        <fieldset>
+            <label for="price">Price</label>
+            <div class="form-group">
+                <input type="number" name="price" id="price" class="form-control" min="0" max="1000000" placeholder="Enter Price" ng-model="price"/>
+            </div>
+        </fieldset>
+        <input type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid" ng-click="submit()" value="Submit"/>
+        <input type="button" class="btn btn-primary" ng-click="reset()" value="Reset"/>
+        <input type="button" class="btn btn-primary" ng-click="cancel()" value="Cancel"/>
+        
+    </form>
+<!--    <a href="#/">back</a>-->
 </div>

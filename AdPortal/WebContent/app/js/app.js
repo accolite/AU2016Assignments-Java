@@ -1,6 +1,6 @@
 "use strict";
 
-var app = angular.module("adportal",['ngRoute', 'mgcrea.ngStrap', 'rzModule']);
+var app = angular.module("adportal",['ngRoute', 'ngAnimate', 'mgcrea.ngStrap' , 'rzModule', 'ngStorage']);
 
 
 app.config(['$routeProvider',function($routeProvider){
@@ -8,14 +8,16 @@ app.config(['$routeProvider',function($routeProvider){
     $routeProvider.when('/',{
         templateUrl: 'templates/home.html',
         controller: 'homeCtrl'
-    }).when('/edit',{
+    }).when('/edit/:pid',{
         templateUrl: 'templates/edit.html',
         controller: 'editCtrl'
     }).when('/new',{
         templateUrl: 'templates/newpost.html',
         controller: 'newPostCtrl'
-    })
-    
+    }).
+    otherwise({
+        redirectTo: '/'
+    });
 
 }]);
 
@@ -47,3 +49,4 @@ app.directive('showErrors', function(){
         }
     }
 });
+

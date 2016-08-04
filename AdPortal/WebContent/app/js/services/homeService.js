@@ -21,5 +21,32 @@ app.factory('HomeService',function($http){
                 url += 'maxPrice='+maxPrice+'&';
             
             return $http.get(url);
+        },
+        deletepostbyid : function(postid){
+         var req = {
+                    method: 'POST',
+                    url: '/AdPortal/rest/deletepost',
+                    headers: {
+                        'Content-Type': "application/json"
+                    },
+                    data: angular.toJson(postid),
+                    transformRequest: angular.identity
+                }
+                return $http(req);
+        },
+        getContactInfo : function(postid){
+            return $http.get('/AdPortal/rest/getcontactinfo?postid='+postid);
+        },
+        contact : function(postid, message){
+            var req = {
+                    method: 'POST',
+                    url: '/AdPortal/rest/deletepost',
+                    headers: {
+                        'Content-Type': "application/json"
+                    },
+                    data: angular.toJson(postid),
+                    transformRequest: angular.identity
+                }
+                return $http(req);
         }
 }});

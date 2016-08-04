@@ -18,6 +18,8 @@ public class ViewPost {
 	String location;
 	String category;
 	String username;
+	String userid;
+
 	int price;
 	int status;
 	@Column(name = "created_date", nullable = false)
@@ -113,4 +115,11 @@ public class ViewPost {
 		this.createdDate = createdDate;
 	}
 
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
 }

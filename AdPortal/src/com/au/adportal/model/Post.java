@@ -97,4 +97,9 @@ public class Post {
 		this.category = category;
 	}
 	
+	@Override
+	public String toString() {
+		return postid +":"+ title +":"+ description+":"+userid +":"+ location +":"+ category +":"+ price +":"+ status;
+	}
+	
 }

@@ -112,23 +112,25 @@ public class AdPortalController extends SpringBootServletInitializer {
 
 	@RequestMapping(value = "/getallposts", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ArrayList<ViewPost> getAllPosts(@RequestParam(value = "title",required=false) String title,
-			@RequestParam(value = "location",required=false) Integer locationId, @RequestParam(value = "minPrice",required=false) Integer minPrice,
-			@RequestParam(value = "maxPrice",required=false) Integer maxPrice, @RequestParam(value = "category",required=false) Integer categoryId) {
+			@RequestParam(value = "location", required=false) Integer locationId, @RequestParam(value = "minPrice",required=false) Integer minPrice,
+			@RequestParam(value = "maxPrice", required=false) Integer maxPrice, @RequestParam(value = "category",required=false) Integer categoryId) {
 		return (service.getAllPosts(current_user, title, locationId, minPrice, maxPrice, categoryId));
 	}
 
 	@RequestMapping(value = "/editpost", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
-	public @ResponseBody int editpost(@RequestBody Post post) {
-		return (service.editPost(current_user, post));
+	public @ResponseBody String editpost(@RequestBody Post post) {
+		
+		return (service.editPost(current_user, post)+"");
+		
 	}
 
 	@RequestMapping(value = "/getcontactinfo", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String[] getContactInfo(@RequestBody Integer postId) {
+	public @ResponseBody String[] getContactInfo(@RequestParam(value = "postid") Integer postId) {
 		return (service.getContactInfo(current_user, postId));
 	}
 
 	@RequestMapping(value = "/contact", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
-	public @ResponseBody boolean getContactInfo(@RequestBody Integer postId, @RequestBody String message) {
+	public @ResponseBody boolean contact(@RequestBody Integer postId, @RequestBody String message) {
 		return (service.contact(current_user, postId, message));
 	}
 
@@ -143,7 +145,7 @@ public class AdPortalController extends SpringBootServletInitializer {
 	}
 
 	@RequestMapping(value = "/getpost", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Post getLocations(Integer postId) {
+	public @ResponseBody Post getpost(@RequestParam(value = "postid") Integer postId) {
 		return (service.getPost(current_user, postId));
 	}
 

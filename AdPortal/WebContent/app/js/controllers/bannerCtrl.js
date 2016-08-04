@@ -1,4 +1,4 @@
-app.controller("bannerCtrl",['$scope', 'BannerService', '$window', function($scope, BannerService, $window){
+app.controller("bannerCtrl",['$scope', 'BannerService', '$window', '$localStorage', function($scope, BannerService, $window, $localStorage){
  
     $scope.banner = {
         name : "Banner",
@@ -20,8 +20,13 @@ app.controller("bannerCtrl",['$scope', 'BannerService', '$window', function($sco
 			}
 			else{
 				console.log("Success");
-                $scope.email = response.data.email;
-				$scope.name = response.data.username;
+                $scope.name = response.data.username;
+                $localStorage.id = response.data.userid;
+                $localStorage.email = response.data.email;
+                $localStorage.name = response.data.username;
+                $localStorage.isAdmin = response.data.role === 2;
+                console.log(response.data.role);
+                console.log("Is Admin : "+$scope.isAdmin);
 			}
 		},function failure(response){
 			console.log("Failed to get details");

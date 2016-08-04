@@ -113,10 +113,10 @@ public class Dao implements DaoInterface{
 		try{
 			Post post1 = entityManager.find(Post.class, post.getPostid());
 			post1.setPrice(post.getPrice());
-			post1.setCreatedDate(post.getCreatedDate());
+			System.out.println(post.toString()+"\n"+post1.toString());
 			post1.setDescription(post.getDescription());
 			post1.setLocation(post.getLocation());
-			post1.setStatus(post.getStatus());
+//			post1.setStatus(post.getStatus());
 			post1.setTitle(post.getTitle());
 			returnval = post1.getPostid();
 		}

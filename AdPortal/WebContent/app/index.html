@@ -6,7 +6,17 @@
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" href="bower_components/angularjs-slider/dist/rzslider.css">
   <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="bower_components/angular-motion/dist/angular-motion.css">
   <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css" integrity="sha384-MIwDKRSSImVFAZCVLtU0LMDdON6KVCrZHyVQQj6e8wIEJkW4tvwqXrbMIya1vriY" crossorigin="anonymous">
+
+
+  <style type="text/css">
+    body {
+      padding-top: 1em;
+    } 
+  </style>
+    
 </head>
 
 <body ng-cloak> 
@@ -16,7 +26,7 @@
     <script type="text/ng-template" id="banner.html"></script>      
 </div>
   
-<br/><br/><br/>
+
 
     <div ng-view></div>
   
@@ -29,6 +39,8 @@
   <script src="bower_components/lodash/lodash.js"></script> 
   <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/ngstorage/ngStorage.js"></script>
   <script src="bower_components/angular-strap/dist/angular-strap.js"></script>
   <script src="bower_components/angular-strap/dist/angular-strap.tpl.js"></script>
   <script src="bower_components/angularjs-slider/dist/rzslider.js"></script>
@@ -36,8 +48,10 @@
   <script src="js/controllers/bannerCtrl.js"></script>
   <script src="js/controllers/homeCtrl.js"></script>
   <script src="js/controllers/newPostCtrl.js"></script>
+  <script src="js/controllers/editCtrl.js"></script>
   <script src="js/services/bannerService.js"></script>
   <script src="js/services/homeService.js"></script>
   <script src="js/services/newPostService.js"></script>
+  <script src="js/services/editService.js"></script>
 </body>
 </html>
