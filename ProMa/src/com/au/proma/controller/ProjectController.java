@@ -3,7 +3,10 @@ package com.au.proma.controller;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +19,7 @@ import com.au.proma.model.BU;
 import com.au.proma.model.Project;
 import com.au.proma.service.Color;
 import com.au.proma.service.ProjectService;
+import com.au.proma.service.UserService;
 
 @Controller
 @RequestMapping("/projects")
@@ -23,6 +27,9 @@ public class ProjectController {
 
 	@Autowired
 	private ProjectService projectService;
+	
+	@Autowired
+	private UserService userService;
 	
 	@RequestMapping(value="/status",method=RequestMethod.GET,produces="application/json")
 	@ResponseBody
@@ -37,8 +44,12 @@ public class ProjectController {
 	@ResponseBody
 	public int insertProject( @RequestBody Project p)
 	{
+		
 		//System.out.println(p.getProjectname());
-		return projectService.insertProject(p);
+		int row_affected =  projectService.insertProject(p);
+		if(row_affected > 0)
+			userService.notifyEachAdmin("admin",p);
+		return row_affected;
 	}
 	
 	
@@ -57,6 +68,5 @@ public class ProjectController {
 		return projectService.getProjectsUnderBU(bu);
 		
 	}
-	
 }
 

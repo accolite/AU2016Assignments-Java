@@ -3,9 +3,11 @@ package com.au.proma.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
@@ -24,23 +26,23 @@ public class UserDao {
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
-//	public Integer getUserId(String name)
-//	{
-//		String query ="select userid from dbo.users where username='"+name+"'";
-//		return jdbcTemplate.query(query, new ResultSetExtractor< Integer>() {
-//
-//			public Integer extractData(ResultSet rs) throws SQLException, DataAccessException {
-//				
-//				
-//				Integer temp=0;
-//				while (rs.next()){
-//				temp=rs.getInt("userid");
-//				
-//				}
-//				return temp;
-//			}
-//		});
-//	}
+	public String getPassword(String name)
+	{
+		String query ="select userid,userpassword from dbo.users where username='"+name+"'";
+		return jdbcTemplate.query(query, new ResultSetExtractor< String>() {
+
+			public String extractData(ResultSet rs) throws SQLException, DataAccessException {
+				
+				
+				String temp="";
+				while (rs.next()){
+				temp=rs.getString("userpassword");
+				
+				}
+				return temp;
+			}
+		});
+	}
 	public int addUser(User uobj)
 	{
 		
@@ -48,7 +50,91 @@ public class UserDao {
 						"values('"+uobj.getUsername()+"','"+uobj.getUserpassword()+"','"+uobj.getUseremail()+"','"+uobj.getRole().getRoleid()+"')";
 		return jdbcTemplate.update(query);
 	}
+	public String getEmailID(String name)
+	{
+		String query ="select useremail from dbo.users where username='"+name+"'";
+		return jdbcTemplate.query(query, new ResultSetExtractor< String>() {
+
+			public String extractData(ResultSet rs) throws SQLException, DataAccessException {
+				
+				
+				String temp="";
+				while (rs.next()){
+				temp=rs.getString("useremail");
+				
+				}
+				return temp;
+			}
+		});
+	}
+	public int addToken(String name,String token)
+	{
+		
+		String query="update dbo.users set token= '"+ token+
+						"' where username='"+name+"'";
+		return jdbcTemplate.update(query);
+	}
+	public String getUserName(String token)
+	{
+		String query ="select username from dbo.users where token='"+token+"'";
+		return jdbcTemplate.query(query, new ResultSetExtractor< String>() {
+
+			public String extractData(ResultSet rs) throws SQLException, DataAccessException {
+				
+				
+				String temp="";
+				while (rs.next()){
+				temp=rs.getString("username");
+				
+				}
+				return temp;
+			}
+		});
+	}
+	public int setPassword(String new_pass,String token)
+	{
+		
+		String query="update dbo.users set userpassword= '"+ new_pass+
+						"' where token='"+token+"'";
+		return jdbcTemplate.update(query);
+	}
 	
+	public List<User> getUserWithRoleId(int roleId){
+		String query = "select * from users where userroleid = "+roleId;
+		return jdbcTemplate.query(query, new RowMapper<User>(){
+
+			@Override
+			public User mapRow(ResultSet arg0, int arg1) throws SQLException {
+				// TODO Auto-generated method stub
+				User user = new User();
+				user.setUserid(arg0.getInt("userid"));
+				user.setUsername(arg0.getString("username"));
+				user.setUserpassword(arg0.getString("userpassword"));
+				user.setUseremail(arg0.getString("useremail"));
+				
+				return user;
+			}
+			
+		});
+	}
+	
+	public List<String> getUsersEmailWithRoleId(int roleId){
+		String query = "select useremail from users where userroleid = "+roleId;
+		return jdbcTemplate.query(query, new ResultSetExtractor<List<String>>(){
+
+			@Override
+			public List<String> extractData(ResultSet arg0) throws SQLException, DataAccessException {
+				// TODO Auto-generated method stub
+				List<String> emails  = new ArrayList<String>();
+				while(arg0.next())
+					emails.add(arg0.getString("useremail"));
+				return emails;
+			}
+			
+		});
+	}
+	
+
 	public List<User> getAllUsers(){
 		String sql = "select * from dbo.Users U , dbo.Role R where U.userroleid=R.roleid";
 		return jdbcTemplate.query(sql, new RowMapper<User>(){
@@ -66,6 +152,5 @@ public class UserDao {
 			
 		});
 	}
-	
-	
+
 }
