@@ -36,9 +36,9 @@ public class UserController {
 		return userService.convertVisitorToAdmin(user);
 	}
 	
-}
-	}	@RequestMapping(value = "/get/{id}",method=RequestMethod.GET,produces="application/json")
+	@RequestMapping(value = "/get/{id}",method=RequestMethod.GET,produces="application/json")
 	public @ResponseBody User getUser(@PathVariable("id") int userId){
 		User user = userService.getUser(userId);
 		return user;
-	}}
+	}
+}
