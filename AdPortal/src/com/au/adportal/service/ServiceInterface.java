@@ -41,4 +41,8 @@ public interface ServiceInterface {
 	
 	public boolean addUser(User user); 
 	
+	public boolean addCategory(CurrentUser user, String categoryName);
+
+	public boolean addLocation(CurrentUser user, String locationName);
+	
 }

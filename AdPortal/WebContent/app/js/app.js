@@ -15,6 +15,10 @@ app.config(['$routeProvider',function($routeProvider){
         templateUrl: 'templates/newpost.html',
         controller: 'newPostCtrl'
     }).
+    when('/admin',{
+        templateUrl: 'templates/admin.html',
+        controller: 'adminCtrl'
+    }).
     otherwise({
         redirectTo: '/'
     });

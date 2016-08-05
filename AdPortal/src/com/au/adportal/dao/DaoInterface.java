@@ -39,5 +39,9 @@ public interface DaoInterface {
 	public User getUser(String userid);
 	
 	public boolean addUser(User user);
+	
+	public boolean addCategory(Category category);
+	
+	public boolean addLocation(Location location);
 
 }

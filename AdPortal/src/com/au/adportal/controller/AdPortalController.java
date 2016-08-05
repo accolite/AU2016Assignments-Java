@@ -119,7 +119,7 @@ public class AdPortalController extends SpringBootServletInitializer {
 	}
 
 	@RequestMapping(value = "/editpost", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
-	public @ResponseBody String editpost(@RequestBody Post post) {
+	public @ResponseBody String editPost(@RequestBody Post post) {
 		
 		return (service.editPost(current_user, post)+"");
 		
@@ -142,7 +142,6 @@ public class AdPortalController extends SpringBootServletInitializer {
 		}
 		
 	}
-
 	@RequestMapping(value = "/getcategories", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ArrayList<Category> getCategories() {
 		return (service.getCategories());
@@ -152,12 +151,32 @@ public class AdPortalController extends SpringBootServletInitializer {
 	public @ResponseBody ArrayList<Location> getLocations() {
 		return (service.getLocations());
 	}
-
-	@RequestMapping(value = "/getpost", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Post getpost(@RequestParam(value = "postid") Integer postId) {
-		return (service.getPost(current_user, postId));
+	/*
+	@RequestMapping(value = "/setcategories", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ArrayList<Category> setCategories() {
+		return (service.getCategories());
 	}
 
+	@RequestMapping(value = "/setlocations", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ArrayList<Location> setLocations() {
+		return (service.getLocations());
+	}
+	*/
+	
+	@RequestMapping(value = "/getpost", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Post getPost(@RequestParam(value = "postid") Integer postId) {
+		return (service.getPost(current_user, postId));
+	}
+	@RequestMapping(value = "/addcategory", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody boolean addCategory(@RequestBody String category) {
+		
+		return (service.addCategory(current_user, category));
+	}
+	@RequestMapping(value = "/addlocation", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody boolean addLocation(@RequestBody String location) {
+		System.out.println("location"+location);
+		return (service.addLocation(current_user,location));
+	}
 	public static void main(String[] args) {
 		SpringApplication.run(AdPortalController.class, args);
 	}

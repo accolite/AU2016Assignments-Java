@@ -199,4 +199,28 @@ public class ServiceImplementation implements ServiceInterface {
 		return dao.addUser(user);
 	}
 
+	@Override
+	public boolean addCategory(CurrentUser user,String categoryName) {
+		// TODO Auto-generated method stub
+		if(categoryName!=null&&!categoryName.trim().equals("")&&user.getRole()==Role.ADMIN){
+			Category category=new Category();
+			category.setCategoryname(categoryName);
+			dao.addCategory(category);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean addLocation(CurrentUser user,String locationName) {
+		// TODO Auto-generated method stub
+		if(locationName!=null&&!locationName.trim().equals("")&&user.getRole()==Role.ADMIN){
+			Location location=new Location();
+			location.setLocationname(locationName);
+			dao.addLocation(location);
+			return true;
+		}
+		return false;
+	}
+
 }
