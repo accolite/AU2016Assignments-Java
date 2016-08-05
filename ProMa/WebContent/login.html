@@ -1,10 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script>
+function onSignIn(googleUser) {
+	  var profile = googleUser.getBasicProfile();
+	 
+
+	  var id_token = googleUser.getAuthResponse().id_token;
+	  
+	  
+	  var form = document.createElement("form");
+	  var element1 = document.createElement("input"); 
+	  
+	  form.method = "POST";
+	    form.action = "http://localhost:8082/ProMa/rest/accounts/login"; 
+	    
+	    element1.value=id_token;
+	    element1.name="id_token";
+	    form.appendChild(element1);
+	    
+	    document.body.appendChild(form);
+
+	    form.submit();
+	  
+	}
+	
+
+
+</script>
+<meta name="google-signin-client_id" content="956281975960-3demri6nn0lc1ou4fl3q4fbjmcrrp0ao.apps.googleusercontent.com">
+<meta charset="ISO-8859-1">
+<title>Google Sign In</title>
+</head>
 <body>
-<form action="/rest/accounts/login" method="POST">
-name<input type="text" name="name" id="name">
-password<input type="password" name="password" id="password">
-<input type="submit" value="Submit">
-</form>
-<form method="POST" action="/rest/accounts/forgot">
-<input type="text" name="name" id="name">
-<input type="submit" value="Forgot">
-</form>
+
+<div class="g-signin2" data-onsuccess="onSignIn"></div>
+<div id="google"></div>
+</body>
+</html>

@@ -18,9 +18,9 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping(method=RequestMethod.POST,consumes = "application/json",produces="application/json")
-	public @ResponseBody String addUser(@RequestBody User user){
-		Boolean isSuccess = userService.addUser(user);
-		return isSuccess == true ? "Success" : "Failure";
-	}
+//	@RequestMapping(method=RequestMethod.POST,consumes = "application/json",produces="application/json")
+//	public @ResponseBody String addUser(@RequestBody User user){
+//		Boolean isSuccess = userService.addUser(user);
+//		return isSuccess == true ? "Success" : "Failure";
+//	}
 }

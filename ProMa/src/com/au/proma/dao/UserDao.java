@@ -26,28 +26,28 @@ public class UserDao {
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
-	public String getPassword(String name)
-	{
-		String query ="select userid,userpassword from dbo.users where username='"+name+"'";
-		return jdbcTemplate.query(query, new ResultSetExtractor< String>() {
-
-			public String extractData(ResultSet rs) throws SQLException, DataAccessException {
-				
-				
-				String temp="";
-				while (rs.next()){
-				temp=rs.getString("userpassword");
-				
-				}
-				return temp;
-			}
-		});
-	}
+//	public String getPassword(String name)
+//	{
+//		String query ="select userid,userpassword from dbo.users where username='"+name+"'";
+//		return jdbcTemplate.query(query, new ResultSetExtractor< String>() {
+//
+//			public String extractData(ResultSet rs) throws SQLException, DataAccessException {
+//				
+//				
+//				String temp="";
+//				while (rs.next()){
+//				temp=rs.getString("userpassword");
+//				
+//				}
+//				return temp;
+//			}
+//		});
+//	}
 	public int addUser(User uobj)
 	{
 		
-		String query="insert into users(username,userpassword,useremail,userroleid)"+
-						"values('"+uobj.getUsername()+"','"+uobj.getUserpassword()+"','"+uobj.getUseremail()+"','"+uobj.getRole().getRoleid()+"')";
+		String query="insert into users(username,useremail,userroleid)"+
+						"values('"+uobj.getUsername()+"','"+uobj.getUseremail()+"','"+uobj.getRole().getRoleid()+"')";
 		return jdbcTemplate.update(query);
 	}
 	public String getEmailID(String name)
@@ -67,37 +67,37 @@ public class UserDao {
 			}
 		});
 	}
-	public int addToken(String name,String token)
-	{
-		
-		String query="update dbo.users set token= '"+ token+
-						"' where username='"+name+"'";
-		return jdbcTemplate.update(query);
-	}
-	public String getUserName(String token)
-	{
-		String query ="select username from dbo.users where token='"+token+"'";
-		return jdbcTemplate.query(query, new ResultSetExtractor< String>() {
-
-			public String extractData(ResultSet rs) throws SQLException, DataAccessException {
-				
-				
-				String temp="";
-				while (rs.next()){
-				temp=rs.getString("username");
-				
-				}
-				return temp;
-			}
-		});
-	}
-	public int setPassword(String new_pass,String token)
-	{
-		
-		String query="update dbo.users set userpassword= '"+ new_pass+
-						"' where token='"+token+"'";
-		return jdbcTemplate.update(query);
-	}
+//	public int addToken(String name,String token)
+//	{
+//		
+//		String query="update dbo.users set token= '"+ token+
+//						"' where username='"+name+"'";
+//		return jdbcTemplate.update(query);
+//	}
+//	public String getUserName(String token)
+//	{
+//		String query ="select username from dbo.users where token='"+token+"'";
+//		return jdbcTemplate.query(query, new ResultSetExtractor< String>() {
+//
+//			public String extractData(ResultSet rs) throws SQLException, DataAccessException {
+//				
+//				
+//				String temp="";
+//				while (rs.next()){
+//				temp=rs.getString("username");
+//				
+//				}
+//				return temp;
+//			}
+//		});
+//	}
+//	public int setPassword(String new_pass,String token)
+//	{
+//		
+//		String query="update dbo.users set userpassword= '"+ new_pass+
+//						"' where token='"+token+"'";
+//		return jdbcTemplate.update(query);
+//	}
 	
 	public List<User> getUserWithRoleId(int roleId){
 		String query = "select * from users where userroleid = "+roleId;
@@ -109,7 +109,6 @@ public class UserDao {
 				User user = new User();
 				user.setUserid(arg0.getInt("userid"));
 				user.setUsername(arg0.getString("username"));
-				user.setUserpassword(arg0.getString("userpassword"));
 				user.setUseremail(arg0.getString("useremail"));
 				
 				return user;
@@ -133,6 +132,22 @@ public class UserDao {
 			
 		});
 	}
+	public Integer getRoleFromEmail(String email){
+		String query = "select userroleid from users where useremail = '"+email+"'";
+		return jdbcTemplate.query(query, new ResultSetExtractor<Integer>(){
+
+			@Override
+			public Integer extractData(ResultSet arg0) throws SQLException, DataAccessException {
+				// TODO Auto-generated method stub
+				Integer i=-1;
+				while(arg0.next())
+					i=arg0.getInt("userroleid");
+				return i;
+			}
+			
+		});
+	}
+	
 	
 	
 }

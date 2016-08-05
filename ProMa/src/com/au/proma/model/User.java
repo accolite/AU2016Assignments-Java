@@ -6,7 +6,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class User {
 	private int userid;
 	private String username;
-	private String userpassword;
 	private String useremail;
 	private Role role;
 
@@ -25,10 +24,9 @@ public class User {
 	public User() {
 		super();
 	}
-	public User(String username, String userpassword, String useremail) {
+	public User(String username, String useremail) {
 		super();
 		this.username = username;
-		this.userpassword = userpassword;
 		this.useremail = useremail;
 	}
 	public String getUsername() {
@@ -37,12 +35,7 @@ public class User {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public String getUserpassword() {
-		return userpassword;
-	}
-	public void setUserpassword(String userpassword) {
-		this.userpassword = userpassword;
-	}
+	
 	public String getUseremail() {
 		return useremail;
 	}

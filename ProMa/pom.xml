@@ -121,7 +121,63 @@
     <groupId>javax.mail</groupId>
     <artifactId>mail</artifactId>
     <version>1.4.7</version>
-</dependency>
+	</dependency>
+	<dependency>
+	    <groupId>com.google.api-client</groupId>
+	    <artifactId>google-api-client</artifactId>
+	    <version>1.22.0</version>
+	</dependency>
+    <!-- https://mvnrepository.com/artifact/javax.servlet/servlet-api -->
+
+    
+    <dependency>
+	  <groupId>com.google.http-client</groupId>
+	  <artifactId>google-http-client-gson</artifactId>
+	  <version>1.20.0</version>
+	</dependency>
+
+	<dependency>
+	  <groupId>com.google.http-client</groupId>
+	  <artifactId>google-http-client-jackson2</artifactId>
+	  <version>1.20.0</version>
+	</dependency>
+	
+	<dependency>
+	  <groupId>com.google.http-client</groupId>
+	  <artifactId>google-http-client-jackson</artifactId>
+	  <version>1.20.0</version>
+	</dependency>
+	
+	<dependency>
+	  <groupId>com.google.http-client</groupId>
+	  <artifactId>google-http-client-jdo</artifactId>
+	  <version>1.20.0</version>
+	</dependency>
+	
+	<dependency>
+	  <groupId>com.google.http-client</groupId>
+	  <artifactId>google-http-client-protobuf</artifactId>
+	  <version>1.20.0</version>
+	</dependency>
+	
+	<dependency>
+	  <groupId>com.google.http-client</groupId>
+	  <artifactId>google-http-client-xml</artifactId>
+	  <version>1.20.0</version>
+	</dependency>
+	
+	<dependency>
+	  <groupId>com.google.http-client</groupId>
+	  <artifactId>google-http-client-appengine</artifactId>
+	  <version>1.20.0</version>
+	</dependency>
+	
+	<dependency>
+	  <groupId>com.google.http-client</groupId>
+	  <artifactId>google-http-client</artifactId>
+	  <version>1.20.0</version>
+	</dependency>
+	
 	</dependencies>
 	<properties>
 		<jersey.version>2.16</jersey.version>

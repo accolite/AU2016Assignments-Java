@@ -95,6 +95,30 @@ public class RoleDao {
 			
 		});
 	}
+	
+	public String getRoleName(Integer role_id) {
+		// TODO Auto-generated method stub
+		String query = "select rolename from role where roleid = ?";
+		PreparedStatementCreator creator = new PreparedStatementCreator() {
+			
+			@Override
+			public PreparedStatement createPreparedStatement(Connection arg0) throws SQLException {
+				// TODO Auto-generated method stub
+				PreparedStatement pstmt = arg0.prepareStatement(query);
+				pstmt.setInt(1, role_id);
+				return pstmt;
+			}
+		};
+		return jdbcTemplate.query(creator, new ResultSetExtractor<String>(){
+
+			@Override
+			public String extractData(ResultSet arg0) throws SQLException, DataAccessException {
+				// TODO Auto-generated method stub
+				return arg0.next() ? arg0.getString("rolename") : null;
+			}
+			
+		});
+	}
 }
 				
 	
