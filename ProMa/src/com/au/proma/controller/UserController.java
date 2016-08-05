@@ -3,6 +3,7 @@ package com.au.proma.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,5 +23,11 @@ public class UserController {
 	public @ResponseBody String addUser(@RequestBody User user){
 		Boolean isSuccess = userService.addUser(user);
 		return isSuccess == true ? "Success" : "Failure";
+	}
+	
+	@RequestMapping(value = "/get/{id}",method=RequestMethod.GET,produces="application/json")
+	public @ResponseBody User getUser(@PathVariable("id") int userId){
+		User user = userService.getUser(userId);
+		return user;
 	}
 }
