@@ -66,4 +66,7 @@ public class UserService {
 		return userDao.getUser(userId);
 	}
 
+	public List<User> getAllUsers(){
+		return userDao.getAllUsers();
+	}
 }

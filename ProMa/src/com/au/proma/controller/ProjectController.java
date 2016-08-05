@@ -39,7 +39,7 @@ public class ProjectController {
 	}*/
 	
 	
-	@RequestMapping(value="/add",method=RequestMethod.POST,produces="application/json",consumes="application/json")
+	@RequestMapping(method=RequestMethod.POST,produces="application/json",consumes="application/json")
 	@ResponseBody
 	public int insertProject( @RequestBody Project p)
 	{
