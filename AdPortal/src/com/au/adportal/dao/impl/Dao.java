@@ -231,7 +231,6 @@ public class Dao implements DaoInterface{
 		}
 		return locationName;
 	}
-
 	@Override
 	@Transactional
 	public User getUser(String userid) {
@@ -253,7 +252,31 @@ public class Dao implements DaoInterface{
 		}
 		return result;
 	}
-
+	@Override
+	@Transactional
+	public boolean addCategory(Category category){
+		
+		try{
+			entityManager.persist(category);
+			return true;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return false;
+	}
+	@Override
+	@Transactional
+	public boolean addLocation(Location location){
+		try{
+			entityManager.persist(location);
+			return true;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return false;
+	}
 	@Override
 	@Transactional
 	public boolean changeMobile(String userid, String mobile) {

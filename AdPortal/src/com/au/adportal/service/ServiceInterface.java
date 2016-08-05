@@ -43,4 +43,8 @@ public interface ServiceInterface {
 	
 	public boolean changeMobile(CurrentUser user, String mobile);
 	
+	public boolean addCategory(CurrentUser user, String categoryName);
+
+	public boolean addLocation(CurrentUser user, String locationName);
+	
 }

@@ -18,6 +18,10 @@ app.config(['$routeProvider',function($routeProvider){
         templateUrl: 'templates/profile.html',
         controller: 'profileCtrl'
     }).
+    when('/admin',{
+        templateUrl: 'templates/admin.html',
+        controller: 'adminCtrl'
+    }).
     otherwise({
         redirectTo: '/'
     });
