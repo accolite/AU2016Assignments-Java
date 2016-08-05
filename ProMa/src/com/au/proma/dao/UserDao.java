@@ -154,4 +154,10 @@ public class UserDao {
 		});
 	}
 
+	
+	public Boolean convertVisitorToAdmin(User user){
+		String sql = "update dbo.Users set userroleid=1 where userid=" + user.getUserid();
+		return jdbcTemplate.update(sql)==1;
+	}
+	
 }

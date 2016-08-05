@@ -30,4 +30,10 @@ public class UserController {
 	public @ResponseBody List<User> getAllUsers(){
 		return userService.getAllUsers();
 	}
+	
+	@RequestMapping(value="/convertToAdmin",method=RequestMethod.POST,consumes = "application/json",produces="application/json")
+	public @ResponseBody Boolean convertVisitorToAdmin(@RequestBody User user){
+		return userService.convertVisitorToAdmin(user);
+	}
+	
 }

@@ -1,6 +1,6 @@
 <div class="modal" tabindex="-1" role="dialog" aria-hidden="true" ng-controller="overviewController">
 	<div class="modal-dialog">
-		<form class="form-horizontal" role="form" name="userform" ng-submit="convertAnUser();$hide()">
+		<form class="form-horizontal" role="form" name="userform" ng-submit="addABU();$hide()">
 			<div class="modal-content">
 				<div class="modal-header"">
 					<button type="button" class="close" aria-label="Close"
@@ -10,18 +10,15 @@
 					<h4 class="modal-title">Add an User</h4>
 				</div>
 				<div class="modal-body">
-					
+
 					<div class="form-group">
-						<label class="col-sm-2 control-label" for="userid">Project Manager</label>
+						<label class="col-sm-2 control-label" for="buname">Business Unit Name</label>
 						<div class="col-sm-10">
-							<select class="form-control" id="userid"
-								ng-model="fields.userid">
-								<option ng-repeat="user in users" value={{user.userid}}>{{user.username}}&lt;{{user.useremail}}&gt;</option>
-							</select>
+							<input type="text" class="form-control" id="buname"
+								ng-model="fields.buname" placeholder="Business Unit name" />
 						</div>
 					</div>
-					
-				
+
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" ng-click="$hide()">Close</button>

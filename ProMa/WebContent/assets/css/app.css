@@ -14,3 +14,10 @@
     }
   }
 }
+
+.top-right {
+	position: fixed;
+	width:40%;
+	margin-top:100px;
+	margin-left:300px;
+}

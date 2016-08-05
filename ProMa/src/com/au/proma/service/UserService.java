@@ -64,4 +64,9 @@ public class UserService {
 	public List<User> getAllUsers(){
 		return userDao.getAllUsers();
 	}
+	
+	public Boolean convertVisitorToAdmin(User user){
+		return userDao.convertVisitorToAdmin(user);
+		
+	}
 }

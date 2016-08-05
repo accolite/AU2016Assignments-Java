@@ -8,7 +8,7 @@ angular.module('app', [
 	'mgcrea.ngStrap',
 	'ngAnimate'
 	])
-	.config(function($routeProvider) {
+	.config(function($routeProvider,$locationProvider) {
 		$routeProvider
 			.when('/',
 			{
@@ -22,7 +22,7 @@ angular.module('app', [
 			})
 			.otherwise({redirectTo: '/'});
 	})
-	.controller('overviewController', function($scope,$http){
+	.controller('overviewController', function($scope,$http,$location,$alert){
 		var url = "rest/projects/status";
 		var promise = $http.get(url);
 		promise.then(function(response){
@@ -35,17 +35,36 @@ angular.module('app', [
 			$scope.roles = response.data;
 		})
 		
-		$scope.addAnUser = function(){
+		var usersUrl = "rest/users"
+		var usersPromise = $http.get(usersUrl);
+		usersPromise.then(function(response){
+			$scope.users = response.data;
+		})
+
+
+		$scope.convertAnUser = function(){
 			var userdata = $scope.fields;
-			var addUserUrl = "rest/users";
-			var adduserpromise = $http.post(addUserUrl,userdata);			
-			adduserpromise.then(function(response){
-				console.log('User added woohoo')
+			var convertUserUrl = "rest/users/convertToAdmin";
+			var convertuserpromise = $http.post(convertUserUrl,userdata);			
+			convertuserpromise.then(function(response){
+				$alert({duration:3,container:'body', content: 'Wololo', placement: 'top-right', type: 'success', show: true});
+				// console.log('User Converted woohoo')
 			})
-		} 
+		}; 
 		
+		$scope.addABU =  function(){
+			var budata = $scope.fields;
+			var addBUUrl = "rest/bus";
+			addBUPromise = $http.post(addBUUrl,budata);
+			addBUPromise.then(function(response){
+				console.log(response.data);
+				$alert({duration:3,container:'body', content: 'BU Added', placement: 'top-right', type: 'success', show: true});
+			});
+
+		};
+
 	})
-	.controller('individualController', function($scope,$http,$routeParams){
+	.controller('individualController', function($scope,$http,$routeParams,$alert,$modal){
 		$scope.buname = $routeParams.buname;
 		var url = "rest/projects/bus/" + $routeParams.buid;
 		var promise = $http.get(url);
@@ -75,4 +94,21 @@ angular.module('app', [
 		usersPromise.then(function(response){
 			$scope.users = response.data;
 		})
+
+		var addBUHeadModal = $modal({template:'src/views/modals/admin-add-bu-head-form.html', show:false});
+
+		$scope.showBUHeadModal = function(){
+		    addBUHeadModal.$promise.then(addBUHeadModal.show);
+		}
+
+		$scope.addABUHead = function(){
+			var buHead = $scope.fields;
+			var buHeadURL = "rest/bus/" + $scope.buid + "/buheads"
+			var buHeadPromise = $http.post(buHeadURL,buHead);
+			buHeadPromise.then(function(response){
+				$alert({duration:3,container:'body', content: 'Wohoo Bu Head Added', placement: 'top-right', type: 'success', show: true});
+				console.log("added bu heaad woohoo");
+			})
+		}
+
 	})
