@@ -4,6 +4,36 @@ public class Poll {
 	private int pollID;
 	private String q;
 	private String o1;
+	private int sessionID;
+	/**
+	 * @return the sessionID
+	 */
+	public int getSessionID() {
+		return sessionID;
+	}
+
+	/**
+	 * @param sessionID the sessionID to set
+	 */
+	public void setSessionID(int sessionID) {
+		this.sessionID = sessionID;
+	}
+
+	/**
+	 * @return the sessionName
+	 */
+	public String getSessionName() {
+		return sessionName;
+	}
+
+	/**
+	 * @param sessionName the sessionName to set
+	 */
+	public void setSessionName(String sessionName) {
+		this.sessionName = sessionName;
+	}
+
+	private String sessionName;
 
 	public Poll() {
 		super();

@@ -1,0 +1,36 @@
+ <div class="container" ng-controller="appController4">
+      <script src="bower_components/jquery/dist/jquery.js"></script>
+      <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+
+    	<div class="row text-center well">
+        	<h1>Trainee Poll</h1>
+   		 </div>
+   	
+   	
+   	     	 
+      <div class="row" ng-repeat="x in traineepolldata">
+						<div class="col-md-5" >
+							<span class="label label-warning"> {{x.pollID}} )</span>
+							<span class="label label-default">{{x.q}} </span> <br> 
+							<span class="label label-info">{{x.o1}}</span>
+							<span class="label label-info">{{x.o2}}</span> 
+							<span class="label label-info">{{x.o3}}</span> 
+							<span class="label label-info">{{x.o4}}</span>  <br><br>
+						</div>
+	  </div>
+      <div class="row">
+            <div class="form-group">
+                  <label for="PollID">PollID</label>
+                  <input type="number" class="form-control" ng-model="TraineePollID">
+              </div>
+              <div class="form-group">
+                  <label for="UserID">UserID</label>
+                  <input type="number" class="form-control" ng-model="TraineePollUserID">
+              </div>
+              <div class="form-group">
+                  <label for="Choice">Choice</label>
+                  <input type="number" class="form-control"  min="1" max="4" ng-model="Choice">
+              </div>
+              <button type="submit" ng-click="givePoll()" class="btn btn-success"> Give Poll </button>
+      </div>
+ </div>

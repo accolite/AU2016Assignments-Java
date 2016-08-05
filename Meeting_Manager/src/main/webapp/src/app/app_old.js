@@ -1,62 +1,6 @@
-angular.module('library',["chart.js"] )//,'ngRoute'])
-/*.config(function ($routeProvider) {
-	$routeProvider
-	.when('/',
-	{
-		controller: 'appController',
-		templateUrl: 'index.jsp'
-	})
-	.when('/createNewSession',
-	{
-		controller: 'adminController',
-		templateUrl: 'createNewSession.html'
-	})
-	.otherwise({ redirectTo: '/'});
-})*/
-.controller('appController', function($scope, $http) {
-		
-		angular.element(document).ready(function () {
-			
-			//getTrainerSessions
-			var url = "rest/getSessions?TrainerID=" + document.getElementById("SessionID").value;
-			   console.log(url);
-			   $http.get(url).success( function(response) {
-			      $scope.trainerdata = response; 
-			   });
-			//End
-			   
-			   //Func2
-				var url = "rest/getJoinedSessions?TraineeID=" + document.getElementById("SessionID").value;
-				   console.log(url);
-				   $http.get(url).success( function(response) {
-				      $scope.traineedata = response; 
-				   });
-			   //Func3
-				   
-				   var url = "rest/getWaitingSessions?TraineeID=" + document.getElementById("SessionID").value;
-			       console.log(url);
-			       $http.get(url).success( function(response) {
-			          $scope.traineewaitdata = response; 
-			       });
-			       
-			       var url = "rest/checkavaltrainer?id=" + document.getElementById("SessionID").value;
-			       console.log(url);
-			       $http.get(url).success( function(response) {
-			          $scope.activetrainer = response; 
-			    	   console.log( response );
-			       });
-			       
-			       var url = "rest/checkavaltrainee?id=" + document.getElementById("SessionID").value;
-			       console.log(url);
-			       $http.get(url).success( function(response) {
-			          $scope.activetrainee = response; 
-			    	   console.log( response );
-			       });
-				   
-				   
-			   	   
-	    });	
-		
+
+angular.module('library',["chart.js"])
+	.controller('appController', function($scope, $http) {
      $scope.getTraineeSessions = function TraineeSessions() 
 						{
 						   var url = "rest/getJoinedSessions?TraineeID=" + $scope.TraineeID;
@@ -65,19 +9,18 @@ angular.module('library',["chart.js"] )//,'ngRoute'])
 						      $scope.traineedata = response; 
 						   });
 						};
-						
-	$scope.sendInvite = function sendInvite() 
-					       {
-					          var url = "rest/sendInvite?SessionID=" + $scope.InviteSessionID + "&TrainerID=" + document.getElementById("SessionID").value + "&Emails=" + $scope.InviteEmail;          
-					          url = encodeURI( url );
-					          console.log( url );
-					          $http.get(url).success( function(response) {
-					         });
-					       };
-						
+     $scope.getTrainerSessions = function TrainerSessions() 
+						{
+						   var url = "rest/getSessions?TrainerID=" + $scope.TrainerID;
+						   console.log(url);
+						   $http.get(url).success( function(response) {
+						      $scope.trainerdata = response; 
+						   });
+						};
+	
 	$scope.sendEmail = function Email() 
 							{
-							   var url = "rest/sendEmail?SessionID=" + $scope.SessionID + "&Subject=" + $scope.Subject + "&Message=" + $scope.Message;
+							   var url = "rest/SendEmail?SessionID=" + $scope.SessionID + "&Subject=" + $scope.Subject + "&Message=" + $scope.Message;
 							   console.log(url);
 							   url = encodeURI( url );
 							   console.log(url);
@@ -95,7 +38,7 @@ angular.module('library',["chart.js"] )//,'ngRoute'])
 							};
 	$scope.approve = function approve() 
 							{
-							   var url = "rest/addTrainee?SessionID=" + document.getElementById("TraineeSessionID").value + "&UserID=" + document.getElementById("SessionID").value;
+							   var url = "rest/addTrainee?SessionID=" + $scope.TraineeSessionID + "&UserID=" + $scope.TraineeUserID;
 							   $http.get(url).success( function(response) {
 								      $scope.Common = response; 
 								   });
@@ -149,27 +92,14 @@ angular.module('library',["chart.js"] )//,'ngRoute'])
 							   
 							   });
 							};
-							
-		/*$scope.createSession = function createSession() 
-			{
-				
-			}	*/				
-							
-							
- })
-
-/* .controller('AdminController', function($scope, $http) {
+          $scope.sendInvite = function sendInvite() 
+							{
+							   var url = "rest/sendInvite?SessionID=" + $scope.InviteSessionID + "&TrainerID=" + $scope.InviteTrainerID + "&Emails=" + $scope.InviteEmail;							   
+							   url = encodeURI( url );
+							   console.log( url );
+							   $http.get(url).success( function(response) {
+								 });
+							};
 	
-	$scope.createNewSession() = function createNewSession() 
-	{
-		var url = "rest/createNewSession?SessionName=" + $scope.SessionName + "&TrainerID=" + $scope.TrainerID + 
-					"&Date=" + date + "&StartTime=" + startTime + "&EndTime=" + endTime;
-		url = encodeURI(url);
-		console.log(url);
-		 $http.get(url).success( function(response) {
-	   
-	   })
-	};
-	
-	
-});*/
+							
+ });

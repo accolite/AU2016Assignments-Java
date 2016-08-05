@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create New Session </title>
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <script>
+			function create() {
+				var xmlhttp =new XMLHttpRequest();
+				
+				
+				var sessionName = document.getElementById("sessionName").value;
+				var trainerID = document.getElementById("trainerID").value;
+				var date = document.getElementById("date").value;
+				var startTime = document.getElementById("startTime").value;
+				var endTime = document.getElementById("endTime").value;
+				var query = "http://localhost:8080/SpringAU2016Demo/rest/createSession?SessionName=" + sessionName 
++ "&TrainerID=" + trainerID + 
+									"&Date=" + date + 
+									"&StartTime=" + startTime + 
+									"&EndTime=" + endTime;
+				console.log( query );
+				xmlhttp.onreadystatechange = function() {
+					if(xmlhttp.readyState==4) {
+						location.href="/SpringAU2016Demo/index.jsp";
+					}
+				};
+				xmlhttp.open("POST", query , 
+									true);
+				
+				
+				xmlhttp.send();
+				
+			}			
+		</script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row text-center well">
+        <h1>Create New Session</h1>
+      </div>
+      <div class="row well">
+          <div class="form-group">
+              <label for="Session_Name">Name of the Session</label>
+              <input type="text" class="form-control" id="sessionName" placeholder="Name">
+          </div>
+          <div class="form-group">
+              <label for="TrainerID">ID of the Trainer</label>
+              <input type="text" class="form-control" id="trainerID" placeholder="ID">
+          </div>
+          <div class="form-group">
+              <label for="Date">Date of the Session</label>
+              <input type="text" class="form-control" id="date" placeholder="YYYY-MM-DD">
+          </div>
+          <div class="form-group">
+              <label for="Start_Time">Session starts on</label>
+              <input type="text" class="form-control" id="startTime" placeholder="hh:mm:ss.ss">
+          </div>
+          <div class="form-group">
+              <label for="End_Time">End_Time</label>
+              <input type="text" class="form-control" id="endTime" placeholder="hh:mm:ss.ss">
+          </div>
+          <button type="submit" onclick="create()" class="btn btn-success">Create</button>
+      </div>
+    </div>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+      <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+  </body>
+</html>

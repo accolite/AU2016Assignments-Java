@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.springdemo.tutorial.jdbctemplate.JDBCTemplateDao;
 import com.springdemo.tutorial.model.*;
+import com.springdemo.tutorial.service.MeetingManagerService;
 
 @Controller
 public class AdminController {
 	@Autowired
-	private JDBCTemplateDao jdbc;
+	private MeetingManagerService serv;
+	//private JDBCTemplateDao jdbc;
 
 	public int checkuser(HttpServletRequest request) {
 		String string = (String) request.getSession().getAttribute("role");
@@ -33,6 +35,22 @@ public class AdminController {
 		}
 	}
 	
+	
+	@RequestMapping(value = "/getSessionAttribute", method = RequestMethod.GET, produces = "application/json")
+	 @ResponseBody
+	 public String getSessionAttribute(@RequestParam("attribute") String attribute, HttpServletRequest request) { // Take                   // int
+	 
+	  String resp = (String) request.getSession().getAttribute(attribute);
+	  return resp;
+	 }
+	 
+	 @RequestMapping(value = "/getSessionid", method = RequestMethod.GET, produces = "application/json")
+	 @ResponseBody
+	 public String getSessionid(HttpServletRequest request) { // Take                   // int
+	  Integer resp = (Integer) request.getSession().getAttribute("SessionID");
+	  return resp.toString();
+	 }
+	
 	@RequestMapping(value = "/createSession", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public String createSession(@RequestParam("SessionName") String SessionName,
@@ -40,31 +58,16 @@ public class AdminController {
 			@RequestParam("StartTime") String StartTime, @RequestParam("EndTime") String EndTime, HttpServletRequest request) {
 		if( checkuser(request) <= 0)
 			return null;
-		Session session = new Session();
-		session.setSessionName(SessionName);
-		session.setTrainerID(TrainerID);
-		session.setDate(date);
-		session.setStartTime(StartTime);
-		session.setEndTime(EndTime);
-		jdbc.createSession(session);
-
+		serv.CreateSession(SessionName, TrainerID, date, StartTime, EndTime);
 		return "Session is created";
 	}
 
 	@RequestMapping(value = "feedback", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public Feedback getFeedback(@RequestParam("SessionID") int sessionID, HttpServletRequest request) { // Take
-																			// int
-																			// SessionID
 		if( checkuser(request) <= 0)
 			return null;
-		Session s = new Session();
-		s.setSessionID(sessionID);
-		Feedback feedback = new Feedback(s.getSessionID()); // New Session( int
-															// SessionID, 0 0 0
-															// 0 )
-		jdbc.setFeedback(feedback); // Instead of passing int, pass the session.
-		return feedback;
+		return serv.getFeedback(sessionID);
 	}
 
 	@RequestMapping(value = "fetchFeedback", method = RequestMethod.GET, produces = "application/json")
@@ -73,36 +76,22 @@ public class AdminController {
 																				// int
 		if( checkuser(request) <= 0)
 			return null;																		// SessionID
-		Session s = new Session();
-		s.setSessionID(sessionID);
-		Feedback feedback = jdbc.fetchFeedback(s); // Instead of passing int,
-													// pass the session.
-		return feedback;
+		return serv.fetchFeedback(sessionID);
 	}
 
-	@RequestMapping(value = "/avgFeedback", method = RequestMethod.GET, produces = "application/json")
-	@ResponseBody
-	public Feedback updateFeedback(@RequestParam("SessionID") int sessionID, @RequestParam("f1") int f1,
-			@RequestParam("f2") int f2, @RequestParam("f3") int f3, @RequestParam("f4") int f4, HttpServletRequest request) { // Take
-																									// int
-																									// SessionID
-		if( checkuser(request) <= 0)
-			return null;
-		Session s = new Session();
-		s.setSessionID(sessionID);
-		Feedback feedback = new Feedback(s.getSessionID(), f1, f2, f3, f4); // New
-																			// Session(
-																			// int
-																			// SessionID,
-																			// 0
-																			// 0
-																			// 0
-																			// 0
-																			// )
-		jdbc.updateFeedback(feedback); // Instead of passing int, pass the
-										// session.
-		return feedback;
-	}
+	 @RequestMapping(value = "/avgFeedback", method = RequestMethod.GET, produces = "application/json")
+	 @ResponseBody
+	 public Feedback updateFeedback(@RequestParam("SessionID") int sessionID, @RequestParam("f1") int f1,
+	   @RequestParam("f2") int f2, @RequestParam("f3") int f3, @RequestParam("f4") int f4, HttpServletRequest request) { // Take
+	                         // int
+	                         // SessionID
+	  if( checkuser(request) <= 0)
+	   return null;
+	  int userID=(Integer) request.getSession().getAttribute("SessionID");
+	  return serv.avgFeedback(sessionID, f1, f2, f3, f4,userID);
+	 }
+	
+
 
 	/*
 	 * @RequestMapping(value = "/addTrainer", method = RequestMethod.GET,

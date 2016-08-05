@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import com.springdemo.tutorial.model.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -24,6 +25,31 @@ public class JDBCTemplateDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
+	public ArrayList<Session> getWaitingSessions(User trainee) {
+		String query = "SELECT * FROM session INNER JOIN trainee on session.SessionID = trainee.SessionID WHERE accepted = 0 AND trainee.UserID = "
+				+ trainee.getUserID();
+		return jdbcTemplate.query(query, new ResultSetExtractor<ArrayList<Session>>() {
+
+			public ArrayList<Session> extractData(ResultSet rs) throws SQLException, DataAccessException {
+				ArrayList<Session> Sessions = new ArrayList<Session>();
+				while (rs.next()) {
+					Session s = new Session();
+					s.setTrainerID(rs.getInt(3));
+					s.setSessionID(rs.getInt("SessionID"));
+					s.setSessionName(rs.getString("SessionName"));
+					s.setDate(rs.getDate("Date"));
+					Float f = new Float(0);
+					f = (float) (rs.getTime("StartTime").getHours() * 1.0 + rs.getTime("StartTime").getMinutes() / 60);
+					s.setStartTime(f.toString());
+					f = (float) (rs.getTime("EndTime").getHours() * 1.0 + rs.getTime("EndTime").getMinutes() / 60);
+					s.setEndTime(f.toString());
+					Sessions.add(s);
+				}
+				return Sessions;
+			}
+		});
+	}
+
 	public int setFeedback(Feedback feedback) {
 		String query = "insert into feedback values(" + feedback.getSessionID() + "," + feedback.getFeedback1() + ","
 				+ feedback.getFeedback2() + "," + feedback.getFeedback3() + "," + feedback.getFeedback4() + ","
@@ -32,47 +58,73 @@ public class JDBCTemplateDao {
 	}
 
 	public int addTrainee(User trainee, Session session) {
-		String query = "Update trainee set accepted= 1 where trainee.SessionID =" + session.getSessionID()
-				+ " and trainee.UserID=" + trainee.getUserID() + ";";
+		String query = "Update trainee set accepted= 1, givenfeedback=0 where trainee.SessionID ="
+				+ session.getSessionID() + " and trainee.UserID=" + trainee.getUserID() + ";";
 		return jdbcTemplate.update(query);
 	}
 
-	public int updateFeedback(Feedback feedback) {
+	public Boolean givenFeedback(User user, int sessionID) {
+		String query1 = "Select * from trainee where UserID=" + user.getUserID() + " and SessionID=" + sessionID + "";
+		return jdbcTemplate.query(query1, new ResultSetExtractor<Boolean>() {
 
-		JDBCTemplateDao obj = new JDBCTemplateDao();
-		String query1 = "select SessionID, Feedback1, Feedback2, Feedback3, Feedback4, Total from feedback where SessionID = "
-				+ feedback.getSessionID() + "";
-
-		Feedback f = jdbcTemplate.query(query1, new ResultSetExtractor<Feedback>() {
-			public Feedback extractData(ResultSet rs) throws SQLException, DataAccessException {
-				Feedback old = new Feedback();
-				while (rs.next()) {
-					old.setSessionID(rs.getInt("SessionID"));
-					old.setFeedback1(rs.getDouble("Feedback1"));
-					old.setFeedback2(rs.getDouble("Feedback2"));
-					old.setFeedback3(rs.getDouble("Feedback3"));
-					old.setFeedback4(rs.getDouble("Feedback4"));
-					old.setTotal(rs.getInt("Total"));
+			public Boolean extractData(ResultSet rs) throws SQLException, DataAccessException {
+				Boolean boolean1 = false;
+				if (rs.next()) {
+					if ((rs.getInt("givenFeedback") == 0))
+						boolean1 = false;
+					else
+						boolean1 = true;
 				}
-				return old;
+				return boolean1;
 			}
 		});
 
-		Feedback updated = new Feedback();
-		int total = f.getTotal();
-		updated.setSessionID(f.getSessionID());
-		updated.setFeedback1(obj.getAvg(f.getFeedback1(), feedback.getFeedback1(), total));
-		updated.setFeedback2(obj.getAvg(f.getFeedback2(), feedback.getFeedback2(), total));
-		updated.setFeedback3(obj.getAvg(f.getFeedback3(), feedback.getFeedback3(), total));
-		updated.setFeedback4(obj.getAvg(f.getFeedback4(), feedback.getFeedback4(), total));
-		updated.setTotal(total + 1);
-		System.out.println("Feedback2 : " + updated.getFeedback2());
+	}
 
-		String query2 = "update feedback set Feedback1=" + updated.getFeedback1() + ", Feedback2="
-				+ updated.getFeedback2() + ", Feedback3=" + updated.getFeedback3() + ", Feedback4="
-				+ updated.getFeedback4() + ", Total=" + updated.getTotal() + " where SessionID="
-				+ updated.getSessionID() + " ";
-		return jdbcTemplate.update(query2);
+	public int updateFeedback(Feedback feedback, User user) {
+
+		if (!givenFeedback(user, feedback.getSessionID())) {
+			JDBCTemplateDao obj = new JDBCTemplateDao();
+			String query1 = "select SessionID, Feedback1, Feedback2, Feedback3, Feedback4, Total from feedback where SessionID = "
+					+ feedback.getSessionID() + "";
+
+			Feedback f = jdbcTemplate.query(query1, new ResultSetExtractor<Feedback>() {
+				public Feedback extractData(ResultSet rs) throws SQLException, DataAccessException {
+					Feedback old = new Feedback();
+					while (rs.next()) {
+						old.setSessionID(rs.getInt("SessionID"));
+						old.setFeedback1(rs.getDouble("Feedback1"));
+						old.setFeedback2(rs.getDouble("Feedback2"));
+						old.setFeedback3(rs.getDouble("Feedback3"));
+						old.setFeedback4(rs.getDouble("Feedback4"));
+						old.setTotal(rs.getInt("Total"));
+					}
+					return old;
+				}
+			});
+
+			Feedback updated = new Feedback();
+			int total = f.getTotal();
+			updated.setSessionID(f.getSessionID());
+			updated.setFeedback1(obj.getAvg(f.getFeedback1(), feedback.getFeedback1(), total));
+			updated.setFeedback2(obj.getAvg(f.getFeedback2(), feedback.getFeedback2(), total));
+			updated.setFeedback3(obj.getAvg(f.getFeedback3(), feedback.getFeedback3(), total));
+			updated.setFeedback4(obj.getAvg(f.getFeedback4(), feedback.getFeedback4(), total));
+			updated.setTotal(total + 1);
+			System.out.println("Feedback2 : " + updated.getFeedback2());
+
+			String query2 = "update feedback set Feedback1=" + updated.getFeedback1() + ", Feedback2="
+					+ updated.getFeedback2() + ", Feedback3=" + updated.getFeedback3() + ", Feedback4="
+					+ updated.getFeedback4() + ", Total=" + updated.getTotal() + " where SessionID="
+					+ updated.getSessionID() + " ";
+			String query3 = "Update trainee set givenFeedback=1 where UserID=" + user.getUserID() + " and SessionID="
+					+ feedback.getSessionID() + "";
+			jdbcTemplate.update(query3);
+			return jdbcTemplate.update(query2);
+
+		} else {
+			return 0;
+		}
 
 	}
 
@@ -184,41 +236,149 @@ public class JDBCTemplateDao {
 
 	}
 
-	public int CheckSessionAvailabilityTrainer(User u) {
+	public Session CheckSessionAvailabilityTrainer(User u) {
 		ArrayList<Session> sessions = getSessions(u);
-		Float currTime = new Float(0);
-		currTime = (float) (Calendar.getInstance().getTime().getHours() * 1.0 % 12
-				+ Calendar.getInstance().getTime().getMinutes() * 1.0 / 60);
+		Float currTime;
+		currTime = new Float((Calendar.getInstance().getTime().getHours() * 1.0
+				+ Calendar.getInstance().getTime().getMinutes() * 1.0 / 60));
+		/*
+		 * System.out.println("CURRENT TIME : " + currTime); System.out.println(
+		 * "CURRENT DATE : " + Calendar.getInstance().getTime());
+		 */
+
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		String text = df.format(Calendar.getInstance()
+				.getTime());/*
+							 * System.out.println("CHANGED DATE : " + text);
+							 */
+
 		for (Session session : sessions) {
-			if (Calendar.getInstance().getTime().compareTo(session.getDate()) == 0) {
-				if (new Float(session.getStartTime()) > currTime && new Float(session.getEndTime()) < currTime)
-					return session.getSessionID();
+			/*
+			 * System.out.println("SESSION NAME : " + session.getSessionName());
+			 * System.out.println("SESSION DATE : " +
+			 * session.getDate().toString() + "Compared to " + text);
+			 * System.out.println("SESSION STARTTIME : " +
+			 * session.getStartTime()); System.out.println("SESSION ENDTIME : "
+			 * + session.getEndTime());
+			 */
+			if (text.contains(session.getDate().toString())) {
+				Float StartTime = new Float(session.getStartTime());
+				Float EndTime = new Float(session.getEndTime());
+
+				/*
+				 * System.out.println("DATE MATCHED \n CALCULATED StartTime : "
+				 * + StartTime + " CALCULATED EndTime " + EndTime);
+				 */
+				if (StartTime < currTime && currTime < EndTime) {
+					/* System.out.println("Time Matched"); */
+					return session;
+				}
 			}
 		}
-		return -1;
+		return null;
 	}
 
-	public int CheckSessionAvailabilityTrainee(User u) {
+	public Session CheckSessionAvailabilityTrainee(User u) {
 		ArrayList<Session> sessions = getJoinedSessions(u);
-		Float currTime = new Float(0);
-		currTime = (float) (Calendar.getInstance().getTime().getHours() * 1.0 % 12
-				+ Calendar.getInstance().getTime().getMinutes() * 1.0 / 60);
+		Float currTime;
+		currTime = new Float((Calendar.getInstance().getTime().getHours() * 1.0
+				+ Calendar.getInstance().getTime().getMinutes() * 1.0 / 60));
+		/*
+		 * System.out.println("CURRENT TIME : " + currTime); System.out.println(
+		 * "CURRENT DATE : " + Calendar.getInstance().getTime());
+		 */
+
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		String text = df.format(Calendar.getInstance()
+				.getTime());/*
+							 * System.out.println("CHANGED DATE : " + text);
+							 */
+
 		for (Session session : sessions) {
-			if (Calendar.getInstance().getTime().compareTo(session.getDate()) == 0) {
-				if (new Float(session.getStartTime()) > currTime && new Float(session.getEndTime()) < currTime)
-					return session.getSessionID();
+			/*
+			 * System.out.println("SESSION NAME : " + session.getSessionName());
+			 * System.out.println("SESSION DATE : " +
+			 * session.getDate().toString() + "Compared to " + text);
+			 * System.out.println("SESSION STARTTIME : " +
+			 * session.getStartTime()); System.out.println("SESSION ENDTIME : "
+			 * + session.getEndTime());
+			 */
+			if (text.contains(session.getDate().toString())) {
+				Float StartTime = new Float(session.getStartTime());
+				Float EndTime = new Float(session.getEndTime());
+
+				/*
+				 * System.out.println("DATE MATCHED \n CALCULATED StartTime : "
+				 * + StartTime + " CALCULATED EndTime " + EndTime);
+				 */
+				if (StartTime < currTime && currTime < EndTime) {
+					/* System.out.println("Time Matched"); */
+					return session;
+				}
 			}
 		}
-		return -1;
+		return null;
 	}
 
 	/* EXPIREMENTAL POLLING CODE FOLLOWS */
 	public int addPoll(Poll p) {
 		String query = "INSERT into poll VALUES ('" + p.getQ() + "','" + p.getO1() + "','" + p.getO2() + "','"
-				+ p.getO3() + "','" + p.getO4() + "');";
+				+ p.getO3() + "','" + p.getO4() + "'," + p.getSessionID() + ",1);";
 		return jdbcTemplate.update(query);
 	}
 
+	public int closePoll(Poll p) {
+		String query = "Update poll set isAlive=0 where PollID=" + p.getPollID();
+		return jdbcTemplate.update(query);
+	}
+
+	public ArrayList<Poll> listActivePollTrainer(User user){
+		  String query="Select PollID, SessionName, Question, Option1, Option2, Option3, Option4 FROM poll INNER "+ 
+		    "JOIN session ON poll.SessionID = session.SessionID WHERE session.UserID ="+user.getUserID() + " and poll.isAlive = 1";
+		  System.out.println(query);
+		  return jdbcTemplate.query(query, new ResultSetExtractor<ArrayList<Poll>>() {
+
+		   public ArrayList<Poll> extractData(ResultSet rs) throws SQLException, DataAccessException {
+		    ArrayList<Poll> polls = new ArrayList<Poll>();
+		    while (rs.next()) {
+		     Poll p=new Poll();
+		     p.setQ(rs.getString("Question"));
+		     p.setO1(rs.getString("Option1"));
+		     p.setO2(rs.getString("Option2"));
+		     p.setO3(rs.getString("Option3"));
+		     p.setO4(rs.getString("Option4"));
+		     p.setSessionName( rs.getString("SessionName"));
+		     polls.add(p);
+		    }
+		    return polls;
+		   }
+		  });
+	}
+	
+	 public ArrayList<Poll> listActivePollTrainee(User user){
+		  String query="SELECT PollID, Question, Option1, Option2, Option3, Option4 FROM Trainee INNER "+
+		    " JOIN Poll ON Trainee.SessionID = Poll.SessionID WHERE UserID="+ user.getUserID()+" and poll.isAlive = 1 and trainee.accepted = 1";
+		  System.out.println(query);
+		  return jdbcTemplate.query(query, new ResultSetExtractor<ArrayList<Poll>>() {
+
+		   public ArrayList<Poll> extractData(ResultSet rs) throws SQLException, DataAccessException {
+		    ArrayList<Poll> polls = new ArrayList<Poll>();
+		    while (rs.next()) {
+		     Poll p=new Poll();
+		     p.setPollID(rs.getInt("PollID"));
+		     p.setQ(rs.getString("Question"));
+		     p.setO1(rs.getString("Option1"));
+		     p.setO2(rs.getString("Option2"));
+		     p.setO3(rs.getString("Option3"));
+		     p.setO4(rs.getString("Option4"));
+		     polls.add(p);
+		    }
+		    return polls;
+		   }
+		  });
+		  
+		 }
+	
 	public int givePoll(User u, Poll p, int choice) {
 		String query = "INSERT INTO pollresponse VALUES ( " + p.getPollID() + ", " + u.getUserID() + ", " + choice
 				+ " );";

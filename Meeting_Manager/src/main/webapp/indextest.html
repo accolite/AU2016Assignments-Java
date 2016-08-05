@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head lang="en">
+	  <meta charset="utf-8">
+	  <title>AngularJS Routing</title>
+	  <link href="assets/css/bootstrap.css" rel="stylesheet">
+
+		<script src="bower_components/jquery/dist/jquery.js"></script>
+			<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+			<script src="bower_components/angular/angular.js"></script>
+			<script src="bower_components/angular-route.min.js"></script>
+			<script
+				src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+			<script src="bower_components/lodash/lodash.js"></script>
+			<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+			
+			<script src="bower_components/chart/dist/Chart.min.js"></script>
+			<script src="bower_components/angular-chart/dist/angular-chart.min.js"></script>
+			<!-- <script src="bower_components/chart/dist/Chart.min.js"></script> -->
+
+	</head>
+	<body>
+	  <div ng-app="library">
+	  	
+      <div class="row" ng-controller="appController">
+      
+       <div class="container">
+      <div class="row well">
+          <div class="col-md-3">
+            <br>
+            <button type="button" class="btn btn-danger">Logout</button>
+          </div>
+          
+      <div class="col-md-3 col-md-offset-1" style="text-align:center;"> <h3> <span id="user"> </span> </h3></div>
+          <div class="col-md-3 col-md-offset-2" id="create">
+           <a class="btn btn-success btn-sm" href="#/createNewSessiontest"> Create Session </a> 
+            <a class="btn btn-success btn-sm" href="#/TraineeFeedbacktest"> Trainee Feedback </a>
+             <a class="btn btn-success btn-sm" href="#/FeedbackManagerAdmin">Feedback Manager </a>
+             <a class="btn btn-success btn-sm" href="#/traineePoll">Trainee Poll </a>
+             <a class="btn btn-success btn-sm" href="#/trainerPoll">Trainer Poll </a>
+   	      </div>
+          <div class="col-md-3 col-md-offset-2">
+            <br>
+            </div>
+          
+      </div>
+       <input  type="hidden" id = "username" value="smruti">
+       <input  type="hidden" id = "SessionID" value="4"> 
+       <input  type="hidden" id = "role" value="admin">
+        <input  type="hidden" id = "email" value="smruti.charkha@accoliteindia.com"> </div>
+		<ng-view>
+		</ng-view>
+	  
+	  </div>
+
+	 	
+	  <script type="text/javascript" src="apptest.js"></script>
+	</body>
+</html>
