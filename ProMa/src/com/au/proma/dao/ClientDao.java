@@ -56,11 +56,27 @@ public class ClientDao {
 		});
 	}
 	
+	public int updateClient(Client client){
+		String sql = "update client set clientname = ? where clientid = ?";
+		
+		
+		return jdbcTemplate.execute(sql, new PreparedStatementCallback<Integer>() {
+
+			@Override
+			public Integer doInPreparedStatement(PreparedStatement ps) throws SQLException, DataAccessException {
+				ps.setString(1, client.getClientname());
+				ps.setInt(2, client.getClientid());
+				return ps.executeUpdate();
+			}
+			
+		});
+	}
+	
 	public String getClientName(Client client){
 		String sql = "select clientname from dbo.Client where clientid=?";
 		 
 		String name = (String)getJdbcTemplate().queryForObject(
-				sql, new Object[] { client.getClientid() }, String.class);
+				sql, new Object[] {client.getClientid() }, String.class);
 		
 		return name;
 	}

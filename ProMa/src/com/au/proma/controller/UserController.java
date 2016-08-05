@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,7 +26,6 @@ public class UserController {
 		Boolean isSuccess = userService.addUser(user);
 		return isSuccess == true ? "Success" : "Failure";
 	}
-	
 	@RequestMapping(method=RequestMethod.GET,produces="application/json")
 	public @ResponseBody List<User> getAllUsers(){
 		return userService.getAllUsers();
@@ -37,3 +37,8 @@ public class UserController {
 	}
 	
 }
+	}	@RequestMapping(value = "/get/{id}",method=RequestMethod.GET,produces="application/json")
+	public @ResponseBody User getUser(@PathVariable("id") int userId){
+		User user = userService.getUser(userId);
+		return user;
+	}}

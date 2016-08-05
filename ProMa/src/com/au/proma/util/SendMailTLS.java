@@ -15,7 +15,7 @@ import com.au.proma.model.User;
 
 public class SendMailTLS {
 
-	public void sendMail(String userEmail, Project p) {
+	public void sendMail(String userEmail, Project p, String msg) {
 		// TODO Auto-generated method stub
 		final String username = "saumyadeepjndi@gmail.com";
 		final String password = "jndijndi123123";
@@ -38,7 +38,7 @@ public class SendMailTLS {
 			message.setFrom(new InternetAddress("asdasd@gmail.com"));
 			message.setRecipients(Message.RecipientType.TO,
 					InternetAddress.parse(userEmail));
-			message.setSubject("Project Added");
+			message.setSubject(msg);
 			String content = "Project Details : "+"\n" + "Project id : "+p.getProjectid() + "\n"
 					+"Project name : "+p.getProjectname() + "\n"
 					+"Project resource working : "+p.getResourceworking() + "\n"

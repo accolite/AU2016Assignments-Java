@@ -134,6 +134,26 @@ public class UserDao {
 			
 		});
 	}
+	public User getUser(int userId) {
+		// TODO Auto-generated method stub
+		String query = "select * from users where userid = "+userId;
+		return jdbcTemplate.queryForObject(query, new RowMapper<User>(){
+
+			@Override
+			public User mapRow(ResultSet arg0, int arg1) throws SQLException {
+				// TODO Auto-generated method stub
+				User user = new User();
+				user.setUserid(userId);
+				user.setUsername(arg0.getString("username"));
+				user.setUseremail(arg0.getString("useremail"));
+				Role role = new Role();
+				role.setRoleid(arg0.getInt("userroleid"));
+				user.setRole(role);
+				return user;
+			}
+			
+		});
+	}
 	
 
 	public List<User> getAllUsers(){

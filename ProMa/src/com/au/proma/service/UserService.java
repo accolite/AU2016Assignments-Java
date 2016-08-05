@@ -49,7 +49,7 @@ public class UserService {
 		}
 	}
 
-	public void notifyEachAdmin(String role,Project p) {
+	public void notifyEachAdmin(String role,Project p, String msg) {
 		// TODO Auto-generated method stub
 		int roleId = roleDao.getRoleId(role);
 		List<String>emails = userDao.getUsersEmailWithRoleId(roleId);
@@ -57,8 +57,13 @@ public class UserService {
 		int i;
 		for(i=0; i<emails.size(); i++){
 			System.out.println(emails.get(i));
-			sendMail.sendMail(emails.get(i),p);
+			sendMail.sendMail(emails.get(i),p,msg);
 		}
+	}
+
+	public User getUser(int userId) {
+		// TODO Auto-generated method stub
+		return userDao.getUser(userId);
 	}
 
 	public List<User> getAllUsers(){
