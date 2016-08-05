@@ -199,4 +199,12 @@ public class ServiceImplementation implements ServiceInterface {
 		return dao.addUser(user);
 	}
 
+	@Override
+	public boolean changeMobile(CurrentUser user, String mobile) {
+		mobile = mobile.trim();
+		if(mobile.length()==10)
+			return dao.changeMobile(user.getId(), mobile);
+		return false;
+	}
+
 }

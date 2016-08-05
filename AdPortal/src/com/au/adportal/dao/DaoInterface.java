@@ -39,5 +39,7 @@ public interface DaoInterface {
 	public User getUser(String userid);
 	
 	public boolean addUser(User user);
+	
+	public boolean changeMobile(String userid, String mobile);
 
 }

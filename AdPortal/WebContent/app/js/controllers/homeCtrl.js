@@ -1,10 +1,11 @@
 app.controller("homeCtrl", ['$scope', 'HomeService','$modal', '$localStorage', '$window', function ($scope,HomeService, $modal, $localStorage, $window) {
     
 // $scope.message = "This is the home page";
-
+    $scope.contactModal;
     $scope.$storage = $localStorage;
     
     $scope.contactDetails = {};
+    $scope.message=[];
     $scope.cpostid = "";
     
     $scope.min=0;

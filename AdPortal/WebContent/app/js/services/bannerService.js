@@ -18,5 +18,19 @@ app.factory('BannerService',function($http){
 				headers: { 'X-Requested-With' :'XMLHttpRequest'}
 			};
 			return $http(req);
-		}
+		},
+        updateProfile : function(mobile){
+            var req = {
+				method: 'POST',
+				url: '/AdPortal/updateprofile',
+				headers : {
+					'cache-control': 'private, max-age=0, no-cache',
+					'Pragma': 'no-cache',
+					'Expires': "Sat, 01 Dec 2001 00:00:00 GMT"},
+                data: angular.toJson(mobile),
+                transformRequest: angular.identity
+                
+			};
+            return $http(req);
+        }
 }});

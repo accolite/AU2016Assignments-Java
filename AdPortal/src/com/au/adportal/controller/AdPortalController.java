@@ -3,6 +3,7 @@ package com.au.adportal.controller;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -68,7 +69,6 @@ public class AdPortalController extends SpringBootServletInitializer {
 		return user;
 	}
 	
-	
 	@RequestMapping(value = "/hello", method = RequestMethod.GET)
 	public String hello() {
 		// dao.makeAdmin("");
@@ -129,9 +129,17 @@ public class AdPortalController extends SpringBootServletInitializer {
 		return (service.getContactInfo(current_user, postId));
 	}
 
-	@RequestMapping(value = "/contact", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
-	public @ResponseBody boolean contact(@RequestBody Integer postId, @RequestBody String message) {
-		return (service.contact(current_user, postId, message));
+	@RequestMapping(value = "/contact", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody boolean contact(@RequestBody String[] details) {
+		try{
+			System.out.println(details.toString());
+			int id=Integer.parseInt(details[0]);
+			return (service.contact(current_user, id, details[1].toString()));
+		}
+		catch(Exception e){
+			return false;
+		}
+		
 	}
 
 	@RequestMapping(value = "/getcategories", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -147,6 +155,12 @@ public class AdPortalController extends SpringBootServletInitializer {
 	@RequestMapping(value = "/getpost", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Post getpost(@RequestParam(value = "postid") Integer postId) {
 		return (service.getPost(current_user, postId));
+	}
+	
+	@RequestMapping(value = "/updateprofile", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody boolean changeMobile(@RequestBody String mobile){
+		System.out.println(mobile);
+		return service.changeMobile(current_user, mobile);
 	}
 
 	public static void main(String[] args) {

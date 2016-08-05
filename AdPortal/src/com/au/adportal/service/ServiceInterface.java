@@ -41,4 +41,6 @@ public interface ServiceInterface {
 	
 	public boolean addUser(User user); 
 	
+	public boolean changeMobile(CurrentUser user, String mobile);
+	
 }

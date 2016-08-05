@@ -254,4 +254,20 @@ public class Dao implements DaoInterface{
 		return result;
 	}
 
+	@Override
+	@Transactional
+	public boolean changeMobile(String userid, String mobile) {
+		boolean result = false;
+		try{
+			User user = entityManager.find(User.class, userid);
+			user.setMobile(mobile);
+			result = true;
+		}
+		catch(Exception e){
+			result = false;
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 }

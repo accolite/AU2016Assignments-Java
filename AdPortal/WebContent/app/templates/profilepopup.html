@@ -1,0 +1,56 @@
+<div class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" ng-show="title">
+        <button type="button" class="close" aria-label="Close" ng-click="$hide()"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" ng-bind="title"></h4>
+      </div>
+      <div class="modal-body">
+        <table>
+         <tr>
+          <td>
+           <table cellpadding="20px">
+            <tr>
+             <td>
+              Name
+             </td>
+             <td>
+              <div> {{name}} </div>
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Phone No.
+             </td>
+             <td>
+              <input type="number" 
+                   class="form-control" 
+                   ng-minlength="10" 
+                   ng-maxlength="10"  
+                  placeholder="Mobile" ng-model="new.mobile">
+             </td>
+            </tr>
+            <tr>
+             <td>
+              Email ID
+             </td>
+             <td>
+              {{email}}
+             </td>
+            </tr>
+            <tr>
+             <td colspan="2">
+               <button type="button" class="btn btn-default" ng-click="updateMobile()">Update</button>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+        </table>
+        </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="$hide()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
