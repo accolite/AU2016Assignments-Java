@@ -28,24 +28,6 @@ public class RoleDao {
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
-
-//	Integer getRoleId(String rolename)
-//	{
-//		String query ="select roleid from dbo.role where rolename='"+rolename+"'";
-//		return jdbcTemplate.query(query, new ResultSetExtractor<Integer>() {
-//
-//			public Integer extractData(ResultSet rs) throws SQLException, DataAccessException {
-//				
-//				
-//				Integer temp=0;
-//				while (rs.next()){
-//				temp=rs.getInt("roleid");
-//				
-//				}
-//				return temp;
-//			}
-//		});
-//	}
 	
 	public ArrayList<Role> getAllRoles()
 	{
@@ -72,7 +54,7 @@ public class RoleDao {
 					});
 	}
 
-	public int getRoleId(String role) {
+	public int getRoleId(String role){
 		// TODO Auto-generated method stub
 		String query = "select roleid from role where rolename = ?";
 		PreparedStatementCreator creator = new PreparedStatementCreator() {
@@ -96,7 +78,7 @@ public class RoleDao {
 		});
 	}
 	
-	public String getRoleName(Integer role_id) {
+	public String getRoleName(int roleid){
 		// TODO Auto-generated method stub
 		String query = "select rolename from role where roleid = ?";
 		PreparedStatementCreator creator = new PreparedStatementCreator() {
@@ -105,7 +87,7 @@ public class RoleDao {
 			public PreparedStatement createPreparedStatement(Connection arg0) throws SQLException {
 				// TODO Auto-generated method stub
 				PreparedStatement pstmt = arg0.prepareStatement(query);
-				pstmt.setInt(1, role_id);
+				pstmt.setInt(1, roleid);
 				return pstmt;
 			}
 		};
@@ -118,6 +100,55 @@ public class RoleDao {
 			}
 			
 		});
+	}
+	
+	public int deleteRole(int roleid){
+		// TODO Auto-generated method stub
+		String query = "select rolename from role where roleid = ?";
+		PreparedStatementCreator creator = new PreparedStatementCreator() {
+			
+			@Override
+			public PreparedStatement createPreparedStatement(Connection arg0) throws SQLException {
+				// TODO Auto-generated method stub
+				PreparedStatement pstmt = arg0.prepareStatement(query);
+				pstmt.setInt(1, roleid);
+				return pstmt;
+			}
+		};
+		return jdbcTemplate.update(creator);
+	}
+	
+	public int insertRole(Role role){
+		// TODO Auto-generated method stub
+		String query = "insert into role(rolename) values(?)";
+		PreparedStatementCreator creator = new PreparedStatementCreator() {
+			
+			@Override
+			public PreparedStatement createPreparedStatement(Connection arg0) throws SQLException {
+				// TODO Auto-generated method stub
+				PreparedStatement pstmt = arg0.prepareStatement(query);
+				pstmt.setInt(1, role.getRoleid());
+				return pstmt;
+			}
+		};
+		return jdbcTemplate.update(creator);
+	}
+	
+	public int updateRoleName(int roleid,String rolename){
+		// TODO Auto-generated method stub
+		String query = "update role set rolename = ? from role where roleid = ?";
+		PreparedStatementCreator creator = new PreparedStatementCreator() {
+			
+			@Override
+			public PreparedStatement createPreparedStatement(Connection arg0) throws SQLException {
+				// TODO Auto-generated method stub
+				PreparedStatement pstmt = arg0.prepareStatement(query);
+				pstmt.setString(1, rolename);
+				pstmt.setInt(2, roleid);
+				return pstmt;
+			}
+		};
+		return jdbcTemplate.update(creator);
 	}
 }
 				

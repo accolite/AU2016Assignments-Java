@@ -3,7 +3,6 @@ package com.au.proma.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-import com.au.proma.model.*;
+
+import com.au.proma.model.Role;
+import com.au.proma.model.User;
 @Repository
 public class UserDao {
 
@@ -147,7 +148,50 @@ public class UserDao {
 			
 		});
 	}
+	public User getUser(int userId) {
+		// TODO Auto-generated method stub
+		String query = "select * from users where userid = "+userId;
+		return jdbcTemplate.queryForObject(query, new RowMapper<User>(){
+
+			@Override
+			public User mapRow(ResultSet arg0, int arg1) throws SQLException {
+				// TODO Auto-generated method stub
+				User user = new User();
+				user.setUserid(userId);
+				user.setUsername(arg0.getString("username"));
+				user.setUseremail(arg0.getString("useremail"));
+				Role role = new Role();
+				role.setRoleid(arg0.getInt("userroleid"));
+				user.setRole(role);
+				return user;
+			}
+			
+		});
+	}
 	
+
+	public List<User> getAllUsers(){
+		String sql = "select * from dbo.Users U , dbo.Role R where U.userroleid=R.roleid";
+		return jdbcTemplate.query(sql, new RowMapper<User>(){
+
+			@Override
+			public User mapRow(ResultSet rs, int arg1) throws SQLException {
+				Role role = new Role(rs.getInt("roleid"),rs.getString("rolename"));
+				User user = new User();
+				user.setUseremail(rs.getString("useremail"));
+				user.setUsername(rs.getString("username"));
+				user.setUserid(rs.getInt("userid"));
+				user.setRole(role);
+				return user;
+			}
+			
+		});
+	}
+
 	
+	public Boolean convertVisitorToAdmin(User user){
+		String sql = "update dbo.Users set userroleid=1 where userid=" + user.getUserid();
+		return jdbcTemplate.update(sql)==1;
+	}
 	
 }

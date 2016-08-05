@@ -1,5 +1,5 @@
 <table class = "table table-bordered table-striped table-hover">
-   <caption>Bordered Table Layout</caption>
+   <caption>Summary Dashboard</caption>
    
    <thead>
       <tr>
@@ -13,7 +13,7 @@
    
    <tbody>
       <tr ng-repeat="project in projects" data-buid="{{project.bu.buid}}">
-            <td><a ng-href="#/bu/{{project.bu.buid}}">{{project.bu.buname}}</a></td>
+            <td><a ng-href="#/bu/{{project.bu.buid}}/{{project.bu.buname}}">{{project.bu.buname}}</a></td>
             <td>{{project.total}}</td>
             <td class='danger'>{{project.red}}</td>
             <td class='warning'>{{project.yellow}}</td>
@@ -23,5 +23,9 @@
 	
 </table>
 
-<button type="button" class="btn btn-lg btn-success" data-animation="am-fade-and-scale" data-template-url="src/views/modals/admin-form-modal.html" bs-modal="modal">Add an User
+<button type="button" class="btn btn-lg btn-success" data-animation="am-fade-and-scale" data-template-url="src/views/modals/admin-form-modal.html" bs-modal="modal">Add an Admin
 </button>
+
+<button type="button" class="btn btn-lg btn-info" data-animation="am-fade-and-scale" data-template-url="src/views/modals/admin-add-bu-form.html" bs-modal="modal">Add a Business Unit
+</button>
+

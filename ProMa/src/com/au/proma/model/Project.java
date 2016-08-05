@@ -17,6 +17,7 @@ public class Project{
 	private Date startdate;
 	private Date enddate;
 	private int status;
+	private int completed;
 	private BU bu;
 	
 	public int getProjectid() {
@@ -74,7 +75,7 @@ public class Project{
 		this.bu = bu;
 	}
 	public Project(int projectid, Client client, String projectname, User projectmanager, int resourceworking,
-			Date startdate, Date enddate, int status, BU bu) {
+			Date startdate, Date enddate, int status, BU bu,int completed) {
 		super();
 		this.projectid = projectid;
 		this.client = client;
@@ -85,6 +86,13 @@ public class Project{
 		this.enddate = enddate;
 		this.status = status;
 		this.bu = bu;
+		this.completed = completed;
+	}
+	public int getCompleted() {
+		return completed;
+	}
+	public void setCompleted(int completed) {
+		this.completed = completed;
 	}
 	public Project() {
 		super();

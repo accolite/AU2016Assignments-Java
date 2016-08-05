@@ -1,5 +1,7 @@
 package com.au.proma.model;
 
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -7,6 +9,7 @@ public class BU {
 	
 	private int buid;
 	private String buname;
+	List<User> buheads;
 	public BU(int buid, String buname) {
 		super();
 		this.buid = buid;
@@ -28,6 +31,13 @@ public class BU {
 	public void setBuname(String buname) {
 		this.buname = buname;
 	}
+	public List<User> getBuheads() {
+		return buheads;
+	}
+	public void setBuheads(List<User> buheads) {
+		this.buheads = buheads;
+	}
+	
 	
 	
 

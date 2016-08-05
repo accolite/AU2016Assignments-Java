@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.au.proma.dao.BuDao;
 import com.au.proma.model.BU;
+import com.au.proma.model.User;
 
 @Service
 public class BuService {
@@ -23,4 +24,15 @@ public class BuService {
 		return buDao.addBU(bu);
 	}
 
+	public Boolean addBUHead(BU bu, User user){
+		return buDao.addBUHead(bu, user);
+	}
+	
+	public Boolean removeBU(BU bu){
+		return buDao.removeBU(bu);
+	}
+	
+	public Boolean removeBUHead(BU bu,User user){
+		return buDao.removeBUHead(bu, user);
+	}
 }
