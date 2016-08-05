@@ -33,7 +33,7 @@ public class User {
 		this.username = username;
 
 		this.useremail = useremail;
-		this.role = role;
+
 	}
 
 	

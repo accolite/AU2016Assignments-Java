@@ -92,66 +92,66 @@ public class AccountService {
 	}
 
 	
-	public void sendEmailForPassword(String name,HttpServletRequest request)
-	{
-		String email=userdao.getEmailID(name);
-		String random_string=generateCode();
-		userdao.addToken(name,random_string);
-		final String username = "saumyadeepjndi@gmail.com";
-		final String password = "jndijndi123123";
-		
-		Properties props = new Properties();
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", "smtp.gmail.com");
-		props.put("mail.smtp.port", "587");
-		
-		Session session = Session.getInstance(props,
-				  new javax.mail.Authenticator() {
-					protected PasswordAuthentication getPasswordAuthentication() {
-						return new PasswordAuthentication(username, password);
-					}
-				  });
-		
-		try {
-
-			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress("isendupower@gmail.com"));
-			message.setRecipients(Message.RecipientType.TO,
-				InternetAddress.parse(email));
-			message.setSubject("Reset Password Link");
-			message.setText("http://localhost:8082/ProMa/rest/accounts/confirm?token="+random_string);
-
-			Transport.send(message);
-
-			System.out.println("Done");
-
-		} catch (MessagingException e) {
-			throw new RuntimeException(e);
-		}
-		
-	}
-	public String getUserName(String token)
-	{
-		return userdao.getUserName(token);
-	}
-	public void setPassword(String pass,String token)
-	{
-		
-		try{
-		MessageDigest md = MessageDigest.getInstance("MD5");
-        byte[] passBytes = pass.getBytes();
-        md.reset();
-        byte[] digested = md.digest(passBytes);
-        StringBuffer sb = new StringBuffer();
-        for(int i=0;i<digested.length;i++){
-            sb.append(Integer.toHexString(0xff & digested[i]));
-        }
-        pass= sb.toString();
-		}catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-		userdao.setPassword(pass,token);
-	}
+//	public void sendEmailForPassword(String name,HttpServletRequest request)
+//	{
+//		String email=userdao.getEmailID(name);
+//		String random_string=generateCode();
+//		userdao.addToken(name,random_string);
+//		final String username = "saumyadeepjndi@gmail.com";
+//		final String password = "jndijndi123123";
+//		
+//		Properties props = new Properties();
+//		props.put("mail.smtp.auth", "true");
+//		props.put("mail.smtp.starttls.enable", "true");
+//		props.put("mail.smtp.host", "smtp.gmail.com");
+//		props.put("mail.smtp.port", "587");
+//		
+//		Session session = Session.getInstance(props,
+//				  new javax.mail.Authenticator() {
+//					protected PasswordAuthentication getPasswordAuthentication() {
+//						return new PasswordAuthentication(username, password);
+//					}
+//				  });
+//		
+//		try {
+//
+//			Message message = new MimeMessage(session);
+//			message.setFrom(new InternetAddress("isendupower@gmail.com"));
+//			message.setRecipients(Message.RecipientType.TO,
+//				InternetAddress.parse(email));
+//			message.setSubject("Reset Password Link");
+//			message.setText("http://localhost:8082/ProMa/rest/accounts/confirm?token="+random_string);
+//
+//			Transport.send(message);
+//
+//			System.out.println("Done");
+//
+//		} catch (MessagingException e) {
+//			throw new RuntimeException(e);
+//		}
+//		
+//	}
+//	public String getUserName(String token)
+//	{
+//		return userdao.getUserName(token);
+//	}
+//	public void setPassword(String pass,String token)
+//	{
+//		
+//		try{
+//		MessageDigest md = MessageDigest.getInstance("MD5");
+//        byte[] passBytes = pass.getBytes();
+//        md.reset();
+//        byte[] digested = md.digest(passBytes);
+//        StringBuffer sb = new StringBuffer();
+//        for(int i=0;i<digested.length;i++){
+//            sb.append(Integer.toHexString(0xff & digested[i]));
+//        }
+//        pass= sb.toString();
+//		}catch(Exception e)
+//		{
+//			e.printStackTrace();
+//		}
+//		userdao.setPassword(pass,token);
+//	}
 }

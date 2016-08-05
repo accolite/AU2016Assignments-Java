@@ -44,30 +44,30 @@ public class AccountController {
 		
 	}
 	
-	@RequestMapping(value="/forgot",method=RequestMethod.POST, produces="text/plain")
-	@ResponseBody
-	public ModelAndView sendEmailForPassword(@RequestParam("name")String name,HttpServletRequest request){
-		accountservice.sendEmailForPassword(name,request);
-		return new ModelAndView("loginpage", "message", "emailsend");
-		
-	}
+//	@RequestMapping(value="/forgot",method=RequestMethod.POST, produces="text/plain")
+//	@ResponseBody
+//	public ModelAndView sendEmailForPassword(@RequestParam("name")String name,HttpServletRequest request){
+//		accountservice.sendEmailForPassword(name,request);
+//		return new ModelAndView("loginpage", "message", "emailsend");
+//		
+//	}
 	
-	@RequestMapping(value="/confirm",method=RequestMethod.GET, produces="text/plain")
-	@ResponseBody
-	public ModelAndView setPassword(@RequestParam("token")String token,HttpServletRequest request){
-		request.getSession().setAttribute("token", token);
-		request.getSession().setAttribute("username",accountservice.getUserName(token));
-		return new ModelAndView("confirmpassword", "username","random");
-		
-	}
+//	@RequestMapping(value="/confirm",method=RequestMethod.GET, produces="text/plain")
+//	@ResponseBody
+//	public ModelAndView setPassword(@RequestParam("token")String token,HttpServletRequest request){
+//		request.getSession().setAttribute("token", token);
+//		request.getSession().setAttribute("username",accountservice.getUserName(token));
+//		return new ModelAndView("confirmpassword", "username","random");
+//		
+//	}
 	
-	@RequestMapping(value="/confirmfinal",method=RequestMethod.POST, produces="text/plain")
-	@ResponseBody
-	public String pushNewPassword(@RequestParam("newpassword")String newpassword,HttpServletRequest request){
-		String token=(String)request.getSession().getAttribute("token");
-		accountservice.setPassword(newpassword,token);
-		return "changed";
-		
-	}
+//	@RequestMapping(value="/confirmfinal",method=RequestMethod.POST, produces="text/plain")
+//	@ResponseBody
+//	public String pushNewPassword(@RequestParam("newpassword")String newpassword,HttpServletRequest request){
+//		String token=(String)request.getSession().getAttribute("token");
+//		accountservice.setPassword(newpassword,token);
+//		return "changed";
+//		
+//	}
 
 }

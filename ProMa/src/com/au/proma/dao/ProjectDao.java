@@ -155,8 +155,7 @@ public class ProjectDao {
 		Client client = new Client(arg0.getInt("clientid"), arg0.getString("clientname"));
 		BU bu = new BU(arg0.getInt("buid"), arg0.getString("buname"));
 		Role role = new Role(arg0.getInt("roleid"), arg0.getString("rolename"));
-		User projectManager = new User(arg0.getInt("userid"), arg0.getString("username"), arg0.getString("useremail"),
-				arg0.getString("userroleid"), role);
+		User projectManager = new User(arg0.getInt("userid"), arg0.getString("username"), arg0.getString("useremail"), role);
 		Project p = new Project(arg0.getInt("projectid"), client, arg0.getString("projectname"), projectManager,
 				arg0.getInt("resourceworking"), arg0.getDate("startdate"), arg0.getDate("enddate"), 0, bu,arg0.getInt("completed"));
 		return p;
