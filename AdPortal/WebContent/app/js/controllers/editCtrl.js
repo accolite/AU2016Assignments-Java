@@ -55,12 +55,10 @@ app.controller("editCtrl", ['$scope','$routeParams','editService', '$window',fun
         $scope.description,
         $scope.price,0).then(
     		    function(successResponse){
-    			     $scope.locations=successResponse.data;
-    			        console.log("Success")
+    			     $window.location.href="/AdPortal/app/";
     			    },
     			    function(errorResponse){
-    			     $scope.locations=undefined;
-    			     console.log("Failed")
+    			     $window.location.href="/AdPortal/app/";
     			    }
     			    );
     }

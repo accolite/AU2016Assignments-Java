@@ -20,28 +20,72 @@
   }
 }
 
- body {
+
+    .body-min-post {
       padding-top: 1em;
-      background: #e2e1e0;
+      background:  #e1e8f0;
       text-align: center;
     }	
-.card {
-  background: #fff;
-  box-shadow: 0 10px 20px rgba(0,0,10,0), 0 6px 6px rgba(0,0,2,0);
-  box-shadow: 0 1px 1px rgba(77, 182, 172,0.2), 0 0 8px rgba(77, 182, 172,0.2);
-}
-.btn
-{
-  color:black;
-  margin: 2px;;
+
+    .card-min-post {
+      background: #fff !important;
+      box-shadow: 0 10px 20px rgba(0,0,10,0), 0 6px 6px rgba(0,0,2,0);
+      box-shadow: 0 1px 1px rgba(77, 182, 172,0.2), 0 0 8px rgba(77, 182, 172,0.2);
+    }
+    .btn-min-post
+    {
+      color:black;
+      margin: 2px;;
+    }
+    
+    .img-min-post
+    {
+      max-height:150px;
+      max-width: 150px;;
+    }
+.header{
+    color: black;
 }
 
-img
-{
-  max-height:150px;
-  max-width: 150px;;
+
+.rzslider .rz-pointer {
+  
+    background: #6ed3cf;
 }
-.card-header,.btn
+.rz-bar.rz-selection
 {
-  background: #4db6ac;
+   background-color: #31708f !important;
+}
+    .card-header-min-post,.btn-min-post
+    {
+      background: #6ed3cf !important;
+    }
+
+    /* Creates a vertical nav starting at 768px (sm) */
+@media (min-width: 768px) {
+.ver-nav .ver-navbar .navbar-collapse {
+      padding: 0;
+      max-height: none;
+   }
+   .ver-nav .ver-navbar ul  {
+      float: none;
+   }
+   .ver-nav .ver-navbar ul:not {
+      display: block;
+   }
+   .ver-nav .ver-navbar li {
+      float: none;
+      display: block;
+   }
+
+   .ver-nav .navbar-nav .nav-item+.nav-item {
+      margin-left: 0;
+   }
+}
+
+/* Put any custom CSS you want for your menu when it is collapsed */
+@media (max-width: 768px) {
+   .ver-nav {
+      
+   }
 }

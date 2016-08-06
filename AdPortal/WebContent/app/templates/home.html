@@ -1,42 +1,81 @@
 
 <div ng-controller="homeCtrl">
-<br/><br/>
-<div class="table-responsive">
-    <table class="table">
-        <tr>
-            <td class="col-md-1">
-                <input type="text" ng-model="title" placeholder="Title..." >
-            </td>
-            <td class="col-md-1">
-                <button type="button" class="btn btn-default" ng-model="category" bs-options="cat.categoryid as cat.categoryname for cat in categories" placeholder="Category" bs-select/>
-            </td>
-            <td class="col-md-1">
-                <button type="button" class="btn btn-default" ng-model="location" bs-options="loc.locationid as loc.locationname for loc in locations" placeholder="Location" bs-select/>
-            </td>
-            <td class="col-md-7">
-                  Price range: <rzslider rz-slider-model="min"
-                      rz-slider-high="max"
-                          rz-slider-options="sliderOptions"></rzslider>     
-            </td>
-            <td class="col-md-1">
-                <input type="button" name="Search" value="Search" ng-click="getAllPosts()">
-            </td>
-            <td class="col-md-1">
-                <input type="button" name="Reset" value="Reset" ng-click="reset()">
-            </td>
-        </tr>
-    </table>
-    
+
+		<div class="col-md-12 col-sm-12 col-lg-12">
+			
             
-    
-    <div ng-repeat="post in posts">
-        <div class="col-md-2"></div>
-        <div class="col-md-4">
-            <min-post post = post> </min-post>
+    <div class="col-md-3">
+
+            <div class="bootstrap-vertical-nav ver-nav">
+
+                <nav class="navbar navbar-light bg-faded ver-navbar">
+                   
+                    <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
+                        <a class="navbar-brand" href="#">filter here</a>
+                            <div class="form-group">
+    <input type="text" class="form-control" ng-model="title" placeholder="search for title">
+  
+                     
+                        <div>
+                       <button type="button" class="btn btn-min-post" ng-model="category"
+						bs-options="cat.categoryid as cat.categoryname for cat in categories"
+						placeholder="Category" bs-select />
+                        </div>
+                        <div>
+                        <button type="button" class="btn btn-min-post" ng-model="location"
+						bs-options="loc.locationid as loc.locationname for loc in locations"
+						placeholder="Location" bs-select />
+                        </div>
+                        
+                       <div> 	Price range: <rzslider class="slider"
+						rz-slider-model="min" rz-slider-high="max"
+						rz-slider-options="sliderOptions"></rzslider>
+                        </div>
+                        <div>
+                        <input type="button" name="Search"
+					value="Search" ng-click="getAllPosts()">
+                        </div>
+                        <div>
+                        <input type="button" name="Reset"
+					value="Reset" ng-click="reset()">
+                        </div>
+                        
+
+                    </div>
+                </nav>
+
+            </div>
+
         </div>
-    </div>
-    <div style="position: fixed; right: 5%; bottom: 5%;"> <a href="#/new"> <i class="fa fa-plus-circle" aria-hidden="true"> </i> </a> </div>
-    
+        
+            
+            
+            
+            
+            
+            
+			<div class="col-md-8 col-sm-8 col-lg-8">
+				<div ng-repeat="post in posts">
+					<div class="col-md-6 col-sm-6 col-lg-6"style="float:left">
+						<min-post post=post></min-post></div>
+					</div>
+				</div>
+				<div class="col-md-1"></div>
+			</div>
+
+		</div>
+	</div>
+
+</div>
+<div class="col-md-2"></div>
+
+</div>
+<div style="position: fixed; right: 5%; bottom: 5%;">
+	<a href="#/new"> <i class="fa fa-plus-circle" aria-hidden="true">
+	</i>
+	</a>
+</div>
+
 <!--    <a href="#/new"><button style="position: fixed; right: 5%; bottom: 5%;"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add new </button></a>-->
-    
+
 </div>
