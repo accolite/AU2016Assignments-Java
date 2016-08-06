@@ -42,8 +42,7 @@ public class SendMailTLS {
 			String content = "Project Details : "+"\n" + "Project id : "+p.getProjectid() + "\n"
 					+"Project name : "+p.getProjectname() + "\n"
 					+"Project resource working : "+p.getResourceworking() + "\n"
-					+"Project start date : "+p.getStartdate() + "\n"
-					+"Project End date : "+p.getEnddate() + "\n";
+					 + "\n";
 			message.setText(content);
 
 			Transport.send(message);

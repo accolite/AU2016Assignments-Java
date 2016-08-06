@@ -24,8 +24,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ProjectDao {
 
-	final private String base_query_for_getting_project = "select * from project,bu,users,client,role,sprints where bu.buid = project.buid and users.userid = project.projectmanagerid"
-			+ " and client.clientid = project.clientid and users.userroleid = role.roleid and sprints.project_id = project.projectid";
+	final private String base_query_for_getting_project = "select * from project join bu on bu.buid = project.buid join "
+			+ "users on users.userid = project.projectmanagerid join client on client.clientid = project.clientid join "
+			+ "role on users.userroleid = role.roleid  left join sprints  on sprints.sprint_id = project.current_sprint_id ";
 
 	@Autowired
 	public JdbcTemplate jdbcTemplate;
@@ -40,8 +41,8 @@ public class ProjectDao {
 
 	public ArrayList<Project> statusOfEveryBU() {
 		String query = "select bu.buid , bu.buname , sprints.completed , sprints.startdate , sprints.enddate "
-				+ " from dbo.bu, dbo.project,dbo.sprints"
-				+ "	where bu.buid=project.buid and project.current_sprint_id = sprints.sprint_id";
+				+ " from dbo.bu left outer join dbo.project on bu.buid=project.buid left outer join dbo.sprints"
+				+ "	 on project.projectid = sprints.project_id";
 		return jdbcTemplate.query(query, new ResultSetExtractor<ArrayList<Project>>() {
 
 			public ArrayList<Project> extractData(ResultSet rs) throws SQLException, DataAccessException {
@@ -66,7 +67,7 @@ public class ProjectDao {
 	}
 
 	public ArrayList<Project> extractProjectsUnderBU(BU bu) {
-		String query = base_query_for_getting_project + " and bu.buid = "+bu.getBuid();
+		String query = base_query_for_getting_project + " where bu.buid = "+bu.getBuid();
 		return jdbcTemplate.query(query, new ResultSetExtractor<ArrayList<Project>>() {
 
 			public ArrayList<Project> extractData(ResultSet rs) throws SQLException, DataAccessException {
