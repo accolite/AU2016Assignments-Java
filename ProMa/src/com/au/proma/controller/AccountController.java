@@ -31,7 +31,7 @@ public class AccountController {
 		accountservice.login(token,request);
 		
 		try {
-			response.sendRedirect("http://localhost:8082/ProMa/index.html");
+			response.sendRedirect("/ProMa/index.html");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
