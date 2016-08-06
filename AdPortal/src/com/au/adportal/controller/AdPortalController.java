@@ -193,7 +193,10 @@ public class AdPortalController extends SpringBootServletInitializer {
 	public @ResponseBody boolean unsubscribe(@RequestBody Integer categoryid) {
 		return service.unsubscribe(current_user, categoryid);
 	}
-	
+	@RequestMapping(value = "/getsubscribedcategories", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody List<Category> getSubscribeCategories() {
+		return service.getSubscribedCategories(current_user);
+	}
 	public static void main(String[] args) {
 		SpringApplication.run(AdPortalController.class, args);
 	}

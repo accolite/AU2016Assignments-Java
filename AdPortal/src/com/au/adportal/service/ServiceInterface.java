@@ -1,6 +1,7 @@
 package com.au.adportal.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.au.adportal.model.Category;
 import com.au.adportal.model.CurrentUser;
@@ -50,6 +51,8 @@ public interface ServiceInterface {
 	public boolean subscribe(CurrentUser user, Integer categoryid);
 	
 	public boolean unsubscribe(CurrentUser user, Integer categoryid);
+
+	public List<Category> getSubscribedCategories(CurrentUser current_user);
 
 	
 }

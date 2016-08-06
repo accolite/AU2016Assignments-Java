@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.au.adportal.model.Category;
+import com.au.adportal.model.CurrentUser;
 import com.au.adportal.model.Location;
 import com.au.adportal.model.Post;
 import com.au.adportal.model.User;
@@ -58,5 +59,7 @@ public interface DaoInterface {
 	public Location getLocationById(Integer locationid);
 	
 	public List<String> getMailsForSubscription(Integer categoryid);
+
+	public List<Category> getSubscribedCategory(CurrentUser current_user);
 	
 }

@@ -3,6 +3,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -254,6 +255,12 @@ public class ServiceImplementation implements ServiceInterface {
 			return false;
 		}
 		return false;
+	}
+
+	@Override
+	public List<Category> getSubscribedCategories(CurrentUser current_user) {
+		// TODO Auto-generated method stub
+		return(dao.getSubscribedCategory(current_user));
 	}
 
 }

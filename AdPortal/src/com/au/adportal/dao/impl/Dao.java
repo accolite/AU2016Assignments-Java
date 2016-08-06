@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.au.adportal.dao.DaoInterface;
 import com.au.adportal.model.Category;
+import com.au.adportal.model.CurrentUser;
 import com.au.adportal.model.Location;
 import com.au.adportal.model.Post;
 import com.au.adportal.model.Subscription;
@@ -357,12 +358,21 @@ public class Dao implements DaoInterface{
 		Location location = entityManager.find(Location.class, locationid);
 		return location;
 	}
-
+	
 	@Override
 	public List<String> getMailsForSubscription(Integer categoryid) {
 		String hquery = "SELECT u.email FROM User u, Subscription s WHERE u.userid = s.userid AND s.categoryid="+categoryid;
 		List<String> locations = (ArrayList<String>)entityManager.createQuery(hquery).getResultList();		
 		return locations;
 	}
+
+	@Override
+	public List<Category> getSubscribedCategory(CurrentUser current_user) {
+		// TODO Auto-generated method stub
+		String hquery = "SELECT c FROM Category c,Subscription s WHERE c.userid = '"+current_user.getId()+"' AND c.categoryid=s.categoryid";
+		List<Category> categories = (ArrayList<Category>)entityManager.createQuery(hquery).getResultList();		
+		return categories;
+	}
+	
 
 }
