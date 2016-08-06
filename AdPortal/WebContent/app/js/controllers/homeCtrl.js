@@ -100,28 +100,16 @@ app.controller("homeCtrl", ['$scope', 'HomeService','$modal', '$localStorage', '
      }
      );
   }
+ 
   $scope.contactPopup = function(postid){
       $scope.getContactInfo(postid);
-      $scope.contactModal = $modal({
-         title: 'Contact',
+      modal = $modal({
+         title: 'Contact', 
          templateUrl: 'templates/contactpopup.html',
          scope: $scope
      });
-     $scope.contactModal.$promise.then($scope.contactModal.show);
-  }
-  $scope.contact=function(){
-      console.log("from ctrl"+$scope.contactDetails.message);
-      HomeService.contact($scope.cpostid,$scope.contactDetails.message).
-        then(
-          function(successResponse){
-              $scope.contactModal.hide();
-              $scope.contactDetails.message="";
-          },
-          function(errorResponse){
-              $scope.contactModal.hide();
-              $scope.contactDetails.message="";
-          }
-        );
+     
+     modal.$promise.then(modal.show);
   }
   
     $scope.getCategories();

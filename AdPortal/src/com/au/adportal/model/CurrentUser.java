@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Scope(value="session", proxyMode = ScopedProxyMode.TARGET_CLASS )
 @Component
 public class CurrentUser {
-	private String id, name, email;
+	private String id, name, email, mobile;
 	private int role;
 
 	public String getId() {
@@ -16,6 +16,14 @@ public class CurrentUser {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
 	}
 
 	public String getName() {
@@ -57,6 +65,7 @@ public class CurrentUser {
 		this.name = user.getUsername();
 		this.email = user.getEmail();
 		this.role = user.getRole();
+		this.mobile = user.getMobile();
 	}
 	
 }

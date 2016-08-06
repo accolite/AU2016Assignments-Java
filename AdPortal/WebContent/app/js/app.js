@@ -14,6 +14,13 @@ app.config(['$routeProvider',function($routeProvider){
     }).when('/new',{
         templateUrl: 'templates/newpost.html',
         controller: 'newPostCtrl'
+    }).when('/profile',{
+        templateUrl: 'templates/profile.html',
+        controller: 'profileCtrl'
+    }).
+    when('/admin',{
+        templateUrl: 'templates/admin.html',
+        controller: 'adminCtrl'
     }).
     otherwise({
         redirectTo: '/'

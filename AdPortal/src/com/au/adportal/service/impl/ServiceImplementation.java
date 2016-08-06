@@ -3,6 +3,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -67,7 +68,10 @@ public class ServiceImplementation implements ServiceInterface {
 	  Date now = calendar.getTime();
 	  Timestamp currentTimestamp = new java.sql.Timestamp(now.getTime());
 	  post.setCreatedDate(currentTimestamp);
-	  return dao.addPost(post);
+	  int postid = dao.addPost(post);
+	  if(postid!=-1)
+		  mailSender.sendSubscriptionMail(post, user.getEmail());
+	  return postid;
 	 }
 
 	@Override
@@ -197,6 +201,66 @@ public class ServiceImplementation implements ServiceInterface {
 	@Override
 	public boolean addUser(User user) {
 		return dao.addUser(user);
+	}
+
+	@Override
+	public boolean changeMobile(CurrentUser user, String mobile) {
+		mobile = mobile.trim();
+		if(mobile.length()==10)
+			return dao.changeMobile(user.getId(), mobile);
+		return false;
+	}
+
+	@Override
+	public boolean addCategory(CurrentUser user,String categoryName) {
+		// TODO Auto-generated method stub
+		if(categoryName!=null&&!categoryName.trim().equals("")&&user.getRole()==Role.ADMIN){
+			Category category=new Category();
+			category.setCategoryname(categoryName);
+			dao.addCategory(category);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean addLocation(CurrentUser user,String locationName) {
+		// TODO Auto-generated method stub
+		if(locationName!=null&&!locationName.trim().equals("")&&user.getRole()==Role.ADMIN){
+			Location location=new Location();
+			location.setLocationname(locationName);
+			dao.addLocation(location);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean subscribe(CurrentUser user, Integer categoryid) {
+		if(categoryid!=null && dao.getCategoryById(categoryid)!=null){
+			if(!dao.isSubscribed(user.getId(), categoryid))
+				dao.subscribe(user.getId(), categoryid);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean unsubscribe(CurrentUser user, Integer categoryid) {
+		if(categoryid!=null && dao.getCategoryById(categoryid)!=null){
+			if(dao.isSubscribed(user.getId(), categoryid)){
+				dao.unsubscribe(user.getId(), categoryid);
+				return true;
+			}
+			return false;
+		}
+		return false;
+	}
+
+	@Override
+	public List<Category> getSubscribedCategories(CurrentUser current_user) {
+		// TODO Auto-generated method stub
+		return(dao.getSubscribedCategory(current_user));
 	}
 
 }

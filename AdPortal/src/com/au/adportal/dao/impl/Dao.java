@@ -2,6 +2,7 @@ package com.au.adportal.dao.impl;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -11,8 +12,10 @@ import org.springframework.stereotype.Repository;
 
 import com.au.adportal.dao.DaoInterface;
 import com.au.adportal.model.Category;
+import com.au.adportal.model.CurrentUser;
 import com.au.adportal.model.Location;
 import com.au.adportal.model.Post;
+import com.au.adportal.model.Subscription;
 import com.au.adportal.model.User;
 import com.au.adportal.util.Role;
 import com.au.adportal.util.Status;
@@ -231,7 +234,6 @@ public class Dao implements DaoInterface{
 		}
 		return locationName;
 	}
-
 	@Override
 	@Transactional
 	public User getUser(String userid) {
@@ -253,5 +255,124 @@ public class Dao implements DaoInterface{
 		}
 		return result;
 	}
+	@Override
+	@Transactional
+	public boolean addCategory(Category category){
+		
+		try{
+			entityManager.persist(category);
+			return true;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return false;
+	}
+	@Override
+	@Transactional
+	public boolean addLocation(Location location){
+		try{
+			entityManager.persist(location);
+			return true;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return false;
+	}
+	@Override
+	@Transactional
+	public boolean changeMobile(String userid, String mobile) {
+		boolean result = false;
+		try{
+			User user = entityManager.find(User.class, userid);
+			user.setMobile(mobile);
+			result = true;
+		}
+		catch(Exception e){
+			result = false;
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	@Transactional
+	public boolean subscribe(String userid, Integer categoryid) {
+		boolean result = false;
+		try{
+			Subscription s = new Subscription(userid, categoryid);
+			entityManager.persist(s);
+			result = true;
+
+		}
+		catch(Exception e){
+			result = false;
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	@Transactional
+	public boolean unsubscribe(String userid, Integer categoryid) {
+		boolean result = false;
+		try{
+			String hquery = "FROM Subscription s WHERE s.userid="+userid+" AND s.categoryid="+categoryid;
+			Subscription s = (Subscription) entityManager.createQuery(hquery).getSingleResult();
+			entityManager.remove(s);
+			result = true;
+		}
+		catch(Exception e){
+			result = false;
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public boolean isSubscribed(String userid, Integer categoryid) {
+		boolean result = false;
+		try{
+			String hquery = "FROM Subscription s WHERE s.userid='"+userid+"' AND s.categoryid="+categoryid;
+			Subscription s = (Subscription) entityManager.createQuery(hquery);
+			if(s!=null){
+				result = true;
+			}
+		}
+		catch(Exception e){
+			result = false;
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public Category getCategoryById(Integer categoryid) {
+		Category category = entityManager.find(Category.class, categoryid);
+		return category;
+	}
+
+	@Override
+	public Location getLocationById(Integer locationid) {
+		Location location = entityManager.find(Location.class, locationid);
+		return location;
+	}
+	
+	@Override
+	public List<String> getMailsForSubscription(Integer categoryid) {
+		String hquery = "SELECT u.email FROM User u, Subscription s WHERE u.userid = s.userid AND s.categoryid="+categoryid;
+		List<String> locations = (ArrayList<String>)entityManager.createQuery(hquery).getResultList();		
+		return locations;
+	}
+
+	@Override
+	public List<Category> getSubscribedCategory(CurrentUser current_user) {
+		// TODO Auto-generated method stub
+		String hquery = "SELECT c FROM Category c,Subscription s WHERE c.userid = '"+current_user.getId()+"' AND c.categoryid=s.categoryid";
+		List<Category> categories = (ArrayList<Category>)entityManager.createQuery(hquery).getResultList();		
+		return categories;
+	}
+	
 
 }

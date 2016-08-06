@@ -1,8 +1,10 @@
 package com.au.adportal.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.au.adportal.model.Category;
+import com.au.adportal.model.CurrentUser;
 import com.au.adportal.model.Location;
 import com.au.adportal.model.Post;
 import com.au.adportal.model.User;
@@ -39,5 +41,25 @@ public interface DaoInterface {
 	public User getUser(String userid);
 	
 	public boolean addUser(User user);
+	
+	public boolean changeMobile(String userid, String mobile);
+	
+	public boolean addCategory(Category category);
+	
+	public boolean addLocation(Location location);
 
+	public boolean subscribe(String userid, Integer categoryid);
+
+	public boolean unsubscribe(String userid, Integer categoryid);
+
+	public boolean isSubscribed(String userid, Integer categoryid);
+	
+	public Category getCategoryById(Integer categoryid);
+	
+	public Location getLocationById(Integer locationid);
+	
+	public List<String> getMailsForSubscription(Integer categoryid);
+
+	public List<Category> getSubscribedCategory(CurrentUser current_user);
+	
 }

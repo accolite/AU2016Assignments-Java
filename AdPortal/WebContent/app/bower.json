@@ -21,8 +21,7 @@
     "angular-strap": "^2.3.9",
     "angularjs-slider": "^5.4.1",
     "components-font-awesome": "^4.6.3",
-    "angular-animate": "^1.5.8",
-    "ngstorage": "^0.3.11"
+    "angular-animate": "^1.5.8"
   },
   "resolutions": {
     "jquery": "1.9.1 - 2",
