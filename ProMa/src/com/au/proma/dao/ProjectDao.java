@@ -141,7 +141,7 @@ public class ProjectDao {
 
 	public Project getProject(int projectid) {
 
-		String sql = base_query_for_getting_project + " and project.projectid = " + projectid;
+		String sql = base_query_for_getting_project + " where project.projectid = " + projectid;
 
 		return jdbcTemplate.queryForObject(sql, new RowMapper<Project>() {
 
