@@ -67,7 +67,10 @@ public class ServiceImplementation implements ServiceInterface {
 	  Date now = calendar.getTime();
 	  Timestamp currentTimestamp = new java.sql.Timestamp(now.getTime());
 	  post.setCreatedDate(currentTimestamp);
-	  return dao.addPost(post);
+	  int postid = dao.addPost(post);
+	  if(postid!=-1)
+		  mailSender.sendSubscriptionMail(post, user.getEmail());
+	  return postid;
 	 }
 
 	@Override
@@ -227,6 +230,28 @@ public class ServiceImplementation implements ServiceInterface {
 			location.setLocationname(locationName);
 			dao.addLocation(location);
 			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean subscribe(CurrentUser user, Integer categoryid) {
+		if(categoryid!=null && dao.getCategoryById(categoryid)!=null){
+			if(!dao.isSubscribed(user.getId(), categoryid))
+				dao.subscribe(user.getId(), categoryid);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean unsubscribe(CurrentUser user, Integer categoryid) {
+		if(categoryid!=null && dao.getCategoryById(categoryid)!=null){
+			if(dao.isSubscribed(user.getId(), categoryid)){
+				dao.unsubscribe(user.getId(), categoryid);
+				return true;
+			}
+			return false;
 		}
 		return false;
 	}

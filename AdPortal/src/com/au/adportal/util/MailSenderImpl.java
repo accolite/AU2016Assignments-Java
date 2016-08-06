@@ -1,5 +1,7 @@
 package com.au.adportal.util;
 
+import java.util.List;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
@@ -50,6 +52,18 @@ public class MailSenderImpl implements MailSender{
 		String subject = "AdPortal : Interested in "+post.getTitle();
 
 		sendMail(toMail, subject, message);
+	}
+
+	@Override
+	public void sendSubscriptionMail(Post post, String currentMail) {
+		List<String> mails = dao.getMailsForSubscription(post.getCategory());
+		for(String toMail: mails){
+			if(!toMail.equals(currentMail)){
+				String subject = "New post on the category "+dao.getCategoryName(post.getCategory());
+				String message = "Post title : "+post.getTitle();
+				sendMail(toMail, subject, message);				
+			}
+		}
 	}
 	
 }

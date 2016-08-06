@@ -8,4 +8,6 @@ public interface MailSender {
 	public void sendMail(String to, String subject, String message);
 	
 	public void sendContactMail(CurrentUser user, Post post, String message);
+
+	public void sendSubscriptionMail(Post post, String currentMail);
 }

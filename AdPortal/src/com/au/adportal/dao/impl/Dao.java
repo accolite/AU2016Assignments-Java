@@ -2,6 +2,7 @@ package com.au.adportal.dao.impl;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,6 +14,7 @@ import com.au.adportal.dao.DaoInterface;
 import com.au.adportal.model.Category;
 import com.au.adportal.model.Location;
 import com.au.adportal.model.Post;
+import com.au.adportal.model.Subscription;
 import com.au.adportal.model.User;
 import com.au.adportal.util.Role;
 import com.au.adportal.util.Status;
@@ -291,6 +293,76 @@ public class Dao implements DaoInterface{
 			e.printStackTrace();
 		}
 		return result;
+	}
+
+	@Override
+	@Transactional
+	public boolean subscribe(String userid, Integer categoryid) {
+		boolean result = false;
+		try{
+			Subscription s = new Subscription(userid, categoryid);
+			entityManager.persist(s);
+			result = true;
+
+		}
+		catch(Exception e){
+			result = false;
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	@Transactional
+	public boolean unsubscribe(String userid, Integer categoryid) {
+		boolean result = false;
+		try{
+			String hquery = "FROM Subscription s WHERE s.userid="+userid+" AND s.categoryid="+categoryid;
+			Subscription s = (Subscription) entityManager.createQuery(hquery).getSingleResult();
+			entityManager.remove(s);
+			result = true;
+		}
+		catch(Exception e){
+			result = false;
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public boolean isSubscribed(String userid, Integer categoryid) {
+		boolean result = false;
+		try{
+			String hquery = "FROM Subscription s WHERE s.userid='"+userid+"' AND s.categoryid="+categoryid;
+			Subscription s = (Subscription) entityManager.createQuery(hquery);
+			if(s!=null){
+				result = true;
+			}
+		}
+		catch(Exception e){
+			result = false;
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public Category getCategoryById(Integer categoryid) {
+		Category category = entityManager.find(Category.class, categoryid);
+		return category;
+	}
+
+	@Override
+	public Location getLocationById(Integer locationid) {
+		Location location = entityManager.find(Location.class, locationid);
+		return location;
+	}
+
+	@Override
+	public List<String> getMailsForSubscription(Integer categoryid) {
+		String hquery = "SELECT u.email FROM User u, Subscription s WHERE u.userid = s.userid AND s.categoryid="+categoryid;
+		List<String> locations = (ArrayList<String>)entityManager.createQuery(hquery).getResultList();		
+		return locations;
 	}
 
 }

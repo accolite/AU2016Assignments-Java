@@ -183,6 +183,17 @@ public class AdPortalController extends SpringBootServletInitializer {
 		System.out.println("location"+location);
 		return (service.addLocation(current_user,location));
 	}
+	
+	@RequestMapping(value = "/subscribe", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody boolean subscribe(@RequestBody Integer categoryid) {
+		return service.subscribe(current_user, categoryid);
+	}
+	
+	@RequestMapping(value = "/unsubscribe", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody boolean unsubscribe(@RequestBody Integer categoryid) {
+		return service.unsubscribe(current_user, categoryid);
+	}
+	
 	public static void main(String[] args) {
 		SpringApplication.run(AdPortalController.class, args);
 	}

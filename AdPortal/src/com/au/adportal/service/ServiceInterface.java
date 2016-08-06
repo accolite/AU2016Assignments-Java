@@ -47,4 +47,9 @@ public interface ServiceInterface {
 
 	public boolean addLocation(CurrentUser user, String locationName);
 	
+	public boolean subscribe(CurrentUser user, Integer categoryid);
+	
+	public boolean unsubscribe(CurrentUser user, Integer categoryid);
+
+	
 }
