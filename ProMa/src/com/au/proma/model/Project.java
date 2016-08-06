@@ -14,8 +14,7 @@ public class Project{
 	private String projectname;
 	private User projectmanager;
 	private int resourceworking;
-	private Date startdate;
-	private Date enddate;
+	private Sprint currentSprint;
 	private int status;
 	private int completed;
 	private BU bu;
@@ -50,18 +49,6 @@ public class Project{
 	public void setResourceworking(int resourceworking) {
 		this.resourceworking = resourceworking;
 	}
-	public Date getStartdate() {
-		return startdate;
-	}
-	public void setStartdate(Date startdate) {
-		this.startdate = startdate;
-	}
-	public Date getEnddate() {
-		return enddate;
-	}
-	public void setEnddate(Date enddate) {
-		this.enddate = enddate;
-	}
 	public int getStatus() {
 		return status;
 	}
@@ -75,18 +62,23 @@ public class Project{
 		this.bu = bu;
 	}
 	public Project(int projectid, Client client, String projectname, User projectmanager, int resourceworking,
-			Date startdate, Date enddate, int status, BU bu,int completed) {
+			Sprint currentSprint, int status, BU bu,int completed) {
 		super();
 		this.projectid = projectid;
 		this.client = client;
 		this.projectname = projectname;
 		this.projectmanager = projectmanager;
 		this.resourceworking = resourceworking;
-		this.startdate = startdate;
-		this.enddate = enddate;
+		this.currentSprint = currentSprint;
 		this.status = status;
 		this.bu = bu;
 		this.completed = completed;
+	}
+	public Sprint getCurrentSprint() {
+		return currentSprint;
+	}
+	public void setCurrentSprint(Sprint currentSprint) {
+		this.currentSprint = currentSprint;
 	}
 	public int getCompleted() {
 		return completed;

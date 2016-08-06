@@ -24,8 +24,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ProjectDao {
 
-	final private String base_query_for_getting_project = "select * from project,bu,user,client,role where bu.buid = project.buid and user.userid = project.projectmanagerid"
-			+ " and client.clientid = project.clientid and user.userroleid = role.roleid";
+	final private String base_query_for_getting_project = "select * from project,bu,users,client,role,sprints where bu.buid = project.buid and users.userid = project.projectmanagerid"
+			+ " and client.clientid = project.clientid and users.userroleid = role.roleid and sprints.project_id = project.projectid";
 
 	@Autowired
 	public JdbcTemplate jdbcTemplate;
@@ -39,14 +39,25 @@ public class ProjectDao {
 	}
 
 	public ArrayList<Project> statusOfEveryBU() {
-		String query = "select project.projectid,bu.buid,bu.buname,project.startdate,project.enddate, project.completed from dbo.bu left join dbo.project on bu.buid=project.buid";
+		String query = "select bu.buid , bu.buname , sprints.completed , sprints.startdate , sprints.enddate "
+				+ " from dbo.bu, dbo.project,dbo.sprints"
+				+ "	where bu.buid=project.buid and project.current_sprint_id = sprints.sprint_id";
 		return jdbcTemplate.query(query, new ResultSetExtractor<ArrayList<Project>>() {
 
 			public ArrayList<Project> extractData(ResultSet rs) throws SQLException, DataAccessException {
 
 				ArrayList<Project> temp = new ArrayList<Project>();
 				while (rs.next()) {
-					Project project = getProjectFromResultSet(rs);
+					Sprint currentSprint = new Sprint();
+					currentSprint.setCompleted(rs.getInt("completed"));
+					currentSprint.setStartdate(rs.getDate("startdate"));
+					currentSprint.setEnddate(rs.getDate("enddate"));
+					BU bu = new BU();
+					bu.setBuid(rs.getInt("buid"));
+					bu.setBuname(rs.getString("buname"));
+					Project project = new Project();
+					project.setBu(bu);
+					project.setCurrentSprint(currentSprint);
 					temp.add(project);
 				}
 				return temp;
@@ -55,7 +66,7 @@ public class ProjectDao {
 	}
 
 	public ArrayList<Project> extractProjectsUnderBU(BU bu) {
-		String query = base_query_for_getting_project + "and bu.buid = "+bu.getBuid();
+		String query = base_query_for_getting_project + " and bu.buid = "+bu.getBuid();
 		return jdbcTemplate.query(query, new ResultSetExtractor<ArrayList<Project>>() {
 
 			public ArrayList<Project> extractData(ResultSet rs) throws SQLException, DataAccessException {
@@ -71,7 +82,7 @@ public class ProjectDao {
 	}
 
 	public int updateProject(Project pobj) {
-		String query = "update dbo.project set projectmanagerid=?,resourceworking=?,startdate=?,enddate=?,completed=?"
+		String query = "update dbo.project set projectmanagerid=?,resourceworking=?,completed=?"
 				+ "buid=?,clientid=?,projectname = ? where projectid=?" ;
 		PreparedStatementCreator psc = new PreparedStatementCreator() {
 			
@@ -79,15 +90,13 @@ public class ProjectDao {
 			public PreparedStatement createPreparedStatement(Connection arg0) throws SQLException {
 				// TODO Auto-generated method stub
 				PreparedStatement stmt = arg0.prepareStatement(query);
-				stmt.setString(8, pobj.getProjectname());
-				stmt.setInt(6, pobj.getClient().getClientid());
+				stmt.setString(6, pobj.getProjectname());
+				stmt.setInt(5, pobj.getClient().getClientid());
 				stmt.setInt(1, pobj.getProjectmanager().getUserid());
-				stmt.setInt(5, pobj.getBu().getBuid());
+				stmt.setInt(4, pobj.getBu().getBuid());
 				stmt.setInt(2, pobj.getResourceworking());
-				stmt.setDate(3, pobj.getStartdate());
-				stmt.setDate(4, pobj.getEnddate());
-				stmt.setInt(5, pobj.getCompleted());
-				stmt.setInt(9, pobj.getProjectid());
+				stmt.setInt(3, pobj.getCompleted());
+				stmt.setInt(7, pobj.getProjectid());
 				return stmt;
 			}
 		};
@@ -95,8 +104,8 @@ public class ProjectDao {
 	}
 
 	public int insertProject(Project pobj) {
-		String query = "insert into dbo.Project(projectname,clientid,projectmanagerid,buid,resourceworking,startdate,enddate,completed)"
-				+ "values(?,?,?,?,?,?,?,?)";
+		String query = "insert into dbo.Project(projectname,clientid,projectmanagerid,buid,resourceworking,completed)"
+				+ "values(?,?,?,?,?,?)";
 		PreparedStatementCreator psc = new PreparedStatementCreator() {
 			
 			@Override
@@ -108,9 +117,7 @@ public class ProjectDao {
 				stmt.setInt(3, pobj.getProjectmanager().getUserid());
 				stmt.setInt(4, pobj.getBu().getBuid());
 				stmt.setInt(5, pobj.getResourceworking());
-				stmt.setDate(6, pobj.getStartdate());
-				stmt.setDate(7, pobj.getEnddate());
-				stmt.setInt(8, pobj.getCompleted());
+				stmt.setInt(6, pobj.getCompleted());
 				return stmt;
 			}
 		};
@@ -119,8 +126,7 @@ public class ProjectDao {
 
 	public List<Project> getAllProjects() {
 
-		String sql = "select * from project,bu,user,client,role where bu.buid = project.buid and user.userid = project.projectmanagerid"
-				+ " and client.clientid = project.clientid and user.userroleid = role.roleid";
+		String sql = base_query_for_getting_project;
 
 		return jdbcTemplate.query(sql, new RowMapper<Project>() {
 
@@ -134,7 +140,7 @@ public class ProjectDao {
 
 	public Project getProject(int projectid) {
 
-		String sql = base_query_for_getting_project + "and project.projectid = " + projectid;
+		String sql = base_query_for_getting_project + " and project.projectid = " + projectid;
 
 		return jdbcTemplate.queryForObject(sql, new RowMapper<Project>() {
 
@@ -152,12 +158,13 @@ public class ProjectDao {
 	}
 
 	public Project getProjectFromResultSet(ResultSet arg0) throws SQLException {
+		Sprint currentSprint = new Sprint(arg0.getInt("sprint_id"), arg0.getDate("startdate"), arg0.getDate("enddate"),arg0.getString("milestone"),arg0.getInt("completed"));
 		Client client = new Client(arg0.getInt("clientid"), arg0.getString("clientname"));
 		BU bu = new BU(arg0.getInt("buid"), arg0.getString("buname"));
 		Role role = new Role(arg0.getInt("roleid"), arg0.getString("rolename"));
 		User projectManager = new User(arg0.getInt("userid"), arg0.getString("username"), arg0.getString("useremail"), role);
 		Project p = new Project(arg0.getInt("projectid"), client, arg0.getString("projectname"), projectManager,
-				arg0.getInt("resourceworking"), arg0.getDate("startdate"), arg0.getDate("enddate"), 0, bu,arg0.getInt("completed"));
+				arg0.getInt("resourceworking"), currentSprint,0, bu,arg0.getInt("completed"));
 		return p;
 	}
 }

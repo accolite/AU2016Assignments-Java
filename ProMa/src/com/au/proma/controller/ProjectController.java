@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.au.proma.model.BU;
 import com.au.proma.model.Project;
 import com.au.proma.model.Sprint;
+import com.au.proma.service.Color;
 import com.au.proma.service.ProjectService;
 import com.au.proma.service.SprintService;
 import com.au.proma.service.UserService;
@@ -30,13 +31,13 @@ public class ProjectController {
 	@Autowired
 	private UserService userService;
 	
-	/*@RequestMapping(value="/status",method=RequestMethod.GET,produces="application/json")
+	@RequestMapping(value="/status",method=RequestMethod.GET,produces="application/json")
 	@ResponseBody
 	public List<Color> statusOfEveryBU()
 	{
 		//System.out.println(p.getProjectname());
 		return projectService.statusOfEveryBU();
-	}*/
+	}
 	
 	
 	@RequestMapping(method=RequestMethod.POST,produces="application/json",consumes="application/json")
