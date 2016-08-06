@@ -1,27 +1,39 @@
- <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-2"></div>
-      <div class="col-md-8">
-        <div class="card">
-            <h3 class="card-header"><label ng-click="$parent.showPopup(post.postid)">{{post.title}}</label></h3>
-          <div class="card-block">
+<div class="card card-outline-primary card-min-post">
+    <div>
+    <a  ng-click="$parent.showPopup(post.postid)" class="header">
+          <h3  class="card-header card-header-min-post  card-inverse ">{{post.title}}</h3>
+    </a>
+    </div>
+        <div class="card-block">
             <h4 class="card-title">BY {{post.username}} </h4>
             <h6 class="card-subtitle text-muted"> {{post.category}}, {{post.location}} </h6>
           </div>
-          <img src="http://www.gettyimages.pt/gi-resources/images/Homepage/Hero/PT/PT_hero_42_153645159.jpg" style="width:200px;height:200px"alt="Card image">
+          
+          
+          
+          
           <div class="card-block">
-            <p class="card-text">{{post.description}}</p>
-              
-        <div ng-if="$parent.$storage.isAdmin || $parent.$storage.id.trim() === post.userid.trim()"><a href="#/edit/{{post.postid}}" class="btn btn-primary">Edit</a></div>
-              
-        <div ng-show="$parent.$storage.isAdmin || $parent.$storage.id.trim() === post.userid.trim()">
-    <a ng-click="$parent.$parent.deletepostbyid($parent.post.postid)"  class="btn btn-primary">Delete</a></div>
-              
-        <div><a ng-click="$parent.$parent.contactPopup($parent.post.postid)"  class="btn btn-primary">Contact</a></div>
-              
-          </div>
-        </div>        
-      </div>
-    </div>
+            <div class="row">
+              <div class="col-md-8">
+                <img class=img-min-post src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQKRwKiFumRO15X_ag2MTij8HFEEvLz9bwTSPMxkyR8VMc0C-PL" alt="Card image">
+              </div>
+              <div class="col-md-3">
+                <div class=row>
+                  <a href="#/contact/{{post.postid}}" class="btn  btn-block btn-min-post">contact</a></div>
+                  <div class=row>
+                    <a ng-if="$parent.$storage.isAdmin || $parent.$storage.id.trim() === post.userid.trim()" href="#/edit/{{post.postid}}" class="btn  btn-block btn-min-post">edit</a> </div>
+                    <div class=row>
+                      <a ng-click="$parent.deletepostbyid(post.postid)" href="#" class="btn  btn-block btn-min-post">delete</a>
+                    </div></div>
+                  </div>
+                </div> 
+                
+                
+                
+                
 
-  </div>
+                
+
+              </div>
+                
+        
