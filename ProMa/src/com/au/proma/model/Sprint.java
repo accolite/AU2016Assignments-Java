@@ -48,6 +48,17 @@ public class Sprint {
 	public void setMilestone(String milestone) {
 		this.milestone = milestone;
 	}
+	public Sprint(int sprint_id, Date startdate, Date enddate, String milestone, int completed) {
+		super();
+		this.sprint_id = sprint_id;
+		this.startdate = startdate;
+		this.enddate = enddate;
+		this.milestone = milestone;
+		this.completed = completed;
+	}
+	public Sprint() {
+		// TODO Auto-generated constructor stub
+	}
 	
 	
 }

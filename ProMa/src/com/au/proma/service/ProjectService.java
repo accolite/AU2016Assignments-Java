@@ -1,7 +1,13 @@
 package com.au.proma.service;
 
 
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,7 +44,7 @@ public class ProjectService {
 		return projectDao.insertProject(p);
 	}
 
-	/*public List<Color> statusOfEveryBU() {
+	public List<Color> statusOfEveryBU() {
 		Map<Integer, Color> map = new HashMap<Integer, Color>();
 
 		List<Project> projectList = projectDao.statusOfEveryBU();
@@ -46,7 +52,7 @@ public class ProjectService {
 			int buid = temp.getBu().getBuid();
 			String buname = temp.getBu().getBuname();
 			Date today = new Date(Calendar.getInstance().getTime().getTime());
-			Date enddate = temp.getEnddate();
+			Date enddate = temp.getCurrentSprint().getEnddate();
 			Color c = null;
 			if (map.get(buid) == null) {
 				c = new Color();
@@ -70,7 +76,7 @@ public class ProjectService {
 		}
 		List<Color> list = new ArrayList<Color>(map.values());
 		return list;
-	}*/
+	}
 
 	/*
 	 * public Project getProject(int project_id) { // TODO Auto-generated method
