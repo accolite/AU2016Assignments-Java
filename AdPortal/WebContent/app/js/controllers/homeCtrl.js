@@ -94,7 +94,6 @@ app.controller("homeCtrl", ['$scope', 'HomeService','$modal', '$localStorage', '
          $scope.contactDetails.mobile = successResponse.data[1];
          $scope.cpostid = postid;
      },
-     //please change it
      function(errorResponse){
          $scope.contactDetails = undefined;
      }
@@ -102,14 +101,27 @@ app.controller("homeCtrl", ['$scope', 'HomeService','$modal', '$localStorage', '
   }
  
   $scope.contactPopup = function(postid){
+      $scope.contactDetails.message = "";
       $scope.getContactInfo(postid);
-      modal = $modal({
+      $scope.contactModal = $modal({
          title: 'Contact', 
          templateUrl: 'templates/contactpopup.html',
          scope: $scope
      });
      
-     modal.$promise.then(modal.show);
+     $scope.contactModal.$promise.then($scope.contactModal.show);
+  }
+  
+  $scope.contact = function(){
+      console.log($scope.cpostid+""+$scope.contactDetails.message);
+      HomeService.contact($scope.cpostid, $scope.contactDetails.message).
+        then(
+         function(successResponse){
+             $scope.contactModal.hide();
+         },
+         function(errorResponse){
+             $scope.contactModal.hide();
+         });
   }
   
     $scope.getCategories();

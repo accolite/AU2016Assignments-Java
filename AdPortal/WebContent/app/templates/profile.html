@@ -41,6 +41,29 @@
               {{$storage.email}}
              </td>
             </tr>
+               <tr>
+             <td>
+              Unsubscribed categories
+             </td>
+             <td>
+               <button type="button" class="btn btn-default" ng-model="scategory" bs-options="cat.categoryid as cat.categoryname for cat in unsubscribedcategories" placeholder="Unsubscribed Categories" bs-select/>
+             </td>
+               <td>
+                   <button class="btn btn-default" ng-if="scategory" value="Subscribe" ng-click="subscribe(scategory)">Subscribe</button>
+                </td>
+            </tr>
+               <tr>
+             <td>
+              Subscribed categories
+             </td>
+             <td>
+               <button type="button" class="btn btn-default" ng-model="uscategory" bs-options="subcat.categoryid as subcat.categoryname for subcat in subscribedCategories" placeholder="Subscribed categories" bs-select/>
+             </td>
+               <td>
+                   <button class="btn btn-default" ng-if="uscategory" value="Unsubscribe" ng-click="unsubscribe(uscategory)">Unsubscribe</button>
+                </td>
+
+            </tr>
            </table>
           </td>
          </tr>

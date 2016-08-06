@@ -50,13 +50,12 @@
               </div>
               <div class="col-md-3">
                
-                 <div><a ng-click="$parent.$parent.contactPopup($parent.post.postid)"  class="btn btn-primary">Contact</a></div>
-        
-                  <div ng-if="$parent.$storage.isAdmin || $parent.$storage.id.trim() === post.userid.trim()"><a href="#/edit/{{post.postid}}" class="btn btn-primary">Edit</a></div>
-        
-                  
-                  <div ng-show="$parent.$storage.isAdmin || $parent.$storage.id.trim() === post.userid.trim()">
-    <a ng-click="$parent.$parent.deletepostbyid($parent.post.postid)"  class="btn btn-primary">Delete</a></div>
+                  <div ng-if="$parent.$storage.isAdmin || $parent.$storage.id.trim() === post.userid.trim()"><div href="#/edit/{{post.postid}}" class="btn btn-primary">Edit</div></div>
+                
+                    <div ng-if="$parent.$storage.isAdmin || $parent.$storage.id.trim() === post.userid.trim()">
+                 <div ng-click="$parent.$parent.deletepostbyid($parent.post.postid)"  class="btn btn-primary">Delete</div></div>
+                          <div ng-if="$parent.$storage.id.trim() !== post.userid.trim()">
+                 <div ng-click="$parent.$parent.contactPopup($parent.post.postid)"  class="btn btn-primary">Contact</div></div> 
         
                    </div>
                   </div>

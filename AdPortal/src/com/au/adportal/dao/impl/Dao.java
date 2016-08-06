@@ -318,7 +318,7 @@ public class Dao implements DaoInterface{
 	public boolean unsubscribe(String userid, Integer categoryid) {
 		boolean result = false;
 		try{
-			String hquery = "FROM Subscription s WHERE s.userid="+userid+" AND s.categoryid="+categoryid;
+			String hquery = "FROM Subscription s WHERE s.userid='"+userid+"' AND s.categoryid="+categoryid;
 			Subscription s = (Subscription) entityManager.createQuery(hquery).getSingleResult();
 			entityManager.remove(s);
 			result = true;
@@ -335,7 +335,7 @@ public class Dao implements DaoInterface{
 		boolean result = false;
 		try{
 			String hquery = "FROM Subscription s WHERE s.userid='"+userid+"' AND s.categoryid="+categoryid;
-			Subscription s = (Subscription) entityManager.createQuery(hquery);
+			Subscription s = (Subscription) entityManager.createQuery(hquery).getSingleResult();
 			if(s!=null){
 				result = true;
 			}
@@ -365,12 +365,13 @@ public class Dao implements DaoInterface{
 		List<String> locations = (ArrayList<String>)entityManager.createQuery(hquery).getResultList();		
 		return locations;
 	}
-
 	@Override
 	public List<Category> getSubscribedCategory(CurrentUser current_user) {
 		// TODO Auto-generated method stub
-		String hquery = "SELECT c FROM Category c,Subscription s WHERE c.userid = '"+current_user.getId()+"' AND c.categoryid=s.categoryid";
-		List<Category> categories = (ArrayList<Category>)entityManager.createQuery(hquery).getResultList();		
+		String hquery = "SELECT c FROM Category c,Subscription s WHERE s.userid = '"+current_user.getId()+"' AND c.categoryid=s.categoryid";
+		List<Category> categories = (ArrayList<Category>)entityManager.createQuery(hquery).getResultList();
+		for(Category c: categories)
+			System.out.println(":::"+c.getCategoryname());
 		return categories;
 	}
 	
