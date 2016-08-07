@@ -36,14 +36,24 @@ public class ServiceImplementation implements ServiceInterface {
 	MailSender mailSender;
 	
 	@Override
-	public boolean makeAdmin(CurrentUser user, String email) {
+	public boolean makeAdmin(CurrentUser user, String userId) {
 		// TODO Auto-generated method stub
+		userId=userId.trim();
+		User user2=dao.getUser(userId);
+		if(user.getRole()==Role.ADMIN&&user2!=null){
+			return dao.makeAdmin(userId);
+		}
 		return false;
 	}
 
 	@Override
-	public boolean blacklist(CurrentUser user, String email) {
+	public boolean blacklist(CurrentUser user, String userId) {
 		// TODO Auto-generated method stub
+		userId=userId.trim();
+		User user2=dao.getUser(userId);
+		if(user.getRole()==Role.ADMIN&&user2!=null){
+			return dao.blackList(userId);
+		}
 		return false;
 	}
 
@@ -261,6 +271,39 @@ public class ServiceImplementation implements ServiceInterface {
 	public List<Category> getSubscribedCategories(CurrentUser current_user) {
 		// TODO Auto-generated method stub
 		return(dao.getSubscribedCategory(current_user));
+	}
+	
+	 @Override
+	 public List<User> getBlacklistedUsers(CurrentUser current_user) {
+	  if(current_user.getRole()!=Role.ADMIN)
+	   return null;
+	  return dao.getBlacklistedUsers();
+	 }
+
+	 @Override
+	 public List<User> getAdminUsers(CurrentUser current_user) {
+	  if(current_user.getRole()!=Role.ADMIN)
+	   return null;
+	  return dao.getAdminUsers();
+	 }
+
+	 @Override
+	 public List<User> getAllUsers(CurrentUser current_user) {
+	  if(current_user.getRole()!=Role.ADMIN)
+	   return null;
+	  return dao.getAllUsers();
+	 }
+
+	@Override
+	public boolean unblacklist(CurrentUser user, String userId) {
+		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub
+				userId=userId.trim();
+				User user2=dao.getUser(userId);
+				if(user.getRole()==Role.ADMIN&&user2!=null){
+					return dao.unblackList(userId);
+				}
+				return false;
 	}
 
 }

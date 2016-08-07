@@ -1,5 +1,4 @@
 package com.au.adportal.controller;
-
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -75,14 +74,21 @@ public class AdPortalController extends SpringBootServletInitializer {
 		return "From Controller";
 	}
 
-	@RequestMapping(value = "/makeadmin", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
-	public @ResponseBody Boolean makeAdmin(@RequestBody String email) {
-		return (service.makeAdmin(current_user, email));
+	@RequestMapping(value = "/makeadmin", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Boolean makeAdmin(@RequestBody String userId) {
+		userId=userId.substring(1,userId.length()-1);
+		System.out.println(userId);
+		return (service.makeAdmin(current_user, userId));
 	}
-
-	@RequestMapping(value = "/blacklist", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
-	public @ResponseBody Boolean blacklist(@RequestBody String email) {
-		return (service.blacklist(current_user, email));
+	@RequestMapping(value = "/blacklist", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Boolean blacklist(@RequestBody String userId) {
+		userId=userId.substring(1,userId.length()-1);
+		return (service.blacklist(current_user, userId));
+	}
+	@RequestMapping(value = "/unblacklist", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Boolean unblacklist(@RequestBody String userId) {
+		userId=userId.substring(1,userId.length()-1);
+		return (service.unblacklist(current_user, userId));
 	}
 
 	@RequestMapping(value = "/deletepost", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
@@ -95,13 +101,15 @@ public class AdPortalController extends SpringBootServletInitializer {
 //		return (service.editPost(current_user, postId));
 //	}
 
-	@RequestMapping(value = "/createlocation", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+	@RequestMapping(value = "/createlocation", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Boolean deletePost(@RequestBody String location) {
+		location=location.substring(1,location.length()-1);
 		return (service.createLocation(current_user, location));
 	}
 
-	@RequestMapping(value = "/createcategory", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+	@RequestMapping(value = "/createcategory", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Boolean createCategory(@RequestBody String category) {
+		category=category.substring(1,category.length()-1);
 		return (service.createCategory(current_user, category));
 	}
 
@@ -175,12 +183,12 @@ public class AdPortalController extends SpringBootServletInitializer {
 
 	@RequestMapping(value = "/addcategory", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody boolean addCategory(@RequestBody String category) {
-		
+		category=category.substring(1,category.length()-1);
 		return (service.addCategory(current_user, category));
 	}
 	@RequestMapping(value = "/addlocation", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody boolean addLocation(@RequestBody String location) {
-		System.out.println("location"+location);
+		location=location.substring(1,location.length()-1);
 		return (service.addLocation(current_user,location));
 	}
 	
@@ -188,7 +196,6 @@ public class AdPortalController extends SpringBootServletInitializer {
 	public @ResponseBody boolean subscribe(@RequestBody Integer categoryid) {
 		return service.subscribe(current_user, categoryid);
 	}
-	
 	@RequestMapping(value = "/unsubscribe", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody boolean unsubscribe(@RequestBody Integer categoryid) {
 		return service.unsubscribe(current_user, categoryid);
@@ -197,6 +204,21 @@ public class AdPortalController extends SpringBootServletInitializer {
 	public @ResponseBody List<Category> getSubscribeCategories() {
 		return service.getSubscribedCategories(current_user);
 	}
+	@RequestMapping(value = "/getblacklists", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	 public @ResponseBody List<User> getBlacklistedUsers() {
+	  return service.getBlacklistedUsers(current_user);
+	 }
+	 
+	 @RequestMapping(value = "/getadmins", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	 public @ResponseBody List<User> getAdminUsers() {
+	  return service.getAdminUsers(current_user);
+	 }
+	 
+	 @RequestMapping(value = "/getusers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	 public @ResponseBody List<User> getAllUsers() {
+	  return service.getAllUsers(current_user);
+	 }
+	 
 	public static void main(String[] args) {
 		SpringApplication.run(AdPortalController.class, args);
 	}

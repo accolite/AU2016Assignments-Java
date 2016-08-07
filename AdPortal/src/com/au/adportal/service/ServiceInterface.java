@@ -54,5 +54,13 @@ public interface ServiceInterface {
 
 	public List<Category> getSubscribedCategories(CurrentUser current_user);
 
+	public List<User> getBlacklistedUsers(CurrentUser current_user);
+
+	public List<User> getAdminUsers(CurrentUser current_user);
+
+	public List<User> getAllUsers(CurrentUser current_user);
+
+	public boolean unblacklist(CurrentUser current_user, String userId);
+
 	
 }

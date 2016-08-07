@@ -1,3 +1,52 @@
-<div class="col-md-7 col-md-offset-2" ng-controller="adminCtrl">
 
+        <div class="row" ng-controller="adminCtrl">
+            <div class="form-group">
+    <input type="text" class="form-control tex" ng-model="newcategoryname" placeholder="enter the new category">
+
+    
+    
+     <div ng-click="addCategory()" class="btn  btn-block btn-min-post">Add Category</div>
+    <div ng-repeat="category in categories">{{category.categoryname}}
+				</div>
+    </div>
+            
+    <div class="form-group">
+    <input type="text" class="form-control tex" ng-model="newlocationname" placeholder="enter the new location">
+
+    
+    
+     <div ng-click="addLocation()" class="btn  btn-block btn-min-post">Add Location</div>
+    <div ng-repeat="location in locations">{{location.locationname}}
 </div>
+</div>
+            <div class="form-group">
+                <div>
+                        <button type="button" class="btn btn-min-post" ng-model="userforadmin"
+						bs-options="user.userid as user.username for user in users"
+						placeholder="User" bs-select/>
+                    <button class="btn btn-default" ng-if="userforadmin" value="Make Admin" ng-click="makeAdmin()">Make Admin</button>
+                        </div>
+    
+</div>
+            <div class="form-group">
+                <div>
+                        <button type="button" class="btn btn-min-post" ng-model="userforblacklist"
+						bs-options="user.userid as user.username for user in users"
+						placeholder="User" bs-select/>
+                    <button class="btn btn-default" ng-if="userforblacklist" value="Blacklist" ng-click="blacklist()">Blacklist</button>
+                        </div>
+                
+    
+</div>
+            <div class="form-group">
+                <div>
+                        <button type="button" class="btn btn-min-post" ng-model="userforunblacklist"
+						bs-options="user.userid as user.username for user in blacklists"
+						placeholder="User" bs-select/>
+                    <button class="btn btn-default" ng-if="userforunblacklist" value="Remove Blacklist" ng-click="unblacklist()">Remove from Blacklist</button>
+                        </div>
+    
+</div>
+</div>
+
+            

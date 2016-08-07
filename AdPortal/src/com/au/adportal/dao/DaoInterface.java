@@ -61,5 +61,13 @@ public interface DaoInterface {
 	public List<String> getMailsForSubscription(Integer categoryid);
 
 	public List<Category> getSubscribedCategory(CurrentUser current_user);
+
+	public List<User> getBlacklistedUsers();
+
+	public List<User> getAdminUsers();
+
+	public List<User> getAllUsers();
+
+	public boolean unblackList(String userId);
 	
 }

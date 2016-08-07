@@ -28,11 +28,11 @@ public class Dao implements DaoInterface{
 	
 	@Override
 	@Transactional
-	public boolean makeAdmin(String email) {
+	public boolean makeAdmin(String userId) {
 		boolean result = false;
 		try{
 			
-			String hquery = "FROM User u WHERE u.email="+email;
+			String hquery = "FROM User u WHERE u.userid='"+userId+"'";
 			User user = (User) entityManager.createQuery(hquery).getSingleResult();
 			user.setRole(Role.ADMIN);
 			result = true;
@@ -43,16 +43,31 @@ public class Dao implements DaoInterface{
 		}
 		return result;
 	}
-
 	@Override
 	@Transactional
-	public boolean blackList(String email) {
+	public boolean blackList(String userId) {
 		boolean result = false;
 		try{
-			
-			String hquery = "FROM User u WHERE u.email="+email;
+			String hquery = "FROM User u WHERE u.userid='"+userId+"'";
 			User user = (User) entityManager.createQuery(hquery).getSingleResult();
 			user.setRole(Role.BLACKLISTED);
+			result = true;
+		}
+		catch(Exception e){
+			result = false;
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	@Override
+	@Transactional
+	public boolean unblackList(String userId) {
+		boolean result = false;
+		try{
+			String hquery = "FROM User u WHERE u.userid='"+userId+"'";
+			User user = (User) entityManager.createQuery(hquery).getSingleResult();
+			user.setRole(Role.USER);
 			result = true;
 		}
 		catch(Exception e){
@@ -374,6 +389,25 @@ public class Dao implements DaoInterface{
 			System.out.println(":::"+c.getCategoryname());
 		return categories;
 	}
-	
+	@Override
+	 public List<User> getBlacklistedUsers() {
+	  String hquery = "FROM User u where u.role="+Role.BLACKLISTED; 
+	  List<User> blacklistedUsers = (ArrayList<User>)entityManager.createQuery(hquery).getResultList();
+	  return blacklistedUsers;
+	 }
+
+	 @Override
+	 public List<User> getAdminUsers() {
+	  String hquery = "FROM User u where u.role="+Role.ADMIN; 
+	  List<User> adminUsers = (ArrayList<User>)entityManager.createQuery(hquery).getResultList();
+	  return adminUsers;
+	 }
+
+	 @Override
+	 public List<User> getAllUsers() {
+	  String hquery = "FROM User u where u.role="+Role.USER; 
+	  List<User> allUsers = (ArrayList<User>)entityManager.createQuery(hquery).getResultList();
+	  return allUsers;
+	 }
 
 }
