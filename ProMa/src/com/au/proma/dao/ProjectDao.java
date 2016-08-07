@@ -102,7 +102,11 @@ public class ProjectDao {
 				stmt.setInt(4, pobj.getBu().getBuid());
 				stmt.setInt(2, pobj.getResourceworking());
 				stmt.setInt(3, pobj.getCompleted());
-				stmt.setInt(7, pobj.getCurrentSprint().getSprint_id());
+				if(pobj.getCurrentSprint()==null){
+					stmt.setNull(7,java.sql.Types.INTEGER);
+				} else {
+					stmt.setInt(7, pobj.getCurrentSprint().getSprint_id());
+				}
 				stmt.setInt(8, pobj.getProjectid());
 				return stmt;
 			}

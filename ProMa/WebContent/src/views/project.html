@@ -14,7 +14,7 @@
 		<button type="button" class="btn btn-lg btn-success" data-animation="am-fade-and-scale" data-template-url="src/views/modals/admin-add-sprint-form.html" bs-modal="modal" ng-if="projectDetails.currentSprint == null">Add Sprint
 		</button>
 
-		<button class="btn btn-danger" ng-if="projectDetails.currentSprint != null">Close Sprint</button>
+		<button class="btn btn-danger" ng-click="closeSprint()" ng-if="projectDetails.currentSprint != null">Close Sprint</button>
 	</div>
 
 </div>

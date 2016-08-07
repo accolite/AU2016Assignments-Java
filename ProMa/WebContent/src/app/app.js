@@ -152,7 +152,7 @@ angular.module('app', [
 
 		$scope.closeSprint = function(){
 			var closeSprintURL = "rest/projects/closeSprint";
-			$http.post(closeSprintURL,$scope.projectDetails);
+			$http.put(closeSprintURL,$scope.projectDetails);
 		}
 
 	})
