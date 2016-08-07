@@ -1,5 +1,6 @@
 package com.au.proma.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,10 +12,13 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCallback;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.au.proma.model.Client;
 import com.au.proma.model.Sprint;
+import com.mysql.jdbc.Statement;
 
 @Repository
 public class SprintDao {
@@ -33,20 +37,25 @@ public class SprintDao {
 	public int insertSprint(Sprint sprint, int project_id) {
 		String sql = "insert into dbo.sprints(project_id,startdate,enddate,milestone,completed_date) values(?,?,?,?,?)";
 
-		return jdbcTemplate.execute(sql, new PreparedStatementCallback<Integer>() {
-
+		KeyHolder holder = new GeneratedKeyHolder();
+		jdbcTemplate.update(new PreparedStatementCreator() {
+			
 			@Override
-			public Integer doInPreparedStatement(PreparedStatement ps) throws SQLException, DataAccessException {
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+				// TODO Auto-generated method stub
+				PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 				ps.setInt(1, project_id);
 				ps.setDate(2, sprint.getStartdate());
 				ps.setDate(3, sprint.getEnddate());
 				ps.setString(4, sprint.getMilestone());
 				ps.setDate(5, sprint.getCompleted_date());
-				return ps.executeUpdate();
-			}
-
-		});
+				return ps;
+			  }
+			},holder);
+		
+		return holder.getKey().intValue();
 	}
+		
 
 	public int updateSprint(Sprint sprint) {
 		String sql = "update dbo.sprints set startdate = ?,enddate = ? , milestone = ?,completed_date = ? where sprint_id = ?";

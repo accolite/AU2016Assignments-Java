@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.au.proma.dao.SprintDao;
+import com.au.proma.model.Project;
 import com.au.proma.model.Sprint;
 import com.au.proma.util.Colour;
 import com.au.proma.util.Constants;
@@ -17,6 +18,9 @@ public class SprintService {
 
 	@Autowired
 	private SprintDao sprintDao;
+	
+	@Autowired
+	private ProjectService projectService;
 
 	public Colour getSprintStatus(Sprint sprint) {
 		double percentage_days_paased;
@@ -57,8 +61,12 @@ public class SprintService {
 
 	public String addSprint(Sprint sprint, int pid) {
 		// TODO Auto-generated method stub
-		int no_of_rows_affected = sprintDao.insertSprint(sprint, pid);
-		if (no_of_rows_affected > 0)
+		int id_of_inserted_sprint = sprintDao.insertSprint(sprint, pid);
+		Project project = projectService.getProject(pid);
+		sprint.setSprint_id(id_of_inserted_sprint);
+		project.setCurrentSprint(sprint);
+		Boolean modifyProject = projectService.updateProject(pid, project);
+		if(modifyProject)
 			return Constants.SUCCESS_MESSAGE;
 		else
 			return Constants.FAILURE_MESSAGE;

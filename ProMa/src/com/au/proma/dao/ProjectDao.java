@@ -88,8 +88,8 @@ public class ProjectDao {
 	}
 
 	public int updateProject(Project pobj) {
-		String query = "update dbo.project set projectmanagerid=?,resourceworking=?,completed=?"
-				+ "buid=?,clientid=?,projectname = ? where projectid=?" ;
+		String query = "update dbo.project set projectmanagerid=?,resourceworking=?,completed=?,"
+				+ "buid=?,clientid=?,projectname = ?,current_sprint_id = ? where projectid=?" ;
 		PreparedStatementCreator psc = new PreparedStatementCreator() {
 			
 			@Override
@@ -102,7 +102,8 @@ public class ProjectDao {
 				stmt.setInt(4, pobj.getBu().getBuid());
 				stmt.setInt(2, pobj.getResourceworking());
 				stmt.setInt(3, pobj.getCompleted());
-				stmt.setInt(7, pobj.getProjectid());
+				stmt.setInt(7, pobj.getCurrentSprint().getSprint_id());
+				stmt.setInt(8, pobj.getProjectid());
 				return stmt;
 			}
 		};
