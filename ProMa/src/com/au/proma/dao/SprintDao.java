@@ -31,7 +31,7 @@ public class SprintDao {
 	}
 
 	public int insertSprint(Sprint sprint, int project_id) {
-		String sql = "insert into dbo.sprints(project_id,startdate,enddate,milestone,completed) values(?,?,?,?,?)";
+		String sql = "insert into dbo.sprints(project_id,startdate,enddate,milestone,completed_date) values(?,?,?,?,?)";
 
 		return jdbcTemplate.execute(sql, new PreparedStatementCallback<Integer>() {
 
@@ -41,7 +41,7 @@ public class SprintDao {
 				ps.setDate(2, sprint.getStartdate());
 				ps.setDate(3, sprint.getEnddate());
 				ps.setString(4, sprint.getMilestone());
-				ps.setInt(5, sprint.getCompleted());
+				ps.setDate(5, sprint.getCompleted_date());
 				return ps.executeUpdate();
 			}
 
@@ -49,7 +49,7 @@ public class SprintDao {
 	}
 
 	public int updateSprint(Sprint sprint) {
-		String sql = "update dbo.sprints set startdate = ?,enddate = ? , milestone = ?,completed = ? where sprint_id = ?";
+		String sql = "update dbo.sprints set startdate = ?,enddate = ? , milestone = ?,completed_date = ? where sprint_id = ?";
 
 		return jdbcTemplate.execute(sql, new PreparedStatementCallback<Integer>() {
 
@@ -59,7 +59,7 @@ public class SprintDao {
 				ps.setDate(1, sprint.getStartdate());
 				ps.setDate(2, sprint.getEnddate());
 				ps.setString(3, sprint.getMilestone());
-				ps.setInt(4, sprint.getCompleted());
+				ps.setDate(4, sprint.getCompleted_date());
 				return ps.executeUpdate();
 			}
 
@@ -131,7 +131,7 @@ public class SprintDao {
 		sprint.setStartdate(rs.getDate("startdate"));
 		sprint.setEnddate(rs.getDate("enddate"));
 		sprint.setMilestone(rs.getString("milestone"));
-		sprint.setCompleted(rs.getInt("completed"));
+		sprint.setCompleted_date(rs.getDate("completed_date"));
 		return sprint;
 	}
 }

@@ -78,6 +78,11 @@ public class ProjectService {
 		return list;
 	}
 
+	public Project getProject(int project_id) {
+		// TODO Auto-generated method stub
+		return projectDao.getProject(project_id);
+	}
+
 	/*
 	 * public Project getProject(int project_id) { // TODO Auto-generated method
 	 * stub return projectDao.getProject(project_id); }

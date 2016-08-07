@@ -1,6 +1,8 @@
 package com.au.proma.dao;
 
 import com.au.proma.model.*;
+import com.au.proma.service.SprintService;
+import com.au.proma.util.Colour;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,6 +32,9 @@ public class ProjectDao {
 
 	@Autowired
 	public JdbcTemplate jdbcTemplate;
+	
+	@Autowired
+	public SprintService sprintService;
 
 	public JdbcTemplate getJdbcTemplate() {
 		return jdbcTemplate;
@@ -40,7 +45,7 @@ public class ProjectDao {
 	}
 
 	public ArrayList<Project> statusOfEveryBU() {
-		String query = "select bu.buid , bu.buname , sprints.completed , sprints.startdate , sprints.enddate "
+		String query = "select bu.buid , bu.buname , sprints.completed_date , sprints.startdate , sprints.enddate "
 				+ " from dbo.bu left outer join dbo.project on bu.buid=project.buid left outer join dbo.sprints"
 				+ "	 on project.projectid = sprints.project_id";
 		return jdbcTemplate.query(query, new ResultSetExtractor<ArrayList<Project>>() {
@@ -50,7 +55,7 @@ public class ProjectDao {
 				ArrayList<Project> temp = new ArrayList<Project>();
 				while (rs.next()) {
 					Sprint currentSprint = new Sprint();
-					currentSprint.setCompleted(rs.getInt("completed"));
+					currentSprint.setCompleted_date(rs.getDate("completed_date"));
 					currentSprint.setStartdate(rs.getDate("startdate"));
 					currentSprint.setEnddate(rs.getDate("enddate"));
 					BU bu = new BU();
@@ -143,14 +148,19 @@ public class ProjectDao {
 
 		String sql = base_query_for_getting_project + " where project.projectid = " + projectid;
 
-		return jdbcTemplate.queryForObject(sql, new RowMapper<Project>() {
+		List<Project>projects = jdbcTemplate.query(sql, new RowMapper<Project>() {
 
 			@Override
 			public Project mapRow(ResultSet arg0, int arg1) throws SQLException {
-				return getProjectFromResultSet(arg0);
+					return getProjectFromResultSet(arg0);
 			}
 
 		});
+		
+		if(projects == null || projects.isEmpty())
+			return null;
+		else
+			return projects.get(0);
 	}
 	
 	public int deleteProject(int projectid){
@@ -159,13 +169,23 @@ public class ProjectDao {
 	}
 
 	public Project getProjectFromResultSet(ResultSet arg0) throws SQLException {
-		Sprint currentSprint = new Sprint(arg0.getInt("sprint_id"), arg0.getDate("startdate"), arg0.getDate("enddate"),arg0.getString("milestone"),arg0.getInt("completed"));
+		int current_sprint_id = arg0.getInt("current_sprint_id");
+		Colour projectStatus;
+		Sprint currentSprint = null;
+		if(!arg0.wasNull()){
+			currentSprint = new Sprint(current_sprint_id, arg0.getDate("startdate"), arg0.getDate("enddate"),arg0.getString("milestone"),arg0.getDate("completed_date"));
+			currentSprint.setColour(sprintService.getSprintStatus(currentSprint));
+		  }
 		Client client = new Client(arg0.getInt("clientid"), arg0.getString("clientname"));
 		BU bu = new BU(arg0.getInt("buid"), arg0.getString("buname"));
 		Role role = new Role(arg0.getInt("roleid"), arg0.getString("rolename"));
 		User projectManager = new User(arg0.getInt("userid"), arg0.getString("username"), arg0.getString("useremail"), role);
+		if(currentSprint == null)
+			projectStatus = Colour.BLACK;
+		else
+			projectStatus = currentSprint.getColour();
 		Project p = new Project(arg0.getInt("projectid"), client, arg0.getString("projectname"), projectManager,
-				arg0.getInt("resourceworking"), currentSprint,0, bu,arg0.getInt("completed"));
+				arg0.getInt("resourceworking"), currentSprint,projectStatus, bu,arg0.getInt("completed"));
 		return p;
 	}
 }

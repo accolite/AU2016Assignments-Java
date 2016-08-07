@@ -1,5 +1,5 @@
 package com.au.proma.util;
 
 public enum Colour {
-	RED,YELLOW,GREEN
+	RED,YELLOW,GREEN,BLACK
 }
