@@ -97,5 +97,13 @@ public class ProjectController {
 		return sprintService.updateSprint(sprint, sprintid);
 		
 	}
+	
+	@RequestMapping(value="/closeSprint/",method=RequestMethod.PUT,produces="application/json")
+	@ResponseBody
+	public String closeCurrentSprintUnderProject(@RequestBody Project project){
+		 return projectService.closeCurrentSprint(project,project.getCurrentSprint());
+		
+	}
+	
 }
 
