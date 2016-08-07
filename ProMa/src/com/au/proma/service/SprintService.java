@@ -19,26 +19,26 @@ public class SprintService {
 	private SprintDao sprintDao;
 
 	public Colour getSprintStatus(Sprint sprint) {
-		double task_left;
-		int completed = sprint.getCompleted();
+		double percentage_days_paased;
+		double no_of_days_paased_after_sprint;
+		Date completed_date = sprint.getCompleted_date();
 		Date startDate = sprint.getStartdate();
 		Date endDate = sprint.getEnddate();
-		Date currDate = new Date(Calendar.getInstance().getTime().getTime());
 		double no_of_days_in_sprint = Math.abs(((double) endDate.getTime() - startDate.getTime()) / 86400000);
-		double no_of_completed_days_in_sprint = Math
-				.abs(((double) currDate.getTime() - startDate.getTime()) / 86400000);
-		double required_completion = new Double((double) no_of_completed_days_in_sprint / no_of_days_in_sprint * 100)
-				.intValue();
-		try {
-			if(currDate.before(startDate))
+		if (completed_date != null)
+			no_of_days_paased_after_sprint = Math
+					.abs(((double) completed_date.getTime() - endDate.getTime()) / 86400000);
+		else {
+			Date currDate = new Date(Calendar.getInstance().getTime().getTime());
+			if (currDate.after(startDate) && currDate.before(endDate))
 				return Colour.GREEN;
-			if(currDate.after(endDate))
-				task_left = (1 - (double)completed)/100;
-			else 
-				task_left = ((double) required_completion - completed) / required_completion;
-			if (task_left > Constants.YELLOW_RED_THRESHOLD)
+			no_of_days_paased_after_sprint = Math.abs(((double) currDate.getTime() - endDate.getTime()) / 86400000);
+		}
+		try {
+			percentage_days_paased = no_of_days_paased_after_sprint / no_of_days_in_sprint;
+			if (percentage_days_paased > Constants.YELLOW_RED_THRESHOLD)
 				return Colour.RED;
-			else if (task_left > Constants.GREEN_YELLOW_THRESHOLD)
+			else if (percentage_days_paased > Constants.GREEN_YELLOW_THRESHOLD)
 				return Colour.YELLOW;
 			else
 				return Colour.GREEN;
