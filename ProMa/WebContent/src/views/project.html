@@ -1,0 +1,19 @@
+<div class="jumbotron">
+<h1>Project View</h1>
+	<div class="well">
+		{{projectDetails}}
+	</div>
+
+	<div class="well">
+		<ul ng-repeat="sprint in sprints">
+			<li> {{sprint.milestone}} </li>
+		</ul>
+	</div>
+
+	<div class="well">
+		<button type="button" class="btn btn-lg btn-success" data-animation="am-fade-and-scale" data-template-url="src/views/modals/admin-add-sprint-form.html" bs-modal="modal">Add Sprint
+		</button>
+
+	</div>
+
+</div>

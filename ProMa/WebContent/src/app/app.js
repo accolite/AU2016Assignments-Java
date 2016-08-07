@@ -20,6 +20,11 @@ angular.module('app', [
 				controller:'individualController',
 				templateUrl:'src/views/individual.html'
 			})
+			.when('/project/:projectid',
+			{
+				controller:'projectController',
+				templateUrl:'src/views/project.html'
+			})
 			.otherwise({redirectTo: '/'});
 	})
 	.controller('overviewController', function($scope,$http,$location,$alert){
@@ -111,4 +116,20 @@ angular.module('app', [
 			})
 		}
 
+	})
+	.controller('projectController', function($scope,$http,$routeParams,$alert,$modal){
+		$scope.projectid = $routeParams.projectid;
+		
+		var sprintURL = "rest/projects/"+ $scope.projectid +"/sprints";
+		var sprintPromise = $http.get(sprintURL);
+		sprintPromise.then(function(response){
+			$scope.sprints = response.data;
+		})
+		
+		var projectURL = "rest/projects/"+ $scope.projectid;
+		var projectPromise = $http.get(projectURL);
+		projectPromise.then(function(response){
+			$scope.projectDetails = response.data;
+		})
+		
 	})

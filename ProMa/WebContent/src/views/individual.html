@@ -16,7 +16,11 @@
    <tbody>
       <tr ng-repeat="project in projects">
          <td>{{project.client.clientname}}</td>
-         <td>{{project.projectname}}</td>
+         <td>
+            <a ng-href="#/project/{{project.projectid}}">
+               {{project.projectname}}
+            </a>
+         </td>
          <td>{{project.projectmanager.username}}</td>
          <td>{{project.status}}</td>
          <td>{{project.startdate}}</td>
