@@ -116,6 +116,14 @@ angular.module('app', [
 			})
 		}
 
+		$scope.addClient = function(){
+			var clientData = $scope.fields;
+			var addClientURL = "rest/clients"
+			var addClientPromise = $http.post(addClientURL,clientData);
+			addClientPromise.then(function(response){
+				$alert({duration:3,container:'body', content: 'Wohoo Client Added', placement: 'top-right', type: 'success', show: true});
+			})
+		}
 	})
 	.controller('projectController', function($scope,$http,$routeParams,$alert,$modal){
 		$scope.projectid = $routeParams.projectid;

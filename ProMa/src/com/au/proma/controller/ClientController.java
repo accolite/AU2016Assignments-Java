@@ -27,7 +27,7 @@ public class ClientController {
 		return c;
 	}
 	
-	@RequestMapping(method=RequestMethod.POST,consumes = "application/json",produces="application/json")
+	@RequestMapping(method=RequestMethod.POST,produces="application/json")
 	public @ResponseBody String addClient(@RequestBody Client client){
 		Boolean isSuccess = clientService.addClient(client);
 		return isSuccess == true ? "Success" : "Failure";
