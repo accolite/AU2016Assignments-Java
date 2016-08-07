@@ -32,12 +32,10 @@
 						rz-slider-options="sliderOptions"></rzslider>
                         </div>
                         <div>
-                        <input type="button" name="Search"
-					value="Search" ng-click="getAllPosts()">
+                            <button ng-click="getAllPosts()"> <i class="fa fa-search" aria-hidden="true"></i> Search </button>
                         </div>
                         <div>
-                        <input type="button" name="Reset"
-					value="Reset" ng-click="reset()">
+                            <button ng-click="reset()"> <i class="fa fa-eraser" aria-hidden="true"></i> Reset </button>
                         </div>
                         
 
@@ -70,7 +68,7 @@
 <div class="col-md-2"></div>
 
 </div>
-<div style="position: fixed; right: 5%; bottom: 5%;">
+<div ng-if="!$storage.isBlacklisted" style="position: fixed; right: 5%; bottom: 5%;">
 	<a href="#/new"> <i class="fa fa-plus-circle" aria-hidden="true">
 	</i>
 	</a>

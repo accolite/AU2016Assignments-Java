@@ -19,12 +19,21 @@
               </div>
               <div class="col-md-3">
                
-                  <div ng-if="$parent.$storage.isAdmin || $parent.$storage.id.trim() === post.userid.trim()"><a href="#/edit/{{post.postid}}" class="btn btn-primary">Edit</a></div>
+                  <div ng-if="!$parent.$storage.isBlacklisted &&($parent.$storage.isAdmin || $parent.$storage.id.trim() === post.userid.trim())"><a href="#/edit/{{post.postid}}" class="btn btn-primary">
+                      <i class="fa fa-pencil" aria-hidden="true"></i>
+                      Edit
+                      </a></div>
                 
-                    <div ng-if="$parent.$storage.isAdmin || $parent.$storage.id.trim() === post.userid.trim()">
-                 <div ng-click="$parent.$parent.deletepostbyid($parent.post.postid)"  class="btn btn-primary">Delete</div></div>
-                          <div ng-if="$parent.$storage.id.trim() !== post.userid.trim()">
-                 <div ng-click="$parent.$parent.contactPopup($parent.post.postid)"  class="btn btn-primary">Contact</div></div> 
+                    <div ng-if="!$parent.$storage.isBlacklisted &&( $parent.$storage.isAdmin || $parent.$storage.id.trim() === post.userid.trim())">
+                 <div ng-click="$parent.$parent.deletepostbyid($parent.post.postid)"  class="btn btn-primary">
+                     <i class="fa fa-trash" aria-hidden="true"></i>
+                     Delete
+                    </div></div>
+                          <div ng-if="!$parent.$storage.isBlacklisted &&($parent.$storage.id.trim() !== post.userid.trim())">
+                 <div ng-click="$parent.$parent.contactPopup($parent.post.postid)"  class="btn btn-primary">
+                     <i class="fa fa-envelope" aria-hidden="true"></i>
+                     Contact
+                              </div></div> 
         
                    </div>
                   </div>

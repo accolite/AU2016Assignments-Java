@@ -10,17 +10,20 @@ app.config(['$routeProvider',function($routeProvider){
         controller: 'homeCtrl'
     }).when('/edit/:pid',{
         templateUrl: 'templates/edit.html',
-        controller: 'editCtrl'
+        controller: 'editCtrl',
+        notForBlacklisted: true
     }).when('/new',{
         templateUrl: 'templates/newpost.html',
-        controller: 'newPostCtrl'
+        controller: 'newPostCtrl',
+        notForBlacklisted: true
     }).when('/profile',{
         templateUrl: 'templates/profile.html',
         controller: 'profileCtrl'
     }).
     when('/admin',{
         templateUrl: 'templates/admin.html',
-        controller: 'adminCtrl'
+        controller: 'adminCtrl',
+        adminOnly: true
     }).
     otherwise({
         redirectTo: '/'
@@ -57,3 +60,23 @@ app.directive('showErrors', function(){
     }
 });
 
+app.directive("fileread", [
+  function() {
+    return {
+      scope: {
+        fileread: "="
+      },
+      link: function(scope, element, attributes) {
+        element.bind("change", function(changeEvent) {
+          var reader = new FileReader();
+          reader.onload = function(loadEvent) {
+            scope.$apply(function() {
+              scope.fileread = loadEvent.target.result;
+            });
+          }
+          reader.readAsDataURL(changeEvent.target.files[0]);
+        });
+      }
+    }
+  }
+]);

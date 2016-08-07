@@ -15,7 +15,7 @@
     <div class="navbar-header">
           <a class="navbar-brand" href="#/"><img src="img/logo.png"></a>
     </div>
-    <div class="navbar-header" style="text-align:center;width:70%">
+    <div class="navbar-header" style="text-align:center;width:60%">
           <h1> Ad Portal</h1>
     </div>
     <ul class="nav navbar-nav navbar-right">
@@ -25,6 +25,7 @@
         <span class="glyphicon glyphicon-user"></span></a>
         <ul class="dropdown-menu">
           <li><a href="#/profile">My Profile</a></li>
+          <li ng-if='isAdmin'><a href="#/admin">Admin console</a></li>
           <li><a ng-click="logout()">Logout</a></li>
         </ul>
       </li>                 
