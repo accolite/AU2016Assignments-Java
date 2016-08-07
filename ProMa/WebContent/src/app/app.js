@@ -132,4 +132,19 @@ angular.module('app', [
 			$scope.projectDetails = response.data;
 		})
 		
+		$scope.addASprint = function() { 
+			var addSprintURL = "rest/projects/" + $scope.projectid + "/sprints";
+			var sprintData = $scope.fields;
+			var addSprintPromise = $http.post(addSprintURL,sprintData);
+			addSprintPromise.then(function(response){
+				$alert({duration:3,container:'#body', content: 'Wohoo Sprint Added', placement: 'top-right', type: 'success', show: true});
+			})
+
+		}
+
+		$scope.closeSprint = function(){
+			var closeSprintURL = "rest/projects/closeSprint";
+			$http.post(closeSprintURL,$scope.projectDetails);
+		}
+
 	})

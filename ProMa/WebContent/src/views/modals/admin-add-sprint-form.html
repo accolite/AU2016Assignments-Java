@@ -1,1 +1,48 @@
-admin-add-client-form.html
+<div class="modal" tabindex="-1" role="dialog" aria-hidden="true"
+	ng-controller="projectController">
+	<div class="modal-dialog">
+		<form class="form-horizontal" role="form" name="sprintform"
+			ng-submit="addASprint();$hide()">
+			<div class="modal-content">
+				<div class="modal-header"">
+					<button type="button" class="close" aria-label="Close"
+						ng-click="$hide()">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">Start a Sprint</h4>
+				</div>
+				<div class="modal-body">
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="milestone">Milestone </label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="sprint-form-milestone"
+								ng-model="fields.milestone" placeholder="Enter Milestones" />
+						</div>
+					</div>
+		
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="startdate">Start Date</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="sprint-form-startdate"
+								ng-model="fields.startdate" placeholder="Start Date" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="enddate">End Date</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="sprint-form-enddate"
+								ng-model="fields.enddate" placeholder="End Date" />
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" ng-click="$hide()">Close</button>
+					<button type="submit" class="btn btn-primary">Save Changes</button>
+				</div>
+
+			</div>
+		</form>
+	</div>
+</div>
