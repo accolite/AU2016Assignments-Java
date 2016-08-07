@@ -1,4 +1,16 @@
 app.controller("adminCtrl", ['$scope','$location','$window','AdminService','$filter', function ($scope, $location,$window, AdminService,$filter) {
+    //
+    $scope.flag = [1,0,0,0];
+    $scope.loaddiv = function(index) {
+      for(var i = 0; i < 4; i++) {
+        if(i == index) {
+          $scope.flag[i] = 1;
+        } else {
+          $scope.flag[i] = 0;
+        }
+      }
+    }
+    //
     $scope.categories;
     $scope.locations;
     $scope.admins;
