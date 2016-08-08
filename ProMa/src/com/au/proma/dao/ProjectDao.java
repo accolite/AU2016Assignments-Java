@@ -47,7 +47,7 @@ public class ProjectDao {
 	public ArrayList<Project> statusOfEveryBU() {
 		String query = "select bu.buid , bu.buname , sprints.completed_date , sprints.startdate , sprints.enddate "
 				+ " from dbo.bu left outer join dbo.project on bu.buid=project.buid left outer join dbo.sprints"
-				+ "	 on project.projectid = sprints.project_id";
+				+ "	 on project.current_sprint_id = sprints.sprint_id";
 		return jdbcTemplate.query(query, new ResultSetExtractor<ArrayList<Project>>() {
 
 			public ArrayList<Project> extractData(ResultSet rs) throws SQLException, DataAccessException {
@@ -64,6 +64,10 @@ public class ProjectDao {
 					Project project = new Project();
 					project.setBu(bu);
 					project.setCurrentSprint(currentSprint);
+					if(currentSprint == null || currentSprint.getStartdate() == null || currentSprint.getEnddate() == null)
+						project.setStatus(Colour.BLACK);
+					else
+						project.setStatus(sprintService.getSprintStatus(currentSprint));
 					temp.add(project);
 				}
 				return temp;
