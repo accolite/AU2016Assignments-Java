@@ -6,7 +6,8 @@
 angular.module('app', [
 	'ngRoute',
 	'mgcrea.ngStrap',
-	'ngAnimate'
+	'ngAnimate',
+	'chart.js'
 	])
 	.config(function($routeProvider,$locationProvider) {
 		$routeProvider
@@ -19,6 +20,11 @@ angular.module('app', [
 			{
 				controller:'individualController',
 				templateUrl:'src/views/individual.html'
+			})
+			.when('/project/:projectid',
+			{
+				controller:'projectController',
+				templateUrl:'src/views/project.html'
 			})
 			.otherwise({redirectTo: '/'});
 	})
@@ -47,7 +53,7 @@ angular.module('app', [
 			var convertUserUrl = "rest/users/convertToAdmin";
 			var convertuserpromise = $http.post(convertUserUrl,userdata);			
 			convertuserpromise.then(function(response){
-				$alert({duration:3,container:'body', content: 'Wololo', placement: 'top-right', type: 'success', show: true});
+				$alert({duration:3,container:'#body', content: 'Wololo', placement: 'top-right', type: 'success', show: true});
 				// console.log('User Converted woohoo')
 			})
 		}; 
@@ -66,12 +72,20 @@ angular.module('app', [
 	})
 	.controller('individualController', function($scope,$http,$routeParams,$alert,$modal){
 		$scope.buname = $routeParams.buname;
+		
 		var url = "rest/projects/bus/" + $routeParams.buid;
 		var promise = $http.get(url);
 		promise.then(function(response){
 			$scope.projects = response.data;
 		})		
 		$scope.buid = $routeParams.buid
+
+		var buDetailsURL = "rest/bus/" + $scope.buid;
+		var buDetailPromise = $http.get(buDetailsURL);
+		buDetailPromise.then(function(response){
+			$scope.buDetails = response.data;
+		})
+
 
 		$scope.addAProject = function(){
 			var projectData = $scope.fields;
@@ -110,5 +124,81 @@ angular.module('app', [
 				console.log("added bu heaad woohoo");
 			})
 		}
+
+		$scope.addClient = function(){
+			var clientData = $scope.fields;
+			var addClientURL = "rest/clients"
+			var addClientPromise = $http.post(addClientURL,clientData);
+			addClientPromise.then(function(response){
+				$alert({duration:3,container:'body', content: 'Wohoo Client Added', placement: 'top-right', type: 'success', show: true});
+			})
+		}
+	})
+	.controller('projectController', function($scope,$http,$routeParams,$alert,$modal){
+		$scope.projectid = $routeParams.projectid;
+		
+		var sprintURL = "rest/projects/"+ $scope.projectid +"/sprints";
+		var sprintPromise = $http.get(sprintURL);
+		sprintPromise.then(function(response){
+			$scope.sprints = response.data;
+		})
+		
+		var projectURL = "rest/projects/"+ $scope.projectid;
+		var projectPromise = $http.get(projectURL);
+		projectPromise.then(function(response){
+			$scope.projectDetails = response.data;
+		})
+		
+		$scope.addASprint = function() { 
+			var addSprintURL = "rest/projects/" + $scope.projectid + "/sprints";
+			var sprintData = $scope.fields;
+			var addSprintPromise = $http.post(addSprintURL,sprintData);
+			addSprintPromise.then(function(response){
+				$alert({duration:3,container:'#body', content: 'Wohoo Sprint Added', placement: 'top-right', type: 'success', show: true});
+			})
+
+		}
+
+		$scope.closeSprint = function(){
+			var closeSprintURL = "rest/projects/closeSprint";
+			$http.put(closeSprintURL,$scope.projectDetails);
+		}
+
+		var dataPointsURL = "rest/projects/"+ $scope.projectid + "/getDataPoints";
+		var dataPointsPromise = $http.get(dataPointsURL);
+		dataPointsPromise.then(function(response){
+			$scope.data = response.data;
+		})
+
+
+
+  $scope.labels = ["", "", "", "", "", "", ""];
+  $scope.series = ['Series A'];
+  // $scope.data = [
+  //   [65, 59, 80, 81, 56, 55, 40],
+  // ];
+  $scope.onClick = function (points, evt) {
+    console.log(points, evt);
+  };
+  // $scope.datasetOverride = [{ yAxisID: 'y-axis-1' }, { yAxisID: 'y-axis-2' }];
+  // $scope.options = {
+  //   scales: {
+  //     yAxes: [
+  //       {
+  //         id: 'y-axis-1',
+  //         type: 'linear',
+  //         display: true,
+  //         position: 'left'
+  //       },
+  //       {
+  //         id: 'y-axis-2',
+  //         type: 'linear',
+  //         display: true,
+  //         position: 'right'
+  //       }
+  //     ]
+  //   }
+  //};
+
 
 	})

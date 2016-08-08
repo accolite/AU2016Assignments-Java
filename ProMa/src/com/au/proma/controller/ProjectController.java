@@ -74,6 +74,12 @@ public class ProjectController {
 			return null;
 	}
 	
+	@RequestMapping(value = "/{id}",method=RequestMethod.GET,produces = "application/json")
+	@ResponseBody
+	public Project getProject(@PathVariable("id") int project_id){
+		return projectService.getProject(project_id);
+	}
+	
 	@RequestMapping(value="/bus/{bu_id}",method=RequestMethod.GET,produces="application/json")
 	@ResponseBody
 	public List<Project> getProjectsUnderBU(@PathVariable("bu_id") int buid,HttpServletRequest request){
@@ -117,5 +123,19 @@ public class ProjectController {
 			return null;
 		
 	}
+	
+	@RequestMapping(value="/closeSprint",method=RequestMethod.PUT,produces="application/json")
+	@ResponseBody
+	public String closeCurrentSprintUnderProject(@RequestBody Project project){
+		 return projectService.closeCurrentSprint(project,project.getCurrentSprint());
+		
+	}
+	
+	@RequestMapping(value="/{id}/getDataPoints",method=RequestMethod.GET,produces="application/json")
+	@ResponseBody
+	public List<Integer> getDataPoints(@PathVariable("id") int projectid){
+		return sprintService.getDataPoints(projectid);
+	}
+	
 }
 

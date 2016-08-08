@@ -38,6 +38,12 @@ public class BuController {
 		
 	}
 	
+	@RequestMapping(value="/{id}",method=RequestMethod.GET, produces="application/json")
+	@ResponseBody
+	public BU getBUDetails(@PathVariable("id") int buid){
+		return buService.getBUDetails(buid);
+	}
+	
 	@RequestMapping(method=RequestMethod.POST, produces="application/json",consumes="application/json")
 	@ResponseBody
 	public Integer addBU(@RequestBody BU bu,HttpServletRequest request){

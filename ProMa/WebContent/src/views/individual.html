@@ -1,34 +1,43 @@
-<table class = "table table-bordered table-striped table-hover">
-   <caption>Projects with {{buname}}</caption>
-   
-   <thead>
-      <tr>
-         <th>Customer</th>
-         <th>Project</th>
-         <th>Project Manager</th>
-         <th>Overall</th>
-         <th>Start Date</th>
-         <th>End Date</th>
-         <th>Resources Working</th>
-      </tr>
-   </thead>
-   
-   <tbody>
-      <tr ng-repeat="project in projects">
-         <td>{{project.client.clientname}}</td>
-         <td>{{project.projectname}}</td>
-         <td>{{project.projectmanager.username}}</td>
-         <td>{{project.status}}</td>
-         <td>{{project.startdate}}</td>
-         <td>{{project.enddate}}</td>
-         <td>{{project.resourceworking}}</td>
-      </tr>
-   </tbody>
-	
-</table>
+<div class="row">
+   <div class="col-md-8">
+      <table class = "table table-bordered table-striped table-hover">
+         <caption>Projects with {{buname}}</caption>
+         
+         <thead>
+            <tr>
+               <th>Customer</th>
+               <th>Project</th>
+               <th>Project Manager</th>
+               <th>Overall</th>
+               <th>Resources Working</th>
+            </tr>
+         </thead>
+         
+         <tbody>
+            <tr ng-repeat="project in projects">
+               <td>{{project.client.clientname}}</td>
+               <td>
+                  <a ng-href="#/project/{{project.projectid}}">
+                     {{project.projectname}}
+                  </a>
+               </td>
+               <td>{{project.projectmanager.username}}</td>
+               <td>{{project.status}}</td>
+               <td>{{project.resourceworking}}</td>
+            </tr>
+         </tbody>
+         
+      </table>
+   </div>
+   <div class="col-md-3 col-md-offset-1 jumbotron">
+      <h2>{{buname}}</h2>
+      <span>Headed By</span>
+      {{buDetails}}
+   </div>
 
-<button type="button" class="btn btn-lg btn-success" data-animation="am-fade-and-scale" data-template-url="src/views/modals/admin-add-project-form-modal.html" bs-modal="modal">Add a Project
+</div>
+
+
+<button type="button" class="btn btn-lg btn-danger" data-template-url="src/views/modals/admin-aside-dashboard.html" data-placement="right" data-animation="am-slide-right" bs-aside="aside" data-container="body">Launch Dashboard
 </button>
 
-<button type="button" class="btn btn-lg btn-default" data-animation="am-fade-and-scale" ng-click="showBUHeadModal()">Add a Business Unit Head
-</button>
