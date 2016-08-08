@@ -2,10 +2,45 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="google-signin-client_id" content="956281975960-3demri6nn0lc1ou4fl3q4fbjmcrrp0ao.apps.googleusercontent.com">
   <title>Angular Workshop</title>
   <link rel="stylesheet" href="assets/css/bootstrap.css">
   <link rel="stylesheet" href="bower_components/angular-motion/dist/angular-motion.css">
     <link rel="stylesheet" href="assets/css/app.css">
+    <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+    <script type="text/javascript">
+    
+    function onLoad() {
+	    gapi.load('auth2', function() {
+	    	//console.log("eubhdj");
+	      gapi.auth2.init();
+	    });
+	  }
+    function signOut() {
+    	//console.log("chdbj");
+    	//console.log(auth2);
+    	var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+          //alert('User signed out.');
+          
+          var xhr = new XMLHttpRequest();
+    	  xhr.open('POST','http://localhost:8082/ProMa/rest/accounts/logout');
+    	  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    	  xhr.onreadystatechange = function(){
+    		  if (xhr.readyState==4 && xhr.status==200)
+    	    {
+    			  console.log("sjib");
+    	      location.href="/ProMa/login.html"  ;
+    	    } 
+    	}
+    	  xhr.send(); 
+          
+          
+        });
+      }
+  	
+    </script>
+    
 </head>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -24,7 +59,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Logout</a></li>
+        <li><a href="#" onclick="signOut()">Logout</a></li>
         
       </ul>
     </div><!-- /.navbar-collapse -->

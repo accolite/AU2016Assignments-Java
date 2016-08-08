@@ -2,6 +2,8 @@ package com.au.proma.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,62 +35,86 @@ public class ProjectController {
 	
 	@RequestMapping(value="/status",method=RequestMethod.GET,produces="application/json")
 	@ResponseBody
-	public List<Color> statusOfEveryBU()
+	public List<Color> statusOfEveryBU(HttpServletRequest request)
 	{
-		//System.out.println(p.getProjectname());
+		if(request.getSession().getAttribute("set").equals("true")==true)
 		return projectService.statusOfEveryBU();
+		else
+			return null;
 	}
 	
 	
 	@RequestMapping(method=RequestMethod.POST,produces="application/json",consumes="application/json")
 	@ResponseBody
-	public int insertProject( @RequestBody Project p)
+	public int insertProject( @RequestBody Project p,HttpServletRequest request)
 	{
-		//System.out.println(p.getProjectname());
-		int row_affected =  projectService.insertProject(p);
-		if(row_affected > 0)
-			userService.notifyEachAdmin("admin",p,"Project Added");
-		return row_affected;
+		if(request.getSession()!=null&&request.getSession().getAttribute("role").equals("admin")==true)
+		{
+				int row_affected =  projectService.insertProject(p);
+			if(row_affected > 0)
+				userService.notifyEachAdmin("admin",p,"Project Added");
+			return row_affected;
+		}
+		else
+			return -1;
 	}
 	
 	
 	@RequestMapping(value = "/{id}",method=RequestMethod.PUT,consumes="application/json",produces = "application/json")
 	@ResponseBody
-	public String editProject(@RequestBody Project project,@PathVariable("id") int project_id){
-		Boolean isSuccess = projectService.updateProject(project_id,project);
-		if(isSuccess)
-			userService.notifyEachAdmin("admin",project,"Project Updated");
-		return isSuccess ? "Success" : "Failure";
+	public String editProject(@RequestBody Project project,@PathVariable("id") int project_id,HttpServletRequest request){
+		if(request.getSession()!=null&&request.getSession().getAttribute("role").equals("admin")==true)
+		{
+			Boolean isSuccess = projectService.updateProject(project_id,project);
+			if(isSuccess)
+				userService.notifyEachAdmin("admin",project,"Project Updated");
+			return isSuccess ? "Success" : "Failure";
+		}
+		else
+			return null;
 	}
 	
 	@RequestMapping(value="/bus/{bu_id}",method=RequestMethod.GET,produces="application/json")
 	@ResponseBody
-	public List<Project> getProjectsUnderBU(@PathVariable("bu_id") int buid){
-		BU bu = new BU();
-		bu.setBuid(buid);
-		return projectService.getProjectsUnderBU(bu);
-		
+	public List<Project> getProjectsUnderBU(@PathVariable("bu_id") int buid,HttpServletRequest request){
+		if(request.getSession().getAttribute("set").equals("true")==true)
+		{
+				BU bu = new BU();
+			bu.setBuid(buid);
+			return projectService.getProjectsUnderBU(bu);
+		}
+		else
+			return null;
 	}
 	
 	@RequestMapping(value="/{pid}/sprints",method=RequestMethod.GET,produces="application/json")
 	@ResponseBody
-	public List<Sprint> getSprintsUnderProject(@PathVariable("pid") int pid){
+	public List<Sprint> getSprintsUnderProject(@PathVariable("pid") int pid,HttpServletRequest request){
+		if(request.getSession().getAttribute("set").equals("true")==true)
 		return sprintService.getAllSprints(pid);
+		else
+			return null;
 		
 	}
 	
 	@RequestMapping(value="/{pid}/sprints",method=RequestMethod.POST,consumes = "application/json",produces="application/json")
 	@ResponseBody
-	public String addSprintUnderProject(@RequestBody Sprint sprint,@PathVariable("pid") int pid){
+	public String addSprintUnderProject(@RequestBody Sprint sprint,@PathVariable("pid") int pid,HttpServletRequest request){
+		if(request.getSession()!=null&&request.getSession().getAttribute("role").equals("admin")==true)
 		return sprintService.addSprint(sprint, pid);
+		else
+			return null;
 		
 	}
 	
 	@RequestMapping(value="/{pid}/sprints/{sprintid}",method=RequestMethod.PUT,consumes = "application/json",produces="application/json")
 	@ResponseBody
 	public String updateSprintUnderProject(@RequestBody Sprint sprint,@PathVariable("sprintid") int sprintid,
-			@PathVariable("pid") int pid){
+			@PathVariable("pid") int pid,HttpServletRequest request){
+		if(request.getSession()!=null&&request.getSession().getAttribute("role").equals("admin")==true)
 		return sprintService.updateSprint(sprint, sprintid);
+		else
+			return null;
 		
 	}
 }

@@ -3,6 +3,8 @@ import com.au.proma.model.*;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,9 +21,12 @@ public class RoleController {
 	
 	@RequestMapping(method=RequestMethod.GET,produces="application/json")
 	@ResponseBody
-	public ArrayList<Role> getAllRoles()
+	public ArrayList<Role> getAllRoles(HttpServletRequest request)
 	{
+		if(request.getSession().getAttribute("set").equals("true")==true)
 		return roleService.getAllRoles();
+		else
+			return null;
 	}
 	
 	

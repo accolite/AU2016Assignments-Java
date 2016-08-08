@@ -27,7 +27,7 @@ public class AccountController {
 	@RequestMapping(value="/login",method=RequestMethod.POST, produces="text/plain")
 	@ResponseBody
 	public void  login(@RequestParam("id_token")String token,HttpServletRequest request,HttpServletResponse response){
-		System.out.println("sachin");
+		//System.out.println("sachin");
 		accountservice.login(token,request);
 		
 		try {
@@ -36,10 +36,16 @@ public class AccountController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-			
 		
-		
-		
+	}
+	
+	@RequestMapping(value="/logout",method=RequestMethod.POST, produces="text/plain")
+	@ResponseBody
+	public void  logout(HttpServletRequest request,HttpServletResponse response){
+		//System.out.println("sachin");
+		//accountservice.login(token,request);
+		request.setAttribute("set", "false");
+		request.getSession().invalidate();
 		
 		
 	}

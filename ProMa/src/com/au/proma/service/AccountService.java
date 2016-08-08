@@ -64,6 +64,7 @@ public class AccountService {
 
 		  // Get profile information from payload
 		  String email = payload.getEmail();
+		  
 		  String name=(String)payload.get("name");
 		  User uobj=new User();
 		  uobj.setUseremail(email);
@@ -71,8 +72,12 @@ public class AccountService {
 		  Role role=new Role();
 		  role.setRoleid(2);
 		  uobj.setRole(role);
+		  if(userdao.isEmailPresent(email)==0)
 		  userdao.addUser(uobj);
-		  request.getSession().setAttribute("role","visitor");
+		  
+		  
+		  request.getSession().setAttribute("role",userdao.getRoleFromEmail(email)==1?"admin":"visitor");
+		  request.getSession().setAttribute("set", "true");
 		}
 		}catch(Exception e)
 		{
@@ -82,14 +87,14 @@ public class AccountService {
 		 
 	
 }
-	public String generateCode() {
-		String password = "";
-		SecureRandom random = new SecureRandom();
-		for (int i = 0; i < 8; i++) {
-			password = password + (char) (random.nextInt(26) + 97);
-		}
-		return password;
-	}
+//	public String generateCode() {
+//		String password = "";
+//		SecureRandom random = new SecureRandom();
+//		for (int i = 0; i < 8; i++) {
+//			password = password + (char) (random.nextInt(26) + 97);
+//		}
+//		return password;
+//	}
 
 	
 //	public void sendEmailForPassword(String name,HttpServletRequest request)

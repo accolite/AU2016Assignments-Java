@@ -27,23 +27,26 @@ public class UserDao {
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
-//	public String getPassword(String name)
-//	{
-//		String query ="select userid,userpassword from dbo.users where username='"+name+"'";
-//		return jdbcTemplate.query(query, new ResultSetExtractor< String>() {
-//
-//			public String extractData(ResultSet rs) throws SQLException, DataAccessException {
-//				
-//				
-//				String temp="";
-//				while (rs.next()){
-//				temp=rs.getString("userpassword");
-//				
-//				}
-//				return temp;
-//			}
-//		});
-//	}
+	public Integer isEmailPresent(String email)
+	{
+		String query ="select username from dbo.users where useremail='"+email+"'";
+		return jdbcTemplate.query(query, new ResultSetExtractor< Integer>() {
+
+			public Integer extractData(ResultSet rs) throws SQLException, DataAccessException {
+				
+				
+				String temp="";
+				while (rs.next()){
+				temp=rs.getString("username");
+				
+				}
+				if(temp.length()==0)
+					return 0;
+				else
+					return 1;
+			}
+		});
+	}
 	public int addUser(User uobj)
 	{
 		
