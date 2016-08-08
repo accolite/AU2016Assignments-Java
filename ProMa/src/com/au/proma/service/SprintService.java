@@ -1,6 +1,7 @@
 package com.au.proma.service;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -80,5 +81,22 @@ public class SprintService {
 			return Constants.SUCCESS_MESSAGE;
 		else
 			return Constants.FAILURE_MESSAGE;
+	}
+	
+	public List<Integer> getDataPoints(int projectid){
+		List<Sprint> sprints = getAllSprints(projectid);
+		List<Integer> result = new ArrayList<>();
+		int momentum = 0;
+		result.add(momentum);
+		for (Sprint sprint : sprints) {
+			if(sprint.getColour() == Colour.GREEN){
+				momentum++;
+			}
+			if(sprint.getColour() == Colour.RED){
+				momentum--;
+			}
+			result.add(momentum);
+		}
+		return result;
 	}
 }

@@ -17,7 +17,6 @@ public class BuService {
 	
 	public List<BU> getAllBU(){
 		return buDao.getAllBU();
-		
 	}
 	
 	public int addBU(BU bu){
@@ -34,5 +33,14 @@ public class BuService {
 	
 	public Boolean removeBUHead(BU bu,User user){
 		return buDao.removeBUHead(bu, user);
+	}
+	
+	public BU getBUDetails(int buid){
+		List<BU> allBUs = getAllBU();
+		for (BU bu : allBUs) {
+			if(bu.getBuid()==buid)
+				return bu;
+		}
+		return null;
 	}
 }

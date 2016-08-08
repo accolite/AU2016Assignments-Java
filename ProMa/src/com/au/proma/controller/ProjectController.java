@@ -105,5 +105,11 @@ public class ProjectController {
 		
 	}
 	
+	@RequestMapping(value="/{id}/getDataPoints",method=RequestMethod.GET,produces="application/json")
+	@ResponseBody
+	public List<Integer> getDataPoints(@PathVariable("id") int projectid){
+		return sprintService.getDataPoints(projectid);
+	}
+	
 }
 

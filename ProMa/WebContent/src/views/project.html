@@ -1,20 +1,32 @@
-<div class="jumbotron">
-<h1>Project View</h1>
-	<div class="well">
-		{{projectDetails}}
-	</div>
+<div class="row well">
+<div class="col-md-7">
+	<h1>{{projectDetails.projectname}}</h1>
+		<div class="well">
+			<h3>Project Details</h3>
+			<p>{{projectDetails}}</p>
+			<h3>Sprint Details</h3>
+			<p>{{sprints}}</p>
+		</div>
+	
+		<div class="well">
+			<ul ng-repeat="sprint in sprints">
+				<li> {{sprint.milestone}} </li>
+			</ul>
+		</div>
+	
+		<div class="well">
+			<button type="button" class="btn btn-lg btn-success" data-animation="am-fade-and-scale" data-template-url="src/views/modals/admin-add-sprint-form.html" bs-modal="modal" ng-if="projectDetails.currentSprint == null">Add Sprint
+			</button>
+	
+			<button class="btn btn-danger" ng-click="closeSprint()" ng-if="projectDetails.currentSprint != null">Close Sprint</button>
+		</div>
+</div>
+<div class="col-md-5">
+	<canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options" chart-dataset-override="datasetOverride" chart-click="onClick">
+	 </canvas> 
 
-	<div class="well">
-		<ul ng-repeat="sprint in sprints">
-			<li> {{sprint.milestone}} </li>
-		</ul>
-	</div>
-
-	<div class="well">
-		<button type="button" class="btn btn-lg btn-success" data-animation="am-fade-and-scale" data-template-url="src/views/modals/admin-add-sprint-form.html" bs-modal="modal" ng-if="projectDetails.currentSprint == null">Add Sprint
-		</button>
-
-		<button class="btn btn-danger" ng-click="closeSprint()" ng-if="projectDetails.currentSprint != null">Close Sprint</button>
-	</div>
-
+	 <div class="well">
+	 	{{dataPoints}}
+	 </div>
+</div>
 </div>
