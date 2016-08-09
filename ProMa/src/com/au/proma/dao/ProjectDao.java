@@ -197,4 +197,19 @@ public class ProjectDao {
 				arg0.getInt("resourceworking"), currentSprint,projectStatus, bu,arg0.getInt("completed"));
 		return p;
 	}
+	public int completeProject(Project pobj) {
+		String query = "update dbo.project set completed='1' where projectid=?" ;
+		PreparedStatementCreator psc = new PreparedStatementCreator() {
+			
+			@Override
+			public PreparedStatement createPreparedStatement(Connection arg0) throws SQLException {
+				// TODO Auto-generated method stub
+				PreparedStatement stmt = arg0.prepareStatement(query);
+				stmt.setInt(1, pobj.getProjectid());
+				
+				return stmt;
+			}
+		};
+		return jdbcTemplate.update(psc);
+	}
 }

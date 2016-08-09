@@ -5,8 +5,8 @@
 <script>
 function onSignIn(googleUser) {
 	  var profile = googleUser.getBasicProfile();
-	 var url=profile.getPhotoUrl();
-	 console.log(url);
+	 //var url=profile.getPhotoUrl();
+	 //console.log(url);
 
 	  var id_token = googleUser.getAuthResponse().id_token;
 	  
@@ -35,8 +35,9 @@ function onSignIn(googleUser) {
 <title>Google Sign In</title>
 </head>
 <body>
-
-<div class="g-signin2" data-onsuccess="onSignIn"></div>
-<div id="google"></div>
+<div align="center">
+<b>Project Management System</b>
+<div class="g-signin2" data-onsuccess="onSignIn" data-width="240" data-height="50" theme="dark" data-longtitle="true"></div>
+</div>
 </body>
 </html>
