@@ -72,13 +72,21 @@ angular.module('app', [
 			$scope.admins = response.data;
 		})
 
+		$scope.convertAnAdmin = function(){
+			var admindata = $scope.fields;
+			var convertadminUrl = "rest/users/convertToVisitor";
+			var convertadminpromise = $http.post(convertadminUrl,admindata);			
+			convertadminpromise.then(function(response){
+				$alert({duration:3,container:'#body', content: 'Admin Priviledges Revoked', placement: 'top-right', type: 'success', show: true});
+			})
+		};
 
 		$scope.convertAnUser = function(){
 			var userdata = $scope.fields;
 			var convertUserUrl = "rest/users/convertToAdmin";
 			var convertuserpromise = $http.post(convertUserUrl,userdata);			
 			convertuserpromise.then(function(response){
-				$alert({duration:3,container:'#body', content: 'Wololo', placement: 'top-right', type: 'success', show: true});
+				$alert({duration:3,container:'#body', content: 'Admin Priviledges Granted', placement: 'top-right', type: 'success', show: true});
 				// console.log('User Converted woohoo')
 			})
 		}; 

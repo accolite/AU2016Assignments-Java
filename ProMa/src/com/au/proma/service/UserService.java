@@ -48,4 +48,7 @@ public class UserService {
 		return userDao.convertVisitorToAdmin(user);
 		
 	}
+	public Boolean convertAdminToVisitor(User user){
+		return userDao.convertAdminToVisitor(user);
+	}
 }
