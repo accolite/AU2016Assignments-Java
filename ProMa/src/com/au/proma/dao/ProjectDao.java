@@ -32,7 +32,7 @@ public class ProjectDao {
 
 	@Autowired
 	public JdbcTemplate jdbcTemplate;
-	
+
 	@Autowired
 	public SprintService sprintService;
 
@@ -44,45 +44,18 @@ public class ProjectDao {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
-	public ArrayList<Project> statusOfEveryBU() {
-		String query = "select bu.buid , bu.buname , sprints.completed_date , sprints.startdate , sprints.enddate "
-				+ " from dbo.bu left outer join dbo.project on bu.buid=project.buid left outer join dbo.sprints"
-				+ "	 on project.current_sprint_id = sprints.sprint_id";
-		return jdbcTemplate.query(query, new ResultSetExtractor<ArrayList<Project>>() {
-
-			public ArrayList<Project> extractData(ResultSet rs) throws SQLException, DataAccessException {
-
-				ArrayList<Project> temp = new ArrayList<Project>();
-				while (rs.next()) {
-					Sprint currentSprint = new Sprint();
-					currentSprint.setCompleted_date(rs.getDate("completed_date"));
-					currentSprint.setStartdate(rs.getDate("startdate"));
-					currentSprint.setEnddate(rs.getDate("enddate"));
-					BU bu = new BU();
-					bu.setBuid(rs.getInt("buid"));
-					bu.setBuname(rs.getString("buname"));
-					Project project = new Project();
-					project.setBu(bu);
-					project.setCurrentSprint(currentSprint);
-					if(currentSprint == null || currentSprint.getStartdate() == null || currentSprint.getEnddate() == null)
-						project.setStatus(Colour.BLACK);
-					else
-						project.setStatus(sprintService.getSprintStatus(currentSprint));
-					temp.add(project);
-				}
-				return temp;
-			}
-		});
-	}
 
 	public ArrayList<Project> extractProjectsUnderBU(BU bu) {
-		String query = base_query_for_getting_project + " where bu.buid = "+bu.getBuid();
+		String query = base_query_for_getting_project + " where bu.buid = " + bu.getBuid();
 		return jdbcTemplate.query(query, new ResultSetExtractor<ArrayList<Project>>() {
 
 			public ArrayList<Project> extractData(ResultSet rs) throws SQLException, DataAccessException {
 
 				ArrayList<Project> temp = new ArrayList<Project>();
 				while (rs.next()) {
+					int projectId = rs.getInt("projectid");
+					if(rs.wasNull())
+						temp.add(null);
 					Project project = getProjectFromResultSet(rs);
 					temp.add(project);
 				}
@@ -93,9 +66,9 @@ public class ProjectDao {
 
 	public int updateProject(Project pobj) {
 		String query = "update dbo.project set projectmanagerid=?,resourceworking=?,completed=?,"
-				+ "buid=?,clientid=?,projectname = ?,current_sprint_id = ? where projectid=?" ;
+				+ "buid=?,clientid=?,projectname = ?,current_sprint_id = ? where projectid=?";
 		PreparedStatementCreator psc = new PreparedStatementCreator() {
-			
+
 			@Override
 			public PreparedStatement createPreparedStatement(Connection arg0) throws SQLException {
 				// TODO Auto-generated method stub
@@ -106,8 +79,8 @@ public class ProjectDao {
 				stmt.setInt(4, pobj.getBu().getBuid());
 				stmt.setInt(2, pobj.getResourceworking());
 				stmt.setInt(3, pobj.getCompleted());
-				if(pobj.getCurrentSprint()==null){
-					stmt.setNull(7,java.sql.Types.INTEGER);
+				if (pobj.getCurrentSprint() == null) {
+					stmt.setNull(7, java.sql.Types.INTEGER);
 				} else {
 					stmt.setInt(7, pobj.getCurrentSprint().getSprint_id());
 				}
@@ -122,7 +95,7 @@ public class ProjectDao {
 		String query = "insert into dbo.Project(projectname,clientid,projectmanagerid,buid,resourceworking,completed)"
 				+ "values(?,?,?,?,?,?)";
 		PreparedStatementCreator psc = new PreparedStatementCreator() {
-			
+
 			@Override
 			public PreparedStatement createPreparedStatement(Connection arg0) throws SQLException {
 				// TODO Auto-generated method stub
@@ -157,23 +130,23 @@ public class ProjectDao {
 
 		String sql = base_query_for_getting_project + " where project.projectid = " + projectid;
 
-		List<Project>projects = jdbcTemplate.query(sql, new RowMapper<Project>() {
+		List<Project> projects = jdbcTemplate.query(sql, new RowMapper<Project>() {
 
 			@Override
 			public Project mapRow(ResultSet arg0, int arg1) throws SQLException {
-					return getProjectFromResultSet(arg0);
+				return getProjectFromResultSet(arg0);
 			}
 
 		});
-		
-		if(projects == null || projects.isEmpty())
+
+		if (projects == null || projects.isEmpty())
 			return null;
 		else
 			return projects.get(0);
 	}
-	
-	public int deleteProject(int projectid){
-		String sql = "delete from project where projectid = "+projectid;
+
+	public int deleteProject(int projectid) {
+		String sql = "delete from project where projectid = " + projectid;
 		return jdbcTemplate.update(sql);
 	}
 
@@ -181,20 +154,22 @@ public class ProjectDao {
 		int current_sprint_id = arg0.getInt("current_sprint_id");
 		Colour projectStatus;
 		Sprint currentSprint = null;
-		if(!arg0.wasNull()){
-			currentSprint = new Sprint(current_sprint_id, arg0.getDate("startdate"), arg0.getDate("enddate"),arg0.getString("milestone"),arg0.getDate("completed_date"));
+		if (!arg0.wasNull()) {
+			currentSprint = new Sprint(current_sprint_id, arg0.getDate("startdate"), arg0.getDate("enddate"),
+					arg0.getString("milestone"), arg0.getDate("completed_date"));
 			currentSprint.setColour(sprintService.getSprintStatus(currentSprint));
-		  }
+		}
 		Client client = new Client(arg0.getInt("clientid"), arg0.getString("clientname"));
 		BU bu = new BU(arg0.getInt("buid"), arg0.getString("buname"));
 		Role role = new Role(arg0.getInt("roleid"), arg0.getString("rolename"));
-		User projectManager = new User(arg0.getInt("userid"), arg0.getString("username"), arg0.getString("useremail"), role);
-		if(currentSprint == null)
+		User projectManager = new User(arg0.getInt("userid"), arg0.getString("username"), arg0.getString("useremail"),
+				role);
+		if (currentSprint == null)
 			projectStatus = Colour.BLACK;
 		else
 			projectStatus = currentSprint.getColour();
 		Project p = new Project(arg0.getInt("projectid"), client, arg0.getString("projectname"), projectManager,
-				arg0.getInt("resourceworking"), currentSprint,projectStatus, bu,arg0.getInt("completed"));
+				arg0.getInt("resourceworking"), currentSprint, projectStatus,bu, arg0.getInt("completed"));
 		return p;
 	}
 }
