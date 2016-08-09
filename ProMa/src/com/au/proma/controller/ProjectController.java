@@ -105,12 +105,14 @@ public class ProjectController {
 	
 	@RequestMapping(value="/{pid}/sprints",method=RequestMethod.POST,consumes = "application/json",produces="application/json")
 	@ResponseBody
-	public String addSprintUnderProject(@RequestBody Sprint sprint,@PathVariable("pid") int pid,HttpServletRequest request){
-		if(request.getSession()!=null&&request.getSession().getAttribute("role").equals("admin")==true)
-		return sprintService.addSprint(sprint, pid);
-		else
-			return null;
-		
+	public Boolean addSprintUnderProject(@RequestBody Sprint sprint,@PathVariable("pid") int pid,HttpServletRequest request){
+		if(request.getSession()!=null&&request.getSession().getAttribute("role").equals("admin")==true) {
+			sprintService.addSprint(sprint, pid);
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
 	@RequestMapping(value="/{pid}/sprints/{sprintid}",method=RequestMethod.PUT,consumes = "application/json",produces="application/json")
@@ -125,9 +127,9 @@ public class ProjectController {
 	}
 	
 	@RequestMapping(value="/closeSprint",method=RequestMethod.PUT,produces="application/json")
-	@ResponseBody
-	public String closeCurrentSprintUnderProject(@RequestBody Project project){
-		 return projectService.closeCurrentSprint(project,project.getCurrentSprint());
+	public @ResponseBody Boolean closeCurrentSprintUnderProject(@RequestBody Project project){
+		 projectService.closeCurrentSprint(project,project.getCurrentSprint());
+		 return true;
 		
 	}
 	
@@ -136,6 +138,6 @@ public class ProjectController {
 	public List<Integer> getDataPoints(@PathVariable("id") int projectid){
 		return sprintService.getDataPoints(projectid);
 	}
-	
+
 }
 

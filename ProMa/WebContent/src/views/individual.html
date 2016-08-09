@@ -1,7 +1,7 @@
 <div class="row">
    <div class="col-md-8">
       <table class = "table table-bordered table-striped table-hover">
-         <caption>Projects with {{buname}}</caption>
+         <!-- <caption>Projects with {{buname}}</caption> -->
          
          <thead>
             <tr>
@@ -22,17 +22,21 @@
                   </a>
                </td>
                <td>{{project.projectmanager.username}}</td>
-               <td>{{project.status}}</td>
+               <td class="{{project.status}}">{{project.status}}</td>
                <td>{{project.resourceworking}}</td>
             </tr>
          </tbody>
          
       </table>
    </div>
-   <div class="col-md-3 col-md-offset-1 jumbotron">
+   <div class="col-md-4 well">
       <h2>{{buname}}</h2>
       <span>Headed By</span>
-      {{buDetails}}
+      <ul ng-repeat="head in buDetails.buheads">
+      	<li>{{head.username}}</li>
+      </ul>
+      
+      
    </div>
 
 </div>

@@ -46,6 +46,12 @@ public class AccountController {
 		//accountservice.login(token,request);
 		request.setAttribute("set", "false");
 		request.getSession().invalidate();
+		try {
+			response.sendRedirect("/ProMa");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 	}

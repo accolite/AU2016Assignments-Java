@@ -28,3 +28,24 @@
 .modal-backdrop{
   z-index: 1000 !important;
 }
+
+
+.GREEN {
+  background-color: #23a127;
+  color:white;
+}
+
+.YELLOW {
+  background-color: #ff851b;
+  color:white;
+}
+
+.RED {
+  background-color: #ff4136;
+  color:white;
+}
+
+.BLACK {
+  background-color: #000;
+  color:white;
+}
