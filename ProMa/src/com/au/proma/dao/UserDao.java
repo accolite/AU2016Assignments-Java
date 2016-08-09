@@ -229,10 +229,6 @@ public class UserDao {
 			
 		});
 	}
-	public Boolean convertAdminToUser(User user){
-		String sql = "update dbo.Users set userroleid=2 where userid=" + user.getUserid();
-		return jdbcTemplate.update(sql)==1;
-	}
 	
 	public Boolean convertAdminToVisitor(User user){
 		String sql = "update dbo.Users set userroleid=2 where userid=" + user.getUserid();

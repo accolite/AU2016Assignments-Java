@@ -54,9 +54,8 @@ public class UserService {
 	public List<User> getAllAdmins(){
 		return userDao.getAllVisitors();
 	}
-	public Boolean convertAdminToUser(User user){
-		return userDao.convertAdminToUser(user);
-		
-	}public Boolean convertAdminToVisitor(User user){
+
+	public Boolean convertAdminToVisitor(User user){
 		return userDao.convertAdminToVisitor(user);
-	}}
+	}
+}

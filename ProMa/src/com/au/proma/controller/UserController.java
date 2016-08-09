@@ -75,11 +75,5 @@ public class UserController {
 		else
 			return null;
 	}
-	@RequestMapping(value = "/convertAdminToUser", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-	public @ResponseBody Boolean convertAdminToUser(@RequestBody User user, HttpServletRequest request) {
-		if (request.getSession() != null && request.getSession().getAttribute("role").equals("admin") == true)
-			return userService.convertAdminToUser(user);
-		else
-			return null;
-	}
+
 }
