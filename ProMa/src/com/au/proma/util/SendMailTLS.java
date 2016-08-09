@@ -39,7 +39,7 @@ public class SendMailTLS {
 			message.setRecipients(Message.RecipientType.TO,
 					InternetAddress.parse(userEmail));
 			message.setSubject(msg);
-			String content = "Project Details : "+"\n" + "Project id : "+p.getProjectid() + "\n"
+			String content = "Project Details : "+"\n" 
 					+"Project name : "+p.getProjectname() + "\n"
 					+"Project resource working : "+p.getResourceworking() + "\n"
 					 + "\n";

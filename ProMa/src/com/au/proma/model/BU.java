@@ -10,6 +10,15 @@ public class BU {
 	private int buid;
 	private String buname;
 	List<User> buheads;
+	List<Project>projects;
+	
+	public List<Project> getProjects() {
+		return projects;
+	}
+	public void setProjects(List<Project> projects) {
+		this.projects = projects;
+	}
+
 	public BU(int buid, String buname) {
 		super();
 		this.buid = buid;

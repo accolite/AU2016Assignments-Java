@@ -29,10 +29,9 @@ public class SprintService {
 		Date completed_date = sprint.getCompleted_date();
 		Date startDate = sprint.getStartdate();
 		Date endDate = sprint.getEnddate();
-		double no_of_days_in_sprint = Math.abs(((double) endDate.getTime() - startDate.getTime()) / 86400000);
+		double no_of_days_in_sprint = (((double) endDate.getTime() - startDate.getTime()) / 86400000);
 		if (completed_date != null)
-			no_of_days_paased_after_sprint = Math
-					.abs(((double) completed_date.getTime() - endDate.getTime()) / 86400000);
+			no_of_days_paased_after_sprint = (((double) completed_date.getTime() - endDate.getTime()) / 86400000);
 		else {
 			Date currDate = new Date(Calendar.getInstance().getTime().getTime());
 			if (currDate.after(startDate) && currDate.before(endDate))
