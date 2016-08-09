@@ -17,12 +17,18 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
 
 import com.au.proma.model.BU;
+import com.au.proma.model.Project;
+import com.au.proma.model.Sprint;
 import com.au.proma.model.User;
+import com.au.proma.util.Colour;
 
 @Repository
 public class BuDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;	
+	
+	@Autowired
+	private ProjectDao projectDao;	
 
 	public JdbcTemplate getJdbcTemplate() {
 		return jdbcTemplate;
@@ -33,7 +39,7 @@ public class BuDao {
 	}
 	
 	public List<BU> getAllBU(){
-		String sql = "select * from dbo.Bu B , dbo.Users U , dbo.BuHeads BH where B.buid=BH.buid and U.userid=BH.userid";
+		String sql = "select * from bu left join BuHeads on bu.buid = BuHeads.buid left join Users on BuHeads.userid = Users.userid";
 		return jdbcTemplate.query(sql,new ResultSetExtractor<List<BU>>(){
 
 			@Override
@@ -97,6 +103,15 @@ public class BuDao {
 				ps.setInt(2, user.getUserid());
 			}
 		})==1;
+	}
+
+	public List<BU> statusOfEveryBU() {
+		// TODO Auto-generated method stub
+		List<BU>allBus = getAllBU();
+		for(BU bu : allBus){
+			bu.setProjects(projectDao.extractProjectsUnderBU(bu));
+		}
+		return allBus;
 	}
 	
 }
