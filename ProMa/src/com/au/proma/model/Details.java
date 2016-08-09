@@ -2,12 +2,12 @@ package com.au.proma.model;
 
 public class Details {
 String role;
-Boolean loggedin;
+String loggedin;
 
 public Details() {
 	super();
 }
-public Details(String role, Boolean loggedin) {
+public Details(String role, String loggedin) {
 	super();
 	this.role = role;
 	this.loggedin = loggedin;
@@ -18,10 +18,10 @@ public String getRole() {
 public void setRole(String role) {
 	this.role = role;
 }
-public Boolean getLoggedin() {
+public String getLoggedin() {
 	return loggedin;
 }
-public void setLoggedin(Boolean loggedin) {
+public void setLoggedin(String loggedin) {
 	this.loggedin = loggedin;
 }
 

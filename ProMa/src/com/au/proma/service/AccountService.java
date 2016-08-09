@@ -77,7 +77,7 @@ public class AccountService {
 		  
 		  
 		  request.getSession().setAttribute("role",userdao.getRoleFromEmail(email)==1?"admin":"visitor");
-		  request.getSession().setAttribute("set", true);
+		  request.getSession().setAttribute("set", "true");
 		}
 		}catch(Exception e)
 		{

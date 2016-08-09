@@ -197,7 +197,7 @@ public class UserDao {
 		return jdbcTemplate.update(sql)==1;
 	}
 	public List<User> getAllVisitors(){
-		String sql = "select * from dbo.Users as U where U.userroleid='2'";
+		String sql = "select * from dbo.Users as U where U.userroleid=2";
 		return jdbcTemplate.query(sql, new RowMapper<User>(){
 
 			@Override
@@ -214,7 +214,7 @@ public class UserDao {
 		});
 	}
 	public List<User> getAllAdmins(){
-		String sql = "select * from dbo.Users as U where U.userroleid='1'";
+		String sql = "select * from dbo.Users as U where U.userroleid=1";
 		return jdbcTemplate.query(sql, new RowMapper<User>(){
 
 			@Override

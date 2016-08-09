@@ -28,49 +28,56 @@ angular.module('app', [
 			})
 			.otherwise({redirectTo: '/'});
 	})
-	.controller('overviewController', function($scope,$http,$location,$alert){
+	.controller('overviewController', function($scope,$http,$location,$alert,$timeout,$rootScope){
 		
+		var initO = function(){
+			var url = "rest/projects/status";
+			var promise = $http.get(url);
+			promise.then(function(response){
+				$scope.projects = response.data;
+				col={green:0,yellow:0,red:0,black:0};
+			    $scope.pielabels = ["Red", "Yellow", "Green","Black"];
+	  			for (var i = 0; i < $scope.projects.length; i++) {
+	  				col.green += $scope.projects[i].green;
+	  				col.yellow += $scope.projects[i].yellow;
+	  				col.red += $scope.projects[i].red;
+	  				col.black += $scope.projects[i].black;
+	  			}
+	  			$scope.piedata = [col.red, col.yellow, col.green,col.black];
+	  			$scope.colours =  [ '#e74c3c', '#f39c12','#18bc9c','#000'] ;
+			})		
+			
+			var roleurl = "rest/roles"
+			var rolepromise = $http.get(roleurl);
+			rolepromise.then(function(response){
+				$scope.roles = response.data;
+			})
+			
+			var usersUrl = "rest/users"
+			var usersPromise = $http.get(usersUrl);
+			usersPromise.then(function(response){
+				$scope.users = response.data;
+			})
 
-		var url = "rest/projects/status";
-		var promise = $http.get(url);
-		promise.then(function(response){
-			$scope.projects = response.data;
-			col={green:0,yellow:0,red:0,black:0};
-		    $scope.pielabels = ["Red", "Yellow", "Green","Black"];
-  			for (var i = 0; i < $scope.projects.length; i++) {
-  				col.green += $scope.projects[i].green;
-  				col.yellow += $scope.projects[i].yellow;
-  				col.red += $scope.projects[i].red;
-  				col.black += $scope.projects[i].black;
-  			}
-  			$scope.piedata = [col.red, col.yellow, col.green,col.black];
-  			$scope.colours =  [ '#e74c3c', '#f39c12','#18bc9c','#000'] ;
-		})		
-		
-		var roleurl = "rest/roles"
-		var rolepromise = $http.get(roleurl);
-		rolepromise.then(function(response){
-			$scope.roles = response.data;
-		})
-		
-		var usersUrl = "rest/users"
-		var usersPromise = $http.get(usersUrl);
-		usersPromise.then(function(response){
-			$scope.users = response.data;
-		})
 
+			var visitorsUrl = "rest/users/visitors"
+			var visitorsPromise = $http.get(visitorsUrl);
+			visitorsPromise.then(function(response){
+				$scope.visitors = response.data;
+			})
 
-		var visitorsUrl = "rest/users/visitors"
-		var visitorsPromise = $http.get(visitorsUrl);
-		visitorsPromise.then(function(response){
-			$scope.visitors = response.data;
-		})
+			var adminsUrl = "rest/users/admins"
+			var adminsPromise = $http.get(adminsUrl);
+			adminsPromise.then(function(response){
+				$scope.admins = response.data;
+			})
+			$timeout(function(){
 
-		var adminsUrl = "rest/users/admins"
-		var adminsPromise = $http.get(adminsUrl);
-		adminsPromise.then(function(response){
-			$scope.admins = response.data;
-		})
+				$scope.$apply();
+			})
+
+		}
+		initO();
 
 		$scope.convertAnAdmin = function(){
 			var admindata = $scope.fields;
@@ -78,6 +85,7 @@ angular.module('app', [
 			var convertadminpromise = $http.post(convertadminUrl,admindata);			
 			convertadminpromise.then(function(response){
 				$alert({duration:3,container:'#body', content: 'Admin Priviledges Revoked', placement: 'top-right', type: 'success', show: true});
+				initO();
 			})
 		};
 
@@ -87,6 +95,7 @@ angular.module('app', [
 			var convertuserpromise = $http.post(convertUserUrl,userdata);			
 			convertuserpromise.then(function(response){
 				$alert({duration:3,container:'#body', content: 'Admin Priviledges Granted', placement: 'top-right', type: 'success', show: true});
+				initO();
 				// console.log('User Converted woohoo')
 			})
 		}; 
@@ -98,12 +107,14 @@ angular.module('app', [
 			addBUPromise.then(function(response){
 				console.log(response.data);
 				$alert({duration:3,container:'body', content: 'BU Added', placement: 'top-right', type: 'success', show: true});
+				
+				initO();
 			});
 
 		};
 
 	})
-	.controller('individualController', function($scope,$http,$routeParams,$alert,$modal){
+	.controller('individualController', function($scope,$http,$routeParams,$alert,$modal,$timeout,$rootScope){
 		$scope.buname = $routeParams.buname;
 		
 		var url = "rest/projects/bus/" + $routeParams.buid;
@@ -153,7 +164,7 @@ angular.module('app', [
 			var buHeadURL = "rest/bus/" + $scope.buid + "/buheads"
 			var buHeadPromise = $http.post(buHeadURL,buHead);
 			buHeadPromise.then(function(response){
-				$alert({duration:3,container:'body', content: 'Wohoo Bu Head Added', placement: 'top-right', type: 'success', show: true});
+				$alert({duration:3,container:'body', content: 'Bu Head Added', placement: 'top-right', type: 'success', show: true});
 				console.log("added bu heaad woohoo");
 			})
 		}
@@ -167,7 +178,7 @@ angular.module('app', [
 			})
 		}
 	})
-	.controller('projectController', function($scope,$http,$routeParams,$alert,$modal,$timeout){
+	.controller('projectController', function($scope,$http,$routeParams,$alert,$modal,$timeout,$rootScope){
 		$scope.projectid = $routeParams.projectid;
 		
 		var initP = function(){			
@@ -175,6 +186,7 @@ angular.module('app', [
 			var sprintPromise = $http.get(sprintURL);
 			sprintPromise.then(function(response){
 				$scope.sprints = response.data;
+				$scope.currentSprint = $scope.sprints.splice(-1)[0];
 			})
 			
 			var projectURL = "rest/projects/"+ $scope.projectid;
@@ -191,6 +203,18 @@ angular.module('app', [
 				for (var i = 1; i < $scope.data.length; i++) {
 					$scope.labels.push("Sprint-"+i);
 				}
+			})
+
+			var clientsUrl = "rest/clients"
+			var clientsPromise = $http.get(clientsUrl);
+			clientsPromise.then(function(response){
+				$scope.clients = response.data;
+			})
+
+			var usersUrl = "rest/users"
+			var usersPromise = $http.get(usersUrl);
+			usersPromise.then(function(response){
+				$scope.users = response.data;
 			})
 			$timeout(function(){
 
@@ -220,7 +244,23 @@ angular.module('app', [
 				});
 	
 		}
-		
+
+		$scope.editAProject = function(){
+			var editProjectURL = "rest/projects/" + $scope.projectid;
+			var editProjectDetails = $scope.editfields;
+			var editProjectPromise = $http.put(editProjectURL,editProjectDetails);
+			editProjectPromise.then(function(response){
+				$alert({duration:3,container:'body', content: 'Project Details Edited', placement: 'top-right', type: 'success', show: true});
+			})
+		}
+		$scope.editCurrentSprint = function(){
+			var editSprintURL = "rest/projects/" + $scope.projectid +"/sprints/" + $scope.currentSprint.sprint_id;
+			var editSprintDetails = $scope.editsprintfields;
+			var editSprintPromise = $http.put(editSprintURL,editSprintDetails);
+			editSprintPromise.then(function(response){
+				$alert({duration:3,container:'body', content: 'Current Sprint Edited', placement: 'top-right', type: 'success', show: true});
+			})
+		}
 	  $scope.series = ['Series A'];
 	  // $scope.data = [
 	  //   [65, 59, 80, 81, 56, 55, 40],

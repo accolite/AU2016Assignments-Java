@@ -52,7 +52,7 @@ public class UserService {
 		return userDao.getAllVisitors();
 	}
 	public List<User> getAllAdmins(){
-		return userDao.getAllVisitors();
+		return userDao.getAllAdmins();
 	}
 
 	public Boolean convertAdminToVisitor(User user){

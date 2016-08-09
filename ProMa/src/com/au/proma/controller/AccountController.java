@@ -45,7 +45,7 @@ public class AccountController {
 	public void  logout(HttpServletRequest request,HttpServletResponse response){
 		//System.out.println("sachin");
 		//accountservice.login(token,request);
-		request.setAttribute("set", false);
+		request.setAttribute("set", "false");
 		request.getSession().invalidate();
 		try {
 			response.sendRedirect("/ProMa");
@@ -86,7 +86,7 @@ public class AccountController {
 	@ResponseBody
 	public Details getSessionDetails(HttpServletRequest request)
 	{
-		Details details=new Details(request.getSession().getAttribute("role").toString() , (Boolean)request.getSession().getAttribute("set"));
+		Details details=new Details(request.getSession().getAttribute("role").toString() , request.getSession().getAttribute("set").toString());
 		return details;
 		
 	}
