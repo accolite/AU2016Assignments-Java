@@ -60,13 +60,13 @@ public class ProjectController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = "application/json", produces = "application/json")
 	@ResponseBody
-	public String editProject(@RequestBody Project project, @PathVariable("id") int project_id,
+	public Boolean editProject(@RequestBody Project project, @PathVariable("id") int project_id,
 			HttpServletRequest request) {
 		if (request.getSession() != null && request.getSession().getAttribute("role").equals("admin") == true) {
 			Boolean isSuccess = projectService.updateProject(project_id, project);
 			if (isSuccess)
 				userService.notifyEachAdmin("admin", project, "Project Updated");
-			return isSuccess ? "Success" : "Failure";
+			return isSuccess;
 		} else
 			return null;
 	}
@@ -112,10 +112,12 @@ public class ProjectController {
 
 	@RequestMapping(value = "/{pid}/sprints/{sprintid}", method = RequestMethod.PUT, consumes = "application/json", produces = "application/json")
 	@ResponseBody
-	public String updateSprintUnderProject(@RequestBody Sprint sprint, @PathVariable("sprintid") int sprintid,
+	public Boolean updateSprintUnderProject(@RequestBody Sprint sprint, @PathVariable("sprintid") int sprintid,
 			@PathVariable("pid") int pid, HttpServletRequest request) {
 		if (request.getSession() != null && request.getSession().getAttribute("role").equals("admin") == true)
+			{
 			return sprintService.updateSprint(sprint, sprintid);
+			}
 		else
 			return null;
 

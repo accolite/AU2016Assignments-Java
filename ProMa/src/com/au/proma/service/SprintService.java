@@ -72,14 +72,14 @@ public class SprintService {
 			return Constants.FAILURE_MESSAGE;
 	}
 
-	public String updateSprint(Sprint sprint, int sprintid) {
+	public Boolean updateSprint(Sprint sprint, int sprintid) {
 		// TODO Auto-generated method stub
 		sprint.setSprint_id(sprintid);
 		int no_of_rows_affected = sprintDao.updateSprint(sprint);
 		if (no_of_rows_affected > 0)
-			return Constants.SUCCESS_MESSAGE;
+			return true;
 		else
-			return Constants.FAILURE_MESSAGE;
+			return false;
 	}
 	
 	public List<Integer> getDataPoints(int projectid){

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.au.proma.model.BU;
+import com.au.proma.model.Details;
 import com.au.proma.service.AccountService;
 
 @RequestMapping("/accounts")
@@ -44,7 +45,7 @@ public class AccountController {
 	public void  logout(HttpServletRequest request,HttpServletResponse response){
 		//System.out.println("sachin");
 		//accountservice.login(token,request);
-		request.setAttribute("set", "false");
+		request.setAttribute("set", false);
 		request.getSession().invalidate();
 		try {
 			response.sendRedirect("/ProMa");
@@ -81,5 +82,12 @@ public class AccountController {
 //		return "changed";
 //		
 //	}
-
+	@RequestMapping(value="/getSessionDetails",method=RequestMethod.GET, produces="text/plain")
+	@ResponseBody
+	public Details getSessionDetails(HttpServletRequest request)
+	{
+		Details details=new Details(request.getSession().getAttribute("role").toString() , (Boolean)request.getSession().getAttribute("set"));
+		return details;
+		
+	}
 }
