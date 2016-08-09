@@ -94,8 +94,6 @@ angular.module('app', [
 
 		};
 
-		convertAnAdmin
-
 	})
 	.controller('individualController', function($scope,$http,$routeParams,$alert,$modal){
 		$scope.buname = $routeParams.buname;
