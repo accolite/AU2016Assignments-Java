@@ -82,7 +82,7 @@ public class AccountController {
 //		return "changed";
 //		
 //	}
-	@RequestMapping(value="/getSessionDetails",method=RequestMethod.GET, produces="text/plain")
+	@RequestMapping(value="/getSessionDetails",method=RequestMethod.GET, produces="application/json")
 	@ResponseBody
 	public Details getSessionDetails(HttpServletRequest request)
 	{

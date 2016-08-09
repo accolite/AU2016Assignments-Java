@@ -31,6 +31,12 @@ angular.module('app', [
 	.controller('overviewController', function($scope,$http,$location,$alert,$timeout,$rootScope){
 		
 		var initO = function(){
+			var sessionDetailsURL = "rest/accounts/getSessionDetails";
+			var sessionPromise = $http.get(sessionDetailsURL);
+			sessionPromise.then(function(response){
+				$rootScope.role=response.data.role;
+			})
+
 			var url = "rest/projects/status";
 			var promise = $http.get(url);
 			promise.then(function(response){

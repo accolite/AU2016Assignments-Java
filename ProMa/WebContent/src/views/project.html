@@ -17,6 +17,14 @@
 				</div>
 				<div class="col-md-8">{{projectDetails.client.clientname}}</div>
 			</div>
+
+			<div class="row">
+				<div class="col-md-4" style="text-align: right;">
+					<span>No. of Resources Engaged : </span>
+				</div>
+				<div class="col-md-8">{{projectDetails.resourceworking}}</div>
+			</div>
+
 		</div>
 
 		<table class="table table-bordered table-striped table-hover">
@@ -39,7 +47,6 @@
 					<td>{{sprint.enddate}}</td>
 					<td class="{{sprint.colour}}">{{sprint.colour}}</td>
 				</tr>
-
 				<tr	ng-class="sprint.completed_date==null ? 'info' : ''">
 					<td>{{currentSprint.milestone}}</td>
 					<td>{{currentSprint.startdate}}</td>
@@ -60,23 +67,25 @@
 			chart-dataset-override="datasetOverride" chart-click="onClick">
 	 </canvas>
 
-		<div class="row" ng-if="projectDetails.completed == 0">
-			<button type="button" class="btn btn btn-success"
-				data-animation="am-fade-and-scale"
-				data-template-url="src/views/modals/admin-add-sprint-form.html"
-				bs-modal="modal" ng-if="projectDetails.currentSprint == null">Start a <br> new
-				Sprint</button>
-			
-			<button class="btn btn-danger" ng-click="closeSprint()"
-				ng-if="projectDetails.currentSprint != null">End Current Sprint</button>
-			<button type="button" class="btn btn btn-success"
-				data-animation="am-fade-and-scale"
-				data-template-url="src/views/modals/admin-edit-project-form-modal.html"
-				bs-modal="modal">Edit Project Details</button>
-			<button type="button" class="btn btn btn-success"
-				data-animation="am-fade-and-scale"
-				data-template-url="src/views/modals/admin-edit-sprint-form.html"
-				bs-modal="modal">Edit Current Sprint</button>
-		</div>
+<div class="admin-section" ng-if="role=='admin'">
+	<div class="row" ng-if="projectDetails.completed == 0">
+		<button type="button" class="btn btn btn-success"
+			data-animation="am-fade-and-scale"
+			data-template-url="src/views/modals/admin-add-sprint-form.html"
+			bs-modal="modal" ng-if="projectDetails.currentSprint == null">Start a <br> new
+			Sprint</button>
+		
+		<button class="btn btn-danger" ng-click="closeSprint()"
+			ng-if="projectDetails.currentSprint != null">End Current Sprint</button>
+		<button type="button" class="btn btn btn-success"
+			data-animation="am-fade-and-scale"
+			data-template-url="src/views/modals/admin-edit-project-form-modal.html"
+			bs-modal="modal">Edit Project Details</button>
+		<button type="button" class="btn btn btn-success"
+			data-animation="am-fade-and-scale"
+			data-template-url="src/views/modals/admin-edit-sprint-form.html"
+			bs-modal="modal">Edit Current Sprint</button>
+	</div>
+</div>
 	</div>
 </div>

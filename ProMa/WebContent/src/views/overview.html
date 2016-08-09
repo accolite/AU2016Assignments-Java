@@ -34,11 +34,13 @@
    </div>
 </div>
 
-<button type="button" class="btn btn btn-success" data-animation="am-fade-and-scale" data-template-url="src/views/modals/admin-form-modal.html" bs-modal="modal">Grant Admin Priviledges
-</button>
-
-<button type="button" class="btn btn btn-success" data-animation="am-fade-and-scale" data-template-url="src/views/modals/admin-remove-admin-modal.html" bs-modal="modal">Revoke Admin Priviledges
-</button>
-
-<button type="button" class="btn btn btn-info" data-animation="am-fade-and-scale" data-template-url="src/views/modals/admin-add-bu-form.html" bs-modal="modal">Add a Business Unit
-</button>
+<div class="admin-section" ng-if="role=='admin'">
+   <button type="button" class="btn btn btn-success" data-animation="am-fade-and-scale" data-template-url="src/views/modals/admin-form-modal.html" bs-modal="modal">Grant Admin Priviledges
+   </button>
+   
+   <button type="button" class="btn btn btn-success" data-animation="am-fade-and-scale" data-template-url="src/views/modals/admin-remove-admin-modal.html" bs-modal="modal">Revoke Admin Priviledges
+   </button>
+   
+   <button type="button" class="btn btn btn-info" data-animation="am-fade-and-scale" data-template-url="src/views/modals/admin-add-bu-form.html" bs-modal="modal">Add a Business Unit
+   </button>
+</div>
