@@ -196,6 +196,43 @@ public class UserDao {
 		String sql = "update dbo.Users set userroleid=1 where userid=" + user.getUserid();
 		return jdbcTemplate.update(sql)==1;
 	}
+	public List<User> getAllVisitors(){
+		String sql = "select * from dbo.Users as U where U.userroleid='2'";
+		return jdbcTemplate.query(sql, new RowMapper<User>(){
+
+			@Override
+			public User mapRow(ResultSet rs, int arg1) throws SQLException {
+				
+				User user = new User();
+				user.setUseremail(rs.getString("useremail"));
+				user.setUsername(rs.getString("username"));
+				user.setUserid(rs.getInt("userid"));
+				
+				return user;
+			}
+			
+		});
+	}
+	public List<User> getAllAdmins(){
+		String sql = "select * from dbo.Users as U where U.userroleid='1'";
+		return jdbcTemplate.query(sql, new RowMapper<User>(){
+
+			@Override
+			public User mapRow(ResultSet rs, int arg1) throws SQLException {
+				
+				User user = new User();
+				user.setUseremail(rs.getString("useremail"));
+				user.setUsername(rs.getString("username"));
+				user.setUserid(rs.getInt("userid"));
+				return user;
+			}
+			
+		});
+	}
+	public Boolean convertAdminToUser(User user){
+		String sql = "update dbo.Users set userroleid=2 where userid=" + user.getUserid();
+		return jdbcTemplate.update(sql)==1;
+	}
 	
 	public Boolean convertAdminToVisitor(User user){
 		String sql = "update dbo.Users set userroleid=2 where userid=" + user.getUserid();

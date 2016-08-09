@@ -34,10 +34,10 @@ public class ClientController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST,produces = "application/json")
-	public @ResponseBody String addClient(@RequestBody Client client, HttpServletRequest request) {
+	public @ResponseBody Boolean addClient(@RequestBody Client client, HttpServletRequest request) {
 		if (request.getSession() != null && request.getSession().getAttribute("role").equals("admin") == true) {
 			Boolean isSuccess = clientService.addClient(client);
-			return isSuccess == true ? "Success" : "Failure";
+			return isSuccess;
 		} else
 			return null;
 	}

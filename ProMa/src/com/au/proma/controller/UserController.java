@@ -61,4 +61,25 @@ public class UserController {
 		else
 			return null;
 	}
+	@RequestMapping(value = "/visitors",method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody List<User> getAllVisitors(HttpServletRequest request) {
+		if (request.getSession() != null)
+			return userService.getAllVisitors();
+		else
+			return null;
+	}
+	@RequestMapping(value = "/admins",method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody List<User> getAllAdmins(HttpServletRequest request) {
+		if (request.getSession() != null)
+			return userService.getAllAdmins();
+		else
+			return null;
+	}
+	@RequestMapping(value = "/convertAdminToUser", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	public @ResponseBody Boolean convertAdminToUser(@RequestBody User user, HttpServletRequest request) {
+		if (request.getSession() != null && request.getSession().getAttribute("role").equals("admin") == true)
+			return userService.convertAdminToUser(user);
+		else
+			return null;
+	}
 }
