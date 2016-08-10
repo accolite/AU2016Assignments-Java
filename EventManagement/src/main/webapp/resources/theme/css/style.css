@@ -133,3 +133,24 @@ md-toolbar{
 .icon-actions{
 	margin: 5px 2px;
 }
+
+@media screen and (max-width: 446px) {
+.hidden-custom-xs{
+	display:none;
+}
+.show-custom-xs{
+	display:flex;
+}
+md-nav-item{
+	margin:1px 0px;
+}
+}
+
+@media screen and (min-width: 446px) {
+.hidden-custom-xs{
+	display:flex;
+}
+.show-custom-xs{
+	display:none;
+}
+}
