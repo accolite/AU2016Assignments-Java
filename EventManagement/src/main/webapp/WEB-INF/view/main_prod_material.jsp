@@ -16,6 +16,7 @@ function onLoad() {
     }
 </script>
 
+<!-- Resource URLs -->
 <spring:url value="/resources/css/bootstrap.min.css" var="bootstrapCss" />
 <spring:url value="/resources/css/angular-material.min.css" var="materialCss" />
 <spring:url value="/resources/css/style.css" var="mainCss" />
@@ -41,6 +42,8 @@ function onLoad() {
 
 <spring:url value="/resources/images/event2u2.png" var="logoImage" />
 
+<!-- Style Sheets -->
+
 <link href="${bootstrapCss}" rel="stylesheet" />
 <link href="${materialCss}" rel="stylesheet" />
 
@@ -56,6 +59,7 @@ function onLoad() {
 ng-init="getallevents();usertype='<%= session.getAttribute("type") %>';" 
 style="overflow:scroll" id="mainBody">
 	<div noty-container></div>
+	<!-- Header toolbar -->
 	<md-content> <md-toolbar layout="row"
 		class="custom-tool-bar">
 	<div class="col-md-4 col-xs-6">
@@ -73,11 +77,32 @@ style="overflow:scroll" id="mainBody">
 	
 	</md-toolbar> 
 	
+	<!-- Navigation tool bar -->
 	
 	<md-toolbar class="md-primary md-hue-1" layout="row"
 		style="padding:0px;margin:0px;position:relative;"> 
+		<!-- For large screens -->
 		<md-nav-bar
 		nav-bar-aria-label="navigation links"
+		class="hidden-custom-xs"
+		layout="row"
+		style="margin:auto;margin-left:0"> <md-nav-item
+		name="createEventNav" data-toggle="modal" data-target="#myModal" 
+		ng-if="usertype == 'admin'" 
+		ng-click="clearEvent()">Create
+	Event</md-nav-item> <md-nav-item name="addAdminNav" data-toggle="modal"
+		data-target="#myModal1" 
+		ng-if="usertype == 'admin'"
+		ng-click="clearAdmin()">Add Admin</md-nav-item> 
+		<md-nav-item name="logoutNav" ng-click="logout()" target="_self">Log
+	Out</md-nav-item> 
+	</md-nav-bar> 
+	
+	<!-- For extremely small screens -->
+	<md-nav-bar
+		nav-bar-aria-label="navigation links"
+		class="show-custom-xs"
+		layout="column"
 		style="margin:auto;margin-left:0"> <md-nav-item
 		name="createEventNav" data-toggle="modal" data-target="#myModal" 
 		ng-if="usertype == 'admin'" 
@@ -92,9 +117,10 @@ style="overflow:scroll" id="mainBody">
 	</md-toolbar> 
 	
 	
+	
 	<md-content class="md-padding _md">
 	<section ng-if="events.length>0">
-	
+		<!-- Event Search and list -->
 		<md-content class="col-md-4 col-xs-12">
 		<md-card>
 		<md-card-title class="custom-tool-bar layout-padding">
@@ -118,6 +144,7 @@ style="overflow:scroll" id="mainBody">
 			</div>
 			</div>
 			
+		<!-- Pagination -->
 		<md-card-actions layout="row" class="col-md-12" layout-align="end center" ng-cloak>
 		<md-button class="md-fab md-mini"
 			ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
@@ -132,12 +159,15 @@ style="overflow:scroll" id="mainBody">
 			</md-card>
 			
 		</md-content>
+		
+		<!-- Main content -->
 		<md-content class="col-md-8 col-xs-12">
 
 
 			<md-card> 
 			<md-card-title class="custom-tool-bar padding-less">
-			<md-card-title-text layout="row">
+			<!-- For large screens -->
+			<md-card-title-text class="hidden-custom-xs" layout="row">
 				<div class="form-group col-md-7 col-xs-4">
 					<h3 ng-if="!view" ng-cloak>{{events[global.flag].event.name}}</h3>
 					<md-input-container ng-if="view" class="col-md-6 col-xs-12 padding-less"> <label>Event Name</label>
@@ -190,8 +220,66 @@ style="overflow:scroll" id="mainBody">
 			</md-button>
 			
 				</div>
+			</md-card-title-text>
+			
+			<!-- For extremely small screens -->
+			<md-card-title-text class="show-custom-xs" layout="column">
+				<div class="form-group col-xs-12" layout-align="center center">
+					<h3 ng-if="!view" ng-cloak>{{events[global.flag].event.name}}</h3>
+					<md-input-container ng-if="view" class="col-md-6 col-xs-12 padding-less"> <label>Event Name</label>
+					<input ng-model="events[global.flag].event.name" required> </md-input-container>
+				</div>
+				<div class="col-xs-12" layout="row" layout-align="center center" style="margin-top:10px">
+			
+			<md-button
+			data-toggle="modal" data-target="#myModalParticipants" 
+			ng-click="getAllParticipants(events[global.flag].event._id)"
+			class="md-fab md-mini"
+			style="background-color:#31b0d5; border:1px solid #269abc"
+			ng-if="!view"
+			> <i class="material-icons icon-actions">group</i>
+			<md-tooltip md-visible="demo.showTooltip" md-direction="Bottom">
+            Get all participants
+          </md-tooltip>
+			</md-button>
+			
+			<md-button
+			data-toggle="modal" data-target="#myModalLeaderboard" 
+			ng-click="getallgroups()"
+			class="md-fab md-mini"
+			style="background-color:#31b0d5; border:1px solid #269abc"
+			ng-if="!view"
+			> <i class="material-icons icon-actions">grade</i>
+			<md-tooltip md-visible="demo.showTooltip" md-direction="Bottom">
+            Leaderboard
+          </md-tooltip>
+			</md-button>
+					
+			<md-button 
+			ng-click="editmode()"
+			class="md-fab md-mini"
+			ng-if="(usertype == 'admin' || Organizer[global.flag]) &&  !view"
+			> <i class="material-icons icon-actions">mode_edit</i>
+			<md-tooltip md-visible="demo.showTooltip" md-direction="Bottom">
+            Edit Event
+          </md-tooltip>
+			</md-button>
+					
+			<md-button 
+			data-toggle="modal" data-target="#myModal4"
+			class="md-fab md-mini md-warn"
+			ng-if="!view && usertype == 'admin'"
+			> <i class="material-icons icon-actions">delete</i>
+			<md-tooltip md-visible="demo.showTooltip" md-direction="Bottom">
+            Delete Event
+          </md-tooltip>
+			</md-button>
+			
+				</div>
 			</md-card-title-text> 
 			</md-card-title> 
+			
+			<!-- Event main content -->
 			<md-content layout-align="space-between" class="layout-padding">
 			<div>
 				<form>
@@ -300,6 +388,8 @@ style="overflow:scroll" id="mainBody">
 		</md-card>
 	</md-content>
 	</section>
+	
+	<!-- No events condition -->
 	<section ng-if="events.length==0" style="">
 		<md-card class="col-md-6 col-xs-12" style="margin:0 auto">
         <md-card-title>
@@ -330,7 +420,7 @@ style="overflow:scroll" id="mainBody">
 
 
 
-
+	<!-- New event -->
 
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
@@ -416,7 +506,7 @@ style="overflow:scroll" id="mainBody">
 			</div>
 		</div>
 
-
+		<!-- Add admin dialog -->
 		<div class="modal fade" id="myModal1" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
@@ -447,7 +537,8 @@ style="overflow:scroll" id="mainBody">
 			</div>
 		</div>
 	</div>
-
+	
+	<!-- Add participant details dialog -->
 	<div class="modal fade" id="myModal2" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
@@ -501,6 +592,7 @@ style="overflow:scroll" id="mainBody">
 	</div>
 </div>
 
+<!-- Add points dialog -->
 <div class="modal fade" id="myModal3" tabindex="-1" role="dialog"
 aria-labelledby="myModalLabel" aria-hidden="true">
 <div class="modal-dialog" role="document">
@@ -542,6 +634,7 @@ aria-labelledby="myModalLabel" aria-hidden="true">
 </div>
 </div>
 
+<!-- All participants of event -->
 <div class="modal fade" id="myModalParticipants" tabindex="-1" role="dialog"
 aria-labelledby="myModalLabel" aria-hidden="true">
 <div class="modal-dialog" role="document">
@@ -575,6 +668,7 @@ aria-labelledby="myModalLabel" aria-hidden="true">
 </div>
 </div>
 
+<!-- Leaderboard dialog -->
 <div class="modal fade" id="myModalLeaderboard" tabindex="-1" role="dialog"
 aria-labelledby="myModalLabel" aria-hidden="true">
 <div class="modal-dialog" role="document">
@@ -608,6 +702,8 @@ aria-labelledby="myModalLabel" aria-hidden="true">
 </div>
 </div>
 
+
+<!-- Delete confirmation dialog -->
 <div class="modal fade" id="myModal4" tabindex="-1" role="dialog"
 aria-labelledby="myModalLabel" aria-hidden="true">
 <div class="modal-dialog" role="document">
@@ -636,7 +732,7 @@ aria-labelledby="myModalLabel" aria-hidden="true">
 
 
 
-
+<!-- Scripts to add -->
 
 <script src="${jqueryJs}"></script>
 <script src="${angularJs}"></script>
