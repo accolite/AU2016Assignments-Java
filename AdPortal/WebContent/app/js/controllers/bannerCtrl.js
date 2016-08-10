@@ -42,10 +42,12 @@ app.controller("bannerCtrl",['$scope', '$route', 'BannerService', '$window', '$l
       
      $rootScope.$on('$locationChangeStart', function(event, next, current) {
 		 var nextRoute = $route.routes[$location.path()];
-		 if(nextRoute.adminOnly && !$localStorage.isAdmin){
+         if(!$localStorage.isAdmin){
+		 if(nextRoute.adminOnly){
 			 event.preventDefault();
 			 $location.path('/AdPortal/');
 		 }
+     }
         if(nextRoute.notForBlacklisted && $localStorage.isBlacklisted){
 			 event.preventDefault();
 			 $location.path('/AdPortal/');

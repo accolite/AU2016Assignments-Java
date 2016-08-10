@@ -1,5 +1,4 @@
-
-<div ng-controller="homeCtrl">
+<!--<div ng-controller="homeCtrl">
 
 		<div class="col-md-12 col-sm-12 col-lg-12">
 			
@@ -54,10 +53,8 @@
             
 			<div class="col-md-8 col-sm-8 col-lg-8">
 				<div ng-repeat="post in posts">
-					<div class="col-md-6 col-sm-6 col-lg-6"style="float:left">
-						<min-post post=post></min-post></div>
-					</div>
-				</div>
+                    <min-post post = post> </min-post>
+                </div>
 				<div class="col-md-1"></div>
 			</div>
 
@@ -74,6 +71,80 @@
 	</a>
 </div>
 
+    <a href="#/new"><button style="position: fixed; right: 5%; bottom: 5%;"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add new </button></a>
+
+</div>-->
+
+
+<div ng-controller="homeCtrl" >
+
+		<div class="col-md-12 col-sm-12 col-lg-12" >
+			
+            
+    <div class="col-md-2">
+
+            <div class="bootstrap-vertical-nav bg-fade ver-nav">
+
+                <nav class="navbar navbar-light  ver-navbar">
+                   
+                    <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
+                        <a class="navbar-brand" href="#">Search</a>
+                            <div class="form-group">
+    <input type="text" class="form-control tex" ng-model="title" placeholder="search for title">
+  
+                    <div>
+
+                        <input type="text" class="form-control tex" placeholder="Category" ng-model= 'filtercategoryname' uib-typeahead="cat.categoryname for cat in categories | filter:$viewValue | limitTo:5" typeahead-editable="false" typeahead-input-formatter="formatCat($model)" />
+                        </div>
+                        <div>
+                        <input type="text" class="form-control tex" placeholder="Location" ng-model= 'filterlocationname' uib-typeahead="loc.locationname for loc in locations | filter:$viewValue | limitTo:5" typeahead-editable="false" typeahead-input-formatter="formatLoc($model)" />
+                        </div>
+                        
+                       <div style="color:black; margin-top:5px;"> 	Price range: <rzslider class="slider " 
+						rz-slider-model="min" rz-slider-high="max"
+						rz-slider-options="sliderOptions"></rzslider>
+                        </div>
+                       
+                        <div><a ng-click="getAllPosts()" class="btn btn-circle  btn-default page-scroll">
+                            <i class="fa fa-search" aria-hidden="true" data-trigger="hover" data-type="success" data-title="Search" bs-tooltip></i>
+                            </a> 
+                            <a ng-click="reset()" class="btn btn-circle  btn-default page-scroll"><i class="fa fa-refresh" aria-hidden="true" data-trigger="hover" data-type="success" data-title="Reset" bs-tooltip></i>
+</a></div>
+                         
+                        
+
+                    </div>
+                
+
+            </div>
+                    </nav>
+
+        </div>
+        </div>
+            
+            
+            
+            
+            
+            
+			<div class="col-md-9 col-sm-9 col-lg-9">
+                
+
+				<div ng-repeat="post in posts">
+<!--					<div class="col-md-6 col-sm-6 col-lg-6" style="float:left">-->
+						<min-post post=post></min-post>
+					</div>
+				</div>
+            <div class="col-md-1" ng-if="!$storage.isBlacklisted" style="position: fixed; right: 0%; bottom: 40px;">
+	<a href="#/new"> <i class="fa fa-plus" aria-hidden="true" data-trigger="hover" data-type="success" data-title="Add new post" bs-tooltip >
+	</i>
+	</a>
+</div>
+			</div>
+
+		</div>
+	
+
+
 <!--    <a href="#/new"><button style="position: fixed; right: 5%; bottom: 5%;"> <i class="fa fa-plus-circle" aria-hidden="true"></i>Add new </button></a>-->
 
-</div>

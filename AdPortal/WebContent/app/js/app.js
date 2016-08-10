@@ -1,6 +1,6 @@
 "use strict";
 
-var app = angular.module("adportal",['ngRoute', 'ngAnimate', 'mgcrea.ngStrap' , 'rzModule', 'ngStorage']);
+var app = angular.module("adportal",['ngRoute', 'ngAnimate', 'mgcrea.ngStrap' , 'rzModule', 'ngStorage', 'ui.bootstrap','ngFileUpload']);
 
 
 app.config(['$routeProvider',function($routeProvider){

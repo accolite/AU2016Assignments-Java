@@ -1,4 +1,6 @@
 package com.au.adportal.controller;
+import java.io.File;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.au.adportal.dao.DaoInterface;
 import com.au.adportal.model.Category;
@@ -33,6 +36,7 @@ import com.au.adportal.model.Post;
 import com.au.adportal.model.User;
 import com.au.adportal.service.ServiceInterface;
 import com.au.adportal.util.Role;
+import com.au.adportal.util.Status;
 import com.au.adportal.viewmodel.ViewPost;
 
 @SpringBootApplication
@@ -42,6 +46,7 @@ import com.au.adportal.viewmodel.ViewPost;
 @Configuration
 @EnableAsync
 public class AdPortalController extends SpringBootServletInitializer {
+	private static final String IMG_FOLDER = "D:\\Project\\AdPortal\\WebContent\\app\\img\\";
 	@Autowired
 	ServiceInterface service;
 	@Autowired
@@ -113,21 +118,77 @@ public class AdPortalController extends SpringBootServletInitializer {
 		return (service.createCategory(current_user, category));
 	}
 
-	@RequestMapping(value = "/addpost", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+	/*@RequestMapping(value = "/addpost", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
 	public @ResponseBody String addPost(@RequestBody Post post) {
 		return ""+(service.addPost(current_user, post));
-	}
-
-	@RequestMapping(value = "/getallposts", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	}*/
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/addpost")
+	 public String handleFileUpload(@RequestParam(value="file", required = false) MultipartFile file,@RequestParam(value = "title") String title,
+	   @RequestParam(value = "category") Integer categoryId,@RequestParam(value = "location") Integer locationId,
+	   @RequestParam(value = "description") String description,@RequestParam(value = "price", required=false) Integer price) {
+	  if(price == null)
+		  price = 0;
+	  Post post=new Post(price,title,description,locationId,Status.NEW,categoryId);
+	  
+	  int postid = service.addPost(current_user, post);
+	  
+	  if(postid!=-1 && file != null){
+	   
+	   File newFile = new File(IMG_FOLDER+"post_"+postid+"\\"+file.getOriginalFilename());
+	   System.out.println(newFile.getPath());
+	   if(newFile.getParent() != null)
+	    newFile.getParentFile().mkdirs();
+	   try {
+	    file.transferTo(newFile);
+	    System.out.println("File stored at "+newFile.getAbsolutePath()+newFile.getName());     
+	   } catch (IOException e) {
+	    System.out.println("File creation exception");
+	    e.printStackTrace();
+	   }
+	   return postid+"";
+	  }
+	  return "";
+	 }
+	
+	/*@RequestMapping(value = "/getallposts", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ArrayList<ViewPost> getAllPosts(@RequestParam(value = "title",required=false) String title,
 			@RequestParam(value = "location", required=false) Integer locationId, @RequestParam(value = "minPrice",required=false) Integer minPrice,
 			@RequestParam(value = "maxPrice", required=false) Integer maxPrice, @RequestParam(value = "category",required=false) Integer categoryId) {
 		return (service.getAllPosts(current_user, title, locationId, minPrice, maxPrice, categoryId));
-	}
-
+	}*/
+	
+	@RequestMapping(value = "/getallposts", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	 public @ResponseBody ArrayList<ViewPost> getAllPosts(@RequestParam(value = "title",required=false) String title,
+	   @RequestParam(value = "location", required=false) Integer locationId, @RequestParam(value = "minPrice",required=false) Integer minPrice,
+	   @RequestParam(value = "maxPrice", required=false) Integer maxPrice, @RequestParam(value = "category",required=false) Integer categoryId) {
+	  
+	  ArrayList<ViewPost> posts = service.getAllPosts(current_user, title, locationId, minPrice, maxPrice, categoryId); 
+	  if(posts != null){
+	   System.out.println("Posts not null");
+	   for(ViewPost post:posts){
+		    System.out.println("post "+post.getPostid());
+		    File newFile = new File(IMG_FOLDER+"post_"+post.getPostid()+"\\");
+		    ArrayList<String> images = new ArrayList<>();
+		    if(newFile.exists()){
+		     System.out.println(newFile.getAbsolutePath());
+		     for(File child: newFile.listFiles()){
+		      images.add("img/post_"+post.getPostid()+"/"+child.getName());
+		      System.out.println("img/post_"+post.getPostid()+"/"+child.getName());
+		     }
+		    }
+		    else{
+		     images.add("img/NoImageAvailable.jpg");
+		    }
+		    post.setImages(images);
+		   }
+	  }
+	  return posts;
+	 }
+	
 	@RequestMapping(value = "/editpost", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
 	public @ResponseBody String editPost(@RequestBody Post post) {
-		
+		System.out.println(post.toString());
 		return (service.editPost(current_user, post)+"");
 		
 	}
@@ -198,6 +259,7 @@ public class AdPortalController extends SpringBootServletInitializer {
 	}
 	@RequestMapping(value = "/unsubscribe", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody boolean unsubscribe(@RequestBody Integer categoryid) {
+		System.out.println("catid"+categoryid);
 		return service.unsubscribe(current_user, categoryid);
 	}
 	@RequestMapping(value = "/getsubscribedcategories", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -218,7 +280,34 @@ public class AdPortalController extends SpringBootServletInitializer {
 	 public @ResponseBody List<User> getAllUsers() {
 	  return service.getAllUsers(current_user);
 	 }
-	 
+	 @RequestMapping(value = "/getuserposts", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ArrayList<ViewPost> getUserPosts() {
+		 ArrayList<ViewPost> posts = service.getUsersPosts(current_user); 
+		  if(posts != null){
+		   System.out.println("Posts not null");
+		   for(ViewPost post:posts){
+			    System.out.println("post "+post.getPostid());
+			    File newFile = new File(IMG_FOLDER+"post_"+post.getPostid()+"\\");
+			    ArrayList<String> images = new ArrayList<>();
+			    if(newFile.exists()){
+			     System.out.println(newFile.getAbsolutePath());
+			     for(File child: newFile.listFiles()){
+			      images.add("img/post_"+post.getPostid()+"/"+child.getName());
+			      System.out.println("img/post_"+post.getPostid()+"/"+child.getName());
+			     }
+			    }
+			    else{
+			     images.add("img/NoImageAvailable.jpg");
+			    }
+			    post.setImages(images);
+			   }
+		  }
+		  return posts;
+	}
+	 @RequestMapping(value = "/setstatussold", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+		public @ResponseBody boolean setStatusSold(@RequestParam(value = "postid") Integer postId) {
+			return (service.setStatusSold(current_user,postId));
+		}
 	public static void main(String[] args) {
 		SpringApplication.run(AdPortalController.class, args);
 	}

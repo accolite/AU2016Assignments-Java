@@ -1,15 +1,33 @@
 app.controller("profileCtrl", ['$scope','$location','$localStorage', '$window','ProfileService','$filter', function ($scope, $location, $localStorage, $window, ProfileService,$filter) {
+    $scope.statusname=["Open","Closed","Deleted"];
+    console.log($scope.statusname[0]);
     $scope.$storage = $localStorage;
     $scope.newMobile = "";
+    $scope.subscribedcategories = [];
+    $scope.unsubscribedcategories=[];
+    $scope.unsubcategoryid="";
+    $scope.subcategoryid="";
+    $scope.categories=[];
 //    
+    
+    $scope.flag = [1,0,0,0];
+    $scope.loaddiv = function(index) {
+      for(var i = 0; i < 4; i++) {
+        if(i == index) {
+          $scope.flag[i] = 1;
+        } else {
+          $scope.flag[i] = 0;
+        }
+      }
+    }
      $scope.getCategories = function(){
           ProfileService.getCategories().
            then(
             function(successResponse){
                 $scope.categories=successResponse.data;
                 $scope.unsubscribedcategories = $scope.categories.filter(function(cat1) {
-                  for (var i in $scope.subscribedCategories) {
-                    if (cat1.categoryid === $scope.subscribedCategories[i].categoryid) { return false; }
+                  for (var i in $scope.subscribedcategories) {
+                    if (cat1.categoryid === $scope.subscribedcategories[i].categoryid) { return false; }
                   };
                   return true;
                 });
@@ -23,16 +41,16 @@ app.controller("profileCtrl", ['$scope','$location','$localStorage', '$window','
           ProfileService.getSubscribedCategories().
            then(
             function(successResponse){
-                $scope.subscribedCategories=successResponse.data;
+                $scope.subscribedcategories=successResponse.data;
                 $scope.unsubscribedcategories = $scope.categories.filter(function(cat1) {
-                  for (var i in $scope.subscribedCategories) {
-                    if (cat1.categoryid === $scope.subscribedCategories[i].categoryid) { return false; }
+                  for (var i in $scope.subscribedcategories) {
+                    if (cat1.categoryid === $scope.subscribedcategories[i].categoryid) { return false; }
                   };
                   return true;
                 });
             },
             function(errorResponse){
-                $scope.subscribedCategories=undefined;
+                $scope.subscribedcategories=undefined;
             });
      };
     
@@ -48,8 +66,8 @@ app.controller("profileCtrl", ['$scope','$location','$localStorage', '$window','
         );
     };
     
-    $scope.subscribe = function(categoryid){
-        ProfileService.subscribe(categoryid).then(
+    $scope.subscribe = function(){
+        ProfileService.subscribe($scope.subcategoryid).then(
             function(successResponse){
                 $window.location.reload();
             },
@@ -59,8 +77,8 @@ app.controller("profileCtrl", ['$scope','$location','$localStorage', '$window','
         );
     }
     
-    $scope.unsubscribe = function(categoryid){
-       ProfileService.unsubscribe(categoryid).then(
+    $scope.unsubscribe = function(){
+       ProfileService.unsubscribe($scope.unsubcategoryid).then(
             function(successResponse){
                 $window.location.reload();
             },
@@ -69,9 +87,54 @@ app.controller("profileCtrl", ['$scope','$location','$localStorage', '$window','
             }
         );
     }
-    
+    $scope.getUserPosts =function(){ 
+     
+  ProfileService.getUserPosts().
+   then(
+    function(successResponse){
+     $scope.posts=successResponse.data;
+        console.log($scope.posts);
+    },
+    function(errorResponse){
+     $scope.posts=undefined;
+    }
+    );
+ }
+    $scope.deletepostbyid=function(postid){
+  ProfileService.deletepostbyid(postid).
+    then(
+     function(successResponse){
+      $window.location.href="/AdPortal/app/";
+     },
+     //please change it
+     function(errorResponse){
+      $window.location.href="/AdPortal/app/";
+     }
+     );
+ };
+
+      $scope.formatUnsubCat = function(model) {
+          console.log(model);
+      for (var i=0; i< $scope.subscribedcategories.length; i++) {
+         if (model === $scope.subscribedcategories[i].categoryname) {
+           $scope.unsubcategoryid = $scope.subscribedcategories[i].categoryid;
+           return model;
+         }
+       }
+};
+     $scope.formatSubCat = function(model) {
+          console.log(model);
+      for (var i=0; i< $scope.unsubscribedcategories.length; i++) {
+         if (model === $scope.unsubscribedcategories[i].categoryname) {
+           $scope.subcategoryid = $scope.unsubscribedcategories[i].categoryid;
+           return model;
+         }
+       }
+};
+
     
     $scope.getSubscribedCategories();
     $scope.getCategories();
+    $scope.getUserPosts();
     
 }]);

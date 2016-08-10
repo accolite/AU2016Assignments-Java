@@ -2,11 +2,12 @@
 <html lang="en" ng-app="adportal">
 <head>
   <meta charset="utf-8">
-  <title>Angular Workshop</title>
+  <title>Ad Portal</title>
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" href="bower_components/angularjs-slider/dist/rzslider.css">
   <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css">
     <link rel="stylesheet" href="bower_components/angular-motion/dist/angular-motion.css">
+    <link rel="stylesheet" href="bower_components/angular-bootstrap/ui-bootstrap-csp.css">
   <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css" integrity="sha384-MIwDKRSSImVFAZCVLtU0LMDdON6KVCrZHyVQQj6e8wIEJkW4tvwqXrbMIya1vriY" crossorigin="anonymous">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css" integrity="sha384-MIwDKRSSImVFAZCVLtU0LMDdON6KVCrZHyVQQj6e8wIEJkW4tvwqXrbMIya1vriY" crossorigin="anonymous">
@@ -19,7 +20,7 @@
     
 </head>
 
-<body ng-cloak class="body-min-post"> 
+<body ng-cloak class="body-min-post" background="img/front6.jpg" style="background-attachment:fixed"> 
 
 <div ng-controller="bannerCtrl">
     <div ng-include src="banner.src"></div>
@@ -30,7 +31,11 @@
 
     <div ng-view></div>
   
-
+<footer class="footer" style="position: fixed; bottom: 0; height: 30px; width:100%; background-color: black;">
+      <div class="container">
+        <p class="text-muted">© All rights reserved 2016. Accolite, Inc.</p>
+      </div>
+</footer>
 
   <script src="bower_components/jquery/dist/jquery.js"></script>
   <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
@@ -45,7 +50,8 @@
   <script src="bower_components/angular-strap/dist/angular-strap.tpl.js"></script>
   <script src="bower_components/angularjs-slider/dist/rzslider.js"></script>
 <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
-
+<script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
+    <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
   <script src="js/app.js"></script>
   <script src="js/controllers/bannerCtrl.js"></script>
   <script src="js/controllers/homeCtrl.js"></script>

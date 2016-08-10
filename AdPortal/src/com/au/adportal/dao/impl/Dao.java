@@ -19,6 +19,7 @@ import com.au.adportal.model.Subscription;
 import com.au.adportal.model.User;
 import com.au.adportal.util.Role;
 import com.au.adportal.util.Status;
+import com.au.adportal.viewmodel.ViewPost;
 
 @Repository
 public class Dao implements DaoInterface{
@@ -134,7 +135,8 @@ public class Dao implements DaoInterface{
 			System.out.println(post.toString()+"\n"+post1.toString());
 			post1.setDescription(post.getDescription());
 			post1.setLocation(post.getLocation());
-//			post1.setStatus(post.getStatus());
+			post1.setCategory(post.getCategory());
+			post1.setStatus(post.getStatus());
 			post1.setTitle(post.getTitle());
 			returnval = post1.getPostid();
 		}
@@ -165,6 +167,8 @@ public class Dao implements DaoInterface{
 		hquery += " AND p.status != "+Status.DELETED;
 		hquery += " AND p.status != "+Status.SOLD;
 		
+		hquery+=" order by p.postid desc";
+		
 		System.out.println("Query to execute: "+hquery);
 		
 		ArrayList<Post> posts = (ArrayList<Post>)entityManager.createQuery(hquery).setParameter("titleStr", "%"+title+"%").getResultList();
@@ -177,7 +181,6 @@ public class Dao implements DaoInterface{
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 	@Override
 	@Transactional
 	public ArrayList<Category> getCategories() {
@@ -202,9 +205,11 @@ public class Dao implements DaoInterface{
 	@Transactional
 	public Post getPost(int postId) {
 		Post post = entityManager.find(Post.class, postId);
-		return post;
+		if(post.getStatus()==Status.NEW)
+			return post;
+		return null;
 	}
-
+	
 	@Override
 	@Transactional
 	public boolean createCategory(String category) {
@@ -235,7 +240,9 @@ public class Dao implements DaoInterface{
 		}
 		return categoryName;
 	}
-
+	
+	
+	
 	@Override
 	@Transactional
 	public String getLocationName(int locationid) {
@@ -333,9 +340,11 @@ public class Dao implements DaoInterface{
 	public boolean unsubscribe(String userid, Integer categoryid) {
 		boolean result = false;
 		try{
+			System.out.println("dao");
 			String hquery = "FROM Subscription s WHERE s.userid='"+userid+"' AND s.categoryid="+categoryid;
 			Subscription s = (Subscription) entityManager.createQuery(hquery).getSingleResult();
 			entityManager.remove(s);
+			System.out.println("removed");
 			result = true;
 		}
 		catch(Exception e){
@@ -409,5 +418,28 @@ public class Dao implements DaoInterface{
 	  List<User> allUsers = (ArrayList<User>)entityManager.createQuery(hquery).getResultList();
 	  return allUsers;
 	 }
+	@Override
+	public ArrayList<Post> getUserPosts(String id) {
+		// TODO Auto-generated method stub
+		String hquery = "FROM Post p where p.userid='"+id+"' order by p.postid desc"; 
+		 ArrayList<Post> userPosts = (ArrayList<Post>)entityManager.createQuery(hquery).getResultList();
+		return userPosts;
+		//return null;
+	}
+	
+	@Override
+	public boolean setStatusSold(Integer postId) {
+		// TODO Auto-generated method stub
+		try{
+			Post p = entityManager.find(Post.class, postId);
+			p.setStatus(Status.SOLD);
+			return true;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
 
 }

@@ -1,5 +1,7 @@
 app.controller("editCtrl", ['$scope','$routeParams','editService', '$window',function ($scope,$routeparams,editService,$window) {
 	$scope.getPost = function(){
+        $scope.categories=[];
+        $scope.locations=[];
 		$scope.postid=$routeparams.pid;
 		  editService.getPost($scope.postid).
 		   then(
@@ -22,6 +24,7 @@ app.controller("editCtrl", ['$scope','$routeParams','editService', '$window',fun
 		 
     $scope.fill = function(){
     	$scope.getPost();
+        
     }
     
     $scope.getCategories = function(){
@@ -49,11 +52,20 @@ app.controller("editCtrl", ['$scope','$routeParams','editService', '$window',fun
     
     //change status it is static integrated later
     $scope.submit=function(){
+        console.log("status is "+$scope.newstatus);
+        var stat;
+        if($scope.newstatus!=null&&$scope.newstatus){
+            stat=2;
+        }
+        else{
+            stat=1;
+        }
+        console.log("stat is "+stat);
     	editService.editPost($scope.postid,$scope.title,
         $scope.category,
         $scope.location,
         $scope.description,
-        $scope.price,0).then(
+        $scope.price,stat).then(
     		    function(successResponse){
     			     $window.location.href="/AdPortal/app/";
     			    },
@@ -61,7 +73,9 @@ app.controller("editCtrl", ['$scope','$routeParams','editService', '$window',fun
     			     $window.location.href="/AdPortal/app/";
     			    }
     			    );
+        
     }
+   
     $scope.getCategories();
     $scope.getLocations();
     $scope.fill();

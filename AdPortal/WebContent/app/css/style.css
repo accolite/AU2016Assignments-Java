@@ -1,6 +1,10 @@
-.fa-plus-circle {
-  color: dodgerblue;
-  font-size: 4em;
+.fa-plus {
+  color:black ;
+  font-size: 3em;
+}
+.fa-search,.fa-refresh, .fa-envelope, .fa-pencil-square-o ,.fa-trash-o,.fa-user,.fa-phone
+{
+    font-size:2em;
 }
 
 .modal-backdrop.am-fade {
@@ -19,25 +23,55 @@
     }
   }
 }
+.clickable
+{
+    cursor: pointer;
+}
 
 
-    .body-min-post {
-      padding-top: 1em;
-      background:  #e1e8f0;
-      text-align: center;
-    }	
+.ng-touched,.ng-valid
+{
+    color: white!important;
+    background-blend-mode: color;
+}
 
-    .card-min-post {
-      background: #fff !important;
-      box-shadow: 0 10px 20px rgba(0,0,10,0), 0 6px 6px rgba(0,0,2,0);
-      box-shadow: 0 1px 1px rgba(77, 182, 172,0.2), 0 0 8px rgba(77, 182, 172,0.2);
-    }
-    .btn-min-post
-    {
-      color:black;
-      margin: 2px;;
-    }
-    
+textarea
+{
+    text-decoration-color: black !important;
+        color: black! important;
+
+}
+.capitalize {
+    text-transform: capitalize;
+}
+.tex{
+  margin: 2px;  
+    margin-bottom: 5px;
+    color: black! important;
+        text-decoration-color: black;
+
+}
+.uppercase{
+        text-transform: uppercase;
+
+}
+
+.btn:hover, .btn:focus, .btn:active {
+  color: black;
+  background-color: darkgrey !important;
+  border-color: darkgrey!important;
+}
+.active
+{  background-color: darkgrey !important;
+
+      border-color: darkgrey!important;
+
+}
+.btn-min-post {
+ margin-bottom: 5px!important;   
+}
+   
+ 
     .img-min-post
     {
       max-height:150px;
@@ -47,22 +81,111 @@
     color: black;
 }
 
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    width:100%;
+    margin:0px;
+    background-color:#6e6e6e !important;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+  .animated{
+        color: black !important;
+        
+    }
+ .btn-circle
+    {
+    
+    padding: 1px 2px;
+    border-radius: 100%!important;
+    color: black;
+    }
+
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+#homeBox1,#homeBox2 {
+    border:1px solid #FEF0C9;
+    margin-left:25px;
+    padding:20px;
+    background-color:#FEF0C9;
+    line-height: 2.1428571435;
+    box-shadow:5px 5px 5px gray;
+
+}
+
+.adminHeader {
+    border:1px solid #6495ED;
+    height:70px;
+    margin-top:-60px;
+    background-color:rgb(52,73,94);
+    color:white;
+}
+#adminHeaderH2 {
+    position:relative;
+    left:300px;
+}
+#notificationBox {transform: translate3d(0px, 0px, 0px);
+    padding:15px;
+    -webkit-box-shadow: 10px 9px 20px -5px rgba(0,0,0,0.75);
+    background-color:snow;
+    border-radius: 20px
+        
+}
+
+#createGroupForm , #adminSearch {
+    margin-top:70px;
+    border:1px solid white;
+    padding:30px;
+    background-color:white;
+    -webkit-box-shadow: 10px 9px 15px -5px rgba(0,0,0,0.75);
+}
+
+
+.bg-fade
+{
+    background-color: snow;
+    border-radius: 15px;
+}
+
 
 .rzslider .rz-pointer {
   
-    background: #6ed3cf;
+    background: #393939; margin-bottom:50px;
+      
 }
 .rz-bar.rz-selection
 {
-   background-color: #31708f !important;
+   background-color: dimgrey !important;
 }
     .card-header-min-post,.btn-min-post
     {
-      background: #6ed3cf !important;
+      background: #393939 !important;
+        color: white;
     }
 
     /* Creates a vertical nav starting at 768px (sm) */
 @media (min-width: 768px) {
+    .bg-faded {
+    background-color: #fff;
+}
 .ver-nav .ver-navbar .navbar-collapse {
       padding: 0;
       max-height: none;
@@ -89,3 +212,5 @@
       
    }
 }
+
+

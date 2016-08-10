@@ -2,6 +2,11 @@ app.controller("homeCtrl", ['$scope', 'HomeService','$modal', '$localStorage', '
     
 // $scope.message = "This is the home page";
     $scope.contactModal;
+    $scope.filtercategoryname;
+    $scope.filterlocationname;
+    $scope.categories=[];
+    $scope.locations=[];
+    $scope.subscribedCategories=[];
     $scope.$storage = $localStorage;
     
     $scope.contactDetails = {};
@@ -41,18 +46,22 @@ app.controller("homeCtrl", ['$scope', 'HomeService','$modal', '$localStorage', '
     );
  };
  $scope.getAllPosts =function(){ 
-     
+    if(!$scope.filtercategoryname)
+      $scope.category = undefined; 
+  if(!$scope.filterlocationname)
+      $scope.location = undefined; 
   HomeService.getAllPosts($scope.title,$scope.category,$scope.location,$scope.min,$scope.max).
    then(
     function(successResponse){
+    
      $scope.posts=successResponse.data;
+        console.log($scope.posts);
     },
     function(errorResponse){
      $scope.posts=undefined;
     }
-    )
- }
-
+    );
+ };
  $scope.showPopup = function(postid){
      $scope.cpost = _.filter($scope.posts, function(p){ return p.postid == postid});
      modal = $modal({
@@ -62,7 +71,7 @@ app.controller("homeCtrl", ['$scope', 'HomeService','$modal', '$localStorage', '
      });
      
      modal.$promise.then(modal.show);
- }
+ };
  
  $scope.reset = function(){
      delete $scope.title;
@@ -70,8 +79,10 @@ app.controller("homeCtrl", ['$scope', 'HomeService','$modal', '$localStorage', '
      delete $scope.location;
      delete $scope.min;
      delete $scope.max;
+     delete $scope.filtercategoryname;
+     delete $scope.filterlocationname;
      $scope.getAllPosts();
- }
+ };
  
   $scope.deletepostbyid=function(postid){
   HomeService.deletepostbyid(postid).
@@ -84,7 +95,7 @@ app.controller("homeCtrl", ['$scope', 'HomeService','$modal', '$localStorage', '
       $window.location.href="/AdPortal/app/";
      }
      );
- }
+ };
   
   $scope.getContactInfo= function(postid){
   HomeService.getContactInfo(postid).
@@ -110,7 +121,7 @@ app.controller("homeCtrl", ['$scope', 'HomeService','$modal', '$localStorage', '
      });
      
      $scope.contactModal.$promise.then($scope.contactModal.show);
-  }
+  };
   
   $scope.contact = function(){
       console.log($scope.cpostid+""+$scope.contactDetails.message);
@@ -122,7 +133,26 @@ app.controller("homeCtrl", ['$scope', 'HomeService','$modal', '$localStorage', '
          function(errorResponse){
              $scope.contactModal.hide();
          });
-  }
+  };
+    $scope.formatLoc = function(model) {
+      for (var i=0; i< $scope.locations.length; i++) {
+         if (model === $scope.locations[i].locationname) {
+           $scope.location = $scope.locations[i].locationid
+           return model;
+         }
+       }
+};
+
+      $scope.formatCat = function(model) {
+          console.log(model);
+      for (var i=0; i< $scope.categories.length; i++) {
+         if (model === $scope.categories[i].categoryname) {
+           $scope.category = $scope.categories[i].categoryid;
+             console.log($scope.category);
+           return model;
+         }
+       }
+};
   
     $scope.getCategories();
     $scope.getLocations();

@@ -1,36 +1,12 @@
-<div ng-controller="profileCtrl">
-<table>
-         <tr>
-          <td>
-           <table cellpadding="20px">
-            <tr>
-             <td>
-              Name
-             </td>
-             <td>
-              <div> {{$storage.name}} </div>
-             </td>
-            </tr>
-            <tr>
-             <td>
-              Phone No.
-             </td>
-             <td>
-                 <div>{{$storage.mobile}}</div>
-                 <div> <button ng-click="edit = !edit">Edit </button></div>
-                 <div ng-if="edit" >
-                    <input type="number" 
-                       class="form-control" 
+<!--
+<div ng-controller="profileCtrl" style="padding-bottom: 30px;">
+" 
                        ng-minlength="10" 
                        ng-maxlength="10"  
                       placeholder="Mobile number" ng-model="$parent.newMobile"><br/>
                       <button type="button" class="btn btn-default" ng-click="$parent.updateMobile()">Update</button>
                 </div>
-              <!--<input type="number" 
-                   class="form-control" 
-                   ng-minlength="10" 
-                   ng-maxlength="10"  
-                  placeholder="Mobile" ng-model="details.mobile">-->
+
              </td>
             </tr>
             <tr>
@@ -68,4 +44,151 @@
           </td>
          </tr>
         </table>
+    <div>
+    <div class="col-md-8 col-sm-8 col-lg-8">
+				<div ng-repeat="post in posts">
+						<min-post post=post></min-post>
+					</div>
+				<div class="col-md-1"></div>
+    </div>
+</div>-->
+<div ng-controller="profileCtrl">
+       <div class="row">
+
+    <div class="col-md-1"></div>
+      <div class="col-md-11">
+         <div class="col-md-4">
+            <div class="bootstrap-vertical-nav ver-nav">
+               <nav class="navbar navbar-light bg-faded ver-navbar">
+                  <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
+                     <a class="navbar-brand" href="#">MY PROFILE</a>
+                  </div>
+                  <div class="nav">
+                     <div><button type="button"  class="btn  btn-block active  btn-min-post"  ng-click = "loaddiv(0)">PROFILE</button></div>
+                     <a>
+                        <div><button type="button"  class="btn  btn-block btn-min-post"  ng-click = "loaddiv(1)">SUBSCRIBE</button></div>
+                     </a>
+                     <div><button type="button"  class="btn  btn-block btn-min-post "   ng-click = "loaddiv(2)">UNSUBSCRIBE</button></div>
+                     <div><button type="button"  class="btn  btn-block btn-min-post"  ng-click = "loaddiv(3)">MY POSTS</button></div>
+                  </div>
+               </nav>
+            </div>
+         </div>
+          
+          
+          
+          
+          
+          
+          
+         <div class="col-md-7" id="content" ng-if="flag[0]">
+            <div class="row">
+               <div class="col-md-3">
+                  <i class="fa fa-user" data-toggle="tooltip" data-placement="left" title="user name" aria-hidden="true"></i> 
+               </div>
+               <div class="col-md-9"><h4>{{$storage.name}}</h4></div>
+            </div>
+            <br><br>
+             
+             
+             <div class="row">
+               <div class="col-md-3">
+                  <i class="fa fa-envelope" data-toggle="tooltip" data-placement="left" title="mail id" aria-hidden="true"></i> 
+               </div>
+               <div class="col-md-9"><h4>{{$storage.email}}</h4></div>
+            </div>
+             <br><br>
+             
+             
+             
+            <div class="row">
+               <div class="col-md-3">
+                  <i class="fa fa-phone" data-toggle="tooltip" data-placement="left" title="mobile" aria-hidden="true"></i>
+               </div>
+               <div class="col-md-3"><h4>{{$storage.mobile}}</h4></div>
+               
+                     <div class="col-md-6"> <i  data-toggle="tooltip" data-placement="top" title="Edit" class="fa fa-pencil-square-o" aria-hidden="true" ng-click="edit = !edit"> </i>
+                         <div ng-if="edit">
+                         <input type="number" 
+                       class="form-control tex" 
+                       ng-minlength="10" 
+                       ng-maxlength="10"  
+                      placeholder="Mobile number" ng-model="$parent.$parent.newMobile">
+                      <button  type="button" class="btn btn-block btn-min-post" ng-click="$parent.updateMobile()">Update</button> 
+                  </div>
+                   </div>
+               </div>
+            </div>
+            <br><br>
+            
+          
+          
+          
+          
+          
+          
+          
+         <div class="col-md-7" id="content" ng-if="flag[1]">
+             <div class="form-group">
+              <div class="row">
+              <div class="col-md-4"></div><div class="col-md-4">
+                   <input type="text" class="form-control tex" placeholder="Subscribe a Category" ng-model= 'filterucategoryname' uib-typeahead="cat.categoryname for cat in unsubscribedcategories | filter:$viewValue | limitTo:5" typeahead-editable="false" typeahead-input-formatter="formatSubCat($model)" />
+                         <!--<button type="button" class="btn btn-block btn-min-post" ng-model="$parent.scategory" bs-options="cat.categoryid as cat.categoryname for cat in $parent.unsubscribedcategories" placeholder="select a category" bs-select/>--></div> 
+                  <div class="col-md-4"></div>
+                 </div>
+              <div class="row">
+                                <div class="col-md-4"></div><div class="col-md-4">
+ <button class="btn btn-block btn-min-post" ng-if="filterucategoryname" value="Subscribe" ng-click="$parent.subscribe()">Subscribe</button>
+              </div>
+        </div>
+             
+         </div>
+          
+          </div>
+          
+          
+          
+          <div class="col-md-7" id="content" ng-if="flag[2]">
+             <div class="form-group">
+              <div class="row">
+              <div class="col-md-4"></div><div class="col-md-4">
+                   <input type="text" class="form-control tex" placeholder="Unsubscribe a Category" ng-model= 'filteruncategoryname' uib-typeahead="cat.categoryname for cat in subscribedcategories | filter:$viewValue | limitTo:5" typeahead-editable="false" typeahead-input-formatter="formatUnsubCat($model)" />
+                         <!--<button type="button" class="btn btn-block btn-min-post" ng-model="$parent.scategory" bs-options="cat.categoryid as cat.categoryname for cat in $parent.unsubscribedcategories" placeholder="select a category" bs-select/>--></div> 
+                  <div class="col-md-4"></div>
+                 </div>
+              <div class="row">
+                                <div class="col-md-4"></div><div class="col-md-4">
+ <button class="btn btn-block btn-min-post" ng-if="filteruncategoryname" value="Unsubscribe" ng-click="$parent.unsubscribe()">Unsubscribe</button>
+              </div>
+        </div>
+             
+         </div>
+          
+          </div>
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+         
+             
+             
+         <div class="col-md-7" id="content" ng-if="flag[3]">
+             <div ng-repeat="post in posts">
+						<min-post post=post></min-post>
+					</div>
+         </div>
+         <!--        <script src="js/loader.js"></script>-->
+         <div class="cosl-md-1"></div>
+      </div>
+   
+        <div class="col-md-1"></div>
+</div>
 </div>

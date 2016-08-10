@@ -62,5 +62,9 @@ public interface ServiceInterface {
 
 	public boolean unblacklist(CurrentUser current_user, String userId);
 
+	public ArrayList<ViewPost> getUsersPosts(CurrentUser current_user);
+
+	public boolean setStatusSold(CurrentUser current_user, Integer postId);
+
 	
 }

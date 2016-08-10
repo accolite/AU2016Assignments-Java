@@ -35,5 +35,23 @@ app.factory('ProfileService',function($http){
                 
 			};
             return $http(req);
-        }
+        },
+        getUserPosts : function(){
+
+            var url = '/AdPortal/rest/getuserposts';
+            
+            return $http.get(url);
+        },
+        deletepostbyid : function(postid){
+         var req = {
+                    method: 'POST',
+                    url: '/AdPortal/rest/deletepost',
+                    headers: {
+                        'Content-Type': "application/json"
+                    },
+                    data: angular.toJson(postid),
+                    transformRequest: angular.identity
+                }
+                return $http(req);
+        },
 }});

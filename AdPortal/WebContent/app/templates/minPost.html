@@ -1,3 +1,85 @@
+
+<div style="background-color:#fffafae6">
+    
+   
+
+
+    <div class="row"  >
+        <div class="col-md-12" id="notificationBox" background-color="beige"  >
+            <div class="row">
+                <div class="col-md-4"  >
+                    <img class=img-min-post src="{{post.images[0]}}" alt="Image not Available" height="165" width="250">
+                </div>
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-8" style="padding-left:0">
+                            
+                            <h3>{{post.title}} &nbsp;</h3>
+                                <h7>{{post.category}},&nbsp;{{post.location}}</h7>
+                    <br>
+                        </div>
+                        <div class="col-md-4"></div>
+                        
+                        <div class="col-md-3" >
+                              <a ng-if="!$parent.$storage.isBlacklisted &&($parent.$storage.id.trim() === post.userid.trim())&&post.status==1" href="#/edit/{{post.postid}}" class="btn btn-default btn-circle  page-scroll">
+                            <i class="fa fa-pencil-square-o animated" aria-hidden="true" data-trigger="hover" data-type="success" data-title="Edit" bs-tooltip ></i>
+                        </a>
+                             <a ng-if="!$parent.$storage.isBlacklisted &&( $parent.$storage.isAdmin || $parent.$storage.id.trim() === post.userid.trim())&&post.status!=3" class="btn btn-circle btn-default page-scroll"  ng-click="$parent.$parent.deletepostbyid($parent.post.postid)">
+                                 <i class="fa fa-trash-o animated" aria-hidden="true"  data-trigger="hover" data-type="success" data-title="Delete" bs-tooltip ></i>
+
+                        </a>
+                            
+                                <a  ng-if="!$parent.$storage.isBlacklisted &&($parent.$storage.id.trim() !== post.userid.trim())" ng-click="$parent.$parent.contactPopup($parent.post.postid) " class="btn btn-circle  btn-default page-scroll">
+                           <i class="fa fa-envelope" aria-hidden="true"  data-trigger="hover" data-type="success" data-title="Contact" bs-tooltip ></i>
+
+                        </a>                    
+                    </div>
+
+                    <div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4>BY</h4>
+                                <span>{{post.username}}</span>
+                            </div>
+                            <div class="col-md-6">
+
+                                <h4>Date of post</h4>
+                                <span>{{post.createdDate}}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <h4>description</h4>
+                                <span>{{post.description}}</span>
+                            </div>
+                           
+                            
+                            <div ng-if="post.status!==1" class="label label-info"> {{$parent.$parent.statusname[$parent.post.status-1]}}
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                   
+                 </div>
+             </div>
+        </div>
+
+    </div>
+       
+
+        </div>  
+
+</div>
+
+ <br />
+        <br />
+
+
+
+
+
+<!--
 <div class="card card-outline-primary card-min-post">
     <div>
     <a  ng-click="$parent.showPopup(post.postid)" class="header">
@@ -19,12 +101,12 @@
               </div>
               <div class="col-md-3">
                
-                  <div ng-if="!$parent.$storage.isBlacklisted &&($parent.$storage.id.trim() === post.userid.trim())"><a href="#/edit/{{post.postid}}" class="btn btn-primary">
+                  <div ng-if="!$parent.$storage.isBlacklisted &&($parent.$storage.id.trim() === post.userid.trim())&&post.status==1"><a href="#/edit/{{post.postid}}" class="btn btn-primary">
                       <i class="fa fa-pencil" aria-hidden="true"></i>
                       Edit
                       </a></div>
                 
-                    <div ng-if="!$parent.$storage.isBlacklisted &&( $parent.$storage.isAdmin || $parent.$storage.id.trim() === post.userid.trim())">
+                    <div ng-if="!$parent.$storage.isBlacklisted &&( $parent.$storage.isAdmin || $parent.$storage.id.trim() === post.userid.trim())&&post.status!=3">
                  <div ng-click="$parent.$parent.deletepostbyid($parent.post.postid)"  class="btn btn-primary">
                      <i class="fa fa-trash" aria-hidden="true"></i>
                      Delete
@@ -48,3 +130,4 @@
               </div>
                 
         
+-->

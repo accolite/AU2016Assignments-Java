@@ -6,13 +6,10 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import com.au.adportal.dao.DaoInterface;
-import com.au.adportal.dao.impl.Dao;
 import com.au.adportal.model.Category;
 import com.au.adportal.model.CurrentUser;
 import com.au.adportal.model.Location;
@@ -20,7 +17,6 @@ import com.au.adportal.model.Post;
 import com.au.adportal.model.User;
 import com.au.adportal.service.ServiceInterface;
 import com.au.adportal.util.MailSender;
-import com.au.adportal.util.MailSenderImpl;
 import com.au.adportal.util.Role;
 import com.au.adportal.util.Status;
 import com.au.adportal.viewmodel.ViewPost;
@@ -144,9 +140,13 @@ public class ServiceImplementation implements ServiceInterface {
 	@Override
 	public int editPost(CurrentUser user, Post post) {
 		Post postFromDB = dao.getPost(post.getPostid());
-		if(postFromDB!=null && (user.getRole()==Role.ADMIN|| user.getId().trim().equals(postFromDB.getUserid().trim())))
+		System.out.println("Service");
+		if(postFromDB!=null && postFromDB.getStatus()==Status.NEW&& (user.getRole()==Role.ADMIN|| user.getId().trim().equals(postFromDB.getUserid().trim())))
 	    {
+			System.out.println("in if");
 			 dao.editPost(post);
+			System.out.println("after dao");
+			System.out.println(post.toString());
 		     return post.getPostid();
 	    }
 	   return -1;
@@ -258,7 +258,9 @@ public class ServiceImplementation implements ServiceInterface {
 	@Override
 	public boolean unsubscribe(CurrentUser user, Integer categoryid) {
 		if(categoryid!=null && dao.getCategoryById(categoryid)!=null){
+			System.out.println("in if");
 			if(dao.isSubscribed(user.getId(), categoryid)){
+				System.out.println("in if 2");
 				dao.unsubscribe(user.getId(), categoryid);
 				return true;
 			}
@@ -304,6 +306,43 @@ public class ServiceImplementation implements ServiceInterface {
 					return dao.unblackList(userId);
 				}
 				return false;
+	}
+
+	@Override
+	public ArrayList<ViewPost> getUsersPosts(CurrentUser current_user) {
+		// TODO Auto-generated method stub
+		ArrayList<Post> list= dao.getUserPosts(current_user.getId());
+		  ArrayList<ViewPost>arrayList=new ArrayList<>();
+		  for (Post post : list) {
+		   User user1;
+		   user1=dao.getUser(post.getUserid());
+		   System.out.println(user1.getEmail());
+		   ViewPost viewpost=new ViewPost();
+		   viewpost.setPostid(post.getPostid());
+		   viewpost.setTitle(post.getTitle());
+		   viewpost.setCategory(dao.getCategoryName(post.getCategory()));
+		   viewpost.setDescription(post.getDescription());
+		   viewpost.setStatus(post.getStatus());
+		   //System.out.println(post.getStatus());
+		   viewpost.setPrice(post.getPrice());
+		   viewpost.setLocation(dao.getLocationName(post.getLocation()));
+		   viewpost.setCreatedDate(post.getCreatedDate());
+		   viewpost.setUsername(user1.getUsername());
+		   viewpost.setUserid(post.getUserid());
+		   arrayList.add(viewpost);
+		  }
+		  return arrayList; 
+		//return null;
+	}
+
+	@Override
+	public boolean setStatusSold(CurrentUser current_user, Integer postId) {
+		// TODO Auto-generated method stub
+		Post post=dao.getPost(postId);
+		if(post != null && (post.getUserid().trim().equals(current_user.getId().trim())) ){
+			return(dao.setStatusSold(postId));
+		}
+		return false;
 	}
 
 }

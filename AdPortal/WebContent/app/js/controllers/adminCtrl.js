@@ -1,8 +1,8 @@
 app.controller("adminCtrl", ['$scope','$location','$window','AdminService','$filter', function ($scope, $location,$window, AdminService,$filter) {
     //
-    $scope.flag = [1,0,0,0];
+    $scope.flag = [1,0,0,0,0];
     $scope.loaddiv = function(index) {
-      for(var i = 0; i < 4; i++) {
+      for(var i = 0; i < 5; i++) {
         if(i == index) {
           $scope.flag[i] = 1;
         } else {
@@ -11,12 +11,18 @@ app.controller("adminCtrl", ['$scope','$location','$window','AdminService','$fil
       }
     }
     //
+    $scope.newlocationname;
+    $scope.newcategoryname;
     $scope.categories;
     $scope.locations;
     $scope.admins;
     $scope.blacklists;
     $scope.normalusers;
     $scope.users;
+    $scope.init=function(){
+        $scope.newlocationname = "";
+        $scope.newcategoryname = "";
+    };
     $scope.getCategories = function(){
         AdminService.getCategories().
          then(
@@ -29,6 +35,7 @@ app.controller("adminCtrl", ['$scope','$location','$window','AdminService','$fil
           );
     };
    $scope.getLocations=function(){
+       console.log("creating category "+ $scope.newlocationname);
         AdminService.getLocations().
              then(
               function(successResponse){
@@ -43,11 +50,12 @@ app.controller("adminCtrl", ['$scope','$location','$window','AdminService','$fil
         $scope.test= function(){console.log("passed");};
         
     $scope.addCategory = function(){
-        $scope.newcategoryname=$scope.newcategoryname.trim();
+        console.log("creating category "+$scope.newcategoryname);
         if(!$scope.newcategoryname){
             alert("Invalid Category");
             return;
         }
+        $scope.newcategoryname=$scope.newcategoryname.trim();
         console.log("OK");
         for(cat in $scope.categories){
             console.log($scope.categories[cat].categoryname);
@@ -150,6 +158,7 @@ app.controller("adminCtrl", ['$scope','$location','$window','AdminService','$fil
         //console.log(userId);
     };
     $scope.blacklist=function(){
+        console.log("Asdfdsf");
         console.log($scope.userforblacklist);
         AdminService.blacklist($scope.userforblacklist).
             then(
@@ -177,6 +186,36 @@ app.controller("adminCtrl", ['$scope','$location','$window','AdminService','$fil
                 }
             );
     }
+    
+    $scope.formatAdminUser=function(model){
+        for (var i=0; i< $scope.users.length; i++) {
+         if (model === $scope.users[i].username) {
+           $scope.userforadmin = $scope.users[i].userid;
+           return model;
+         }
+       }
+    }
+    
+    $scope.formatBlacklistUser=function(model){
+        for (var i=0; i< $scope.users.length; i++) {
+         if (model === $scope.users[i].username) {
+           $scope.userforblacklist = $scope.users[i].userid;
+           return model;
+         }
+       }
+    }
+    
+    $scope.formatUnblacklistUser=function(model){
+        for (var i=0; i< $scope.blacklists.length; i++) {
+         if (model === $scope.blacklists[i].username) {
+           $scope.userforunblacklist = $scope.blacklists[i].userid;
+           return model;
+         }
+       }
+    }
+    
+    $scope.init();
+    $scope.test();
     $scope.getCategories();
     $scope.getLocations();
     //$scope.getAdmins();

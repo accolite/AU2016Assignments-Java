@@ -8,6 +8,7 @@ import com.au.adportal.model.CurrentUser;
 import com.au.adportal.model.Location;
 import com.au.adportal.model.Post;
 import com.au.adportal.model.User;
+import com.au.adportal.viewmodel.ViewPost;
 
 public interface DaoInterface {
 	public boolean makeAdmin(String email);
@@ -69,5 +70,10 @@ public interface DaoInterface {
 	public List<User> getAllUsers();
 
 	public boolean unblackList(String userId);
+
+	public ArrayList<Post> getUserPosts(String id);
+
+	public boolean setStatusSold(Integer postId);
+	
 	
 }

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import com.au.adportal.dao.DaoInterface;
 import com.au.adportal.model.CurrentUser;
 import com.au.adportal.model.Post;
+import com.au.adportal.viewmodel.ViewPost;
 
 @Component
 public class MailSenderImpl implements MailSender{
@@ -53,17 +54,41 @@ public class MailSenderImpl implements MailSender{
 
 		sendMail(toMail, subject, message);
 	}
-
+	
+	@Async
 	@Override
 	public void sendSubscriptionMail(Post post, String currentMail) {
+		
+		ViewPost viewPost=postToViewPost(post);
 		List<String> mails = dao.getMailsForSubscription(post.getCategory());
 		for(String toMail: mails){
 			if(!toMail.equals(currentMail)){
 				String subject = "New post on the category "+dao.getCategoryName(post.getCategory());
 				String message = "Post title : "+post.getTitle();
+				message += "<br/>Posted by : "+viewPost.getUsername();
+				message += "<br/>Location : "+viewPost.getLocation();
+				if(viewPost.getPrice()!=0){
+					message += "<br/>Price : "+viewPost.getPrice();
+				}
+				message += "<br/><br/><a href='"+Constants.server+"#/'>Sign in to View</a>";
 				sendMail(toMail, subject, message);				
 			}
 		}
+	}
+	
+	public ViewPost postToViewPost(Post post){
+		ViewPost viewpost=new ViewPost();
+		   viewpost.setPostid(post.getPostid());
+		   viewpost.setTitle(post.getTitle());
+		   viewpost.setCategory(dao.getCategoryName(post.getCategory()));
+		   viewpost.setDescription(post.getDescription());
+		   viewpost.setStatus(post.getStatus());
+		   viewpost.setPrice(post.getPrice());
+		   viewpost.setLocation(dao.getLocationName(post.getLocation()));
+		   viewpost.setCreatedDate(post.getCreatedDate());
+		   viewpost.setUsername(dao.getUser(post.getUserid()).getUsername());
+		   viewpost.setUserid(post.getUserid());
+		   return viewpost;
 	}
 	
 }

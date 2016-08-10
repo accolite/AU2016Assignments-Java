@@ -1,7 +1,11 @@
 package com.au.adportal.viewmodel;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.persistence.Column;
 
@@ -19,12 +23,11 @@ public class ViewPost {
 	String category;
 	String username;
 	String userid;
-
 	int price;
 	int status;
-	@Column(name = "created_date", nullable = false)
+	String datetime;
 	private Timestamp createdDate;
-
+	private SimpleDateFormat dateFormat;
 	ArrayList<String> images;
 
 	public ViewPost() {
@@ -107,12 +110,29 @@ public class ViewPost {
 		this.images = images;
 	}
 
-	public Timestamp getCreatedDate() {
-		return createdDate;
+	public String getCreatedDate() {
+		return datetime;
 	}
 
 	public void setCreatedDate(Timestamp createdDate) {
-		this.createdDate = createdDate;
+		System.out.print(createdDate+"");
+		//DateFormat format = new SimpleDateFormat("MMddyyHHmmss");
+		Date date2 = new Date(createdDate.getTime());
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		try {
+			
+			Date date = format.parse(createdDate+"");
+			System.out.println(format.format(createdDate));
+	        System.out.println(format.format(date));
+			this.datetime=format.format(date).toString();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			this.datetime="";
+			//return null;
+		}
+		
+		//this.createdDate = createdDate;
 	}
 
 	public String getUserid() {

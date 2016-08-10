@@ -1,126 +1,169 @@
 
+
+
+
+<div class="row" ng-controller="adminCtrl">
+  <div class="row">
+      <div class="col-md-1"></div>
+    <div class="col-md-11">
+      <div class="col-md-4">
+        <div class="bootstrap-vertical-nav ver-nav">
+          <nav class="navbar navbar-light bg-faded ver-navbar">
+            <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
+              <a class="navbar-brand" href="#">Admin functions</a>
+            </div>
+            <div>
+              <div><button type="button"  class="btn  btn-block active  btn-min-post"  ng-click = "loaddiv(0)">Add Category</button></div>
+              <a>
+                <div><button type="button"  class="btn  btn-block btn-min-post"  ng-click = "loaddiv(1)">Add Location</button></div>
+              </a>
+              <div><button type="button"  class="btn  btn-block btn-min-post "   ng-click = "loaddiv(2)">Make Admin</button></div>
+              <div><button type="button"  class="btn  btn-block btn-min-post"  ng-click = "loaddiv(3)">BlackList</button></div>
+                <div><button type="button"  class="btn  btn-block btn-min-post"  ng-click = "loaddiv(4)">Un BlackList</button></div>
+            </div>
+          </nav>
+        </div>
+      </div>
         
+        
+        
+        
+        
+        
+      <div class="col-md-5" id="content" ng-if="flag[0]">
+        <div class="form-group">
+          <div class="row">
+              <div class="col-md-3"></div>
+            <div class="col-md-6">
+            <input type="text" class="form-control tex" placeholder="Enter new category" ng-model= '$parent.newcategoryname' uib-typeahead="cat.categoryname for cat in $parent.categories | filter:$viewValue | limitTo:5" typeahead-editable="true"  />
+            </div>
+              <div class="col-md-3"></div>
+              
 
- <div class="row" ng-controller="adminCtrl">
-                
-                <div class="row">
-                    <div class="col-md-12">
+          </div>
+          <div class="row">
+              <div class="col-md-4"></div>
+              <div class="col-md-4"><div   ng-click="$parent.addCategory()" class="btn btn-block btn-min-post">Add Category</div></div>       <div class="col-md-4"></div>
 
-                        <div class="col-md-4">
-                            
+          </div>
+         </div>
+       </div>
+        
+        
+        
+        
+        
+        
+        
+      <div class="col-md-5" id="content" ng-if="flag[1]">
+      
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <input type="text" class="form-control tex" placeholder="Enter new location" ng-model= '$parent.newlocationname' uib-typeahead="loc.locationname for loc in $parent.locations | filter:$viewValue | limitTo:5" typeahead-editable="true" />
+              </div>
+              <div class="col-md-3"></div>
+          </div>
+       <div class="row">
+              <div class="col-md-4"></div>
+              <div class="col-md-4"><div   ng-click="$parent.addLocation()" class="btn btn-block btn-min-post">Add Location</div></div>       <div class="col-md-4"></div>
 
-                            <div class="bootstrap-vertical-nav ver-nav">
+          </div>
+       
+      </div>
+      
+    </div>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    <div class="col-md-5" id="content" ng-if="flag[2]">
+        
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <input type="text" class="form-control tex" placeholder="Select user to make admin" ng-model= 'filterforadmin' uib-typeahead="user.username for user in $parent.users | filter:$viewValue | limitTo:5" typeahead-editable="false" typeahead-input-formatter="$parent.formatAdminUser($model)" />
+              </div> 
+              </div>
+              <div class="col-md-3"></div>
+          </div>
+       <div class="row">
+              <div class="col-md-4"></div>
+              <div class="col-md-4"><button class="btn btn-min-post btn-block" ng-if="$parent.userforadmin" value="Make Admin" ng-click="$parent.makeAdmin()">Make Admin</button></div>       <div class="col-md-4"></div>
 
-                                <nav class="navbar navbar-light bg-faded ver-navbar">
-                                 
-                                    <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
-                                        <a class="navbar-brand" href="#">Admin functions</a></div>
-                                        <div>
-
-                                           
-                                         
-                                            <div  class="btn  btn-block btn-min-post"  ng-click = "loaddiv(0)">blacklist</div>
-                                            
-                                            <div  class="btn  btn-block btn-min-post"  ng-click = "loaddiv(1)">ADD LOCATION</div>
-                                            
-                                            <div  class="btn  btn-block btn-min-post"   ng-click = "loaddiv(2)">CREATE CATEGORY</div>
-                                            
-                                            <div  class="btn  btn-block btn-min-post"  ng-click = "loaddiv(3)">Make ADMIN</div>
-                                            
-                                            
-                                            
-                                            
-                                            
-
-                                        </div>
-                                        
-
-                                    </nav>
-
-                                </div>
-                            </div>
-                            
-                            
-
-                            <div class="col-md-7" id="content" ng-if="flag[0]">
-                                
-                                <div class="form-group">
-                <div>
-                        <button type="button" class="btn btn-min-post" ng-model="userforblacklist"
-						bs-options="user.userid as user.username for user in users"
-						placeholder="User" bs-select/>
-                    <button class="btn btn-default" ng-if="userforblacklist" value="Blacklist" ng-click="blacklist()">Blacklist</button>
-                        </div>
-                
+          </div>
+        
+      </div>
     
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    <div class="col-md-5" id="content" ng-if="flag[3]">
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <input type="text" class="form-control tex" placeholder="Select user to Blacklist" ng-model= 'filterforblacklist' uib-typeahead="user.username for user in $parent.users | filter:$viewValue | limitTo:5" typeahead-editable="false" typeahead-input-formatter="$parent.formatBlacklistUser($model)" />
+              </div> 
+              </div>
+              <div class="col-md-3"></div>
+          </div>
+       <div class="row">
+              <div class="col-md-4"></div>
+              <div class="col-md-4"><button class="btn btn-min-post btn-block" ng-if="$parent.userforblacklist" value="Blacklist" ng-click="$parent.blacklist()">Blacklist</button></div>       <div class="col-md-4"></div>
+
+          </div>
+    </div>
+        
+    <div class="col-md-5" id="content" ng-if="flag[4]">
+        
+               <div class="form-group">
+          <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <input type="text" class="form-control tex" placeholder="Select user to Remove from blacklist" ng-model= 'filterforblacklist' uib-typeahead="user.username for user in $parent.blacklists | filter:$viewValue | limitTo:5" typeahead-editable="false" typeahead-input-formatter="$parent.formatUnblacklistUser($model)" />
+                    
+              </div> 
+              </div>
+              <div class="col-md-3"></div>
+          </div>
+       <div class="row">
+              <div class="col-md-4"></div>
+              <div class="col-md-4"><button class="btn btn-min-post btn-block" ng-if="$parent.userforunblacklist" value="Remove Blacklist" ng-click="$parent.unblacklist()">UnBlacklist</button></div>       <div class="col-md-4"></div>
+
+          </div>
+    </div>    
+        
+        
+        
+        
+        
+        
+  
+    <div class="cosl-md-3"></div>
+  </div>
 </div>
-            <div class="form-group">
-                <div>
-                        <button type="button" class="btn btn-min-post" ng-model="userforunblacklist"
-						bs-options="user.userid as user.username for user in blacklists"
-						placeholder="User" bs-select/>
-                    <button class="btn btn-default" ng-if="userforunblacklist" value="Remove Blacklist" ng-click="unblacklist()">Remove from Blacklist</button>
-                        </div>
-    
 </div>
-                                    
-                                    
-                                </div>
-                            </div>
-                            
-                            
-                            
-                            <div class="col-md-7" id="content" ng-if="flag[1]">
-                               <div class="form-group">
-    <input type="text" class="form-control tex" ng-model="newlocationname" placeholder="enter the new location">
-
-    
-    
-     <div ng-click="addLocation()" class="btn  btn-block btn-min-post">Add Location</div>
-    <div ng-repeat="location in locations">{{location.locationname}}
-</div>
-</div>
-                            
-                        </div>
-                        
-                        
-                        
-                        <div class="col-md-7" id="content" ng-if="flag[2]">
-                         <div class="form-group">
-    <input type="text" class="form-control tex" ng-model="newcategoryname" placeholder="enter the new category">
-
-    
-    
-     <div ng-click="addCategory()" class="btn  btn-block btn-min-post">Add Category</div>
-    <div ng-repeat="category in categories">{{category.categoryname}}
-				</div>
-    </div>   
-                            
-                            
-                        </div>
-                        
-                        
-                        
-                        <div class="col-md-7" id="content" ng-if="flag[3]">
-                            
-                            <div class="form-group">
-                <div>
-                        <button type="button" class="btn btn-min-post" ng-model="userforadmin"
-						bs-options="user.userid as user.username for user in users"
-						placeholder="User" bs-select/>
-                    <button class="btn btn-default" ng-if="userforadmin" value="Make Admin" ng-click="makeAdmin()">Make Admin</button>
-                        </div>
-    
-</div>
-                            
-                        </div>
-                        <!--        <script src="js/loader.js"></script>-->
-                        <div class="cosl-md-1"></div>
-                        
-                        
-                    </div>
-                </div>
-<!--            </div>-->
-
-
-            

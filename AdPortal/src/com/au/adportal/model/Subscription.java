@@ -11,7 +11,7 @@ import javax.persistence.Table;
 public class Subscription {
 	@Id
 	@GeneratedValue
-	private int  subscriptionId;
+	private int  subscriptionid;
 	@Column
 	private String userid;
 	@Column
