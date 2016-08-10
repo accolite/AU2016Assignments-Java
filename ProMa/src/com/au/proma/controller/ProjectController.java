@@ -60,13 +60,13 @@ public class ProjectController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = "application/json", produces = "application/json")
 	@ResponseBody
-	public String editProject(@RequestBody Project project, @PathVariable("id") int project_id,
+	public Boolean editProject(@RequestBody Project project, @PathVariable("id") int project_id,
 			HttpServletRequest request) {
 		if (request.getSession() != null && request.getSession().getAttribute("role").equals("admin") == true) {
 			Boolean isSuccess = projectService.updateProject(project_id, project);
 			if (isSuccess)
 				userService.notifyEachAdmin("admin", project, "Project Updated");
-			return isSuccess ? "Success" : "Failure";
+			return isSuccess;
 		} else
 			return null;
 	}
@@ -100,31 +100,34 @@ public class ProjectController {
 
 	@RequestMapping(value = "/{pid}/sprints", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	@ResponseBody
-	public String addSprintUnderProject(@RequestBody Sprint sprint, @PathVariable("pid") int pid,
-			HttpServletRequest request) {
-		if (request.getSession() != null && request.getSession().getAttribute("role").equals("admin") == true)
-			return sprintService.addSprint(sprint, pid);
-		else
-			return null;
-
+	public Boolean addSprintUnderProject(@RequestBody Sprint sprint,@PathVariable("pid") int pid,HttpServletRequest request){
+		if(request.getSession()!=null&&request.getSession().getAttribute("role").equals("admin")==true) {
+			sprintService.addSprint(sprint, pid);
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	@RequestMapping(value = "/{pid}/sprints/{sprintid}", method = RequestMethod.PUT, consumes = "application/json", produces = "application/json")
 	@ResponseBody
-	public String updateSprintUnderProject(@RequestBody Sprint sprint, @PathVariable("sprintid") int sprintid,
+	public Boolean updateSprintUnderProject(@RequestBody Sprint sprint, @PathVariable("sprintid") int sprintid,
 			@PathVariable("pid") int pid, HttpServletRequest request) {
 		if (request.getSession() != null && request.getSession().getAttribute("role").equals("admin") == true)
+			{
 			return sprintService.updateSprint(sprint, sprintid);
+			}
 		else
 			return null;
 
 	}
 
 	@RequestMapping(value = "/closeSprint", method = RequestMethod.PUT, produces = "application/json")
-	@ResponseBody
-	public String closeCurrentSprintUnderProject(@RequestBody Project project) {
-		return projectService.closeCurrentSprint(project, project.getCurrentSprint());
-
+	public @ResponseBody Boolean closeCurrentSprintUnderProject(@RequestBody Project project){
+		 projectService.closeCurrentSprint(project,project.getCurrentSprint());
+		 return true;
+		
 	}
 
 	@RequestMapping(value = "/{id}/getDataPoints", method = RequestMethod.GET, produces = "application/json")
@@ -132,5 +135,18 @@ public class ProjectController {
 	public List<Integer> getDataPoints(@PathVariable("id") int projectid) {
 		return sprintService.getDataPoints(projectid);
 	}
-
+	@RequestMapping(value="/completed",method=RequestMethod.POST,produces="application/json",consumes="application/json")
+	@ResponseBody
+	public int completeProject( @RequestBody Project p,HttpServletRequest request)
+	{
+		if(request.getSession()!=null&&request.getSession().getAttribute("role").equals("admin")==true)
+		{
+				int row_affected =  projectService.completeProject(p);
+			
+			return row_affected;
+		}
+		else
+			return -1;
+	}
+	
 }

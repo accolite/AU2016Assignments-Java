@@ -92,4 +92,7 @@ public class ProjectService {
 				return Constants.FAILURE_MESSAGE;
 		}
 	}
+	public int completeProject(Project p) {
+		return projectDao.completeProject(p);
+	}
 }
