@@ -58,6 +58,7 @@ style="overflow:scroll" id="mainBody">
 
 	<md-content> <md-toolbar layout="row"
 		class="custom-tool-bar">
+	<div class="col-md-4 col-xs-6">
 	<table>
 		<tr>
 			<td><img src="${logoImage}" width="100px"></td>
@@ -66,7 +67,9 @@ style="overflow:scroll" id="mainBody">
 			</td>
 		</tr>
 	</table>
-	<div layout-align="end end"><span>{{loginUser}}</span> </div>
+	</div>
+	<div class="col-md-6 col-xs-6"></div>
+	<div layout-align="end end" class="col-md-2 col-xs-6"><span>{{loginUser}}</span> </div>
 	<div noty-container></div>
 	</md-toolbar> 
 	
@@ -130,12 +133,12 @@ style="overflow:scroll" id="mainBody">
 			<md-card> 
 			<md-card-title class="custom-tool-bar padding-less">
 			<md-card-title-text layout="row">
-				<div class="form-group col-md-8 col-xs-6">
+				<div class="form-group col-md-8 col-xs-4">
 					<h2 class="event-header" ng-if="!view" ng-cloak>{{events[global.flag].event.name}}</h2>
 					<md-input-container ng-if="view" class="col-md-6 col-xs-12 padding-less"> <label>Event Name</label>
 					<input ng-model="events[global.flag].event.name" required> </md-input-container>
 				</div>
-				<div class="col-md-4 col-xs-6" layout="row" layout-align="end start" style="margin-top:10px">
+				<div class="col-md-4 col-xs-8" layout="row" layout-align="end start" style="margin-top:10px">
 			
 			<md-button
 			data-toggle="modal" data-target="#myModalParticipants" 
