@@ -1,0 +1,135 @@
+#mainBody {
+    background-color: #f5f7fa;
+}
+
+.headheight {
+	height:50px;
+	background-color: #3f51b5;
+	color:white;
+}
+
+.select1 {
+	background-color: #0080c0;
+	
+}
+
+.select2 {
+	background-color: #b8b5fd;
+	
+}
+
+#indexBody{
+  font-family: 'Roboto', 'sans-serif';
+  background-image: url("../images/img8.jpg");
+  background-repeat: no-repeat;
+  background-size: cover; 
+}
+	
+}
+
+.tHi:hover
+{
+    cursor: pointer;
+    background-color: #00796B !important;
+}
+
+.header-white{
+	color:white;
+}
+
+.docs-menu,
+.docs-menu ul {
+  list-style: none;
+  padding: 0;
+  max-width: 100%;
+  overflow-x: hidden;
+  margin-bottom: 0;
+}
+.docs-menu li {
+  margin: 0;
+}
+
+.docs-menu .md-button {
+  border-radius: 0;
+  color: black;
+  cursor: pointer;
+  display: block;
+  align-items: inherit;
+  line-height: 40px;
+  margin: 0;
+  max-height: 40px;
+  overflow: hidden;
+  padding: 0px 16px;
+  text-align: left;
+  text-decoration: none;
+  white-space: normal;
+  width: 100%;
+}
+
+.docs-menu .md-button:hover,
+.docs-menu .md-button:focus {
+  background: #0097A7 !important;
+}
+
+  .docs-menu > li {
+    border-top: none;
+  }
+
+
+#rcorners {
+    border-radius: 25px;
+    background: #73AD21;
+    padding: 20px;
+    width: 200px;
+    height: 150px;
+}
+body{
+	font-family: 'Roboto', sans-serif;
+}
+
+md-card-header{
+	background-color:teal;
+	cursor: pointer;
+}
+
+md-nav-item{
+	cursor:pointer;
+	margin-left:10px;
+	margin-right:10px;
+}
+
+md-sidenav, 
+md-sidenav.md-locked-open, 
+md-sidenav.md-closed.md-locked-open-add-active {
+    min-width: 0px !important;
+    width: auto !important;
+    max-width: 250px !important;
+}
+.custom-tool-bar{
+	background-color:#0097A7;
+}
+
+md-toolbar{
+	max-height:100px;
+}
+
+.margin-less{
+	padding:0;
+}
+
+.padding-less{
+	padding:0;
+}
+
+.event-header{
+	text-transform:uppercase;
+	font-weight:bold;	
+}
+
+.event-sub-header{
+	color:#0097A7;
+}
+
+.icon-actions{
+	margin: 5px 2px;
+}

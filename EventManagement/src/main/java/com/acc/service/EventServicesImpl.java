@@ -1,0 +1,90 @@
+/****************************************************************************
+* Copyright (c) 2016 by Accolite.com. All rights reserved
+*
+* Created date :: Aug 10, 2016
+*
+*  @author :: Sharukh Mohamed
+* ***************************************************************************
+*/
+package com.acc.service;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.acc.dao.EventDAO;
+import com.acc.model.EventDetails;
+import com.acc.util.CustomDateComparator;
+
+
+@Service
+public class EventServicesImpl implements EventServices{
+	
+	@Autowired
+	EventDAO eventDAO;
+
+	public EventDAO getEventDAO() {
+		return eventDAO;
+	}
+	public void setEventDAO(EventDAO eventDAO) {
+		this.eventDAO = eventDAO;
+	}
+	public EventDetails addEvent(EventDetails eventDetails){
+		return eventDAO.InsertEvent(eventDetails);
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.acc.service.EventServices#viewAllEvents()
+	 */
+	public List<EventDetails> viewAllEvents(){
+		/*
+		 * Get all events
+		 */
+		List<EventDetails> events=eventDAO.getAllEvents();
+		List<EventDetails> eventsSorted = new ArrayList<EventDetails>();
+		java.util.Date date= new java.util.Date();
+		Timestamp currentTime = new Timestamp(date.getTime());
+		/*
+		 * Add current events and upcoming events first
+		 */
+		for(EventDetails event: events){
+			boolean upcomingEvents = event.getEvent().getStart_time().compareTo(currentTime)>-1;
+			boolean currentEvents = event.getEvent().getStart_time().compareTo(currentTime)<0 && event.getEvent().getEnd_time().compareTo(currentTime)>-1;
+			if( upcomingEvents || currentEvents)
+				eventsSorted.add(event);
+		}
+		/*
+		 * Sort the eventsSorted
+		 */
+		Collections.sort(eventsSorted, new CustomDateComparator());
+		
+		events.removeAll(eventsSorted);
+		
+		/*
+		 * Sort finished events and send back to eventsSorted
+		 */
+		Collections.sort(events, new CustomDateComparator());
+		eventsSorted.addAll(events);
+		
+		return eventsSorted;
+		
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.acc.service.EventServices#deleteEvent(int)
+	 */
+	public Integer deleteEvent(int eventId){
+		return eventDAO.deleteEvent(eventId);
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.acc.service.EventServices#updateEvent(com.acc.model.EventDetails)
+	 */
+	public Integer updateEvent(EventDetails eventDetails) {
+		return eventDAO.updateEvent(eventDetails);
+	}				
+}
