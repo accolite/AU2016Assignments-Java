@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="angular.js"></script>
+<script src="controller.js"></script>
+<meta charset="ISO-8859-1">
+<title>Search Page</title>
+</head>
+<body ng-app="Search" ng-controller="SearchController">
+
+<div ng-init="loadResult()">
+<table>
+<tr ng-repeat="video in searchResult">
+<td>
+{{video.video_id}}
+</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

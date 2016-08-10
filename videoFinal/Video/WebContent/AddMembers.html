@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Video Portal</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="http://localhost:8081/VideoPO/angular.js "></script>
+<script src="http://localhost:8081/VideoPO/controller.js "></script>
+
+  
+  <script>
+  
+</script> 
+  <style>
+     .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+     footer {
+      background-color: #f2f2f2;
+      padding: 2px;
+    }
+    .cr
+    {
+      color:red;
+    }
+    
+       input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+  </style>
+ 
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Video Portal</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class=""><a href="#">Add New Group</a></li>
+        
+        <li><a href="#">Group List</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">User Name</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-log-in cr"></span> Log Out</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="jumbotron">
+  <div class="container text-center">
+    <div class="col-md-3 container">
+    </div>
+    <div class="col-md-6 container" align="center" ng-controller="SearchController">
+      <div class="col-md-12 container" id="ParentDiv">
+        <table>
+          <form method="POST">
+         
+          <tr> 
+            <div id="dynamicInput" >
+            <th><a style="font-size:26px;font-weight:bold;color:black">UserName</a></th><th><input type="text"  ng-repeat="name in username" ng-model="name.name" style="padding-right: 36px;width:40%;height:10%">
+            </div>            
+          </tr>
+          </form>
+        </table>
+             
+      </div>
+      <button type="button" class="btn btn-info" ng-click="addInput('ParentDiv')">Add Another User</button>&nbsp &nbsp &nbsp
+        <form>
+        <button type="button" class="btn btn-success" >Submit</button> 
+        </form>
+    </div>
+    <div class="col-md-3 container">
+    </div>
+  </div>
+  <br><br><br>
+  <footer class="container-fluid text-center">
+    <p><p>Copyright © Accolite 2016</p></p>
+  </footer>
+</div>
+</body>
+</html>
+

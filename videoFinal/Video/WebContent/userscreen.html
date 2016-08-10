@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Video Portal</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+   
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 2px;
+    }
+    
+    .page {
+    height:100%;
+}
+
+.popup {
+    position:absolute;
+    z-index:2;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.7);
+    opacity:0;
+    visibility:hidden;
+    transition:.3s ease;
+}
+
+.show-popup .popup {
+    opacity:1;
+    visibility: visible;    
+}
+
+.popup > iframe {
+    position:absolute;
+    top:50px;
+    left:50%;
+    margin-left:-280px;
+}
+  </style>
+
+</head>
+<body ng-app="VideoPortal" ng-controller="AppController" >
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Video Portal</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar" >
+      <ul class="nav navbar-nav">
+        <li><a href="#">Add Video</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">{{params.UserName}}</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Log Out</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div align="center" style="font-size:25px; padding :8px">
+     <div class="row">    
+        <div class="col-xs-8 col-xs-offset-2">
+            <div class="input-group">
+            <input type="text" class="form-control" ng-model="searchText[searchval]" ng-init="searchText = {};searchval='Topic'"  placeholder="Search term...">
+                <div class="input-group-btn search-panel">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <span id="search_concept">Filter by</span> <span class="caret"></span> <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" style="padding-left:10px">
+                    <input type="radio" ng-model="searchval" name="searchTopic" value="Topic"  ng-change="topicChange()"> Topic <br>
+                    <input type="radio" ng-model="searchval" name="searchTopic" value="Title"  ng-change="titleChange()"> Title<br>
+                    <input type="radio" ng-model="searchval" name="searchTopic" value="Event"  ng-change="eventChange()"> Event <br>
+                    <input type="radio" ng-model="searchval" name="searchTopic" value="Date_of_Event"  ng-change="dateofeventChange()"> Date of Event<br>
+                    <input type="radio" ng-model="searchval" name="searchTopic" value="Date_of_Upload"  ng-change="dateofadditionChange()"> Date of Upload <br>
+                     
+                    </ul>
+                </div>        
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div class="jumbotron "> -->
+<div class="page">
+  <div class="popup" id="media-popup">
+        <iframe width="560" height="315" src="" frameborder="0"></iframe>
+    </div>
+</div>
+  
+<div class="container-fluid bg-3 text-center jumbotron">
+  <h3></h3><br>
+  <div class="row" >
+    <div class="col-sm-3 page" ng-repeat="item in customers | filter: searchText" style="border-top:0px">
+    {{item.Topic}}   {{item.Title}}
+    <youtube-help video="{{item.url}}" header="Url Description"></youtube-help>
+      <!-- <iframe ng-src="{{item.url}}" width="280" height="155" frameborder="3" ></iframe> --></a>
+      <br><br><br><br>
+    </div>
+  </div>
+</div><br>
+<br><br>
+
+<footer class="container-fluid text-center">
+  <p><p>Copyright © Accolite 2015</p></p>
+</footer>
+<script src="app.js"></script>
+<script src="2.js"></script>
+<script src="youtube.js"></script>
+</body>
+</html>
+

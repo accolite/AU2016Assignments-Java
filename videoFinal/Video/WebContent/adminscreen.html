@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Video Portal</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular-route.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.min.js"></script>
+   <meta name="google-signin-client_id" content="462126640051-npsnf05tkgfh7l9nsrds509ao29098k4.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+   <script>
+   function onLoad() {
+      gapi.load('auth2', function() {
+        gapi.auth2.init();
+      });
+    };
+    
+</script>
+   
+   
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }  
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 2px;
+    }
+  </style>
+
+</head>
+<body ng-app="VideoPortal" ng-controller="AppController" ng-init="start()">
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" >
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#" ng-click="setpre()">Video Portal</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar" >
+      <ul class="nav navbar-nav">
+        <li class="dropdown" ng-if="admin ">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" >Groups<span class="caret" ></span></a>
+          <ul class="dropdown-menu" >
+            <li ng-repeat="item in grpNames" ng-click="groupinfo(item.group_id)"><a href="#">{{item.name}}</a></li>
+          </ul>
+        </li>
+        <li class="dropdown" ng-if="user || grpadmin">
+        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" >Groups<span class="caret" ></span></a>
+          <ul class="dropdown-menu" >
+            <li ng-repeat="item in usergrps" ng-click="groupinfo(item.group_id)"><a href="#">{{item.name}}</a></li>
+          </ul>
+        </li>
+        <li class="dropdown" ng-if="admin">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" >Add<span class="caret" ></span></a>
+            <ul class="dropdown-menu">
+               <li ng-click="myMod1()"><a href="" data-toggle="modal" data-target="#myModal1">Site
+                  Admin</a></li>
+            </ul>
+        </li>
+        <li ng-if="admin || grpadmin" ng-click="fetch()"><a href="#">Approve</a></li>
+        <li ng-if="admin" ng-click="myMod4()"><a href="" data-toggle="modal" data-target="#myModal4">Create Group</a></li>
+        <li ng-if="grpadmin" ng-click="myMod3()"><a href="" data-toggle="modal" data-target="#myModal3">Add Members to Group</a></li>
+        <li ng-if="admin" ng-click="myMod5()"><a href="" data-toggle="modal" data-target="#myModal5">Create Event</a></li>
+        <li ng-if="user" ng-click="myMod2()"><a href="" data-toggle="modal" data-target="#myModal2">Add Video</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right" ng-if="admin||grpadmin||user">
+        <li><a href="#">{{UserName.firstname}}</a></li>
+        <li ng-click="signOut()"><a href="#"><span class="glyphicon glyphicon-log-in"></span> Log Out</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div align="center" style="font-size:25px; padding :8px" >
+     <div class="row">    
+        <div class="col-xs-8 col-xs-offset-2">
+            <div class="input-group">
+            <input type="text" class="form-control" ng-model="searchText[searchval]" ng-init="searchText = {};searchval='topic'"  placeholder="Search term...">
+                <div class="input-group-btn search-panel">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <span id="search_concept">Filter by</span> <span class="caret"></span> <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" style="padding-left:10px">
+                    <input type="radio" ng-model="searchval" name="searchTopic" value="topic" > Topic <br>
+                    <input type="radio" ng-model="searchval" name="searchTopic" value="title"  > Title<br>
+                    <input type="radio" ng-model="searchval" name="searchTopic" value="eventname"  > Event <br>
+                    <input type="radio" ng-model="searchval" name="searchTopic" value="dateOfEvent"  > Date of Event<br>
+                    <!-- <input type="radio" ng-model="searchval" name="searchTopic" value="Date_of_Upload"  > Date of Upload <br> -->
+                     
+                    </ul>
+                </div>        
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"
+            aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Add Site Admin</h4>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form elegant-aero">
+              <label for="site-admin" class="form-control-label">Email of User:</label>
+              <select class="form-control" id="site-admin" ng-model="site_admin" ng-options="item.email_id for item in userforsite">
+                <!--  <option ng-repeat="item in userforsite">{{item.email_id}}</option> --> 
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary"
+            data-dismiss="modal">Close</button>
+          <button type="button" class="btn cyan" data-dismiss="modal"
+            ng-click="addsiteadmin(site_admin)">Add Site Admin</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"
+            aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Add Video</h4>
+        </div>
+        <div class="modal-body">          
+          <form>
+            <div class="form elegant-aero">
+              			<label for="vidurl" class="form-control-label">Video URL:</label>
+						<input type="text" class="form-control" ng-model="vid_url" id="vidurl">
+						
+						<label for="vidtitle" class="form-control-label">Title:</label>
+						<input type="text" class="form-control" ng-model="vid_title" id="vidtitle">
+						
+						<label for="vidtopic" class="form-control-label">Topic:</label>
+						<input type="text" class="form-control" ng-model="vid_topic" id="vidtopic">
+						
+						<label for="videvent" class="form-control-label">Select Event:</label>
+						<select class="form-control" id="videvent" ng-model="vid_event">
+                <option ng-repeat="item in events">{{item.event_name}}</option>
+            </select>
+						
+						<label for="videvent" class="form-control-label">Privacy:</label><br>
+						<input type="radio" ng-model="myVar" name="privacytype" value="Private" > Private <br>
+                        <input type="radio" ng-model="myVar" name="privacytype" value="Public" checked> Public <br>
+                        
+                        <div ng-switch="myVar">
+                              <div ng-switch-when="Private">
+                              <label for="vidgrp" class="form-control-label">Select Group:</label>
+                              <select class="form-control" id="vidgrp" ng-model="vid_grp.value">
+                                  <option ng-repeat="item in memgroup">{{item.name}}</option>
+                              </select>
+                              </div>
+                        </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary"
+            data-dismiss="modal">Close</button>
+          <button type="button" class="btn cyan" data-dismiss="modal"
+            ng-click="addVideo(vid_url,vid_title,vid_topic,vid_event,vid_grp.value)">Add Video</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"
+            aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Add Members to Group</h4>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form elegant-aero">
+							<label for="group-name" class="form-control-label">Select Group Name:</label>
+							<select class="form-control" id="group-name" ng-model="grp_Name">
+                <option ng-repeat="item in grpsforwhich">{{item.name}}</option>
+            </select>
+
+
+							<label for="empname" class="form-control-label">Email Id(s) of User(s):</label>
+							<input type="text" class="form-control" ng-repeat="name in addnames" id=empname ng-model="name.name" style="padding-bottom:5px"><br>
+							<button type="button" class="btn btn-default btn-sm addbt" ng-click="addusername()">Add more Users
+	          						<span class="glyphicon glyphicon-plus"></span>
+	       						</button>
+						</div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary"
+            data-dismiss="modal">Close</button>
+          <button type="button" class="btn cyan" data-dismiss="modal"
+            ng-click="submitusername(grp_Name)">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<div class="modal fade" id="myModal4" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"
+            aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Create Group</h4>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form elegant-aero">
+							<label for="group-name" class="form-control-label">Group Name:</label>
+							<input type="text" class="form-control" ng-blur="checkgrpexits(cgroup_name)" ng-model="cgroup_name" id="group-name">
+
+
+							<label for="grpadmin" class="form-control-label">Group Admin Email:</label>
+							<input type="text" class="form-control" ng-model="group_admin" id="grpadmin">
+						</div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary"
+            data-dismiss="modal">Close</button>
+          <button type="button" class="btn cyan" data-dismiss="modal"
+            ng-click="submitgrp(cgroup_name,group_admin)">Create</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<div class="modal fade" id="myModal5" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"
+            aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Create Event:</h4>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form elegant-aero">
+							<label for="event-name" class="form-control-label">Event Name:</label>
+							<input type="text" class="form-control" ng-model="event_name" id="event-name">
+
+							<label for="date" class="form-control-label">Date:</label>
+							<input type="text" class="form-control" placeholder="Enter yyyy-mm-dd" ng-model="date_of_event" id="date">
+						</div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary"
+            data-dismiss="modal">Close</button>
+          <button type="button" class="btn cyan" data-dismiss="modal"
+            ng-click="addEvent(event_name,date_of_event)">Create</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="container-fluid bg-3 text-center jumbotron" ng-if="!grpvid &&!apprvid">
+  <div class="row" >
+    <div class="col-sm-4 page" ng-repeat="item in videos | filter: searchText" style="border-top:0px">
+    <b>Topic:</b>{{item.topic}}</b>  | <b>Title:</b>{{item.title}} <br><b>Event:</b>{{item.eventname}} | <b>DateofEvent:</b>{{item.dateOfEvent}}
+    <youtube-help video="{{item.url}}" header="Url Description"></youtube-help>
+      <!-- <iframe ng-src="{{item.url}}" width="280" height="155" frameborder="3" ></iframe> -->
+      <br><br><br><br>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid bg-3 text-center jumbotron" ng-if="grpvid && !apprvid">
+  <div class="row" >
+    <div class="col-sm-4 page" ng-repeat="item in grpVideos | filter: searchText" style="border-top:0px">
+    <b>Topic:</b>{{item.topic}}</b>  | <b>Title:</b>{{item.title}} <br><b>Event:</b>{{item.eventname}} | <b>DateofEvent:</b>{{item.dateOfEvent}}
+    <youtube-help video="{{item.url}}" header="Url Description"></youtube-help>
+      <!-- <iframe ng-src="{{item.url}}" width="280" height="155" frameborder="3" ></iframe> -->
+      <br><br><br><br>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid bg-3 text-center jumbotron" ng-if="apprvid">
+  <div class="row" >
+    <div class="col-sm-4 page" ng-repeat="item in apprvids | filter: searchText" style="border-top:0px">
+   <b>Topic:</b>{{item.topic}}</b>  | <b>Title:</b>{{item.title}} <br><b>Event:</b>{{item.eventname}} | <b>DateofEvent:</b>{{item.dateOfEvent}}
+    <youtube-help video="{{item.url}}" header="Url Description"></youtube-help>
+    <p><button type="button" class="btn btn-primary" ng-click="approve(item.video_id)">Approve</button>
+    <button type="button" class="btn btn-danger" ng-click="reject(item.video_id)">Reject</button>
+    <button type="button" class="btn btn-info" ng-if="check(item.groupname)">{{item.groupname}}</button>
+    </p>
+      <!-- <iframe ng-src="{{item.url}}" width="280" height="155" frameborder="3" ></iframe> -->
+      <br><br><br><br>
+    </div>
+  </div>
+</div>
+
+<footer class="container-fluid text-center">
+  <p><p>Copyright © Accolite 2016</p></p>
+</footer>
+<script src="app.js"></script>
+<script src="youtube.js"></script>
+</body>
+</html>
+

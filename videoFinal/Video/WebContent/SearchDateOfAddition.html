@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body ng-app="Search" >
+<div ng-controller="SearchController">
+
+	<input type="number" name="user_id" ng-model="user_id">
+	<input type="text" name="event" ng-model="date">
+	<input type="submit" ng-click="dateSearch(user_id, date" value="search" >
+<div ng-init="dateSearch()">
+<table>
+<tr ng-repeat="video in searchResult">
+<td>
+{{video.video_id}}
+{{video.user_id}}
+{{video.approval_id}}
+{{video.privacy}}
+{{video.title}}
+{{video.topic}}
+{{video.event_id}}
+{{video.statusFlag}}
+{{video.url}}
+</td>
+</tr>
+</table>
+</div>
+</div>
+
+</body>
+</html>
