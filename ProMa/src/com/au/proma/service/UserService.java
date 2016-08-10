@@ -27,15 +27,17 @@ public class UserService {
 		// TODO Auto-generated method stub
 		int roleId = roleDao.getRoleId(role);
 		List<String>emails = userDao.getUsersEmailWithRoleId(roleId);
-		SendMailTLS sendMail = new SendMailTLS();
+		//SendMailTLS sendMail = new SendMailTLS();
 		String content = "Project Details : "+"\n" 
 				+"Project name : "+p.getProjectname() + "\n"
 				+"Project resource working : "+p.getResourceworking() + "\n"
 				 + "\n";
 		int i;
 		for(i=0; i<emails.size(); i++){
-			System.out.println(emails.get(i));
-			sendMail.sendMail(emails.get(i),subject,content);
+			//System.out.println(emails.get(i));
+			Thread sendMailThread = new Thread(new SendMailTLS(emails.get(i), subject, content));
+			//mailTLS.sendMail(email, subject, content);
+			sendMailThread.start();
 		}
 	}
 
@@ -58,8 +60,10 @@ public class UserService {
 			String subject = "Congratulation!!";
 			
 			String content = "You have been made an admin on ProMa "+"\n" + "Congratulations!!!";
-			SendMailTLS mailTLS = new SendMailTLS();
-			mailTLS.sendMail(email, subject, content);
+			//SendMailTLS mailTLS = new SendMailTLS();
+			Thread sendMailThread = new Thread(new SendMailTLS(email, subject, content));
+			//mailTLS.sendMail(email, subject, content);
+			sendMailThread.start();
 		}
 		return isSuccess;
 	}

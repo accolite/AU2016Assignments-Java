@@ -13,10 +13,22 @@ import javax.mail.internet.MimeMessage;
 import com.au.proma.model.Project;
 import com.au.proma.model.User;
 
-public class SendMailTLS {
+public class SendMailTLS implements Runnable {
+	
+	private String userEmail;
+	private String subject;
+	private String content;
+	
 
-	public void sendMail(String userEmail,String subject , String content) {
-		// TODO Auto-generated method stub
+	public SendMailTLS(String userEmail, String subject, String content) {
+		super();
+		this.userEmail = userEmail;
+		this.subject = subject;
+		this.content = content;
+	}
+
+	@Override
+	public void run() {
 		final String username = "saumyadeepjndi@gmail.com";
 		final String password = "jndijndi123123";
 
