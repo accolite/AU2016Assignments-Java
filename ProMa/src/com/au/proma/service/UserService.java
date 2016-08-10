@@ -23,15 +23,19 @@ public class UserService {
 	private RoleDao roleDao;
 
 	
-	public void notifyEachAdmin(String role,Project p, String msg) {
+	public void notifyEachAdmin(String role,Project p, String subject) {
 		// TODO Auto-generated method stub
 		int roleId = roleDao.getRoleId(role);
 		List<String>emails = userDao.getUsersEmailWithRoleId(roleId);
 		SendMailTLS sendMail = new SendMailTLS();
+		String content = "Project Details : "+"\n" 
+				+"Project name : "+p.getProjectname() + "\n"
+				+"Project resource working : "+p.getResourceworking() + "\n"
+				 + "\n";
 		int i;
 		for(i=0; i<emails.size(); i++){
 			System.out.println(emails.get(i));
-			sendMail.sendMail(emails.get(i),p,msg);
+			sendMail.sendMail(emails.get(i),subject,content);
 		}
 	}
 
@@ -45,7 +49,16 @@ public class UserService {
 	}
 	
 	public Boolean convertVisitorToAdmin(User user){
-		return userDao.convertVisitorToAdmin(user);
-		
+		Boolean isSuccess =  userDao.convertVisitorToAdmin(user);
+		if(isSuccess)
+		{
+			String email = user.getUseremail();
+			String subject = "Congratulation!!";
+			
+			String content = "You have been made an admin on ProMa "+"\n" + "It's a manner of honour";
+			SendMailTLS mailTLS = new SendMailTLS();
+			mailTLS.sendMail(email, subject, content);
+		}
+		return isSuccess;
 	}
 }

@@ -154,7 +154,7 @@ public class UserDao {
 	public User getUser(int userId) {
 		// TODO Auto-generated method stub
 		String query = "select * from users where userid = "+userId;
-		return jdbcTemplate.queryForObject(query, new RowMapper<User>(){
+		List<User>users = jdbcTemplate.query(query, new RowMapper<User>(){
 
 			@Override
 			public User mapRow(ResultSet arg0, int arg1) throws SQLException {
@@ -170,6 +170,10 @@ public class UserDao {
 			}
 			
 		});
+		
+		if(users.isEmpty())return null;
+		else 
+			return users.get(0);
 	}
 	
 
