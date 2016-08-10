@@ -34,8 +34,9 @@ public class ParticipantServicesImpl implements ParticipantServices {
 	public Integer registerParticipant(List<ParticipantDetails> participantDetails){
 		Integer returner = 1;
 		for(ParticipantDetails participantDetail : participantDetails){
-			returner*=participantDAO.insertParticipant(participantDetail);
-			addmail(participantDetail);
+			Integer present = participantDAO.insertParticipant(participantDetail);
+			if(present!=0) addmail(participantDetail);	
+			returner*=present;
 		}
 		return returner;
 	}

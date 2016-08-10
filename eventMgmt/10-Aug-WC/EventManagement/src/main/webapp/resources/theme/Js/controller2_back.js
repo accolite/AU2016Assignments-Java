@@ -44,8 +44,45 @@ function( Messages, $scope, $rootScope, $http, noty) {
 		venue:''
 	}
 	
-	
+	$scope.clearEvent = function(){
+		$scope.event={
+				name:'',
+				description:'',
+				type:'individual',
+				start_time:0,
+				end_time:0,
+				venue:''
+			}
+	}
 
+	$scope.clearAdmin = function(){
+		$scope.admin = {
+				name:'',
+				email:''
+			}
+			
+	}
+	
+	$scope.clearAddParticipant = function(){
+		$scope.global.participantGroupName = "";
+		$scope.participants = [{
+			 "participant": {
+			      "event_id": 0
+			    },
+			    "group": {
+			      "group_name": ""
+			    },
+			    "user": {
+			      "email": ""
+			    }
+		}];
+	}
+	
+	$scope.clearAddPoints = function(){
+		$scope.group = {group_name:'',points:0};
+	}
+	
+	
 	$scope.group = {group_name:'',points:0}
 	
 	$scope.showNotySuccess = function(msg) {
@@ -73,7 +110,6 @@ function( Messages, $scope, $rootScope, $http, noty) {
 	    }
 	  })
 	   }
-	
 	
 	$scope.findRow = function(group_name){
 		var elementPos = $scope.groups.map(function(x) {return x.group_name; }).indexOf(group_name);
@@ -203,12 +239,14 @@ function( Messages, $scope, $rootScope, $http, noty) {
 		            data: objectPojo
 		        }).then(function successCallback(response) {
 		        	$scope.editmode();
-		        	if(response.data){
+		        	if(response.data > 0){
 		        		$scope.getallevents();
 		        		$scope.showNotySuccess("Event " +$scope.events[$scope.global.flag].event.name + " updated");
 		        	}
+		        	else if(response.data == 0)
+		        		$scope.showNotyFailure("Some organizers could not be added");
 		        	else
-		        		$scope.showNotyFailure("Access denied");
+		        		$scope.showNotyFailure("Access Denied")
 		        }, function errorCallback(response) {
 		        	$scope.showNotyFailure(response.statusText);
 		        });
@@ -358,7 +396,7 @@ function( Messages, $scope, $rootScope, $http, noty) {
 	 * Add - event
 	 */
 	$scope.addevent = function() {
-	
+		
 		var objectPojo = {'event':$scope.event,'organizers':$scope.organizer};
 		for(var i=0;i<objectPojo.organizers.length;i++){
 			var value=objectPojo.organizers[i].email;
@@ -376,9 +414,10 @@ function( Messages, $scope, $rootScope, $http, noty) {
 			objectPojo.event.end_time = new Date();
 			objectPojo.event.end_time.setHours(objectPojo.event.end_time.getHours()+1)
 		}
-		if(objectPojo.event.end_time<=objectPojo.event.start_time){
+		if(objectPojo.event.end_time<=objectPojo.event.start_time)
 			$scope.showNotyFailure("Event must atleast be 1 ms long");
-		}
+		else if(objectPojo.event.name=='' || objectPojo.event.name==null)
+			$scope.showNotyFailure("Name can't be empty");
 		else{
 			$http({
 		            method : 'POST',
@@ -452,8 +491,14 @@ function( Messages, $scope, $rootScope, $http, noty) {
 	            url : 'registerParticipant',
 	            data: $scope.participants
 	        }).then(function successCallback(response) {
-	        	$scope.showNotySuccess("success");
-	        	$scope.global.participantGroupName="";
+	        	if(response.data!=0){
+		        	$scope.getallevents();
+		        	$scope.showNotySuccess("success");
+		        	$scope.global.participantGroupName="";
+	        	}
+	        	else{
+	        		$scope.showNotyFailure("Not all emails were added. Can't be added again");
+	        	}
 	        	$scope.participants=[{
 					 "participant": {
 					      "event_id": 0
@@ -465,6 +510,7 @@ function( Messages, $scope, $rootScope, $http, noty) {
 					      "email": ""
 					    }
 			}];
+	        	
 	        	
 	        }, function errorCallback(response) {
 	        	$scope.showNotyFailure(response.statusText);
@@ -514,7 +560,7 @@ function( Messages, $scope, $rootScope, $http, noty) {
 	 */
 	
 	$scope.currentPage = 0;
-  	$scope.pageSize = 12;
+  	$scope.pageSize = 6;
 
   	$scope.numberOfPages = function() {
 

@@ -55,7 +55,7 @@ function onLoad() {
 <body ng-app="EventManagement" ng-controller="EventController" 
 ng-init="getallevents();usertype='<%= session.getAttribute("type") %>';" 
 style="overflow:scroll" id="mainBody">
-
+	<div noty-container></div>
 	<md-content> <md-toolbar layout="row"
 		class="custom-tool-bar">
 	<div class="col-md-4 col-xs-6">
@@ -69,8 +69,8 @@ style="overflow:scroll" id="mainBody">
 	</table>
 	</div>
 	<div class="col-md-6 col-xs-6"></div>
-	<div layout-align="end end" class="col-md-2 col-xs-6"><span>{{loginUser}}</span> </div>
-	<div noty-container></div>
+	<div layout-align="end end" class="col-md-2 col-xs-6"><span ng-cloak>{{loginUser}}</span> </div>
+	
 	</md-toolbar> 
 	
 	
@@ -79,9 +79,13 @@ style="overflow:scroll" id="mainBody">
 		<md-nav-bar
 		nav-bar-aria-label="navigation links"
 		style="margin:auto;margin-left:0"> <md-nav-item
-		name="createEventNav" data-toggle="modal" data-target="#myModal" ng-if="usertype == 'admin'">Create
+		name="createEventNav" data-toggle="modal" data-target="#myModal" 
+		ng-if="usertype == 'admin'" 
+		ng-click="clearEvent()">Create
 	Event</md-nav-item> <md-nav-item name="addAdminNav" data-toggle="modal"
-		data-target="#myModal1" ng-if="usertype == 'admin'">Add Admin</md-nav-item> 
+		data-target="#myModal1" 
+		ng-if="usertype == 'admin'"
+		ng-click="clearAdmin()">Add Admin</md-nav-item> 
 		<md-nav-item name="logoutNav" ng-click="logout()" target="_self">Log
 	Out</md-nav-item> 
 	</md-nav-bar> 
@@ -133,12 +137,12 @@ style="overflow:scroll" id="mainBody">
 			<md-card> 
 			<md-card-title class="custom-tool-bar padding-less">
 			<md-card-title-text layout="row">
-				<div class="form-group col-md-8 col-xs-4">
+				<div class="form-group col-md-7 col-xs-4">
 					<h2 class="event-header" ng-if="!view" ng-cloak>{{events[global.flag].event.name}}</h2>
 					<md-input-container ng-if="view" class="col-md-6 col-xs-12 padding-less"> <label>Event Name</label>
 					<input ng-model="events[global.flag].event.name" required> </md-input-container>
 				</div>
-				<div class="col-md-4 col-xs-8" layout="row" layout-align="end start" style="margin-top:10px">
+				<div class="col-md-5 col-xs-8" layout="row" layout-align="end start" style="margin-top:10px">
 			
 			<md-button
 			data-toggle="modal" data-target="#myModalParticipants" 
@@ -282,12 +286,12 @@ style="overflow:scroll" id="mainBody">
 			</div>
 		<md-card-actions layout="row" layout-align="end center">
 		<md-button class="md-primary" data-toggle="modal" data-target="#myModal2"
-			ng-click="addParticipant()" ng-if="(usertype == 'admin' || Organizer[global.flag]) &&  !view">Add Participant</md-button>
+			ng-click="clearAddParticipant();addParticipant()" ng-if="(usertype == 'admin' || Organizer[global.flag]) &&  !view">Add Participant</md-button>
 			
 		<md-button class="md-primary" data-toggle="modal" data-target="#myModal2"
-			ng-click="addParticipant()" ng-if="(usertype!='admin' && !Organizer[global.flag]) && !view">Register</md-button>
+			ng-click="clearAddParticipant();addParticipant()" ng-if="(usertype!='admin' && !Organizer[global.flag]) && !view">Register</md-button>
 			 
-		<md-button class="md-primary" data-toggle="modal" data-target="#myModal3" ng-click="getallgroups()" 
+		<md-button class="md-primary" data-toggle="modal" data-target="#myModal3" ng-click="getallgroups();clearAddPoints();" 
 		ng-if="(usertype == 'admin' || Organizer[global.flag]) &&  !view">Add
 		Points</md-button>
 		</md-card-actions> 
@@ -469,7 +473,7 @@ style="overflow:scroll" id="mainBody">
 					
 					<select ng-if="events[global.flag].event.type=='group' && newGroup==2" class="form-control points"  ng-model="group.group_name">
 						<option value="" disabled>-- Select a participant --</option>
-						<option ng-repeat="groupind in groups"  value="{{groupind.group_name}}">{{groupind.group_name}}</option>
+						<option ng-repeat="groupind in groups"  value="{{groupind.group_name}}" ng-cloak>{{groupind.group_name}}</option>
 					</select>
 					<md-button class="md-primary" ng-click="change()" ng-if="newGroup!=0"> Change
       				</md-button>
@@ -516,7 +520,7 @@ aria-labelledby="myModalLabel" aria-hidden="true">
 				Name</label>
 				<select class="form-control points"  ng-model="group.group_name">
 					<option value="" disabled>-- Select a participant --</option>
-					<option ng-repeat="groupind in groups"  value="{{groupind.group_name}}">{{groupind.group_name}}</option>
+					<option ng-repeat="groupind in groups"  value="{{groupind.group_name}}" ng-cloak>{{groupind.group_name}}</option>
 				</select>
 				
 				<md-input-container>
@@ -555,8 +559,8 @@ aria-labelledby="myModalLabel" aria-hidden="true">
 				
 				<div ng-repeat="participant in global.participantsEvents">
 				
-				<span class="event-sub-header">{{participant.user.name}}</span>, 
-				<span>{{participant.user.email}}</span>
+				<span class="event-sub-header" ng-cloak>{{participant.user.name}}</span>, 
+				<spa ng-cloak>{{participant.user.email}}</span>
 				</div>
 				
 			</div>
@@ -588,8 +592,8 @@ aria-labelledby="myModalLabel" aria-hidden="true">
 				
 				<div ng-repeat="groupindividual in groups | orderBy:'-groupindividual.points'">
 				
-				<h5 class="event-sub-header">{{groupindividual.group_name}}</h5>
-				<span>{{groupindividual.points}}</span>
+				<h5 class="event-sub-header" ng-cloak>{{groupindividual.group_name}}</h5>
+				<span ng-cloak>{{groupindividual.points}}</span>
 				</div>
 				
 			</div>

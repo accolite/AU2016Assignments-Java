@@ -115,19 +115,41 @@ public class ParticipantDAOImpl implements ParticipantDAO {
 		Integer returnInt = 1;
 		int role_id=0;
 		
+
+		/*
+		 * check if already added
+		 */
+		
+		String query4 = "select user_id from roles_users where role_id=0 and user_id="+user_id+" and event_id = "+participant.getEvent_id()+";";
+		Integer present = jdbc.query(query4, new ResultSetExtractor<Integer>() {
+
+			public Integer extractData(ResultSet rs) throws SQLException, DataAccessException {	
+			    Integer intVar = null;
+				while(rs.next())
+			        intVar=rs.getInt("user_id");	
+			    
+				return intVar;
+			}
+		});
+		
+		if(present==null){
 		/*
 		 * Insert statements
 		 */
-		String query5 = "insert into participants(user_id,group_id,event_id) values('"+user_id+"','"+group_id+"','"+participant.getEvent_id()+"');";		
-		String query6 = "insert into roles_users(user_id,event_id,role_id) values('"+user_id+"','"+participant.getEvent_id()+"','"+role_id+"');";		
 		
-		/*
-		 * Execute query and store status in return var
-		 */
-		returnInt*=jdbc.update(query5);
-		returnInt*=jdbc.update(query6);
+			String query5 = "insert into participants(user_id,group_id,event_id) values('"+user_id+"','"+group_id+"','"+participant.getEvent_id()+"');";		
+			String query6 = "insert into roles_users(user_id,event_id,role_id) values('"+user_id+"','"+participant.getEvent_id()+"','"+role_id+"');";		
+			
+			/*
+			 * Execute query and store status in return var
+			 */
+			returnInt*=jdbc.update(query5);
+			returnInt*=jdbc.update(query6);
+			return returnInt;
+		}
+		else
+			return 0;
 		
-		return returnInt;
 	}
 	
 	public int insertOrganizer(String event_id, String emailId){
@@ -164,14 +186,30 @@ public class ParticipantDAOImpl implements ParticipantDAO {
 				}
 			});
 		}
-		/*
-		 * Insert statement
-		 */
 		
-		int role_id=1;
-		String query2 = "insert into roles_users(user_id,event_id,role_id) values('"+user_id+"','"+event_id+"','"+role_id+"');";		
+		String query4 = "select user_id from roles_users where role_id=1 and user_id="+user_id+" and event_id = "+event_id+";";
+		Integer present = jdbc.query(query4, new ResultSetExtractor<Integer>() {
+
+			public Integer extractData(ResultSet rs) throws SQLException, DataAccessException {	
+			    Integer intVar = null;
+				while(rs.next())
+			        intVar=rs.getInt("user_id");	
+			    
+				return intVar;
+			}
+		});
 		
-		return jdbc.update(query2);
+		if(present==null){
+			/*
+			 * Insert statement
+			 */
+			
+			int role_id=1;
+			String query2 = "insert into roles_users(user_id,event_id,role_id) values('"+user_id+"','"+event_id+"','"+role_id+"');";		
+			
+			return jdbc.update(query2);
+		}else
+			return 0;
 	}
 	
 
