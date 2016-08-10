@@ -28,13 +28,17 @@ angular.module('app', [
 			})
 			.otherwise({redirectTo: '/'});
 	})
-	.controller('overviewController', function($scope,$http,$location,$alert,$timeout,$rootScope){
+	.controller('overviewController', function($scope,$http,$location,$alert,$timeout,$rootScope,$window){
 		
 		var initO = function(){
 			var sessionDetailsURL = "rest/accounts/getSessionDetails";
 			var sessionPromise = $http.get(sessionDetailsURL);
 			sessionPromise.then(function(response){
 				$rootScope.role=response.data.role;
+				$rootScope.loggedin=response.data.loggedin;
+			},function(response){
+				$window.location.href = 'http://localhost:8080/ProMa/login.html';
+
 			})
 
 			var url = "rest/projects/status";
@@ -42,7 +46,7 @@ angular.module('app', [
 			promise.then(function(response){
 				$scope.projects = response.data;
 				col={green:0,yellow:0,red:0,black:0};
-			    $scope.pielabels = ["Red", "Yellow", "Green","Black"];
+			    $scope.pielabels = ["Danger", "Neutral", "OK","Stagnant"];
 	  			for (var i = 0; i < $scope.projects.length; i++) {
 	  				col.green += $scope.projects[i].green;
 	  				col.yellow += $scope.projects[i].yellow;
@@ -121,7 +125,7 @@ angular.module('app', [
 		};
 
 	})
-	.controller('individualController', function($scope,$http,$routeParams,$alert,$modal,$timeout,$rootScope){
+	.controller('individualController', function($scope,$http,$routeParams,$alert,$modal,$timeout,$rootScope,$window){
 		$scope.buname = $routeParams.buname;
 		
 		var initI = function() {
@@ -130,6 +134,9 @@ angular.module('app', [
 			var sessionPromise = $http.get(sessionDetailsURL);
 			sessionPromise.then(function(response){
 				$rootScope.role=response.data.role;
+				$rootScope.loggedin=response.data.loggedin;
+			},function(response){
+				$window.location.href = 'http://localhost:8080/ProMa/login.html';
 			})
 
 
@@ -202,13 +209,17 @@ angular.module('app', [
 			})
 		}
 	})
-	.controller('projectController', function($scope,$http,$routeParams,$alert,$modal,$timeout,$rootScope){
+	.controller('projectController', function($scope,$http,$routeParams,$alert,$modal,$timeout,$rootScope,$window){
 		$scope.projectid = $routeParams.projectid;
 		
 		var sessionDetailsURL = "rest/accounts/getSessionDetails";
 			var sessionPromise = $http.get(sessionDetailsURL);
 			sessionPromise.then(function(response){
 				$rootScope.role=response.data.role;
+				$rootScope.loggedin=response.data.loggedin;
+			}
+				,function(response){
+				$window.location.href = 'http://localhost:8080/ProMa/login.html';
 			})
 		
 		var initP = function(){			

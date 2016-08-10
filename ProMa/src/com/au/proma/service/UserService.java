@@ -57,7 +57,7 @@ public class UserService {
 			String email = user.getUseremail();
 			String subject = "Congratulation!!";
 			
-			String content = "You have been made an admin on ProMa "+"\n" + "It's a manner of honour";
+			String content = "You have been made an admin on ProMa "+"\n" + "Congratulations!!!";
 			SendMailTLS mailTLS = new SendMailTLS();
 			mailTLS.sendMail(email, subject, content);
 		}

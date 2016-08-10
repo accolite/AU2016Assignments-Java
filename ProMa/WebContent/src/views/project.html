@@ -54,7 +54,15 @@
 					<td>{{currentSprint.startdate}}</td>
 					<td>{{currentSprint.enddate}}</td>
 					<td class="{{currentSprint.colour}}">{{currentSprint.colour}}</td>
-					<td>{{currentSprint.completed_date}}</td>
+					<td>
+					<span ng-if="currentSprint.completed_date == null">
+						Ongoing
+					</span>
+					<span ng-if="currentSprint.completed_date != null">
+						{{currentSprint.completed_date}}
+					</span>
+						
+					</td>
 				</tr>
 			</tbody>
 		</table>

@@ -135,13 +135,15 @@ public class ProjectController {
 	public List<Integer> getDataPoints(@PathVariable("id") int projectid) {
 		return sprintService.getDataPoints(projectid);
 	}
-	@RequestMapping(value="/completed",method=RequestMethod.POST,produces="application/json",consumes="application/json")
+	@RequestMapping(value="/{id}/complete",method=RequestMethod.POST,produces="application/json",consumes="application/json")
 	@ResponseBody
-	public int completeProject( @RequestBody Project p,HttpServletRequest request)
+	public int completeProject(@PathVariable("id") int id,HttpServletRequest request)
 	{
 		if(request.getSession()!=null&&request.getSession().getAttribute("role").equals("admin")==true)
 		{
-				int row_affected =  projectService.completeProject(p);
+			Project p =new Project();
+			p.setProjectid(id);
+			int row_affected =  projectService.completeProject(p);
 			
 			return row_affected;
 		}
