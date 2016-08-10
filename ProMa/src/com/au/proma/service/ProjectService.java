@@ -27,13 +27,26 @@ public class ProjectService {
 	private ProjectDao projectDao;
 
 	@Autowired
-	private BuDao buDao;
-
-	@Autowired
 	private SprintDao sprintDao;
 
 	public List<Project> getAllProjects() {
 		return projectDao.getAllProjects();
+	}
+
+	public ProjectDao getProjectDao() {
+		return projectDao;
+	}
+
+	public void setProjectDao(ProjectDao projectDao) {
+		this.projectDao = projectDao;
+	}
+
+	public SprintDao getSprintDao() {
+		return sprintDao;
+	}
+
+	public void setSprintDao(SprintDao sprintDao) {
+		this.sprintDao = sprintDao;
 	}
 
 	public Boolean updateProject(int project_id, Project project) {
