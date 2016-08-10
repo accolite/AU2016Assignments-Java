@@ -1,0 +1,141 @@
+<script src="bower_components/jquery/dist/jquery.js">
+</script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-route.min.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="bower_components/lodash/lodash.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+
+<div class="row" ng-app="library" ng-controller="appController">
+
+
+    <div class="col-md-offset-1 col-md-5">
+        <div class="well">
+
+            <div class="row" style="background-color: #CACFD2">
+                <div class="row" ng-if="activetrainer">
+                    <h5 class="label label-default">Active Session</h5>
+                    <div class="col-md-6">
+                        <b>Session Name : {{activetrainer.sessionName}}</b>
+                        <br> Session Date : {{activetrainer.date}}
+                        <br> SessionID : {{activetrainer.sessionID}}
+                        <br> Session Start Time : {{activetrainer.startTime}} hrs
+                        <br> Session End Time : {{activetrainer.endTime}} hrs
+                        <br>
+                        <br>
+                        <h5 class="btn btn-info">START</h5>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+            <h2 class="label label-default">Sessions as Trainer</h2>
+            <div class="row" ng-repeat="x in trainerdata">
+
+                <div class="col-md-5">
+                    <b>Session Name : {{x.sessionName}}</b>
+                    <br> Session Date : {{x.date}}
+                    <br> SessionID : {{x.sessionID}}
+                    <br> Session Start Time : {{x.startTime}} hr
+                    <br> Session End Time : {{x.endTime}} hr
+                    <br>
+                    <br>
+
+
+                    <form action="rest/uploadFiles" method="post" enctype="multipart/form-data">
+                        <input type="file" class="btn btn-info" name="file" size="50" />
+                        <input type="hidden" name="SessionID" value="{{x.sessionID}}" />
+                        <br />
+                        <input type="submit" class="btn btn-primary" value="Upload File" />
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-5 col-md-offet-1">
+        <div class="well">
+
+            <div class="row">
+                <div class="row" ng-if="activetrainee">
+                    <h5 class="label label-default">Active Session</h5>
+                    <div class="col-md-6">
+                        <b>Session Name : {{activetrainee.sessionName}}</b>
+                        <br> Session Date : {{activetrainee.date}}
+                        <br> SessionID : {{activetrainee.sessionID}}
+                        <br> Session Start Time : {{activetrainee.startTime}} hrs
+                        <br> Session End Time : {{activetrainee.endTime}} hrs
+                        <br>
+                        <br>
+                        <h5 class="btn btn-info">JOIN</h5>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <br>
+
+            <h5 class="label label-default">Accepted Session</h5>
+            <div class="row" ng-repeat="x in traineedata">
+                <div class="col-md-6">
+                    <b>Session Name : {{x.sessionName}}</b>
+                    <br> Session Date : {{x.date}}
+                    <br> SessionID : {{x.sessionID}}
+                    <br> Session Start Time : {{x.startTime}} hrs
+                    <br> Session End Time : {{x.endTime}} hrs
+
+
+                    <div ng-init="listdownloads(x.sessionID)">
+                        <div ng-if="tempfilelist[x.sessionID]">
+
+                            <div class="row" ng-repeat="l in tempfilelist[x.sessionID]">
+                                <a href="rest/download?FileName={{l}}">{{l}}</a>
+                                <br>
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <br>
+                    </div>
+
+
+
+
+                </div>
+
+                <br />
+            </div>
+
+
+
+            <h5 class="label label-default">To Accept</h5>
+            <br>
+            <div class="row" ng-repeat="x in traineewaitdata">
+                <div class="col-md-6">
+                    <b>Session Name : {{x.sessionName}}</b>
+                    <br> Session Date : {{x.date}}
+                    <br> SessionID : {{x.sessionID}}
+                    <br>Session Start Time : {{x.startTime}}
+                    <br> Session End Time : {{x.endTime}}
+                    <br>
+                    <br>
+                    <br>
+                </div>
+                <br />
+                <br>
+            </div>
+
+            <p>
+                SessionID
+                <input type="text" ng-model="TraineeSessionID">
+            </p>
+            <button class="btn btn-primary" ng-click="approve()">Accept Assigned Session</button>
+        </div>
+    </div>
+</div>

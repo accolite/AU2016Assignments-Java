@@ -1,0 +1,58 @@
+<div class="container" ng-controller="appController2">
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <div class="row text-center well">
+        <h1>Trainee Submits Feedback</h1>
+    </div>
+
+
+    <div class="jumbotron">
+
+        <div class="row" ng-repeat="x in fetchFeedbackSessionsTrainee">
+            <div class="col-md-5">
+                <b class="badge"> {{x.sessionID}}</b> {{x.sessionName}}
+            </div>
+        </div>
+
+
+    </div>
+    <div class="well">
+        <div class="col-md-3">
+            <label for="FeedbackSessionID">SessionID</label>
+            <br>
+            <br>
+            <label for="f1">Knowledge & Presentation</label>
+            <br>
+            <br>
+            <label for="f2">Method of Presentation</label>
+            <br>
+            <br>
+            <label for="f3">Question Answering</label>
+            <br>
+            <br>
+            <label for="f4">Overall Intensity</label>
+            <br>
+            <br>
+        </div>
+        <div class="col-md-5 col-md-offset-2">
+            <select ng-model="FeedbackSessionID">
+                <option ng-repeat="x in fetchFeedbackSessionsTrainee" value="{{x.sessionID}}">{{x.sessionID}} - {{x.sessionName}}</option>
+            </select>
+            <br>
+            <br>
+            <input type="number" min="1" max="5" ng-model="f1" placeholder="1">
+            <br>
+            <br>
+            <input type="number" min="1" max="5" ng-model="f2" placeholder="1">
+            <br>
+            <br>
+            <input type="number" min="1" max="5" ng-model="f3" placeholder="1">
+            <br>
+            <br>
+            <input type="number" min="1" max="5" ng-model="f4" placeholder="1">
+            <br>
+            <br>
+        </div>
+        <button style="background-color:#34495e;" type="submit" ng-click="avgfeedback()" class="btn btn-success">Submit Session Feedback</button>
+    </div>
+</div>

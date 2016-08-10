@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script>
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            var id_token = googleUser.getAuthResponse().id_token;
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'rest/SignIn');
+            //xhr.open('POST','https://www.googleapis.com/oauth2/v3/tokeninfo?id_token='+id_token);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    location.href = "/SpringAU2016Demo/indextest.html";
+                }
+            }
+            xhr.send('idtoken=' + id_token);
+
+        }
+    </script>
+    <meta name="google-signin-client_id" content="470545844187-r537672q0jbi3sioe2t28qpiflid6cmb.apps.googleusercontent.com">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Bootstrap 101 Template</title>
+
+    <!-- Bootstrap -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="container">
+        <div class="row well">
+            <div class="col-md-3">
+                <div class="row">
+                    <img src="assets/logo.png">
+                </div>
+            </div>
+            <div class="col-md-5 col-md-offset-3">
+                <div class="row">
+                    <h1><strong>Meeting Manager </strong></h1>
+                </div>
+                <div class="row">
+                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <div class="row well col-md-5 col-md-offset-3">
+            <p>An Application to manage sessions or meetings across various locations of Accolite
+            </p>
+        </div>
+    </div>
+    <script src="assets/js/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="assets/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,104 @@
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-route.min.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="bower_components/lodash/lodash.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<link rel="stylesheet" type="text/css" href="mycss.css">
+<script>
+    $('ul.nav li.dropdown').hover(function() {
+        $(this).find('.dropdown-menu').stop(true, true).delay(0).fadeIn(500);
+    }, function() {
+        $(this).find('.dropdown-menu').stop(true, true).delay(0).fadeOut(500);
+    });
+</script>
+
+<div class="row" ng-app="library" ng-controller="appController">
+
+    <div ng-if="activetrainee">
+        <h3 align="center" style="font-weight:bold;">Active Session</h3>
+        <div class="outer1 clearfix">
+            <div class="head1">
+                <h4>{{activetrainee.sessionName}}</h4>
+            </div>
+            <div class="inner1"> <b>Session Name : {{activetrainee.sessionName}}</b>
+                <br> Session Date : {{activetrainee.date}}
+                <br> SessionID : {{activetrainee.sessionID}}
+                <br> Session Start Time : {{activetrainee.startTime}} hrs
+                <br> Session End Time : {{activetrainee.endTime}} hrs
+                <br>
+                <br> </div>
+            <div class="inner1">
+                <div ng-init="listdownloads(activetrainee.sessionID)">
+                    <div ng-if="tempfilelist[activetrainee.sessionID]">
+
+                        <div class="row" ng-repeat="l in tempfilelist[activetrainee.sessionID]">
+                            <a href="rest/download?FileName={{l}}">{{l}}</a>
+                            <br>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h3 align="center" style="font-weight:bold;">Accepted Session</h3>
+    <div ng-repeat="x in traineedata">
+        <div class="outer1 clearfix">
+            <div class="head2">
+                <h4>{{x.sessionName}}</h4>
+            </div>
+            <div class="inner1"><b>Session Name : {{x.sessionName}}</b>
+                <br> Session Date : {{x.date}}
+                <br> SessionID : {{x.sessionID}}
+                <br> Session Start Time : {{x.startTime}} hrs
+                <br> Session End Time : {{x.endTime}} hrs
+                <br>
+                <br> </div>
+            <div class="inner1">
+                <div ng-init="listdownloads(x.sessionID)">
+                    <div ng-if="tempfilelist[x.sessionID]">
+
+                        <div class="row" ng-repeat="l in tempfilelist[x.sessionID]">
+                            <a href="rest/download?FileName={{l}}">{{l}}</a>
+                            <br>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h3 align="center" style="font-weight:bold;">To Accept</h3>
+    <div ng-repeat="x in traineewaitdata">
+        <div class="outer1 clearfix">
+            <div class="head3">
+                <h4>{{x.sessionName}}</h4>
+            </div>
+            <div class="inner1"><b>Session Name : {{x.sessionName}}</b>
+                <br> Session Date : {{x.date}}
+                <br> SessionID : {{x.sessionID}}
+                <br>Session Start Time : {{x.startTime}}
+                <br> Session End Time : {{x.endTime}}
+                <br>
+                <br> </div>
+            <div class="inner1">
+                <p>
+                    SessionID
+                    <input type="text" id="MyTraineeSessionID">
+                </p>
+                <button class="btn btn-primary" ng-click="approve()">Accept Assigned Session</button>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>

@@ -1,0 +1,66 @@
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-route.min.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="bower_components/lodash/lodash.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<link rel="stylesheet" type="text/css" href="mycss.css">
+<script>
+    $('ul.nav li.dropdown').hover(function() {
+        $(this).find('.dropdown-menu').stop(true, true).delay(0).fadeIn(500);
+    }, function() {
+        $(this).find('.dropdown-menu').stop(true, true).delay(0).fadeOut(500);
+    });
+</script>
+<div class="row" ng-app="library" ng-controller="appController">
+
+    <div ng-if="activetrainer">
+        <h3 align="center" style="font-weight:bold;">Active Session</h3>
+        <div class="outer1 clearfix">
+            <div class="head1">
+                <h4>{{activetrainer.sessionName}}</h4>
+            </div>
+            <div class="inner1"> <b>Session Name : {{activetrainer.sessionName}}</b>
+                <br> Session Date : {{activetrainer.date}}
+                <br> SessionID : {{activetrainer.sessionID}}
+                <br> Session Start Time : {{activetrainer.startTime}} hrs
+                <br> Session End Time : {{activetrainer.endTime}} hrs
+                <br>
+                <br> </div>
+            <div class="inner1">
+                <form action="rest/uploadFiles" method="post" enctype="multipart/form-data">
+                    <input type="file" style="background-color:#bdc3c7;" name="file" />
+                    <input type="hidden" name="SessionID" value="{{activetrainer.sessionID}}" />
+                    <br />
+                    <input type="submit" class="btn btn-primary" style="background-color:#34495e;" value="Upload File" />
+                </form>
+            </div>
+        </div>
+    </div>
+    <h3 align="center" style="font-weight:bold;">Sessions as Trainer</h3>
+    <div ng-repeat="x in trainerdata">
+        <div class="outer1 clearfix">
+            <div class="head2">
+                <h4>{{x.sessionName}}</h4>
+            </div>
+            <div class="inner1"><b> Session Name : {{x.sessionName}}</b>
+                <br> Session Date : {{x.date}}
+                <br> SessionID : {{x.sessionID}}
+                <br> Session Start Time : {{x.startTime}} hr
+                <br> Session End Time : {{x.endTime}} hr
+                <br>
+                <br> </div>
+            <div class="inner1">
+                <form action="rest/uploadFiles" method="post" enctype="multipart/form-data">
+                    <input type="file" style="background-color:#bdc3c7;" name="file" size="50" />
+                    <input type="hidden" name="SessionID" value="{{x.sessionID}}" />
+                    <br />
+                    <input type="submit" class="btn btn-primary in1" style="background-color:#34495e;" value="Upload File" />
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</div>

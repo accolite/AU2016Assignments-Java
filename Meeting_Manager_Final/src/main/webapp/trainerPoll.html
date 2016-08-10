@@ -1,0 +1,77 @@
+<div class="container" ng-controller="appController5">
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+
+    <div class="row text-center well">
+        <h1>Trainer Poll</h1>
+    </div>
+
+    <div class="row" ng-repeat="x in trainerpolldata">
+        <div class="col-md-5">
+            <span class="label label-warning"> {{x.pollID}} )</span>
+            <span class="label label-default">{{x.q}} </span>
+            <br>
+            <span class="label label-info">{{x.o1}}</span>
+            <span class="label label-info">{{x.o2}}</span>
+            <span class="label label-info">{{x.o3}}</span>
+            <span class="label label-info">{{x.o4}}</span>
+            <br>
+            <br>
+        </div>
+    </div>
+
+    <div class="well">
+        <div class="row">
+            <h3>Create Poll</h3>
+            <div class="form-group">
+                <label for="Question">Question</label>
+                <input type="text" class="form-control" ng-model="q">
+            </div>
+            <div class="form-group">
+                <label for="Option1">Option1</label>
+                <input type="text" class="form-control" ng-model="o1">
+            </div>
+            <div class="form-group">
+                <label for="Option2">Option2</label>
+                <input type="text" class="form-control" ng-model="o2">
+            </div>
+            <div class="form-group">
+                <label for="Option3">Option3</label>
+                <input type="text" class="form-control" ng-model="o3">
+            </div>
+            <div class="form-group">
+                <label for="Option4">Option4</label>
+                <input type="text" class="form-control" ng-model="o4">
+            </div>
+            <div class="form-group">
+                <label for="TrainerPollSessionID">SessionID</label>
+                <select ng-model="TrainerPollSessionID" class="form-control">
+                    <option ng-repeat="x in fetchSessionsAdmin" value="{{x.sessionID}}">{{x.sessionID}}-{{x.sessionName}}</option>
+                </select>
+                <!-- <input type="text" class="form-control" ng-model="TrainerPollSessionID"> -->
+            </div>
+            <button style="background-color:#34495e;" type="submit" ng-click="addPoll()" class="btn btn-success">Create Poll</button>
+        </div>
+        <div class="row">
+            <h3>Fetch Poll</h3>
+            <div class="form-group">
+                <label for="PollID">PollID</label>
+                <input type="text" class="form-control" ng-model="PollID">
+            </div>
+            <button style="background-color:#34495e;" class="btn btn-success" ng-click="fetchPoll()"> Visualise Poll Results </button>
+            <div ng-if="polldata">
+                <canvas id="doughnut1" class="chart chart-doughnut" chart-data="data1" chart-labels="labels1">
+                </canvas>
+            </div>
+        </div>
+
+        <div class="row">
+            <h3>Close Poll</h3>
+            <div class="form-group">
+                <label for="PollID">PollID</label>
+                <input type="text" class="form-control" ng-model="closePollID">
+            </div>
+            <button style="background-color:#34495e;" class="btn btn-success" ng-click="closePoll()"> Close Poll </button>
+        </div>
+    </div>
+</div>

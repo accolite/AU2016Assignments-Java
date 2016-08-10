@@ -1,0 +1,48 @@
+<div class="container" ng-controller="appController3">
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <div class="row text-center well">
+        <h1>Feedback Manager</h1>
+    </div>
+
+    <div class="jumbotron">
+
+        <div class="row" ng-repeat="x in fetchSessionsAdmin">
+            <div class="col-md-5">
+                <b class="badge"> {{x.sessionID}}</b> {{x.sessionName}}
+            </div>
+        </div>
+
+
+    </div>
+
+
+</div>
+
+<div class="col-md-5 well">
+    <h3 class="row text-center">Start Feedback</h3>
+    <div class="form-group">
+        <label for="FeedbackSessionID">SessionID</label>
+        <select ng-model="FeedbackSessionID" class="form-control">
+            <option ng-repeat="x in fetchSessionsAdmin" value="{{x.sessionID}}">{{x.sessionID}}-{{x.sessionName}}</option>
+        </select>
+
+    </div>
+    <button style="background-color:#34495e;" type="submit" ng-click="createFeedback()" class="btn btn-success">Start Feedback</button>
+</div>
+<div class="col-md-5 col-md-offset-2 well">
+    <h3 class="row text-center">Fetch Feedback</h3>
+    <div class="form-group">
+        <label for="FeedbackSessionID">SessionID</label>
+        <select ng-model="fetchFeedbackSessionID" class="form-control">
+            <option ng-repeat="x in fetchSessionsAdmin" value="{{x.sessionID}}">{{x.sessionID}}-{{x.sessionName}}</option>
+        </select>
+        <!--   <input type="number" class="form-control" ng-model="fetchFeedbackSessionID" placeholder="ID"> -->
+    </div>
+    <button style="background-color:#34495e;" type="submit" ng-click="fetchfeedback()" class="btn btn-success">Fetch Session Feedback</button>
+
+    <div ng-if="feedbackdata">
+        <canvas id="doughnut" class="chart chart-doughnut" chart-data="data" chart-labels="labels"></canvas>
+    </div>
+</div>
+</div>
