@@ -101,7 +101,7 @@ angular.module('app', [
 		};
 
 		$scope.convertAnUser = function(){
-			var userdata = $scope.fields;
+			var userdata = $scope.candidateUser;
 			var convertUserUrl = "rest/users/convertToAdmin";
 			var convertuserpromise = $http.post(convertUserUrl,userdata);			
 			convertuserpromise.then(function(response){
