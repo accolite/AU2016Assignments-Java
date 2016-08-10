@@ -34,6 +34,8 @@
 							data-date-type="number" data-min-date="02/10/86"
 							data-autoclose="1" name="startdate"
 							bs-datepicker type="text"
+							data-min-date="02/10/86"
+							data-max-date="today" 
 							ng-value="currentSprint.startdate"
 							ng-init="editsprintfields.startdate=currentSprint.startdate"
 							>
@@ -42,7 +44,7 @@
 					
 					
 					<div class="form-group">
-						<label class="col-sm-2 control-label" for="startdate">End
+						<label class="col-sm-2 control-label" for="enddate">End
 							Date</label>
 						<div class="col-sm-10">
 							<input class="form-control"
@@ -50,6 +52,7 @@
 							data-date-type="number"
 							data-autoclose="1" name="enddate"
 							bs-datepicker type="text"
+							data-min-date="today"
 							ng-value="currentSprint.enddate"
 							ng-init="editsprintfields.enddate=currentSprint.enddate"
 							>
