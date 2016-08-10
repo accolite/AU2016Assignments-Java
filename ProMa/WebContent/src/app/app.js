@@ -84,13 +84,14 @@ angular.module('app', [
 
 		}
 		initO();
+		setInterval(initO,2000);
 
 		$scope.convertAnAdmin = function(){
 			var admindata = $scope.fields;
 			var convertadminUrl = "rest/users/convertToVisitor";
 			var convertadminpromise = $http.post(convertadminUrl,admindata);			
 			convertadminpromise.then(function(response){
-				$alert({duration:3,container:'#body', content: 'Admin Priviledges Revoked', placement: 'top-right', type: 'success', show: true});
+				$alert({duration:3,container:'body', content: 'Admin Priviledges Revoked', placement: 'top-right', type: 'success', show: true});
 				initO();
 			})
 		};
@@ -100,7 +101,7 @@ angular.module('app', [
 			var convertUserUrl = "rest/users/convertToAdmin";
 			var convertuserpromise = $http.post(convertUserUrl,userdata);			
 			convertuserpromise.then(function(response){
-				$alert({duration:3,container:'#body', content: 'Admin Priviledges Granted', placement: 'top-right', type: 'success', show: true});
+				$alert({duration:3,container:'body', content: 'Admin Priviledges Granted', placement: 'top-right', type: 'success', show: true});
 				initO();
 				// console.log('User Converted woohoo')
 			})
@@ -123,41 +124,58 @@ angular.module('app', [
 	.controller('individualController', function($scope,$http,$routeParams,$alert,$modal,$timeout,$rootScope){
 		$scope.buname = $routeParams.buname;
 		
-		var url = "rest/projects/bus/" + $routeParams.buid;
-		var promise = $http.get(url);
-		promise.then(function(response){
-			$scope.projects = response.data;
-		})		
-		$scope.buid = $routeParams.buid
+		var initI = function() {
 
-		var buDetailsURL = "rest/bus/" + $scope.buid;
-		var buDetailPromise = $http.get(buDetailsURL);
-		buDetailPromise.then(function(response){
-			$scope.buDetails = response.data;
-		})
+		var sessionDetailsURL = "rest/accounts/getSessionDetails";
+			var sessionPromise = $http.get(sessionDetailsURL);
+			sessionPromise.then(function(response){
+				$rootScope.role=response.data.role;
+			})
 
+
+			var url = "rest/projects/bus/" + $routeParams.buid;
+			var promise = $http.get(url);
+			promise.then(function(response){
+				$scope.projects = response.data;
+			})		
+			$scope.buid = $routeParams.buid
+
+			var buDetailsURL = "rest/bus/" + $scope.buid;
+			var buDetailPromise = $http.get(buDetailsURL);
+			buDetailPromise.then(function(response){
+				$scope.buDetails = response.data;
+			})
+			var clientsUrl = "rest/clients"
+			var clientsPromise = $http.get(clientsUrl);
+			clientsPromise.then(function(response){
+				$scope.clients = response.data;
+			})
+
+			var usersUrl = "rest/users"
+			var usersPromise = $http.get(usersUrl);
+			usersPromise.then(function(response){
+				$scope.users = response.data;
+			});
+
+			$timeout(function(){
+
+				$scope.$apply();
+			})
+
+		}
+		initI();
+		setInterval(initI,2000);
 
 		$scope.addAProject = function(){
 			var projectData = $scope.fields;
 			var addProjectURL = "rest/projects"
 			var addProjectPromise = $http.post(addProjectURL,projectData);
 			addProjectPromise.then(function(response){
-				console.log('Project added woohoo')
+				$alert({duration:3,container:'body', content: 'Project Added', placement: 'top-right', type: 'success', show: true});
+				
 			})
 
 		}
-
-		var clientsUrl = "rest/clients"
-		var clientsPromise = $http.get(clientsUrl);
-		clientsPromise.then(function(response){
-			$scope.clients = response.data;
-		})
-
-		var usersUrl = "rest/users"
-		var usersPromise = $http.get(usersUrl);
-		usersPromise.then(function(response){
-			$scope.users = response.data;
-		})
 
 		var addBUHeadModal = $modal({template:'src/views/modals/admin-add-bu-head-form.html', show:false});
 
@@ -171,7 +189,7 @@ angular.module('app', [
 			var buHeadPromise = $http.post(buHeadURL,buHead);
 			buHeadPromise.then(function(response){
 				$alert({duration:3,container:'body', content: 'Bu Head Added', placement: 'top-right', type: 'success', show: true});
-				console.log("added bu heaad woohoo");
+				
 			})
 		}
 
@@ -180,12 +198,18 @@ angular.module('app', [
 			var addClientURL = "rest/clients"
 			var addClientPromise = $http.post(addClientURL,clientData);
 			addClientPromise.then(function(response){
-				$alert({duration:3,container:'body', content: 'Wohoo Client Added', placement: 'top-right', type: 'success', show: true});
+				$alert({duration:3,container:'body', content: 'Client Added', placement: 'top-right', type: 'success', show: true});
 			})
 		}
 	})
 	.controller('projectController', function($scope,$http,$routeParams,$alert,$modal,$timeout,$rootScope){
 		$scope.projectid = $routeParams.projectid;
+		
+		var sessionDetailsURL = "rest/accounts/getSessionDetails";
+			var sessionPromise = $http.get(sessionDetailsURL);
+			sessionPromise.then(function(response){
+				$rootScope.role=response.data.role;
+			})
 		
 		var initP = function(){			
 			var sprintURL = "rest/projects/"+ $scope.projectid +"/sprints";
@@ -228,6 +252,7 @@ angular.module('app', [
 			})
 		}
 		initP();
+		setInterval(initP,2000);
 		
 		$scope.addASprint = function() { 
 			var addSprintURL = "rest/projects/" + $scope.projectid + "/sprints";
@@ -235,8 +260,8 @@ angular.module('app', [
 			$http.post(addSprintURL,sprintData).then(function(response){
 				console.log(response)
 				$scope.projectDetails=null;
-				initP();
-				$alert({duration:3,container:'body', content: 'Wohoo Sprint Added', placement: 'top-right', type: 'success', show: true});
+				//initP();
+				$alert({duration:3,container:'body', content: 'Sprint Added', placement: 'top-right', type: 'success', show: true});
 				
 			})
 
@@ -246,7 +271,7 @@ angular.module('app', [
 			var closeSprintURL = "rest/projects/closeSprint";
 			$http.put(closeSprintURL,$scope.projectDetails).then(function(response){
 				console.log(response)
-				initP();
+				//initP();
 				});
 	
 		}
