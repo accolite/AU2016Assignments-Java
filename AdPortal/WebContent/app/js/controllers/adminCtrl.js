@@ -68,12 +68,12 @@ app.controller("adminCtrl", ['$scope','$location','$window','AdminService','$fil
         AdminService.addCategory($scope.newcategoryname).
          then(
               function(successResponse){
-                  console.log("done");
-               $window.location.reload();
+                    alert("Successfully added Category");
+                    $location.path("/");
               },
               function(errorResponse){
-                  console.log("not done");
-               $window.location.reload();
+                    alert("Sorry. Something went wrong. Try again later");
+                    $location.path("/");
               }
           );
     };
@@ -95,13 +95,13 @@ app.controller("adminCtrl", ['$scope','$location','$window','AdminService','$fil
         AdminService.addLocation($scope.newlocationname).
          then(
               function(successResponse){
-                  console.log("done");
-               $window.location.reload();
-              },
+                    alert("Successfully added location");
+                    $location.path("/");
+                },
               function(errorResponse){
-                  console.log("not done");
-               $window.location.reload();
-              }
+                   alert("Sorry. Something went wrong. Try again later");
+                    $location.path("/");
+                }
           );
     };
     $scope.getBlacklists=function(){
@@ -147,11 +147,13 @@ app.controller("adminCtrl", ['$scope','$location','$window','AdminService','$fil
         AdminService.makeAdmin($scope.userforadmin).
             then(
                 function(SuccessResponse){
-                    $window.location.reload();
+                    alert("Made admin");
+                    $location.path("/");
                     //successResponse.data;
                 },
                 function(errorResponse){
-                    $window.location.reload();
+                    alert("Sorry. Try again later");
+                    $location.path("/");
                     //successResponse.data;
                 }
             );
@@ -163,11 +165,13 @@ app.controller("adminCtrl", ['$scope','$location','$window','AdminService','$fil
         AdminService.blacklist($scope.userforblacklist).
             then(
                 function(SuccessResponse){
-                    $window.location.reload();
+                    alert("User added to blacklist");
+                    $location.path("/");
                     //successResponse.data;
                 },
                 function(errorResponse){
-                    $window.location.reload();
+                    alert("Sorry. Something went wrong. Try again later");
+                    $location.path("/");
                     //successResponse.data;
                 }
             );
@@ -177,11 +181,13 @@ app.controller("adminCtrl", ['$scope','$location','$window','AdminService','$fil
         AdminService.unblacklist($scope.userforunblacklist).
             then(
                 function(SuccessResponse){
-                    $window.location.reload();
+                    alert("User removed from blacklist");
+                    $location.path("/");
                     //successResponse.data;
                 },
                 function(errorResponse){
-                    $window.location.reload();
+                    alert("Sorry. Something went wrong. Try again later");
+                    $location.path("/");
                     //successResponse.data;
                 }
             );

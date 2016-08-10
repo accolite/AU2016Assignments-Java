@@ -23,6 +23,10 @@
     }
   }
 }
+
+.red {
+    background-color: aqua;
+}
 .clickable
 {
     cursor: pointer;

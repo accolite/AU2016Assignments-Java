@@ -1,4 +1,4 @@
-app.controller("editCtrl", ['$scope','$routeParams','editService', '$window',function ($scope,$routeparams,editService,$window) {
+app.controller("editCtrl", ['$scope','$routeParams','editService', '$window', '$location', function ($scope,$routeparams,editService,$window, $location) {
 	$scope.getPost = function(){
         $scope.categories=[];
         $scope.locations=[];
@@ -7,7 +7,7 @@ app.controller("editCtrl", ['$scope','$routeParams','editService', '$window',fun
 		   then(
 		    function(successResponse){
                 if(successResponse.data === "")
-                    $window.location.href="/AdPortal/app/";
+                    $location.path("/");
                  $scope.title=successResponse.data.title;
                  $scope.category=""+successResponse.data.category;
                  $scope.location=""+successResponse.data.location;
@@ -17,7 +17,7 @@ app.controller("editCtrl", ['$scope','$routeParams','editService', '$window',fun
 		    },
 		    function(errorResponse){
 		     //$scope.Title=undefined;
-		    	$window.location.href="/AdPortal/app/";
+                $location.path("/"); 
 		    }
 		    );
 		 };
@@ -67,10 +67,12 @@ app.controller("editCtrl", ['$scope','$routeParams','editService', '$window',fun
         $scope.description,
         $scope.price,stat).then(
     		    function(successResponse){
-    			     $window.location.href="/AdPortal/app/";
+    			         alert("Changes saved successfully");
+                        $location.path("/");    
     			    },
     			    function(errorResponse){
-    			     $window.location.href="/AdPortal/app/";
+    			         alert("Sorry. Something went wrong. Try again later");
+                        $location.path("/");
     			    }
     			    );
         
@@ -80,7 +82,7 @@ app.controller("editCtrl", ['$scope','$routeParams','editService', '$window',fun
     $scope.getLocations();
     $scope.fill();
     $scope.cancel= function(){
-        $window.location.href="/AdPortal/app/";
+        $location.path("/"); 
     }
     $scope.reset = function(){
         $scope.fill();

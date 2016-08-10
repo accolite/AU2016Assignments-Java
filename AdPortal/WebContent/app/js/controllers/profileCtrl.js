@@ -8,15 +8,19 @@ app.controller("profileCtrl", ['$scope','$location','$localStorage', '$window','
     $scope.unsubcategoryid="";
     $scope.subcategoryid="";
     $scope.categories=[];
+    $scope.flag1 = [true,false,false,false];
 //    
     
     $scope.flag = [1,0,0,0];
     $scope.loaddiv = function(index) {
       for(var i = 0; i < 4; i++) {
+
         if(i == index) {
           $scope.flag[i] = 1;
+          $scope.flag1[i] = true;
         } else {
           $scope.flag[i] = 0;
+          $scope.flag1[i] = false;
         }
       }
     }
@@ -58,10 +62,12 @@ app.controller("profileCtrl", ['$scope','$location','$localStorage', '$window','
         console.log("Going to change to "+$scope.newMobile);
         ProfileService.updateProfile($scope.newMobile).then(
             function(successResponse){
+                alert("Successfully changed");
                 $window.location.reload();
             },
             function(errorResponse){
-                $window.location.reload();
+                alert("Sorry. Something went wrong. Try again later");
+                $location.path("/");
             }
         );
     };
@@ -69,10 +75,12 @@ app.controller("profileCtrl", ['$scope','$location','$localStorage', '$window','
     $scope.subscribe = function(){
         ProfileService.subscribe($scope.subcategoryid).then(
             function(successResponse){
+                 alert("Subscription successful");
                 $window.location.reload();
             },
             function(errorResponse){
-                $window.location.reload();
+                alert("Sorry. Something went wrong. Try again later");
+                $location.path("/");
             }
         );
     }
@@ -80,10 +88,12 @@ app.controller("profileCtrl", ['$scope','$location','$localStorage', '$window','
     $scope.unsubscribe = function(){
        ProfileService.unsubscribe($scope.unsubcategoryid).then(
             function(successResponse){
+                alert("Unubscription successful");
                 $window.location.reload();
             },
             function(errorResponse){
-                $window.location.reload();
+                alert("Sorry. Something went wrong. Try again later");
+                $location.path("/");
             }
         );
     }
@@ -104,11 +114,11 @@ app.controller("profileCtrl", ['$scope','$location','$localStorage', '$window','
   ProfileService.deletepostbyid(postid).
     then(
      function(successResponse){
-      $window.location.href="/AdPortal/app/";
+      $window.location.href="/AdPortal/app/#/profile";
      },
      //please change it
      function(errorResponse){
-      $window.location.href="/AdPortal/app/";
+      $window.location.href="/AdPortal/app/#/profile";
      }
      );
  };
