@@ -48,7 +48,9 @@ public class UserService {
 		return userDao.getAllUsers();
 	}
 	
-	public Boolean convertVisitorToAdmin(User user){
+	public Boolean convertVisitorToAdmin(User obj){
+		User user  = userDao.getUser(obj.getUserid());
+		if(user == null)return false;
 		Boolean isSuccess =  userDao.convertVisitorToAdmin(user);
 		if(isSuccess)
 		{
